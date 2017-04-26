@@ -288,7 +288,6 @@
 		</snapshotRepository>
 	</distributionManagement>
 	<modules>
-	<module>manage</module>
     <module>common</module>
     <module>system</module>
     <module>system-api</module>
@@ -313,9 +312,6 @@
     <module>trade-query-api</module>
     <!-- <module>trade-query-service</module> -->
     <module>trade-query-simple</module>
-    <!-- <module>contract</module>
-    <module>contract-api</module>
-    <module>contract-service</module> -->
-    <module>website</module>
-  </modules>
+    <module>manageweb</module>
+	</modules>
 </project>
