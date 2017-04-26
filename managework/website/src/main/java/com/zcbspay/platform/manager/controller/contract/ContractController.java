@@ -1,4 +1,4 @@
-package com.zcbspay.platform.manager.controller.business;
+package com.zcbspay.platform.manager.controller.contract;
 
 import java.io.File;
 import java.io.FileInputStream;
