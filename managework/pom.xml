@@ -316,5 +316,6 @@
     <!-- <module>contract</module>
     <module>contract-api</module>
     <module>contract-service</module> -->
-	</modules>
+    <module></module>   <module>website</module>
+  </modules>
 </project>

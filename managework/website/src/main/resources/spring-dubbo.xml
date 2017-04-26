@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
+	<dubbo:reference id="cityService" interface="com.zcbspay.platform.manager.system.service.CityService" version="1.0"/>
+	<dubbo:reference id="deptService" interface="com.zcbspay.platform.manager.system.service.DeptService" version="1.0"/>
+	<dubbo:reference id="functionService" interface="com.zcbspay.platform.manager.system.service.FunctionService" version="1.0"/>
+	<dubbo:reference id="organService" interface="com.zcbspay.platform.manager.system.service.OrganService" version="1.0"/>
+	<dubbo:reference id="paraDicService" interface="com.zcbspay.platform.manager.system.service.ParaDicService" version="1.0"/>
+	<dubbo:reference id="provinceService" interface="com.zcbspay.platform.manager.system.service.ProvinceService" version="1.0"/>
+	<dubbo:reference id="roleFunctService" interface="com.zcbspay.platform.manager.system.service.RoleFunctService" version="1.0"/>
+	<dubbo:reference id="roleService" interface="com.zcbspay.platform.manager.system.service.RoleService" version="1.0"/>
+	<dubbo:reference id="userFunctService" interface="com.zcbspay.platform.manager.system.service.UserFunctService" version="1.0"/>
+	<dubbo:reference id="userRoleService" interface="com.zcbspay.platform.manager.system.service.UserRoleService" version="1.0"/>
+	<dubbo:reference id="userService" interface="com.zcbspay.platform.manager.system.service.UserService" version="1.0"/>
+	<!-- 商户管理 -->
+	<dubbo:reference id="merchDetaService" interface="com.zcbspay.platform.manager.merchant.service.MerchDetaService" version="1.0"/>
+	<dubbo:reference id="mccListService" interface="com.zcbspay.platform.manager.merchant.service.MccListService" version="1.0"/>
+	<dubbo:reference id="coopInstiService" interface="com.zcbspay.platform.manager.merchant.service.CoopInstiService" version="1.0" />
+	<dubbo:reference id="enterpriseDetaService" interface="com.zcbspay.platform.manager.merchant.service.EnterpriseDetaService" version="1.0" />
+	<dubbo:reference id="pojoProductService" interface="com.zcbspay.platform.manager.merchant.service.PojoProductService" version="1.0" />
+	<dubbo:reference id="merchBankAccoutService" interface="com.zcbspay.platform.manager.merchant.service.MerchBankAccoutService" version="1.0" />
+	
+	<!-- 商户计费 -->
+	<dubbo:reference id="prodCaseService" interface="com.zcbspay.platform.manager.merchant.service.ProdCaseService" version="1.0" />
+	<dubbo:reference id="merchRateConfigService" interface="com.zcbspay.platform.manager.merchant.service.MerchRateConfigService" version="1.0" />
+	<dubbo:reference id="rateAllService" interface="com.zcbspay.platform.manager.merchant.service.RateAllService" version="1.0" />
+	
+	<!-- 业务和扣率 -->
+	<dubbo:reference id="productService" interface="com.zcbspay.platform.manager.business.service.ProductService" version="1.0"/>
+	<dubbo:reference id="feeService" interface="com.zcbspay.platform.manager.business.service.FeeService" version="1.0"/>
+	<dubbo:reference id="routeService" interface="com.zcbspay.platform.manager.business.service.RouteService" version="1.0"/>
+	<!-- 风控 -->
+	<dubbo:reference id="riskService" interface="com.zcbspay.platform.manager.risk.service.RiskService" version="1.0"/>
+	<dubbo:reference id="cardHolderBlackService" interface="com.zcbspay.platform.manager.risk.service.CardHolderBlackService" version="1.0"/>
+	<dubbo:reference id="limitPerdayService" interface="com.zcbspay.platform.manager.risk.service.LimitPerdayService" version="1.0"/>
+	<!-- 对账 -->
+	<dubbo:reference id="checkInfoService" interface="com.zcbspay.platform.manager.reconcilication.service.CheckInfoService" version="1.0"/>
+	<dubbo:reference id="channelFileService" interface="com.zcbspay.platform.manager.reconcilication.service.ChannelFileService" version="1.0"/>
+	<dubbo:reference id="uploadlogService" interface="com.zcbspay.platform.manager.reconcilication.service.UploadlogService" version="1.0"/>
+	<!--交易管理  -->
+	<dubbo:reference id="businessService" interface="com.zcbspay.platform.manager.trade.service.BusinessService" version="1.0"/>
+	<dubbo:reference id="chnlDetaService" interface="com.zcbspay.platform.manager.trade.service.ChnlDetaService" version="1.0"/>
+	<dubbo:reference id="tradeService" interface="com.zcbspay.platform.manager.trade.service.TradeService" version="1.0"/>
+
+	
+	<!-- 合同管理 -->
+	<dubbo:reference id="contractService" interface="com.zcbspay.platform.manager.merchant.service.ContractService" version="1.0"/>
+	
+	<!-- 委托机构 -->
+	<dubbo:reference id="agencyService" interface="com.zcbspay.platform.manager.merchant.service.AgencyService" version="1.0"/>
+</beans>
