@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	
+	
+	<dubbo:service interface="com.zcbspay.platform.manager.system.service.CityService" ref="cityService" retries="0" version="1.0" timeout="60000"/>
+	<dubbo:service interface="com.zcbspay.platform.manager.system.service.DeptService" ref="deptService" retries="0" version="1.0" timeout="60000"/>
+	<dubbo:service interface="com.zcbspay.platform.manager.system.service.FunctionService" ref="functionService" retries="0" version="1.0" timeout="60000"/>
+	<dubbo:service interface="com.zcbspay.platform.manager.system.service.OrganService" ref="organService" retries="0" version="1.0" timeout="60000"/>
+	<dubbo:service interface="com.zcbspay.platform.manager.system.service.ParaDicService" ref="paraDicService" retries="0" version="1.0" timeout="60000"/>
+	<dubbo:service interface="com.zcbspay.platform.manager.system.service.ProvinceService" ref="provinceService" retries="0" version="1.0" timeout="60000"/>
+	<dubbo:service interface="com.zcbspay.platform.manager.system.service.RoleFunctService" ref="roleFunctService" retries="0" version="1.0" timeout="60000"/>
+	<dubbo:service interface="com.zcbspay.platform.manager.system.service.RoleService" ref="roleService" retries="0" version="1.0" timeout="60000"/>
+	<dubbo:service interface="com.zcbspay.platform.manager.system.service.UserFunctService" ref="userFunctService" retries="0" version="1.0" timeout="60000"/>
+	<dubbo:service interface="com.zcbspay.platform.manager.system.service.UserRoleService" ref="userRoleService" retries="0" version="1.0" timeout="60000"/>
+	<dubbo:service interface="com.zcbspay.platform.manager.system.service.UserService" ref="userService" retries="0" version="1.0" timeout="160000"/>
+	
+
+
+
+</beans>

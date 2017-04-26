@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<dubbo:service interface="com.zcbspay.platform.manager.business.service.ProductService" ref="productService" retries="0" version="1.0" timeout="60000"/>
+	<dubbo:service interface="com.zcbspay.platform.manager.business.service.FeeService" ref="feeService" retries="0" version="1.0" timeout="60000"/>
+	<dubbo:service interface="com.zcbspay.platform.manager.business.service.RouteService" ref="routeService" retries="0" version="1.0" timeout="60000"/>
+
+
+<!-- 	<dubbo:service interface="com.zcbspay.platform.support.signaturn.service.MessageDecodeService" ref="messageDecodeService" retries="0" version="1.0" timeout="60000"/> -->
+<!-- 	<dubbo:service interface="com.zcbspay.platform.support.signaturn.service.MessageEncryptService" ref="messageEncryptService" retries="0" version="1.0" timeout="60000"/> -->
+	
+<!-- 	<dubbo:reference check="false" id="merchMKService" interface="com.zcbspay.platform.member.merchant.service.MerchMKService"  version="1.0"/> -->
+<!-- 	<dubbo:reference check="false" id="coopInstiService" interface="com.zcbspay.platform.member.coopinsti.service.CoopInstiService"  version="1.0"/> -->
+	
+	
+<!-- 	<dubbo:service interface="com.zcbspay.platform.support.order.query.query.service.QueryOrderService" ref="queryOrderService" retries="0" version="1.0" timeout="60000"/> -->
+<!-- 	<dubbo:annotation package="com.zcbspay.platform.support"/> -->
+</beans>
