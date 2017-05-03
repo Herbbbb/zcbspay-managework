@@ -27,11 +27,11 @@
 <body>
 	<style type="text/css">
 table tr td {
-	height: 25px
+	height: 25px;
 }
 
 table tr td input {
-	height: 15px
+	height: 15px;
 }
 
 table tr td select {
@@ -78,7 +78,7 @@ table tr td select {
 				<form id="saveForm" action="bankaccout/save" method="post">
 					<input type="hidden" id="bankProvince" name="bankProvince" />
 					<input type="hidden" id="bankCity" name="bankCity" />
-					<table width="90%" cellpadding="2" cellspacing="2">
+					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
 							<td width="15%">银行账号</td>
 							<td align="left">
@@ -160,13 +160,13 @@ table tr td select {
 					<input type="hidden" id="b_status" name="status" />
 					<input type="hidden" id="b_bankProvince" name="bankProvince" />
 					<input type="hidden" id="b_bankCity" name="bankCity" />
-					<table width="90%" cellpadding="2" cellspacing="2">
+					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left">
 						<tr style="height: 25px">
-							<td width="15%">银行账号</td>
+							<td style="width: 75px;">银行账号</td>
 							<td align="left">
 							<input type="text" id="b_accoutNoa" name="accoutNo" class="easyui-validatebox" required="true"
 								maxlength="7" missingMessage="请输入银行账号" validType="bankcard"/></td>
-							<td>银行账户名称</td>
+							<td style="width: 75px;">银行账户名称</td>
 							<td align="left">
 							<input type="text" id="b_accoutNamea" name="accoutName" class="easyui-validatebox" required="true"
 								maxlength="20" missingMessage="请输入银行账户名称" validType="debName"/></td>
@@ -239,12 +239,12 @@ table tr td select {
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; font-size: 12px; text-align: center">
 				<form id="" action="" method="post">
 					<input type="hidden" id="b_tId" name="tId" value="${json.tId}" readonly="true"/> 
-					<table width="90%" cellpadding="2" cellspacing="2">
+					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left">
 						<tr style="height: 25px">
-							<td width="15%">银行账号</td>
+							<td style="width: 75px;">银行账号</td>
 							<td align="left">
 							<input type="text" id="d_accoutNoa" name="accoutNo" readonly="true"/></td>
-							<td>银行账户名称</td>
+							<td style="width: 75px;">银行账户名称</td>
 							<td align="left">
 							<input type="text" id="d_accoutNamea" name="accoutName" readonly="true"/></td>
 						</tr>
@@ -406,7 +406,7 @@ table tr td select {
 			$('#w').window({
 				title: '新增银行账户信息',
 				top:100,
-				width: 600,
+				width: 500,
 				modal: true,
 				minimizable:false,
 				collapsible:false,
@@ -510,7 +510,7 @@ table tr td select {
 			$('#w2').window({
 				title: '修改银行账户信息',
 				top:100,
-				width: 600,
+				width: 500,
 				modal: true,
 				minimizable:false,
 				collapsible:false,
@@ -556,7 +556,7 @@ table tr td select {
 			$('#w3').window({
 				title: '银行账户信息',
 				top:100,
-				width: 600,
+				width: 500,
 				modal: true,
 				minimizable:false,
 				collapsible:false,

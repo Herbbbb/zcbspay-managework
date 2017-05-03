@@ -30,6 +30,12 @@ public interface ContractDao extends BaseDAO<PojoContract> {
 	 * @return
 	 */
 	List<?> findById(String tId);
+	/**
+	 * 根据合同编号查询详情
+	 * @param tId
+	 * @return
+	 */
+	List<?> findByCode(String contractNum);
 
 	/**
 	 * 修改

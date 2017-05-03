@@ -40,7 +40,7 @@ table tr td font.current-step {
 </head>
 <body>
 	<div style="margin: 5px;" id="continer">
-		<div id="title" name="title" class="easyui-panel" title="委托机构修改 "
+		<div id="title" name="title" class="easyui-panel" title="机构修改 "
 			style="background: #fafafa;" iconCls="icon-save" collapsible="false">
 			<div style="padding-left: 5px; padding-right: 5px">
 				<form id="merchDetaForm" action="agency/saveMerchModifyDeta" method="post">
@@ -69,23 +69,32 @@ table tr td font.current-step {
 					<table width="100%">
 						<tr>
 							<td colspan="4" class="head-guide"><font
-								class="current-step">第一步:委托机构信息录入</font>---->第二步:上传证件照片</td>
+								class="current-step">第一步:机构信息录入</font>---->第二步:上传证件照片</td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr>
-							<td align="center" width="20%">委托机构名称</td>
+							<td align="center" width="20%">机构名称</td>
 							<td width="30%"><input id="merName"
-								name="enterpriseName"
+								name="enterpriseName" missingMessage="请输入机构名称"
 								value="${member.enterpriseName}" required="true"
 								maxlength="30" style="width: 250px" class="easyui-validatebox"
-								validType="MerchLength[60]" /> <font color="red">*</font></td>
+								validType="MerchLength[60]"/> <font color="red">*</font></td>
 							<td align="center">会员编号</td>
 							<td>${member.enterpriseMemberId}</td>
 						</tr>
 						<tr>
-							<td align="center">委托机构所在地</td>
+							<td align="center">收费单位代码</td>
+							<td><input name="chargingunit" maxlength="256" type="text" missingMessage="请输入收费单位代码" 
+							required="true" class="easyui-validatebox" value="${merchDeta.chargingunit}"/>
+							<font color="red">*</font></td>
+							<td align="center">机构代码</td>
+							<td><input class="easyui-validatebox" maxlength="30" id="instCode" missingMessage="请输入机构代码"
+								 required="true" name="instCode" value="${merchDeta.instCode}"/> <font color="red">*</font></td>
+						</tr>
+						<tr>
+							<td align="center">机构所在地</td>
 							<td colspan="3">
 							<select id="province_ins" class="easyui-validatebox" required="true" name="province"
 								onchange="showCity('province_ins')" /></select> 
@@ -98,11 +107,11 @@ table tr td font.current-step {
 						<tr>
 							<td align="center">联系手机号</td>
 							<td><input class="easyui-validatebox" maxlength="20"
-								validType="cellphonenum" required="true"
+								validType="cellphonenum" required="true" missingMessage="请输入联系手机号"
 								name="phone" value="${member.phone}" />
 								<font color="red">*</font></td>
 							<td align="center">邮箱</td>
-							<td><input name="email" maxlength="32"
+							<td><input name="email" maxlength="32" missingMessage="请输入邮箱"
 								validType="email" type="text" required="true"
 								class="easyui-validatebox" value="${member.email}" />
 								<font color="red">*</font></td>
@@ -123,14 +132,14 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td align="center">营业执照号</td>
-							<td><input name="licenceNo" maxlength="18"
+							<td><input name="licenceNo" maxlength="18" missingMessage="请输入营业执照号"
 								type="text" validType="licencenoNewLength[15,18]" id="add_licenceNo"
 								onkeyup="value=value.replace(/[^0-9a-zA-Z]/g,'')"
 								required="true" class="easyui-validatebox"
 								value="${member.licenceNo}" /><font color="red">*</font>
 							</td>
 							<td align="center">组织机构代码号</td>
-							<td><input name="orgCode" maxlength="18"
+							<td><input name="orgCode" maxlength="18" missingMessage="请输入组织机构代码号"
 								type="text" validType="orgNewLength[8,9,10,18]" id="add_orgCode"
 								onkeyup="value=value.replace(/[^\d\-]/g,'')" required="true"
 								class="easyui-validatebox" value="${member.orgCode}" />
@@ -138,30 +147,27 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td align="center">税务登记号</td>
-							<td><input name="taxno" maxlength="20"
+							<td><input name="taxno" maxlength="20" missingMessage="请输入税务登记号"
 								type="text" required="true" validType="merLength[15]" id="add_taxno"
 								onkeyup="value=value.replace(/[^0-9a-zA-Z]/g,'')"
 								class="easyui-validatebox" value="${member.taxno}" />
 								<font color="red">*</font></td>
 							<td align="center">所属行业</td>
 							<td><select id="mcclist_ins" class="easyui-validatebox"
-								name="mccList"
+								name="mccList" missingMessage="请输入所属行业"
 								value="${member.mccList}" required="true" /></select><font
 								color="red">*</font></td>
 						</tr>
 						<tr>
-							<td align="center">委托机构网站地址</td>
-							<td><input name="website" maxlength="256"
+							<td align="center">机构网站地址</td>
+							<td><input name="website" maxlength="256" missingMessage="请输入网站地址"
 								type="text" validType="url" required="true"
 								class="easyui-validatebox" value="${member.website}" />
 								<font color="red">*</font></td>
-							<td align="center">委托机构单位代码</td>
-							<td><input name="chargingunit" maxlength="256" type="text"  required="true" class="easyui-validatebox" value="${merchDeta.chargingunit}"/>
-							<font color="red">*</font></td>
 						</tr>
 						<tr>
 							<td align="center" id="psamORpass">法人姓名</td>
-							<td><input name="corporation"
+							<td><input name="corporation" missingMessage="请输入法人姓名"
 								maxlength="16" type="text" required="true"
 								class="easyui-validatebox"
 								value="${member.corporation}" /> <font color="red">*</font>
@@ -169,7 +175,7 @@ table tr td font.current-step {
 							<td align="center">法人身份证号</td>
 							<td><input class="easyui-validatebox" required="true"
 								validType="cardNo[18]" maxlength="18"
-								name="corpNo"
+								name="corpNo" missingMessage="请输入法人证件号"
 								value="${member.corpNo}" /> <font color="red">*</font>
 							</td>
 						</tr>
@@ -177,33 +183,10 @@ table tr td font.current-step {
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
-<!-- 						<tr> -->
-<!-- 							<td align="center">委托机构清算类型</td> -->
-<!-- 							<td><select id="setltype_ins" class="easyui-validatebox" -->
-<!-- 								required="true" name="setlType" /></select> <font color="red">*</font> -->
-<!-- 							</td> -->
-<!-- 							<td align="center">委托机构清算周期</td> -->
-<!-- 							<td><select id="setlcycle_ins" class="easyui-validatebox" -->
-<!-- 								required="true" name="setlCycle" /></select> <font color="red">*</font> -->
-<!-- 							</td> -->
-<!-- 						</tr> -->
-<tr>
-							<td align="center">委托机构清算类型</td>
-							<td><select id="setltype_ins" class="easyui-validatebox" required="true" name="setlType">
-									<option value='3'>-无需清算-</option>
-							</select> <font color="red">*</font></td>
-<!-- 							<td><select id="setltype_ins" class="easyui-validatebox" required="true" name="setlType" /></select> <font color="red">*</font></td> -->
-							<td align="center">委托机构清算周期</td>
-							<td><select id="setlcycle_ins" class="easyui-validatebox" required="true" name="setlCycle">
-									<option value='0'>-无-</option>
-							</select> <font color="red">*</font></td>
-<!-- 							<td><select id="setlcycle_ins" class="easyui-validatebox" required="true" name="setlCycle" /></select> <font color="red">*</font></td> -->
-						</tr>
 						<tr>
-
 							<td align="center">开户行</td>
 							<td colspan="3"><input id="oldBankName_input"
-								readonly="true" required="true"> <a id="a_bank_info"
+								readonly="true" required="true"> <a id="a_bank_info" 
 								href="javascript:modifyBank()" style="color: blue">修改</a> <span
 								id="bank_info"> <select id="banknode_ins"
 									class="easyui-validatebox" required="true"
@@ -214,12 +197,12 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td align="center">开户账号</td>
-							<td><input name="accNum" maxlength="32"
+							<td><input name="accNum" maxlength="32" missingMessage="请输入开户账号"
 								required="true" type="text" validType="settleAccount"
 								class="easyui-validatebox" value="${merchDeta.accNum}" /> <font
 								color="red">*</font></td>
 							<td align="center">开户名</td>
-							<td><input class="easyui-validatebox" maxlength="30"
+							<td><input class="easyui-validatebox" maxlength="30" missingMessage="请输入开户名"
 								validType="accName" required="true" name="accName"
 								value="${merchDeta.accName}" /> <font color="red">*</font></td>
 						</tr>
@@ -228,22 +211,22 @@ table tr td font.current-step {
 							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr>
+							<td align="center">机构清算类型</td>
+							<td><input type="hidden" name="setlType" value="3" />-无需清算-</td>
+							<td align="center">机构清算周期</td>
+							<td><input type="hidden" name="setlCycle" value="0" />-无清算周期-</td>
+						</tr>
+						<tr>
 							<td align="center">合作机构</td>
 							<td><select id="coop_insti_ins" class="easyui-validatebox"
-								required="true" name="coopInstiId" 
+								required="true" name="coopInstiId" missingMessage="请输入合作机构"
 								style="width: 150px" onchange="refreshProduct()" /></select> <font
 								color="red">*</font></td>
 							<td align="center">产品</td>
 							<td><select id="prdtver_ins" class="easyui-validatebox"
-								required="true" name="prdtVer" style="width: 150px"
+								required="true" name="prdtVer" style="width: 150px" missingMessage="请输入产品"
 								onchange="showThreeVersion()" /></select> <font color="red">*</font></td>
 						</tr>
-						<tr>
-							<td align="center">发送方机构代码</td>
-							<td><input class="easyui-validatebox" maxlength="30" id="instCode"
-								 required="true" name="instCode" value="${merchDeta.instCode}"/> <font color="red">*</font></td>
-						</tr>
-
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
@@ -254,12 +237,12 @@ table tr td font.current-step {
 							<td colspan="3"></td>
 						</tr>
 						<tr id="delegation">
-							<td align="center">委托人姓名</td>
+							<td align="center">人姓名</td>
 							<td><input class="easyui-validatebox" maxlength="16"
 								id="signatory" name="signatory"
 								value="${member.signatory}" /> <font color="red">*</font>
 							</td>
-							<td align="center">委托人身份证号</td>
+							<td align="center">人身份证号</td>
 							<td><input class="easyui-validatebox" validType="cardNo[18]"
 								id="signCertNo" maxlength="18"
 								name="signCertNo"
@@ -558,7 +541,7 @@ table tr td font.current-step {
 				data: "rand=" + new Date().getTime(),
 				dataType: "json",
 				success: function(json) {
-					var html = "<option value=''>--请选择委托机构类型--</option>";
+					var html = "<option value=''>--请选择机构类型--</option>";
 					$.each(json,
 					function(key, value) {
 						//alert(value.roleName);
@@ -578,7 +561,7 @@ table tr td font.current-step {
 				dataType: "json",
 				success: function(json) {
 					var mcclist = $('#mcclist_old').val();
-					var html = "<option value=''>--委托机构所属行业--</option>";
+					var html = "<option value=''>--机构所属行业--</option>";
 					$.each(json,
 					function(key, value) {
 						if(value.MCCLIST==mcclist){

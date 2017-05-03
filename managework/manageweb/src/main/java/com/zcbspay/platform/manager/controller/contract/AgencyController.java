@@ -24,6 +24,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zcbspay.platform.manager.controller.contract.ContractController.MerchantThread;
 import com.zcbspay.platform.manager.merchant.bean.CertType;
 import com.zcbspay.platform.manager.merchant.bean.EnterpriseDetaApplyBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchDetaApplyBean;
@@ -238,9 +239,6 @@ public class AgencyController {
 	    	if (mutiparRe.isMultipart(request)) {
 	    		
 				MultipartHttpServletRequest mhr = (MultipartHttpServletRequest) request;
-				//创建子目录
-//				DateFormat df = new SimpleDateFormat("yyyyMMddhhmmss");
-//				String dirs = df.format(new Date().getTime());
 				//获取路径
 				String uploadDir = request.getSession().getServletContext().getRealPath("/")+"javaCode\\";
 				//如果目录不存在，创建一个目录
@@ -265,7 +263,7 @@ public class AgencyController {
 						
 //						String fileName = UUID.randomUUID().toString().replace("-", "") + resFileName.substring(resFileName.lastIndexOf("."));
 						FileInputStream in=new FileInputStream(outFile);  
-				        boolean flag = FTPUtils.uploadFile("192.168.1.116", 21, "DownLoad", "624537", "E:ftp","/",mf.getOriginalFilename() , in);
+				        boolean flag = FTPUtils.uploadFile("192.168.1.144", 21, "DownLoad", "624537", "E:ftp","/",resFileName, in);
 					}else{
 						return null;
 					}
@@ -284,15 +282,27 @@ public class AgencyController {
     public Map<String, String> downloadImgUrl(HttpServletRequest request, String fouceDownload, String merchApplyId, String certTypeCode) { 
     	 Map<String, String> result = new HashMap<String, String>();
     	String filePath = agencyService.downloadFromFtp(merchApplyId, CertType.format(certTypeCode));
-        if (filePath == null) {
-            result.put("status", "fail");
-        } else if (filePath.equals("")) {
-            result.put("status", "notExist");
-        } else {
-        	filePath = "ftp:192.168.1.116/"+filePath;
+//        if (filePath == null) {
+//            result.put("status", "fail");
+//        } else if (filePath.equals("")) {
+//            result.put("status", "notExist");
+//        } else {
+//        	filePath = "ftp:192.168.1.144/"+filePath;
+//            result.put("status", "OK");
+//            result.put("url", filePath);
+//        }
+//        return result;
+        String uploadDir = request.getSession().getServletContext().getRealPath("/")+"javaCode\\";
+        boolean resultBool = FTPUtils.downloadFile("192.168.1.144", 21, "DownLoad", "624537", "E:ftp/",filePath , uploadDir);
+       
+        if (resultBool) {
+        	filePath = "javaCode/" + filePath;
             result.put("status", "OK");
             result.put("url", filePath);
+        }else{
+        	result.put("status", "fail");
         }
+        new MerchantThread(uploadDir + "/" + filePath).start();
         return result;
     }
 

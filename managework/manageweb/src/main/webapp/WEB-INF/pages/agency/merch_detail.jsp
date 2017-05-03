@@ -42,7 +42,7 @@ table tr td font.current-step {
 
 <body>
 	<div style="margin: 5px;" id="continer">
-		<div id="title" name="title" class="easyui-panel" title="委托机构信息"
+		<div id="title" name="title" class="easyui-panel" title="机构信息"
 			style="background: #fafafa;" iconCls="icon-save"
 			data-options="fit:true,border:false" collapsible="false">
 			<div style="padding-left: 5px; padding-right: 5px">
@@ -59,13 +59,19 @@ table tr td font.current-step {
 							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr>
-							<td align="center" width="15%">委托机构名称<font color="red">*</font></td>
+							<td align="center" width="15%">机构名称<font color="red">*</font></td>
 							<td width="30%">${merchMap.ENTERPRISE_NAME}</td>
 							<td align="center">会员编号</td>
 							<td>${merchMap.MEMBER_ID}</td>
 						</tr>
 						<tr>
-							<td align="center">委托机构所在地<font color="red">*</font></td>
+							<td align="center">收费单位代码<font color="red">*</font></td>
+							<td>${merchMap.CHARGINGUNIT}</td>
+							<td align="center">机构代码<font color="red">*</font></td>
+							<td>${merchMap.INSTCODE}</td>
+						</tr>
+						<tr>
+							<td align="center">机构所在地<font color="red">*</font></td>
 							<td colspan="3">${merchMap.PROVINCENAME }
 								${merchMap.CITYNAME} ${merchMap.STREETNAME}</td>
 						</tr>
@@ -84,11 +90,6 @@ table tr td font.current-step {
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
-						<!--  
-					<tr> 
-						<td align="center">委托机构类型</td>
-						<td> 委托机构</td><td></td><td></td>
-					</tr>-->
 						<tr>
 							<td align="center">营业执照号<font color="red">*</font></td>
 							<td>${merchMap.LICENCE_NO}</td>
@@ -101,11 +102,11 @@ table tr td font.current-step {
 							<td align="center">所属行业<font color="red">*</font></td>
 							<td>${merchMap.MCCLIST}</td>
 						</tr>
+						
 						<tr>
-							<td align="center">委托机构网站地址<font color="red">*</font></td>
+							<td align="center">机构网站地址<font color="red">*</font></td>
 							<td>${merchMap.WEBSITE}</td>
-							<td align="center">委托机构单位代码<font color="red">*</font></td>
-							<td>${merchMap.CHARGINGUNIT}</td>
+							
 						</tr>
 						<tr>
 							<td align="center" id="psamORpass">法人姓名<font color="red">*</font></td>
@@ -116,12 +117,6 @@ table tr td font.current-step {
 
 						<tr>
 							<td colspan="4" class="head-title"></td>
-						</tr>
-						<tr>
-							<td align="center">委托机构清算类型<font color="red">*</font></td>
-							<td>${merchMap.SETLTYPENAME}</td>
-							<td align="center">委托机构清算周期<font color="red">*</font></td>
-							<td>${merchMap.SETLNAME}</td>
 						</tr>
 						<tr>
 
@@ -139,23 +134,25 @@ table tr td font.current-step {
 							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr>
+							<td align="center">机构清算类型<font color="red">*</font></td>
+							<td>${merchMap.SETLTYPENAME}</td>
+							<td align="center">机构清算周期<font color="red">*</font></td>
+							<td>${merchMap.SETLNAME}</td>
+						</tr>
+						<tr>
 							<td align="center">合作机构<font color="red">*</font></td>
 							<td>${merchMap.INSTI_NAME}</td>
 							<td align="center">产品<font color="red">*</font></td>
 							<td>${merchMap.PRDTNAME}</td>
 						</tr>
 						<tr>
-							<td align="center">发送方机构代码<font color="red">*</font></td>
-							<td>${merchMap.INSTCODE}</td>
-						</tr>
-						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
 
 						<tr id="delegation">
-							<td align="center">委托人姓名<font color="red">*</font></td>
+							<td align="center">人姓名<font color="red">*</font></td>
 							<td>${merchMap.SIGNATORY}</td>
-							<td align="center">委托人身份证号<font color="red">*</font></td>
+							<td align="center">人身份证号<font color="red">*</font></td>
 							<td>${merchMap.SIGN_CERT_NO}
 						</tr>
 						<tr>
@@ -204,7 +201,7 @@ table tr td font.current-step {
 							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr>
-							<td align="center">委托机构法人营业执照</td>
+							<td align="center">机构法人营业执照</td>
 							<td><span id="busilice_cert_img"></span></td>
 							<td align="center">组织机构代码证</td>
 							<td><span id="orgCert_cert_img"></span></td>
@@ -216,9 +213,9 @@ table tr td font.current-step {
 							<td><span id="corpfileOpp_cert_img"></span></td>
 						</tr>
 						<tr id="delegation_pic">
-							<td align="center">委托人身份证正面照</td>
+							<td align="center">人身份证正面照</td>
 							<td><span id="signfileFace_cert_img"></span></td>
-							<td align="center" id="psamORpass">委托人身份证背面照</td>
+							<td align="center" id="psamORpass">人身份证背面照</td>
 							<td><span id="signfileOpp_cert_img"></span></td>
 						</tr>
 						<tr>

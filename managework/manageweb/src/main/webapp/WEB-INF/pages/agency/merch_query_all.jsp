@@ -26,13 +26,13 @@ table tr td select {
 				<input type="hidden" id="flag_ins" value="${flag}" />
 				<table width="100%">
 					<tr>
-						<td align="right" width="10%">委托机构编号</td>
+						<td align="right" width="10%">机构编号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							id="merchId_ins" maxlength="15" /></td>
-						<td align="right" width="10%">委托机构名称</td>
+						<td align="right" width="10%">机构名称</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							id="memberName_ins" maxlength="50" /></td>
-						<td align="right" width="10%">委托机构状态</td>
+						<td align="right" width="10%">机构状态</td>
 						<td align="left" style="padding-left: 5px" width="15%"><select
 							id="status_ins" class="easyui-validatebox">
 								<option value='00'>在用</option>
@@ -74,7 +74,7 @@ table tr td select {
 		$(function(){
 			flag=$('#flag_ins').val();
 				$('#test').datagrid({
-					title:'委托机构信息列表',
+					title:'机构信息列表',
 					iconCls:'icon-save',
 					height:600,
 					singleSelect:true,
@@ -84,8 +84,8 @@ table tr td select {
 					remoteSort: false,
 					columns:[
 					[
-						{field:'MEMBER_ID',title:' 委托机构编号',align:'center',width:120},
-						{field:'ENTERPRISE_NAME',title:'委托机构名称',width:120,align:'center'},
+						{field:'MEMBER_ID',title:' 机构编号',align:'center',width:120},
+						{field:'ENTERPRISE_NAME',title:'机构名称',width:120,align:'center'},
 						{field:'LICENCE_NO',title:'营业执照号',width:120,align:'center'},
 						{field:'CORPORATION',title:'法人名称',width:120,align:'center'}, 
 						{field:'CONTACT',title:'联系人',width:120,align:'center'},
@@ -94,13 +94,13 @@ table tr td select {
 								if(value=="00"){
 									return "在用";
 								}else if(value=="99"){
-									return "委托机构归档";
+									return "机构归档";
 								}else if(value=="10"){
 									return "注册待初审";
 								}else if(value=="11"){
 									return "注册初审未过";
 								}else if(value=="19"){
-									return "委托机构注册终止";
+									return "机构注册终止";
 								}else if(value=="20"){
 									return "注册待复审";
 								}else if(value=="21"){
