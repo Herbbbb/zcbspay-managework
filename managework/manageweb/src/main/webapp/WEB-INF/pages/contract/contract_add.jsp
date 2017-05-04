@@ -114,14 +114,14 @@ table tr td select {
 								maxlength="20" missingMessage="请输入合同编号" validType="contract"/></td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="add">业务种类</td>
-							<td class="add" align="left">
-							<input type="text" id="proprieTary" name="proprieTary" class="easyui-validatebox" required="true"
-								maxlength="10" missingMessage="请输入业务种类" validType="debName"/></td>
 							<td class="add">业务类型</td>
 							<td class="add" align="left">
 							<input type="text" id="categoryPurpose" name="categoryPurpose" class="easyui-validatebox" required="true"
 								maxlength="10" missingMessage="请输入业务类型" validType="debName"/></td>
+							<td class="add">业务种类</td>
+							<td class="add" align="left">
+							<input type="text" id="proprieTary" name="proprieTary" class="easyui-validatebox" required="true"
+								maxlength="10" missingMessage="请输入业务种类" validType="debName"/></td>
 						</tr>
 						<tr style="height: 30px">
 							<td class="add">合同类型</td>
@@ -290,10 +290,10 @@ table tr td select {
 							<td align="left" class="update"><span id="b_contractNum"></span></td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="update">业务种类</td>
-							<td align="left" class="update"><span id="b_proprieTary"></span></td>
 							<td class="update">业务类型</td>
 							<td align="left" class="update"><span id="b_categoryPurpose"></span></td>
+							<td class="update">业务种类</td>
+							<td align="left" class="update"><span id="b_proprieTary"></span></td>
 						</tr>
 						<tr style="height: 30px">
 							<td class="update">合同类型</td>
@@ -402,10 +402,10 @@ table tr td select {
 							<td align="left" class="update"><span id="c_contractNum"></span></td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="update">业务种类</td>
-							<td align="left" class="update"><span id="c_proprieTary"></span></td>
 							<td class="update">业务类型</td>
 							<td align="left" class="update"><span id="c_categoryPurpose"></span></td>
+							<td class="update">业务种类</td>
+							<td align="left" class="update"><span id="c_proprieTary"></span></td>
 						</tr>
 						<tr style="height: 30px">
 							<td class="update">合同类型</td>
@@ -478,9 +478,9 @@ table tr td select {
 						</tr>
 						<tr style="height: 30px">
 							<td align="center" class="update">合同附件</td>
-							<td align="left" class="update"><span id="signfileOpp_span"></span></td>
-<!-- 								<div id="signfileOpp_span" class="easyui-validatebox" readonly="true"></div>  -->
-<!-- 							</td> -->
+							<td align="left" class="update">
+								<div id="c_signfileOpp_span"></div> 
+							</td>
 							<td class="update"></td>
 							<td align="left" class="update"></span></td>
 						</tr>
@@ -866,16 +866,15 @@ table tr td select {
 				        }
 					});
 			});
-			 initCertUrl();
 		  });
 		function initCertUrl(tId){
-			$("input[id='b_fileAddress']").each(function(){
-				var _this = $(this);
-				if(_this.val()==''){
-					return;
-				}
-				var id = _this.attr('id');
-				var certType = id.substring(0,id.indexOf('b_fileAddress'));
+// 			$("input[id='b_fileAddress']").each(function(){
+// 				var _this = $(this);
+// 				if(_this.val()==''){
+// 					return;
+// 				}
+// 				var id = _this.attr('id');
+				var certType = $('#c_signfileOpp_span');
 				var certSpan = $('#signfileOpp_span');
 				$.ajax({
 					type: "POST",
@@ -885,15 +884,18 @@ table tr td select {
 					success: function(json) {
 						 if(json.status=='OK'){
 							 var URL = json.url;
+							 certType.html('<a href="'+URL+'" target="view_window" style="font-size: 12px;color:blue">点击查看</a>');
 							 certSpan.html('<a href="'+URL+'" target="view_window" style="font-size: 12px;color:blue">点击查看</a>');
 						 }else if(json.status=='notExist'){
+							 certType.html('暂无可查看文件');
 							 certSpan.html('暂无可查看文件');
 						 } else{
+							 certType.html('查询失败');
 							 certSpan.html('查询失败');
 						 }
 					}
 				}); 
-			});
+// 			});
 		}
 		function showBranchCode(type){ 
 			var bankNode;

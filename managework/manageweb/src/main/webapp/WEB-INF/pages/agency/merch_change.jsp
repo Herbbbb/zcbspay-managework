@@ -81,7 +81,7 @@ table tr td font.current-step {
 							<input id="merName" name="enterpriseName" value="${member.enterpriseName}" required="true"
 								maxlength="30" style="width: 250px" class="easyui-validatebox" missingMessage="请输入机构名称"
 								validType="MerchLength[60]" /> <font color="red">*</font></td>
-							<td align="center">会员编号</td>
+							<td align="center">机构编号</td>
 							<td>${member.enterpriseMemberId}</td>
 						</tr>
 						<tr>

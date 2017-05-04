@@ -311,58 +311,6 @@ table tr td select {
 		});
 	}
 	
-// 	function updateParaDesc() {
-// 		var paraCode = $("#b_rateMethod").val();
-// 		$.ajax({
-// 			type: "POST",
-// 			url: 'agency/findParaDesc?paraCode='+paraCode,
-// 			dataType: "json",
-// 			success: function(json) {
-// 				var html = "<option value=''>--请选择扣率描述--</option>";
-// 				$.each(json,
-// 				function(key, value) {
-// 					html += '<option value="' + value.RATE_ID + '">' + value.RATE_DESC + '</option>';
-// 				}) ;
-// 				$("#b_rateId").html(html);
-// 			}
-// 		});
-// 	}
-	
-// 	function findParaDicById() {
-// 		var rateMethod = $("#c_rateMethod").val();
-// 		$.ajax({
-// 			type: "POST",
-// 			url: "agency/findParaDicById",
-// 			data: {"rateMethod":rateMethod},
-// 			dataType: "json",
-// 			success: function(json) {
-// 				var html;
-// 				$.each(json,
-// 				function(key, value) {
-// 					html += '<option value="' + value.PARA_CODE + '">' + value.PARA_NAME + '</option>';
-// 				}) ;
-// 				$("#b_rateMethod").html(html);
-// 			}
-// 		});
-// 	}
-// 	function findParaDescById() {
-// 		var rateId = $("#c_rateId").val();
-// 		var rateMethod = $("#c_rateMethod").val();
-// 		$.ajax({
-// 			type: "POST",
-// 			url: "agency/findParaDescById",
-// 			data: {"rateMethod":rateMethod,"rateId":rateId},
-// 			dataType: "json",
-// 			success: function(json) {
-// 				var html;
-// 				$.each(json,
-// 				function(key, value) {
-// 					html += '<option value="' + value.RATE_ID + '">' + value.RATE_DESC + '</option>';
-// 				}) ;
-// 				$("#b_rateId").html(html);
-// 			}
-// 		});
-// 	}
 	
 	function save(){
 		
