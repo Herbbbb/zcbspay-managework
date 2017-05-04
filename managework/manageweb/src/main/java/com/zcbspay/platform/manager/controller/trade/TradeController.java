@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zcbspay.platform.manager.trade.bean.BatchCollectOrderBean;
 import com.zcbspay.platform.manager.trade.bean.BatchPaymentOrderBean;
+import com.zcbspay.platform.manager.trade.bean.ChnCollectBatchBean;
+import com.zcbspay.platform.manager.trade.bean.ChnCollectSingleLogBean;
+import com.zcbspay.platform.manager.trade.bean.ChnPaymentBatchBean;
+import com.zcbspay.platform.manager.trade.bean.ChnPaymentSingleLogBean;
 import com.zcbspay.platform.manager.trade.bean.CnapsLogBean;
 import com.zcbspay.platform.manager.trade.bean.CollectAndPaymentBean;
 import com.zcbspay.platform.manager.trade.bean.OrderInfoBean;
@@ -467,5 +471,171 @@ public class TradeController {
 		}
 		return map;
 	}
-
+	/**
+	 * 实时代收渠道流水查询界面
+	 * @author: 张连海
+	 * @param model
+	 * @return String
+	 * @date: 2017年4月26日 
+	 * @version v1.0
+	 */
+	@RequestMapping("showChnCollectSingleLog")
+	public String showChnCollectSingleLog() {
+		return "trade/chn_collect_single_log_query";
+	}
+	
+	/**
+	 * 实时代收渠道流水查询
+	 * @author: 张连海
+	 * @param chnCollectSingleLogBean
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return Map<String,Object>
+	 * @date: 2017年4月27日
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("getChnCollectSingleLogByPage")
+	public Map<String, Object> getChnCollectSingleLogByPage(ChnCollectSingleLogBean chnCollectSingleLogBean, String page, String rows,
+			HttpServletRequest request) {
+		chnCollectSingleLogBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
+		return chnlDetaService.getChnCollectSingleLogByPage(page, rows, chnCollectSingleLogBean);
+	}
+	
+	/**
+	 * 实时代付渠道流水查询界面
+	 * @author: 张连海
+	 * @param model
+	 * @return String
+	 * @date: 2017年4月26日 
+	 * @version v1.0
+	 */
+	@RequestMapping("showChnPaymentSingleLog")
+	public String showChnPaymentSingleLog() {
+		return "trade/chn_payment_single_log_query";
+	}
+	
+	/**
+	 * 实时代付渠道流水查询
+	 * @author: 张连海
+	 * @param chnPaymentSingleLogBean
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return Map<String,Object>
+	 * @date: 2017年4月27日
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("getChnPaymentSingleLogByPage")
+	public Map<String, Object> getChnPaymentSingleLogByPage(ChnPaymentSingleLogBean chnPaymentSingleLogBean, String page, String rows,
+			HttpServletRequest request) {
+		chnPaymentSingleLogBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
+		return chnlDetaService.getChnPaymentSingleLogByPage(page, rows, chnPaymentSingleLogBean);
+	}	
+	
+	
+	/**
+	 * 批量代收渠道流水查询界面
+	 * @author: 张连海
+	 * @param model
+	 * @return String
+	 * @date: 2017年4月26日 
+	 * @version v1.0
+	 */
+	@RequestMapping("showChnCollectBatchLog")
+	public String showChnCollectBatchLog() {
+		return "trade/chn_collect_batch_log_query";
+	}
+	
+	/**
+	 * 批量代收渠道流水查询
+	 * @author: 张连海
+	 * @param chnCollectBatchBean
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return Map<String,Object>
+	 * @date: 2017年4月27日 
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("getChnCollectBatchLogByPage")
+	public Map<String, Object> getChnCollectBatchLogByPage(ChnCollectBatchBean chnCollectBatchBean, String page, String rows,
+			HttpServletRequest request) {
+		chnCollectBatchBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
+		return chnlDetaService.getChnCollectBatchLogByPage(page, rows, chnCollectBatchBean);
+	}
+	
+	/**
+	 * 查询代收批次明细交易信息
+	 * @author: 张连海
+	 * @param chnCollectBatchBean
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return Map<String,Object>
+	 * @date: 2017年4月27日 
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("getChnCollectDetaByBatchNo")
+	public Map<String, Object> getChnCollectDetaByBatchNo(ChnCollectBatchBean chnCollectBatchBean, String page, String rows,
+			HttpServletRequest request) {
+		chnCollectBatchBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
+		return chnlDetaService.getChnCollectDetaByBatchNo(page, rows, chnCollectBatchBean);
+	}
+	
+	/**
+	 * 批量代付渠道流水查询界面
+	 * @author: 张连海
+	 * @param model
+	 * @return String
+	 * @date: 2017年4月26日 
+	 * @version v1.0
+	 */
+	@RequestMapping("showChnPaymentBatchLog")
+	public String showChnPaymentBatchLog() {
+		return "trade/chn_payment_batch_log_query";
+	}
+	
+	/**
+	 * 批量代收渠道流水查询
+	 * @author: 张连海
+	 * @param chnPaymentBatchBean
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return Map<String,Object>
+	 * @date: 2017年4月27日 
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("getChnPaymentBatchLogByPage")
+	public Map<String, Object> getChnPaymentBatchLogByPage(ChnPaymentBatchBean chnPaymentBatchBean, String page, String rows,
+			HttpServletRequest request) {
+		chnPaymentBatchBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
+		return chnlDetaService.getChnPaymentBatchLogByPage(page, rows, chnPaymentBatchBean);
+	}
+	
+	/**
+	 * 查询代收批次明细交易信息
+	 * @author: 张连海
+	 * @param chnPaymentBatchBean
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return Map<String,Object>
+	 * @date: 2017年4月27日 
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("getChnPaymentDetaByBatchNo")
+	public Map<String, Object> getChnPaymentDetaByBatchNo(ChnPaymentBatchBean chnPaymentBatchBean, String page, String rows,
+			HttpServletRequest request) {
+		chnPaymentBatchBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
+		return chnlDetaService.getChnPaymentDetaByBatchNo(page, rows, chnPaymentBatchBean);
+	}
 }
+
