@@ -86,7 +86,7 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 	@Override
 	public List<?> findByCode(String contractNum) {
 		String sql = "select po from PojoContract po where po.contractNum=?";
-		return queryByHQL(sql, new Object[]{Long.parseLong(contractNum)});
+		return queryByHQL(sql, new Object[]{contractNum});
 	}
 
 	/**
