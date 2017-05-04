@@ -22,7 +22,7 @@ table tr td select {
 			<form id="theForm" method="post">
 				<table width="100%">
 					<tr>
-						<td align="right" width="10%">交易流水号</td>
+						<td align="right" width="10%">交易序列号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="txnseqno" id="txnseqno" maxlength="32" /></td>
 
@@ -41,20 +41,19 @@ table tr td select {
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="pan" id="pan" maxlength="32" /></td>
 
-						<td align="right" width="10%">商户订单号</td>
+						<td align="right" width="10%">订单号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="accordno" id="accordno" maxlength="32" /></td>
 
 
 					</tr>
 					<tr>
-						<td align="right" width="10%">合作机构号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="accfirmerno" id="accfirmerno" maxlength="32" /></td>
-						<td align="right" width="10%">商户号</td>
+						<td align="right" width="10%">委托机构号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="accsecmerno" id="accsecmerno" maxlength="32" /></td>
-						<td align="right" width="10%">支付流水号</td>
+						<td align="right" width="10%">支付订单号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="payrettsnseqno" id="payrettsnseqno" maxlength="32" /></td>
 
@@ -128,8 +127,8 @@ table tr td select {
 					<tr>
 						<td>交易时间</td>
 						<td id="ttxntime"></td>
-						<td>应用类型</td>
-						<td id="tapptype"></td>
+						<td>产品版本[商户角色]</td>
+						<td id="tprdtver"></td>
 					</tr>
 					<tr>
 						<td>业务类型</td>
@@ -146,26 +145,20 @@ table tr td select {
 					<tr>
 						<td>交易手续费</td>
 						<td id="ttxnfee"></td>
-						<td>分控版本[商户角色]</td>
+						<td>风控版本</td>
 						<td id="triskver"></td>
 					</tr>
 					<tr>
-						<td>分润版本[商户角色]</td>
+						<td>分润版本</td>
 						<td id="tsplitver"></td>
-						<td>扣率版本[商户角色]</td>
+						<td>扣率版本</td>
 						<td id="tfeever"></td>
 					</tr>
 					<tr>
-						<td>产品版本[商户角色]</td>
-						<td id="tprdtver"></td>
-						<td>收银台版本[商户角色]</td>
-						<td id="tcheckstandver"></td>
-					</tr>
-					<tr>
-						<td>路由版本[客户角色]</td>
-						<td id="troutver"></td>
 						<td>转出帐号或卡号</td>
 						<td id="tpan"></td>
+						<td>受理商户号</td>
+						<td id="taccsecmerno"></td>
 					</tr>
 					<tr>
 						<td>转出帐号类型</td>
@@ -186,28 +179,16 @@ table tr td select {
 						<td id="taccordno"></td>
 					</tr>
 					<tr>
-						<td>受理订单所属机构</td>
-						<td id="taccordinst"></td>
-						<td>受理商户号</td>
-						<td id="taccsecmerno"></td>
-					</tr>
-					<tr>
-						<td>受理合作机构号</td>
-						<td id="taccfirmerno"></td>
 						<td>受理清算日期</td>
 						<td id="taccsettledate"></td>
+						<td>支付订单号</td>
+						<td id="tpayordno"></td>
 					</tr>
 					<tr>
 						<td>受理定提交时间</td>
 						<td id="taccordcommitime"></td>
 						<td>受理定单完成时间</td>
 						<td id="taccordfintime"></td>
-					</tr>
-					<tr>
-						<td>支付类型(01:快捷 02:网银 03:账户 04:代付 05:微信 06:手工充值 07:退款08:账务类)</td>
-						<td id="tpaytype"></td>
-						<td>支付定单号</td>
-						<td id="tpayordno"></td>
 					</tr>
 					<tr>
 						<td>交易渠道</td>
@@ -224,7 +205,7 @@ table tr td select {
 					<tr>
 						<td>支付定单完成时间</td>
 						<td id="tpayordfintime"></td>
-						<td>支付方交易流水号</td>
+						<td>支付方交易序列号</td>
 						<td id="tpayrettsnseqno"></td>
 					</tr>
 					<tr>
@@ -260,12 +241,6 @@ table tr td select {
 					<tr>
 						<td>交易所涉流水表标志位</td>
 						<td id="ttradetxnflag"></td>
-						<td>路由层次[当前交易号]</td>
-						<td id="ttxncode"></td>
-					</tr>
-					<tr>
-						<td>收银代码</td>
-						<td id="tcashcode"></td>
 						<td>涉及流水表标志</td>
 						<td id="trelate"></td>
 					</tr>
@@ -275,17 +250,19 @@ table tr td select {
 						<td>原交易序列号</td>
 						<td id="ttxnseqno_og"></td>
 					</tr>
-					<tr>
-						<td>备注</td>
-						<td id="tnotes"></td>
-						<td>备注</td>
-						<td id="tremarks"></td>
-					</tr>
+					
 					<tr>
 						<td>受理会员号</td>
 						<td id="taccmemberid"></td>
 						<td>应用定单状态</td>
 						<td id="tapporderstatus"></td>
+					</tr>
+					
+					<tr>
+						<td>备注</td>
+						<td id="tnotes"></td>
+						<td>备注</td>
+						<td id="tremarks"></td>
 					</tr>
 					<tr>
 						<td>应用订单应答信息</td>
@@ -298,6 +275,20 @@ table tr td select {
 </body>
 
 <script>
+function changeDate(value){
+	var dateString = value;
+	if(dateString==null){
+		return "";
+	}else{
+		year=dateString.substring(0,4);//0123
+		month=dateString.substring(4,6);//45
+		day=dateString.substring(6,8);//67
+		hour=dateString.substring(8,10);//89
+		minte=dateString.substring(10,12);//10 11
+		s=dateString.substring(12,14);// 11 12
+		return year+"-"+month+"-"+day+" " + hour +":"+minte+":"+s;
+	}
+}
   	var width = $("#continer").width();
 		$(function(){
 			
@@ -313,24 +304,32 @@ table tr td select {
 				idField:'ORGAN_ID',
 				columns:[
 				[
-					{field:'TXNSEQNO',title:'交易流水号',width:120,align:'center'},
-					{field:'TXNDATE',title:'交易日期',width:120,align:'center'},
-					{field:'TXNTIME',title:'交易时间',width:120,align:'center'},
+					{field:'TXNSEQNO',title:'交易序列号',width:120,align:'center'},
+					{field:'TXNDATE',title:'交易时间',width:150,align:'center',
+						formatter : function(value, rec) {
+							return changeDate(rec.TXNDATE+rec.TXNTIME);
+						}
+					},
 					{field:'BUSINAME',title:'交易类型',width:120,align:'center'},
 					{field:'AMOUNT',title:'交易金额(元)',width:120,align:'center'},
-					{field:'TRADCOMM',title:'交易佣金(元)',width:120,align:'center'},
 					{field:'TXNFEE',title:'交易手续费(元)',width:120,align:'center'},
 					{field:'RETINFO',title:'中心应答信息',width:120,align:'center'},
-					{field:'PAN',title:'转出帐号或卡号',width:120,align:'center'},
-					{field:'ACCFIRMERNO',title:'合作机构号',width:120,align:'center'},
-					{field:'ACCSECMERNO',title:'商户号',width:120,align:'center'},
-					{field:'ACCORDNO',title:'商户订单号',width:120,align:'center'},
-					{field:'PAYORDNO',title:'支付订单号',width:120,align:'center'},
-					{field:'ACCMEMBERID',title:'会员号',width:120,align:'center'},
-					{field:'PAYRETTSNSEQNO',title:'支付流水号',width:120,align:'center'},
-					{field:'ACCORDCOMMITIME',title:'受理定单提交时间',width:120,align:'center'},
-					{field:'ACCORDFINTIME',title:'受理定单完成时间',width:120,align:'center'},
-					{field:'ACCSETTLEDATE',title:'受理清算日期',width:120,align:'center'},
+					{field:'PAN',title:'转出帐号或卡号',width:150,align:'center'},
+					{field:'ACCSECMERNO',title:'委托机构号',width:150,align:'center'},
+					{field:'ACCORDNO',title:'订单号',width:150,align:'center'},
+					{field:'PAYORDNO',title:'支付订单号',width:150,align:'center'},
+					{field:'PAYRETTSNSEQNO',title:'支付订单号',width:150,align:'center'},
+					{field:'ACCORDCOMMITIME',title:'受理定单提交时间',width:150,align:'center'},
+					{field:'ACCORDFINTIME',title:'受理定单完成时间',width:150,align:'center',
+						formatter : function(value, rec) {
+							return changeDate(rec.ACCORDFINTIME);
+						}	
+					},
+					{field:'ACCSETTLEDATE',title:'受理清算日期',width:120,align:'center',
+						formatter : function(value, rec) {
+							return changeDate(rec.ACCSETTLEDATE);
+						}		
+					},
 					{field:'CHNLNAME',title:'交易渠道',width:120,align:'center'},
 					{field:'TXNSEQNO_OG',title:'操作',width:100,align:'center',
 					formatter:function(value,rec){
@@ -437,14 +436,14 @@ table tr td select {
 				title: '详细信息',
 				top:90,
 				left:100,
-				width:900,
+				width:910,
 				modal: true,
 				minimizable:false,
 				collapsible:false,
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 800
+				height: 850
 			});
 		
 	
@@ -460,7 +459,7 @@ table tr td select {
 						   json=date.json;		   
 					   $("#ttxnseqno").html(json.TXNSEQNO);
 					   $("#ttxndate").html(json.TXNDATE);
-					   $("#ttxntime").html(json.TXNTIME);
+					   $("#ttxntime").html(changeDate(json.TXNTIME));
 					   $("#tapptype").html(json.APPTYPE);
 					   $("#tbusitype").html(json.BUSITYPE);
 					   $("#tbusicode").html(json.BUSINAME);
@@ -474,32 +473,42 @@ table tr td select {
 					   $("#tcheckstandver").html(json.CASHNAME);
 					   $("#troutver").html(json.ROUTNAME);
 					   $("#tpan").html(json.PAN);
-					   $("#tcardtype").html(json.CARDTYPE);
+					   if(json.CARDTYPE=="1"){
+						   $("#tcardtype").html("借记卡");
+					   }
+					   if(json.CARDTYPE=="2"){
+						   $("#tcardtype").html("信用卡");
+					   }
 					   $("#tcardinstino").html(json.CARDINSTINO);
 					   $("#tinpan").html(json.INPAN);
-					   $("#tincardtype").html(json.INCARDTYPE);
+					   if(json.tincardtype=="1"){
+						   $("#tincardtype").html("借记卡");
+					   }
+					   if(json.tincardtype=="2"){
+						   $("#tincardtype").html("信用卡");
+					   }
 					   $("#tincardinstino").html(json.INCARDINSTINO);
 					   $("#taccordno").html(json.ACCORDNO);
 					   $("#taccordinst").html(json.ACCORDINST);
 					   $("#taccsecmerno").html(json.ACCSECMERNO);
 					   $("#taccfirmerno").html(json.ACCFIRMERNO);
-					   $("#taccsettledate").html(json.ACCSETTLEDATE);
-					   $("#taccordcommitime").html(json.ACCORDCOMMITIME);
-					   $("#taccordfintime").html(json.ACCORDFINTIME);
+					   $("#taccsettledate").html(changeDate(json.ACCSETTLEDATE+json.ACCORDFINTIME));
+					   $("#taccordcommitime").html(changeDate(json.ACCORDCOMMITIME));
+					   //$("#taccordfintime").html(json.ACCORDFINTIME);
 					   $("#tpaytype").html(json.PAYTYPE);
 					   $("#tpayordno").html(json.PAYORDNO);
                        $("#tpayinst").html(json.CHNLNAME);
 					   $("#tpayfirmerno").html(json.PAYFIRMERNO);
 					   $("#tpaysecmerno").html(json.PAYSECMERNO);
-					   $("#tpayordcomtime").html(json.PAYORDCOMTIME);
-					   $("#tpayordfintime").html(json.PAYORDFINTIME);
+					   $("#tpayordcomtime").html(changeDate(json.PAYORDCOMTIME));
+					   $("#tpayordfintime").html(changeDate(json.PAYORDFINTIME));
 					   $("#tpayrettsnseqno").html(json.PAYRETTSNSEQNO);
 					   $("#tpayretcode").html(json.PAYRETCODE);
 					   $("#tpayretinfo").html(json.PAYRETINFO);
 					   $("#tappordno").html(json.APPORDNO);
 					   $("#tappinst").html(json.APPINST);
-					   $("#tappordcommitime").html(json.APPORDCOMMITIME);
-					   $("#tappordfintime").html(json.APPORDFINTIME);
+					   $("#tappordcommitime").html(changeDate(json.APPORDCOMMITIME));
+					   $("#tappordfintime").html(changeDate(json.APPORDFINTIME));
 					   $("#ttradeseltxn").html(json.TRADESELTXN);
 					   $("#tretcode").html(json.RETCODE);
 					   $("#tretinfo").html(json.RETINFO);
@@ -508,7 +517,7 @@ table tr td select {
 					   $("#ttxncode").html(json.TXNCODE);
 					   $("#tcashcode").html(json.CASHCODE);
 					   $("#trelate").html(json.RELATE);
-					   $("#tretdatetime").html(json.RETDATETIME);
+					   $("#tretdatetime").html(changeDate(json.RETDATETIME));
 					   $("#ttxnseqno_og").html(json.TXNSEQNO_OG);
 					   $("#tnotes").html(json.NOTES);
 					   $("#tremarks").html(json.REMARKS);

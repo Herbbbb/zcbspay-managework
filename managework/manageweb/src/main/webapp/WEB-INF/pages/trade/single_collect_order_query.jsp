@@ -87,8 +87,8 @@ table tr td select {
 					<td>接入类型</td><td id="accesstype"></td>
 					</tr>
 					<tr>
-					<td>合作机构号</td><td id="coopinstiid"></td>
 					<td>商户号</td><td id="merid"></td>
+					<td>异步通知结果</td><td id="syncnotify"></td>
 					</tr>
 					<tr>
 					<td>版本</td><td id="version"></td>
@@ -104,7 +104,7 @@ table tr td select {
 					</tr>
 					<tr>
 					<td>订单发送时间</td><td id="txntime"></td>
-					<td>商户订单号</td><td id="orderid"></td>
+					<td>订单号</td><td id="orderid"></td>
 					</tr>
 					<tr>
 					<td>交易币种</td><td id="currencycode"></td>
@@ -136,14 +136,11 @@ table tr td select {
 					</tr>
 					<tr>
 					<td>受理订单号</td><td id="tn"></td>
-					<td>关联交易序列号</td><td id="relatetradetxn"></td>
+					<td>交易序列号</td><td id="relatetradetxn"></td>
 					</tr>
 					<tr>
 					<td>状态</td><td id="status"></td>
 					<td>订单提交时间</td><td id="ordercommitime"></td>
-					</tr>
-					<tr>
-					<td>异步通知结果</td><td id="syncnotify"></td>
 					</tr>
 				</table>
 			</div>
@@ -152,6 +149,21 @@ table tr td select {
 </body>
 
 <script>
+	function changeDate(value){
+		var dateString = value;
+		if(dateString==null){
+			return "";
+		}else{
+			year=dateString.substring(0,4);//0123
+			month=dateString.substring(4,6);//45
+			day=dateString.substring(6,8);//67
+			hour=dateString.substring(8,10);//89
+			minte=dateString.substring(10,12);//10 11
+			s=dateString.substring(12,14);// 11 12
+			return year+"-"+month+"-"+day+" " + hour +":"+minte+":"+s;
+		}
+	}
+	
 	var width = $("#continer").width();
 	$(function() {
 
@@ -168,37 +180,71 @@ table tr td select {
 							remoteSort : false,
 							idField : 'ORGAN_ID',
 							columns : [ [
-									{field:'ACCESSTYPE',title:'接入类型',width:121,align:'center'},
-									{field:'COOPINSTIID',title:'合作机构号',width:122,align:'center'},
 									{field:'MERID',title:'委托机构号',width:123,align:'center'},
 									{field:'VERSION',title:'版本',width:124,align:'center'},
-									{field:'ENCODING',title:'编码方式',width:125,align:'center'},
-									{field:'TXNTYPE',title:'交易类型',width:126,align:'center'},
+									{field:'ENCODING',title:'编码方式',width:125,align:'center',
+										formatter : function(value, rec) {
+											if (rec.ENCODING == "1") {
+												return "UTF-8";
+											} 
+										}	
+									},
 									{field:'MERNAME',title:'委托机构全称',width:126,align:'center'},
-									{field:'PAYTIMEOUT',title:'支付超时时间',width:126,align:'center'},
-									{field:'TXNSUBTYPE',title:'交易子类',width:127,align:'center'},
-									{field:'BIZTYPE',title:'产品类型',width:128,align:'center'},
-									{field:'BACKURL',title:'通知地址',width:129,align:'center'},
-									{field:'TXNTIME',title:'订单发送时间',width:130,align:'center'},
-									{field:'ORDERID',title:'商户订单号',width:131,align:'center'},
-									{field:'CURRENCYCODE',title:'交易币种',width:132,align:'center'},
-									{field:'TXNAMT',title:'金额',width:133,align:'center'},
-									{field:'DEBTORBANK',title:'付款人银行号',width:134,align:'center'},
-									{field:'DEBTORACCOUNT',title:'付款人账号',width:135,align:'center'},
-									{field:'DEBTORNAME',title:'付款人名称',width:136,align:'center'},
-									{field:'DEBTORCONSIGN',title:'付款合同号',width:137,align:'center'},
-									{field:'CREDITORBANK',title:'收款人银行号',width:138,align:'center'},
-									{field:'CREDITORACCOUNT',title:'收款人账号',width:139,align:'center'},
-									{field:'CREDITORNAME',title:'收款人名称',width:140,align:'center'},
+									{field:'PAYTIMEOUT',title:'订单超时时间',width:136,align:'center',
+										formatter : function(value, rec) {
+											return changeDate(rec.PAYTIMEOUT);
+										}
+									},
+									{field:'TXNTIME',title:'订单发送时间',width:136,align:'center',
+										formatter : function(value, rec) {
+											return changeDate(rec.TXNTIME);
+										}	
+									},
+									{field:'ORDERID',title:'订单号',width:131,align:'center'},
+									{field:'CURRENCYCODE',title:'交易币种',width:132,align:'center',
+										formatter : function(value, rec) {
+											if (rec.CURRENCYCODE == "156") {
+												return "人民币";
+											} 
+										}
+									},
+									{field:'TXNAMT',title:'金额(元)',width:133,align:'center'},
+									{field:'DEBTORBANK',title:'付款人银行号',width:150,align:'center'},
+									{field:'DEBTORACCOUNT',title:'付款人账号',width:150,align:'center'},
+									{field:'DEBTORNAME',title:'付款人名称',width:150,align:'center'},
+									{field:'DEBTORCONSIGN',title:'付款合同号',width:150,align:'center'},
+									{field:'CREDITORBANK',title:'收款人银行号',width:150,align:'center'},
+									{field:'CREDITORACCOUNT',title:'收款人账号',width:150,align:'center'},
+									{field:'CREDITORNAME',title:'收款人名称',width:150,align:'center'},
 									{field:'PROPRIETARY',title:'业务种类编码',width:141,align:'center'},
-									{field:'SUMMARY',title:'摘要',width:142,align:'center'},
-									{field:'RESERVED',title:'保留域',width:143,align:'center'},
 									{field:'RESPCODE',title:'响应码',width:144,align:'center'},
 									{field:'RESPMSG',title:'应答信息',width:145,align:'center'},
 									{field:'TN',title:'受理订单号',width:146,align:'center'},
-									{field:'RELATETRADETXN',title:'关联交易序列号',width:147,align:'center'},
-									{field:'STATUS',title:'状态',width:148,align:'center'},
-									{field:'ORDERCOMMITIME',title:'订单提交时间',width:149,align:'center'},
+									{field:'RELATETRADETXN',title:'交易序列号',width:147,align:'center'},
+									{field:'STATUS',title:'状态',width:148,align:'center',
+										formatter : function(value, rec) {
+											if (rec.STATUS == "00") {
+												return "支付成功";
+											} 
+											if (rec.STATUS == "01") {
+												return "订单提交成功,但未支付";
+											} 
+											if (rec.STATUS == "02") {
+												return "支付中";
+											} 
+											if (rec.STATUS == "03") {
+												return "支付失败";
+											} 
+											if (rec.STATUS == "04") {
+												return "订单失效";
+											} 
+										}
+									},
+									{field:'ORDERCOMMITIME',title:'订单提交时间',width:149,align:'center',
+										formatter : function(value, rec) {
+											return changeDate(rec.ORDERCOMMITIME);
+										}
+									},
 									{field:'SYNCNOTIFY',title:'异步通知结果',width:150,align:'center'},
 									{
 										field : 'ID',
@@ -292,20 +338,43 @@ table tr td select {
 			closed : false,
 			height : 550
 		});
+		
+		function getStatus(value){
+			if (value == "00") {
+				return "支付成功";
+			} 
+			if (value == "01") {
+				return "订单提交成功,但未支付";
+			} 
+			if (value == "02") {
+				return "支付中";
+			} 
+			if (value == "03") {
+				return "支付失败";
+			} 
+			if (value == "04") {
+				return "订单失效";
+			} 
+		}
+		
 		var rows = $('#test').datagrid('getSelected');
 		$("#tid").html(rows["TID"]);
 		$("#accesstype").html(rows["ACCESSTYPE"]);
 		$("#coopinstiid").html(rows["COOPINSTIID"]);
 		$("#merid").html(rows["MERID"]);
 		$("#version").html(rows["VERSION"]);
-		$("#encoding").html(rows["ENCODING"]);
+		if (rows["ENCODING"] == "1") {
+			$("#encoding").html("UTF-8");
+		}
 		$("#txntype").html(rows["TXNTYPE"]);
 		$("#txnsubtype").html(rows["TXNSUBTYPE"]);
 		$("#biztype").html(rows["BIZTYPE"]);
 		$("#backurl").html(rows["BACKURL"]);
-		$("#txntime").html(rows["TXNTIME"]);
+		$("#txntime").html(changeDate(rows["TXNTIME"]));
 		$("#orderid").html(rows["ORDERID"]);
-		$("#currencycode").html(rows["CURRENCYCODE"]);
+		if (rows["CURRENCYCODE"] == "156") {
+			$("#currencycode").html("人名币");
+		}
 		$("#txnamt").html(rows["TXNAMT"]);
 		$("#debtorbank").html(rows["DEBTORBANK"]);
 		$("#debtoraccount").html(rows["DEBTORACCOUNT"]);
@@ -321,8 +390,8 @@ table tr td select {
 		$("#respmsg").html(rows["RESPMSG"]);
 		$("#tn").html(rows["TN"]);
 		$("#relatetradetxn").html(rows["RELATETRADETXN"]);
-		$("#status").html(rows["STATUS"]);
-		$("#ordercommitime").html(rows["ORDERCOMMITIME"]);
+		$("#status").html(getStatus(rows["STATUS"]));
+		$("#ordercommitime").html(changeDate(rows["ORDERCOMMITIME"]));
 		$("#syncnotify").html(rows["SYNCNOTIFY"]);
 		$("#mername").html(rows["MERNAME"]);
 		$("#merabbr").html(rows["MERABBR"]);
