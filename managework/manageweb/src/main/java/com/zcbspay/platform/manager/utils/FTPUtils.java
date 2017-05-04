@@ -145,7 +145,7 @@ public class FTPUtils {
 	public static void main(String[] args) {
 		try {  
 	        FileInputStream in=new FileInputStream(new File("E:\\基本指令.txt"));  
-	        boolean flag = uploadFile("192.168.1.116", 21, "DownLoad", "624537", "E:ftp","/", "基本指令.txt", in);  
+	        boolean flag = uploadFile("192.168.1.144", 21, "DownLoad", "624537", "E:ftp","/", "基本指令.txt", in);  
 	        System.out.println(flag);  
 	    } catch (FileNotFoundException e) {  
 	        e.printStackTrace();  

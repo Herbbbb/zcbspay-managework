@@ -26,21 +26,21 @@ public class ContractBean implements java.io.Serializable {
 	/** 合同收付类型 CT00：代收协议  CT01：代付协议 CT99：代收付协议 **/
 	private String contractType;
 	/** 单笔金额上限(分)-付款 **/
-	private Long debAmoLimit;
+	private String debAmoLimit;
 	/** 付款累计金额限制类型00 不限 01 按年限次 02 按月限次03 总计限次 **/
 	private String debTranLimitType;
 	/** 累计金额上限(分) -付款 **/
-	private Long debAccyAmoLimit;
+	private String debAccyAmoLimit;
 	/** 付款次数限制类型  00  不限 01  按年限次 02  按月限次03  总计限次 **/
 	private String debTransLimitType;
 	/** 付款次数限制 **/
 	private Long debTransLimit;
 	/** 单笔金额上限(分) -收款 **/
-	private Long credAmoLimit;
+	private String credAmoLimit;
 	/** 收款累计金额限制类型00 不限 01 按年限次 02 按月限次03 总计限次 **/
 	private String credTranLimitType;
 	/** 累计金额上限(分) -收款 **/
-	private Long credAccuAmoLimit;
+	private String credAccuAmoLimit;
 	/** 收款次数限制类型00 不限 01 按年限次 02 按月限次03 总计限次 **/
 	private String credTransLimitType;
 	/** 付款次数限制 **/
@@ -148,10 +148,10 @@ public class ContractBean implements java.io.Serializable {
 	public void setContractType(String contractType) {
 		this.contractType = contractType;
 	}
-	public Long getDebAmoLimit() {
+	public String getDebAmoLimit() {
 		return debAmoLimit;
 	}
-	public void setDebAmoLimit(Long debAmoLimit) {
+	public void setDebAmoLimit(String debAmoLimit) {
 		this.debAmoLimit = debAmoLimit;
 	}
 	public String getDebTranLimitType() {
@@ -160,10 +160,10 @@ public class ContractBean implements java.io.Serializable {
 	public void setDebTranLimitType(String debTranLimitType) {
 		this.debTranLimitType = debTranLimitType;
 	}
-	public Long getDebAccyAmoLimit() {
+	public String getDebAccyAmoLimit() {
 		return debAccyAmoLimit;
 	}
-	public void setDebAccyAmoLimit(Long debAccyAmoLimit) {
+	public void setDebAccyAmoLimit(String debAccyAmoLimit) {
 		this.debAccyAmoLimit = debAccyAmoLimit;
 	}
 	public String getDebTransLimitType() {
@@ -179,10 +179,10 @@ public class ContractBean implements java.io.Serializable {
 		this.debTransLimit = debTransLimit;
 	}
 	
-	public Long getCredAmoLimit() {
+	public String getCredAmoLimit() {
 		return credAmoLimit;
 	}
-	public void setCredAmoLimit(Long credAmoLimit) {
+	public void setCredAmoLimit(String credAmoLimit) {
 		this.credAmoLimit = credAmoLimit;
 	}
 	public String getCredTranLimitType() {
@@ -191,10 +191,10 @@ public class ContractBean implements java.io.Serializable {
 	public void setCredTranLimitType(String credTranLimitType) {
 		this.credTranLimitType = credTranLimitType;
 	}
-	public Long getCredAccuAmoLimit() {
+	public String getCredAccuAmoLimit() {
 		return credAccuAmoLimit;
 	}
-	public void setCredAccuAmoLimit(Long credAccuAmoLimit) {
+	public void setCredAccuAmoLimit(String credAccuAmoLimit) {
 		this.credAccuAmoLimit = credAccuAmoLimit;
 	}
 	public String getCredTransLimitType() {

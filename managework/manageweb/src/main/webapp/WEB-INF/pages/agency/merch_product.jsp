@@ -5,6 +5,23 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+
+<style type="text/css">
+.left, .mid, .right {
+	width: auto;
+	float: left;
+}
+
+.form-control {
+	border: 2px solid #A9C9E2;
+}
+
+.mid {
+	padding-top: 45px;
+	padding-left: 12px;
+	padding-right: 12px;
+}
+</style>
 <body>
 	<style type="text/css">
 table tr td {
@@ -55,7 +72,7 @@ table tr td select {
 					<input type="hidden" id="busiCode" name="busiCode"/> 
 					<table width="90%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
-							<td>清算标志</td>
+							<td width="18%">清算标志</td>
 							<td align="left">
 								<select id="setlflg" name="setlflg">
 										<option value=''>--请选择清算类型--</option>
@@ -65,14 +82,14 @@ table tr td select {
 							</td>
 						</tr>
 						<tr style="height: 25px">
-							<td>扣率类型</td>
+							<td width="18%">扣率类型</td>
 							<td align="left">
 								<select id="rateMethod" name="rateMethod" required="true"
 								onchange="findParaDesc('rateMethod')" /></select>
 							</td>
-							<td>扣率描述</td>
+							<td width="18%">扣率描述</td>
 							<td align="left">
-								<select id="rateId" name="rateId" required="true"></select>
+								<select id="rateId" name="rateId" required="true"><option value=''>--请选择扣率描述--</option></select>
 							</td>
 						</tr>
 						<tr style="height: 25px">
@@ -104,7 +121,7 @@ table tr td select {
 					<input type="hidden" id="c_rateMethod"/> 
 					<table width="90%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
-							<td>清算标志</td>
+							<td width="18%">清算标志</td>
 							<td align="left">
 								<select id="b_setlflg" name="setlflg" required="true">
 										<option value=''>--请选择清算类型--</option>
@@ -119,9 +136,10 @@ table tr td select {
 								<select id="b_rateMethod" name="rateMethod" required="true" onchange="findParaDesc('b_rateMethod')"/>
 								</select>
 							</td>
-							<td>扣率描述</td>
+							<td width="18%">扣率描述</td>
 							<td align="left">
 								<select id="b_rateId" name="rateId" required="true">
+								<option value=''>--请选择扣率描述--</option>
 								</select>
 							</td>
 						</tr>
@@ -148,7 +166,7 @@ table tr td select {
  	var memberId = $("#memberId").val();
 	$(function(){
 		$('#test').datagrid({
-			title:'商户业务计费列表',
+			title:'机构业务计费列表',
 			iconCls:'icon-save',
 			height:600,
 			nowrap: false,
@@ -188,7 +206,7 @@ table tr td select {
 		$('#w2').window({
 			title: '新增计费方式',
 			top:100,
-			width: 600,
+			width: 700,
 			modal: true,
 			minimizable:false,
 			collapsible:false,
@@ -223,7 +241,7 @@ table tr td select {
 		$('#w3').window({
 			title: '变更计费方式',
 			top:100,
-			width: 600,
+			width: 700,
 			modal: true,
 			minimizable:false,
 			collapsible:false,
@@ -293,58 +311,6 @@ table tr td select {
 		});
 	}
 	
-// 	function updateParaDesc() {
-// 		var paraCode = $("#b_rateMethod").val();
-// 		$.ajax({
-// 			type: "POST",
-// 			url: 'agency/findParaDesc?paraCode='+paraCode,
-// 			dataType: "json",
-// 			success: function(json) {
-// 				var html = "<option value=''>--请选择扣率描述--</option>";
-// 				$.each(json,
-// 				function(key, value) {
-// 					html += '<option value="' + value.RATE_ID + '">' + value.RATE_DESC + '</option>';
-// 				}) ;
-// 				$("#b_rateId").html(html);
-// 			}
-// 		});
-// 	}
-	
-// 	function findParaDicById() {
-// 		var rateMethod = $("#c_rateMethod").val();
-// 		$.ajax({
-// 			type: "POST",
-// 			url: "agency/findParaDicById",
-// 			data: {"rateMethod":rateMethod},
-// 			dataType: "json",
-// 			success: function(json) {
-// 				var html;
-// 				$.each(json,
-// 				function(key, value) {
-// 					html += '<option value="' + value.PARA_CODE + '">' + value.PARA_NAME + '</option>';
-// 				}) ;
-// 				$("#b_rateMethod").html(html);
-// 			}
-// 		});
-// 	}
-// 	function findParaDescById() {
-// 		var rateId = $("#c_rateId").val();
-// 		var rateMethod = $("#c_rateMethod").val();
-// 		$.ajax({
-// 			type: "POST",
-// 			url: "agency/findParaDescById",
-// 			data: {"rateMethod":rateMethod,"rateId":rateId},
-// 			dataType: "json",
-// 			success: function(json) {
-// 				var html;
-// 				$.each(json,
-// 				function(key, value) {
-// 					html += '<option value="' + value.RATE_ID + '">' + value.RATE_DESC + '</option>';
-// 				}) ;
-// 				$("#b_rateId").html(html);
-// 			}
-// 		});
-// 	}
 	
 	function save(){
 		

@@ -37,6 +37,13 @@ public class ContractServiceImpl implements ContractService {
 		BeanUtils.copyProperties(pojo, bean );
 		return bean;
 	}
+	@Override
+	public ContractBean findByCode(String contractNum) {
+		PojoContract pojo = (PojoContract) contractDao.findByCode(contractNum).get(0);
+		ContractBean bean = new ContractBean();
+		BeanUtils.copyProperties(pojo, bean );
+		return bean;
+	}
 
 	@Override
 	public Map<String, Object> eidtContract(ContractBean bean) { 

@@ -29,6 +29,13 @@ public interface ContractService {
 	 * @return
 	 */
 	ContractBean findById(String tId);
+	
+	/**
+	 * 根据合同编号查询详情
+	 * @param tId
+	 * @return
+	 */
+	ContractBean findByCode(String contractNum);
 
 	/**
 	 * 修改

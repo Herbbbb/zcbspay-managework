@@ -26,10 +26,10 @@ table tr td select {
 				<input type="hidden" id="flag_ins" value="${flag}" />
 				<table width="100%">
 					<tr>
-						<td align="right" width="10%">委托机构编号</td>
+						<td align="right" width="10%">机构编号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							id="merchId_ins" maxlength="15" /></td>
-						<td align="right" width="10%">委托机构名称</td>
+						<td align="right" width="10%">机构名称</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							id="memberName_ins" maxlength="50" /></td>
 						</td>
@@ -56,7 +56,7 @@ table tr td select {
 			
 			if(flag=='4'){			
 				$('#test').datagrid({
-					title:'委托机构信息列表',
+					title:'机构信息列表',
 					iconCls:'icon-save',
 					height:540,	
 					singleSelect:true,
@@ -66,8 +66,8 @@ table tr td select {
 					remoteSort: false,
 					columns:[
 					[
-						{field:'MEMBER_ID',title:' 委托机构编号',align:'center',width:120},
-						{field:'ENTERPRISE_NAME',title:'委托机构名称',width:120,align:'center'},
+						{field:'MEMBER_ID',title:' 机构编号',align:'center',width:120},
+						{field:'ENTERPRISE_NAME',title:'机构名称',width:120,align:'center'},
 						{field:'LICENCE_NO',title:'营业执照号',width:120,align:'center'},
 						{field:'CORPORATION',title:'法人名称',width:120,align:'center'}, 
 						{field:'CONTACT',title:'联系人',width:120,align:'center'},
@@ -80,11 +80,11 @@ table tr td select {
 								}else if(value=="49"){
 									return "修改审核终止";
 								}else if(value=="19"){
-									return "委托机构注册终止";
+									return "机构注册终止";
 								}else if(value=="69"){
 									return "注销审核终止";
 								}else if(value=="99"){
-									return "委托机构归档";
+									return "机构归档";
 								}else if(value=="41"){
 									return "变更复审未过";
 								}else if(value=="40"){
@@ -130,7 +130,7 @@ table tr td select {
 				});
 			}else{
 				$('#test').datagrid({
-					title:'委托机构变更审核信息列表',
+					title:'机构变更审核信息列表',
 					iconCls:'icon-save',
 					height:540,	
 					singleSelect:true,
@@ -140,8 +140,8 @@ table tr td select {
 					remoteSort: false,
 					columns:[
 					[
-						{field:'MEMBER_ID',title:' 委托机构编号',align:'center',width:120},
-						{field:'ENTERPRISE_NAME',title:'委托机构名称',width:120,align:'center'},
+						{field:'MEMBER_ID',title:'机构编号',align:'center',width:120},
+						{field:'ENTERPRISE_NAME',title:'机构名称',width:120,align:'center'},
 						{field:'LICENCE_NO',title:'营业执照号',width:120,align:'center'},
 						{field:'CORPORATION',title:'法人名称',width:120,align:'center'}, 
 						{field:'CONTACT',title:'联系人',width:120,align:'center'},
@@ -154,11 +154,11 @@ table tr td select {
 								}else if(value=="49"){
 									return "修改审核终止";
 								}else if(value=="19"){
-									return "委托机构注册终止";
+									return "机构注册终止";
 								}else if(value=="69"){
 									return "注销审核终止";
 								}else if(value=="99"){
-									return "委托机构归档";
+									return "机构归档";
 								}else if(value=="41"){
 									return "变更复审未过";
 								}else if(value=="40"){

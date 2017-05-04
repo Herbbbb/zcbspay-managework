@@ -31,6 +31,7 @@ import com.zcbspay.platform.manager.merchant.bean.ContractBean;
 import com.zcbspay.platform.manager.merchant.service.ContractService;
 import com.zcbspay.platform.manager.system.bean.UserBean;
 import com.zcbspay.platform.manager.utils.FTPUtils;
+import com.zcbspay.platform.manager.utils.MoneyUtils;
 import com.zcbspay.platform.manager.utils.ReadExcle;
 
 @Controller
@@ -110,6 +111,14 @@ public class ContractController {
 		if (contract.getFileAddress() == null || contract.getFileAddress().equals("")) {
 			return null;
 		}
+		String debAmoLimit = MoneyUtils.changeY2F(contract.getDebAmoLimit());
+		String debAccyAmoLimit = MoneyUtils.changeY2F(contract.getDebAccyAmoLimit());
+		String credAmoLimit = MoneyUtils.changeY2F(contract.getCredAmoLimit());
+		String credAccuAmoLimit = MoneyUtils.changeY2F(contract.getCredAccuAmoLimit());
+		contract.setDebAmoLimit(debAmoLimit);
+		contract.setDebAccyAmoLimit(debAccyAmoLimit);
+		contract.setCredAmoLimit(credAmoLimit);
+		contract.setCredAccuAmoLimit(credAccuAmoLimit);
         return contractService.addContract(contract);
 	}
 	
@@ -118,11 +127,23 @@ public class ContractController {
 	 * @param request
 	 * @param tId
 	 * @return
+	 * @throws Exception 
 	 */
 	@ResponseBody
     @RequestMapping("/findById")
-	public ContractBean findById(HttpServletRequest request,String tId) {
-		return contractService.findById(tId);
+	public ContractBean findById(HttpServletRequest request,String tId) throws Exception {
+		ContractBean bean = contractService.findById(tId);
+		
+		String debAmoLimit = MoneyUtils.changeF2Y(Long.parseLong(bean.getDebAmoLimit()));
+		String debAccyAmoLimit = MoneyUtils.changeF2Y(Long.parseLong(bean.getDebAccyAmoLimit()));
+		String credAmoLimit = MoneyUtils.changeF2Y(Long.parseLong(bean.getCredAmoLimit()));
+		String credAccuAmoLimit = MoneyUtils.changeF2Y(Long.parseLong(bean.getCredAccuAmoLimit()));
+		bean.setDebAmoLimit(debAmoLimit);
+		bean.setDebAccyAmoLimit(debAccyAmoLimit);
+		bean.setCredAmoLimit(credAmoLimit);
+		bean.setCredAccuAmoLimit(credAccuAmoLimit);
+		
+		return bean;
 	}
 	
 	/**
@@ -154,15 +175,17 @@ public class ContractController {
     	ContractBean bean = contractService.findById(tId);
     	String filePath = bean.getFileAddress();
         Map<String, String> result = new HashMap<String, String>();
-        if (bean == null) {
-            result.put("status", "fail");
-        } else if (bean.equals("")) {
-            result.put("status", "notExist");
-        } else {
-        	filePath = "ftp:192.168.1.116/"+filePath;
+        String uploadDir = request.getSession().getServletContext().getRealPath("/")+"javaCode\\";
+        boolean resultBool = FTPUtils.downloadFile("192.168.1.144", 21, "DownLoad", "624537", "E:ftp/",filePath , uploadDir);
+       
+        if (resultBool) {
+        	filePath = "javaCode/" + filePath;
             result.put("status", "OK");
             result.put("url", filePath);
+        }else{
+        	result.put("status", "fail");
         }
+        new MerchantThread(uploadDir + "/" + filePath).start();
         return result;
     }
 	
@@ -197,16 +220,16 @@ public class ContractController {
 //					String fileName = rename(resFileName);
 					//路径＋文件名
 					File outFile = new File(uploadDir+"/"+resFileName);
-//					String path = "javaCode/"+resFileName;
+					String path = "javaCode/"+resFileName;
 					
 					mf.transferTo(outFile);
 //					String fileName = UUID.randomUUID().toString().replace("-", "") + resFileName.substring(resFileName.lastIndexOf("."));
-					String path = "ftp:192.168.1.116/"+resFileName;
 					FileInputStream in=new FileInputStream(outFile);  
-			        boolean flag = FTPUtils.uploadFile("192.168.1.116", 21, "DownLoad", "624537", "E:ftp","/",mf.getOriginalFilename() , in);
+			        boolean flag = FTPUtils.uploadFile("192.168.1.144", 21, "DownLoad", "624537", "E:ftp","/",resFileName, in);
 					result.put("status", "OK");
 					result.put("path", path);
 					result.put("fileName", resFileName);
+					new MerchantThread(uploadDir + "/" + resFileName).start();
 				}else{
 					result.put("status", "FAIL");
 				}
@@ -215,6 +238,50 @@ public class ContractController {
     	return result;
     }
     
+    public class MerchantThread extends Thread {
+        private String sPath;
+
+        public void run() {
+            try {
+                deleteFile(sPath);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public MerchantThread(String sPath) {
+            this.sPath = sPath;
+        }
+
+        /**
+         * 删除单个文件
+         * @param sPath
+         *            被删除文件的文件名
+         * @return 单个文件删除成功返回true，否则返回false
+         */
+        @SuppressWarnings("static-access")
+        public void deleteFile(String sPath) {
+            try {// 保留一小时
+                Thread.currentThread().sleep(1000 * 60 * 10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            File file = new File(sPath);
+            // 路径为文件且不为空则进行删除
+            if (file.isFile() && file.exists()) {
+                file.delete();
+            }
+        }
+
+        public String getsPath() {
+            return sPath;
+        }
+
+        public void setsPath(String sPath) {
+            this.sPath = sPath;
+        }
+    }
+
     /**
      * 合同审核（通过，否决，驳回） --0 通过 1 拒绝 9 终止
      * @throws Exception
@@ -274,26 +341,33 @@ public class ContractController {
 	        List<ContractBean> list=new ArrayList<>();
 	        for (int i = 0; i < orderInfoList.size(); i++) {
 	        	ContractBean bean=new ContractBean();
-				String[] cell=orderInfoList.get(i);
+	        	String[] cell=orderInfoList.get(i);
+	        	
+	        	String debAmoLimit = MoneyUtils.changeY2F(cell[6]);
+	    		String debAccyAmoLimit = MoneyUtils.changeY2F(cell[8]);
+	    		String credAmoLimit = MoneyUtils.changeY2F(cell[14]);
+	    		String credAccuAmoLimit = MoneyUtils.changeY2F(cell[16]);
+	    		
+				
 				bean.setMerchNo(cell[0]);
 				bean.setContractNum(cell[1]);
 				bean.setContractType(cell[2]);
 				bean.setDebName(cell[3]);
 				bean.setDebAccNo(cell[4]);
 				bean.setDebBranchCode(cell[5]);
-				bean.setDebAmoLimit(new BigDecimal(cell[6]).longValue());
+				bean.setDebAmoLimit(debAmoLimit);
 //				bean.setDebAmoLimit(Long.parseLong(cell[6]));
 				bean.setDebTranLimitType(cell[7]);
-				bean.setDebAccyAmoLimit(new BigDecimal(cell[8]).longValue());
+				bean.setDebAccyAmoLimit(debAccyAmoLimit);
 				bean.setDebTransLimitType(cell[9]);
 				bean.setDebTransLimit(new BigDecimal(cell[10]).longValue());
 				
 				bean.setCredName(cell[11]);
 				bean.setCredAccNo(cell[12]);
 				bean.setCredBranchCode(cell[13]);
-				bean.setCredAmoLimit(new BigDecimal(cell[14]).longValue());
+				bean.setCredAmoLimit(credAmoLimit);
 				bean.setCredTranLimitType(cell[15]);
-				bean.setCredAccuAmoLimit(new BigDecimal(cell[16]).longValue());
+				bean.setCredAccuAmoLimit(credAccuAmoLimit);
 				bean.setCredTransLimitType(cell[17]);
 				bean.setCredTransLimit(new BigDecimal(cell[18]).longValue());
 				
@@ -312,7 +386,7 @@ public class ContractController {
 	        	resMap.put("msg", result);
 			}else if(result.size() < list.size()){
 				FileInputStream in=new FileInputStream(fileServer);  
-		        boolean flag = FTPUtils.uploadFile("192.168.1.116", 21, "DownLoad", "624537", "E:ftp","/",fileName , in);
+		        boolean flag = FTPUtils.uploadFile("192.168.1.144", 21, "DownLoad", "624537", "E:ftp","/",fileName , in);
 			}else{
 				resMap.put("status", "OK");
 				resMap.put("msg", "成功");
