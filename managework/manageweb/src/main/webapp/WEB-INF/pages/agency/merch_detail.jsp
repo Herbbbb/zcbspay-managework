@@ -58,6 +58,7 @@ table tr td font.current-step {
 					<input type="hidden" id="merchId" name="merchDeta.merchId" value="${merchMap.MERCH_ID}" />
 					<input type="hidden" id="merchApplyId" value="${merchMap.SELF_ID}" />
 					<input type="hidden" id="prdtVer" value="${merchMap.PRDT_VER}" />
+					<input type="hidden" id="a_riskVer" value="${merchMap.RISK_VER}" />
 					<input type="hidden" id="flag_ins" value="${flag}" />
 					<table width="100%">
 						<tr>
@@ -111,13 +112,14 @@ table tr td font.current-step {
 						<tr>
 							<td class="update" align="center">机构网站地址<font color="red">*</font></td>
 							<td class="update" >${merchMap.WEBSITE}</td>
-							
+							<td class="update"></td>
+							<td class="update"></td>
 						</tr>
 						<tr>
 							<td class="update" align="center" id="psamORpass">法人姓名<font color="red">*</font></td>
 							<td class="update" >${merchMap.CORPORATION}</td>
 							<td class="update" align="center">法人身份证号<font color="red">*</font></td>
-							<td class="update"> ${merchMap.CORP_NO}</td>
+							<td class="update">${merchMap.CORP_NO}</td>
 						</tr>
 
 						<tr>
@@ -151,14 +153,20 @@ table tr td font.current-step {
 							<td class="update">${merchMap.PRDTNAME}</td>
 						</tr>
 						<tr>
+							<td class="update" align="center">计费方式</td>
+							<td class="update" style="font-size: 12px;color:blue" onclick="findFeeVer()" feeVer>点击查看</td>
+							<td class="update" align="center">风控版本</td>
+							<td align="left" class="update"><span id="b_riskVer"></span></td>
+						</tr>
+						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
 
 						<tr id="delegation">
-							<td class="update" align="center">人姓名<font color="red">*</font></td>
+							<td class="update" align="center">委托人姓名<font color="red">*</font></td>
 							<td class="update" >${merchMap.SIGNATORY}</td>
-							<td class="update" align="center">人身份证号<font color="red">*</font></td>
-							<td class="update" >${merchMap.SIGN_CERT_NO}
+							<td class="update" align="center">委托人身份证号<font color="red">*</font></td>
+							<td class="update" >${merchMap.SIGN_CERT_NO}</td>
 						</tr>
 						<tr>
 							<td class="update" align="center">客户经理</td>
@@ -226,8 +234,8 @@ table tr td font.current-step {
 						<tr>
 							<td class="update" align="center">税务登记证文件目录</td>
 							<td class="update" ><span id="taxRegCert_cert_img"></span></td>
-							<td class="update" ></td>
-							<td class="update" ></td>
+							<td class="update"></td>
+							<td class="update"></td>
 						</tr>
 
 						<c:if test="${flag==2}">
@@ -250,6 +258,8 @@ table tr td font.current-step {
 								<td class="update" colspan="3" align="center"><textarea rows="5"
 										cols="100" style="margin: 5px" maxlength="60" id="STOPINION"></textarea>
 								</td>
+								<td class="update" align="center"></td>
+								<td class="update"></td>
 							</tr>
 						</c:if>
 						<c:if test="${flag==9}">
@@ -264,6 +274,8 @@ table tr td font.current-step {
 								<td class="update" colspan="3" align="center"><textarea rows="5"
 										cols="100" style="margin: 5px" value="${merchMap.CVLEXA_OPT}"
 										maxlength="60" id="STOPINION"></textarea></td>
+								<td class="update" align="center"></td>
+								<td class="update"></td>
 							</tr>
 						</c:if>
 					</table>
@@ -299,14 +311,14 @@ table tr td font.current-step {
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
 				<form id="deptForm" action="" method="post">
-					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left" id="inputForm">
+					<table cellpadding="2" cellspacing="2" style="text-align: left" id="inputForm">
 						<tr>
 							<td class="add" align="center" width="20%">商户名称</td>
-							<td ><input id="b_merName" name="enterpriseName" readonly="true"/></td>
+							<td class="add"><input id="b_merName" name="enterpriseName" readonly="true"/></td>
 						</tr>
 						<tr>
 							<td class="add" align="center">风控版本</td>
-							<td ><select name="riskVer" maxlength="8" required="true" id="riskver" /></select> <font color="red">*</font></td>
+							<td class="add"><select name="riskVer" maxlength="8" required="true" id="riskver" /></select> <font color="red">*</font></td>
 						</tr>
 					</table>
 				</form>
@@ -324,13 +336,24 @@ table tr td font.current-step {
 		iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px; top: 50%; left: 50%; ">
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false"
-				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
+				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center;overflow:hidden;">
 				<table id="test"></table>
 				
 				<a class="easyui-linkbutton" iconCls="icon-ok"
 					href="javascript:merchAudit('0')" id="btn_submit7">保存</a> 
 				<a class="easyui-linkbutton" iconCls="icon-back"
 					href="javascript:void(0)" onclick="closeAdd()">取消</a>
+			</div>
+		</div>
+	</div>
+	<div id="w5" class="easyui-window" closed="true" title="My Window"
+		iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px; top: 50%; left: 50%; ">
+		<div class="easyui-layout" fit="true">
+			<div region="center" border="false"
+				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center;overflow:hidden;">
+				<table id="test2"></table>
+				<a class="easyui-linkbutton" iconCls="icon-back"
+					href="javascript:void(0)" onclick="closeAdd2()">返回</a>
 			</div>
 		</div>
 	</div>
@@ -375,7 +398,7 @@ table tr td font.current-step {
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
 				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:save(0)" id="btn_submit2">提交</a>
-				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">取消</a>
+				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd2()">取消</a>
 			</div>
 		</div>
 	</div>
@@ -426,16 +449,18 @@ table tr td font.current-step {
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
 				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:update()" id="b_btn_submit">提交</a>
-				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">取消</a>
+				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd2()">取消</a>
 			</div>
 		</div>
 	</div>
 <script>
 	var memberId = $("#merchApplyId").val();
 	var flag = $("#flag_ins").val();
+	 var pid = $("#prdtVer").val();
   $(function() {
 		checkIsDelegation();
 		initCertUrl(); 
+		queryRiskType(pid)
 	});
 	
 	function checkIsDelegation(){
@@ -507,12 +532,13 @@ table tr td font.current-step {
 		$('#w').window('close');
 		$('#w2').window('close');
 		$('#w3').window('close');
+		$('#w5').window('close');
 	}
 	function search(){
 		$('#test').datagrid('load',null);
 	}
  function showUser(){
-	 var pid = $("#prdtVer").val();
+	
 		$.ajax({
 		   type: "POST",
 		   url: "agency/findEnterById",
@@ -564,13 +590,42 @@ table tr td font.current-step {
 						}
 					}
 				]],
-				pagination:true,
-				rownumbers:true
 			});
 			
 			$('#w4').window({
 				title: '添加计费方式',
 				top:300,
+				left:300,
+				width: 680,
+				modal: true,
+				minimizable:false,
+				collapsible:false,
+				maximizable:false,
+				shadow: false,
+				closed: false,
+				height: 480
+			});
+		}
+	 function findFeeVer(result){
+		 $('#test2').datagrid({
+				iconCls:'icon-save',
+				height:400,
+				nowrap: false,
+				striped: true,
+				singleSelect:true,
+				url:'agency/findRateConfig?memberId='+memberId,
+				remoteSort: false,
+				columns:[[
+					{field:'BUSINAME',title:'业务类型',align:'center',width:130},
+					{field:'SETLFLG',title:'计费类型',width:130,align:'center'},
+					{field:'RATE_METHOD',title:'扣率版本',align:'center',width:100},
+					{field:'RATE_DESC',title:'扣率描述',width:120,align:'center'}
+				]],
+			});
+			
+			$('#w5').window({
+				title: '查看计费方式',
+				top:150,
 				left:300,
 				width: 680,
 				modal: true,
@@ -590,12 +645,17 @@ table tr td font.current-step {
 			dataType: "json",
 			success: function(json) {
 				var html = "<option value=''>--请选择风控版本--</option>";
+				var riskVal = $("#a_riskVer").val();
+				var risk = "未选择风控版本";
 				$.each(json,
 				function(key, value) {
+					if(value.RISKVER==riskVal){
+						risk = value.RISKNAME;
+					}
 					html += '<option value="' + value.RISKVER + '">' + value.RISKNAME + '</option>';
 				});
 				$("#riskver").html(html);
-	
+				$("#b_riskVer").html(risk);
 			}
 		});
 	}

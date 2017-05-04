@@ -127,7 +127,7 @@ table tr td font.current-step {
 								onkeyup="value=value.replace(/[^0-9a-zA-Z]/g,'')"
 								class="easyui-validatebox" /> <font color="red">*</font></td>
 							<td align="center">所属行业</td>
-							<td><select id="mcclist_ins" class="easyui-validatebox" missingMessage="请输入所属行业名称"
+							<td><select id="mcclist_ins" class="easyui-validatebox" missingMessage="请选择机构所属行业"
 								name="mccList" required="true" /></select><font color="red">*</font></td>
 						</tr>
 						<tr>
@@ -200,11 +200,11 @@ table tr td font.current-step {
 							<td colspan="3"></td>
 						</tr>
 						<tr id="delegation">
-							<td align="center">人姓名</td>
-							<td><input class="easyui-validatebox" maxlength="16" missingMessage="请输入人姓名"
+							<td align="center">委托人姓名</td>
+							<td><input class="easyui-validatebox" maxlength="16" missingMessage="请输入委托人姓名"
 								id="signatory" name="signatory" /> <font color="red">*</font></td>
-							<td align="center">人身份证号</td>
-							<td><input class="easyui-validatebox" validType="cardNo[18]" missingMessage="请输入人身份证号"
+							<td align="center">委托人身份证号</td>
+							<td><input class="easyui-validatebox" validType="cardNo[18]" missingMessage="请输入委托人身份证号"
 								id="signCertNo" maxlength="18" name="signCertNo" /> <font
 								color="red">*</font></td>
 						</tr>
@@ -566,7 +566,7 @@ table tr td font.current-step {
 				url: "agency/queryMccList",
 				dataType: "json",
 				success: function(json) {
-					var html = "<option value=''>--机构所属行业--</option>";
+					var html = "<option value=''>--请选择机构所属行业--</option>";
 					$.each(json,
 					function(key, value) {
 						html += '<option value="' + value.MCCLIST + '">' + value.MCCCONT+'('+value.MCCLIST+')</option>';

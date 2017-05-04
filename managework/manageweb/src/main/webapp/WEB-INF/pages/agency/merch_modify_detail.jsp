@@ -27,8 +27,11 @@ table tr td input {
 }
 
 table tr td.head-title {
+	height: 25px;
 	background-color: #F0F8FF;
 	font-weight: bold;
+	border-width: 1px 1px 1px 1px;
+	border-style: groove;
 }
 
 table tr td.head-guide {
@@ -54,6 +57,7 @@ table tr td font.current-step {
 					<input type="hidden" id="merchId" name="merchId" value="${merchMap.MERCHID}" />
 					<input type="hidden" id="merchApplyId" value="${merchMap.SELF_ID}" />
 					<input type="hidden" id="prdtVer" value="${merchMap.PRDT_VER}" />
+					<input type="hidden" id="a_riskVer" value="${merchMap.RISK_VER}" />
 					<input type="hidden" id="flag_ins" value="${flag}" />
 					<table width="100%">
 						<tr>
@@ -113,7 +117,7 @@ table tr td font.current-step {
 							<td class="update" align="center" id="psamORpass">法人姓名<font color="red">*</font></td>
 							<td class="update" >${merchMap.CORPORATION}</td>
 							<td class="update" align="center">法人身份证号<font color="red">*</font></td>
-							<td class="update"> ${merchMap.CORP_NO}</td>
+							<td class="update">${merchMap.CORP_NO}</td>
 						</tr>
 
 						<tr>
@@ -128,7 +132,7 @@ table tr td font.current-step {
 							<td class="update" align="center">开户账号<font color="red">*</font></td>
 							<td class="update" >${merchMap.ACC_NUM}</td>
 							<td class="update" align="center">开户名<font color="red">*</font></td>
-							<td class="update" >${merchMap.ACC_NAME}
+							<td class="update" >${merchMap.ACC_NAME}</td>
 						</tr>
 
 						<tr>
@@ -138,23 +142,29 @@ table tr td font.current-step {
 							<td class="update" align="center">机构清算类型<font color="red">*</font></td>
 							<td class="update" >${merchMap.SETLTYPENAME}</td>
 							<td class="update" align="center">机构清算周期<font color="red">*</font></td>
-							<td class="update" >${merchMap.SETLNAME}</td>
+							<td class="update">${merchMap.SETLNAME}</td>
 						</tr>
 						<tr>
 							<td class="update" align="center">合作机构<font color="red">*</font></td>
-							<td >${merchMap.INSTI_NAME}</td>
+							<td class="update">${merchMap.INSTI_NAME}</td>
 							<td align="center">产品<font color="red">*</font></td>
-							<td >${merchMap.PRDTNAME}</td>
+							<td class="update">${merchMap.PRDTNAME}</td>
+						</tr>
+						<tr>
+							<td class="update" align="center">计费方式</td>
+							<td class="update" style="font-size: 12px;color:blue" onclick="findFeeVer()" feeVer>点击查看</td>
+							<td class="update" align="center">风控版本</td>
+							<td align="left" class="update"><span id="b_riskVer"></span></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
 
 						<tr id="delegation">
-							<td class="update" align="center">人姓名<font color="red">*</font></td>
+							<td class="update" align="center">委托人姓名<font color="red">*</font></td>
 							<td class="update" >${merchMap.SIGNATORY}</td>
-							<td class="update" align="center">人身份证号<font color="red">*</font></td>
-							<td class="update" >${merchMap.SIGN_CERT_NO}
+							<td class="update" align="center">委托人身份证号<font color="red">*</font></td>
+							<td class="update" >${merchMap.SIGN_CERT_NO}</td>
 						</tr>
 						<tr>
 							<td class="update" align="center">客户经理</td>
@@ -170,11 +180,9 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td class="update" align="center">保证金</td>
-							<td class="update" >${merchMap.DEPOSIT}<font color="red">元</font>
-							</td>
+							<td class="update" >${merchMap.DEPOSIT}<font color="red">元</font></td>
 							<td class="update" align="center">服务费</td>
-							<td class="update" >${merchMap.CHARGE}<font color="red">元</font>
-							</td>
+							<td class="update" >${merchMap.CHARGE}<font color="red">元</font></td>
 						</tr>
 
 						<tr>
@@ -318,7 +326,7 @@ table tr td font.current-step {
 		iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px; top: 50%; left: 50%; ">
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false"
-				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
+				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center;overflow:hidden;">
 				<table id="test"></table>
 				
 				<a class="easyui-linkbutton" iconCls="icon-ok"
@@ -427,9 +435,11 @@ table tr td font.current-step {
 <script>
 var memberId = $("#merchApplyId").val();
 var flag = $("#flag_ins").val();
+var pid = $("#prdtVer").val();
   $(function() {
 		checkIsDelegation();
 		initCertUrl(); 
+		queryRiskType(pid)
 	});
 	
 	function checkIsDelegation(){
@@ -506,7 +516,6 @@ var flag = $("#flag_ins").val();
 		$('#test').datagrid('load',null);
 	}
  function showUser(){
-	 var pid = $("#prdtVer").val();
 		$.ajax({
 		   type: "POST",
 		   url: "agency/findEnterById",
@@ -537,7 +546,7 @@ var flag = $("#flag_ins").val();
  function DetailParaDic(result){
 	 $('#test').datagrid({
 			iconCls:'icon-save',
-			height:600,
+			height:400,
 			nowrap: false,
 			striped: true,
 			singleSelect:true,
@@ -558,21 +567,20 @@ var flag = $("#flag_ins").val();
 					}
 				}
 			]],
-			pagination:true,
-			rownumbers:true
 		});
 		
 		$('#w4').window({
 			title: '添加计费方式',
-			top:100,
-			width: 800,
+			top:300,
+			left:300,
+			width: 680,
 			modal: true,
 			minimizable:false,
 			collapsible:false,
 			maximizable:false,
 			shadow: false,
 			closed: false,
-			height: 680
+			height: 480
 		});
 	}
 	 function queryRiskType(pid) {
@@ -583,12 +591,17 @@ var flag = $("#flag_ins").val();
 			dataType: "json",
 			success: function(json) {
 				var html = "<option value=''>--请选择风控版本--</option>";
+				var riskVal = $("#a_riskVer").val();
+				var risk = "未选择风控版本";
 				$.each(json,
 				function(key, value) {
+					if(value.RISKVER==riskVal){
+						risk = value.RISKNAME;
+					}
 					html += '<option value="' + value.RISKVER + '">' + value.RISKNAME + '</option>';
 				});
 				$("#riskver").html(html);
-	
+				$("#b_riskVer").html(risk);
 			}
 		});
 	}
@@ -622,7 +635,8 @@ var flag = $("#flag_ins").val();
 			$('#a_memberId').val(memberId);
 			$('#w2').window({
 				title: '新增计费方式',
-				top:100,
+				top:500,
+				left:300,
 				width: 700,
 				modal: true,
 				minimizable:false,
@@ -657,7 +671,8 @@ var flag = $("#flag_ins").val();
 			});
 			$('#w3').window({
 				title: '变更计费方式',
-				top:100,
+				top:500,
+				left:300,
 				width: 700,
 				modal: true,
 				minimizable:false,

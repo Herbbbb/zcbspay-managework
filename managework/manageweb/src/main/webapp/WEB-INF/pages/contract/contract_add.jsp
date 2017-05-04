@@ -684,7 +684,7 @@ table tr td select {
 			   dataType:"json",
 			   success: function(json){
 				   var tId = json.tId;
-				   $("#b_tId").val(json.tId);
+				   $("#b_tId").html(json.tId);
 				   $("#b_merchNo").html(json.merchNo);
 				   $("#b_contractNum").html(json.contractNum);
 				   $("#b_debName").html(json.debName);
@@ -692,17 +692,65 @@ table tr td select {
 				   $("#b_debBranchCode").html(json.debBranchCode);
 				   $("#b_credName").html(json.credName);
 				   $("#b_credAccNo").html(json.credAccNo);
-				   $("#b_contractType").html(json.contractType);
+				   var contractType;
+				   if(json.contractType == 'CT00'){
+					   contractType = '代收协议';
+				   }else if(json.contractType == 'CT01'){
+					   contractType = '代付协议';
+				   }else if(json.contractType == 'CT02'){
+					   contractType = '代收付协议';
+				   }
+				   $("#b_contractType").html(contractType);
 				   $("#b_credBranchCode").html(json.credBranchCode);
 				   $("#b_debAmoLimit").html(json.debAmoLimit);
-				   $("#b_debTranLimitType").html(json.debTranLimitType);
+ 				   var debTranLimitType;
+				   if(json.debTranLimitType == '00'){
+					   debTranLimitType = '--不限--';
+				   }else if(json.debTranLimitType == '01'){
+					   debTranLimitType = '按年限次';
+				   }else if(json.debTranLimitType == '02'){
+					   debTranLimitType = '按月限次';
+				   }else if(json.debTranLimitType == '03'){
+					   debTranLimitType = '总计限次';
+				   }
+				   $("#b_debTranLimitType").html(debTranLimitType);
 				   $("#b_debAccyAmoLimit").html(json.debAccyAmoLimit);
-				   $("#b_debTransLimitType").html(json.debTransLimitType);
+				   var debTransLimitType;
+				   if(json.debTransLimitType == '00'){
+					   debTransLimitType = '--不限--';
+				   }else if(json.debTransLimitType == '01'){
+					   debTransLimitType = '按年限次';
+				   }else if(json.debTransLimitType == '02'){
+					   debTransLimitType = '按月限次';
+				   }else if(json.debTransLimitType == '03'){
+					   debTransLimitType = '总计限次';
+				   }
+				   $("#b_debTransLimitType").html(debTransLimitType);
 				   $("#b_debTransLimit").html(json.debTransLimit);
 				   $("#b_credAmoLimit").html(json.credAmoLimit);
-				   $("#b_credTranLimitType").html(json.credTranLimitType);
+				   var credTranLimitType;
+				   if(json.credTranLimitType == '00'){
+					   credTranLimitType = '--不限--';
+				   }else if(json.credTranLimitType == '01'){
+					   credTranLimitType = '按年限次';
+				   }else if(json.credTranLimitType == '02'){
+					   credTranLimitType = '按月限次';
+				   }else if(json.credTranLimitType == '03'){
+					   credTranLimitType = '总计限次';
+				   }
+				   $("#b_credTranLimitType").html(credTranLimitType);
 				   $("#b_credAccuAmoLimit").html(json.credAccuAmoLimit);
-				   $("#b_credTransLimitType").html(json.credTransLimitType);
+				   var credTransLimitType;
+				   if(json.credTransLimitType == '00'){
+					   credTransLimitType = '--不限--';
+				   }else if(json.credTransLimitType == '01'){
+					   credTransLimitType = '按年限次';
+				   }else if(json.credTransLimitType == '02'){
+					   credTransLimitType = '按月限次';
+				   }else if(json.credTransLimitType == '03'){
+					   credTransLimitType = '总计限次';
+				   }
+				   $("#b_credTransLimitType").html(credTransLimitType);
 				   $("#b_credTransLimit").html(json.credTransLimit);
 				   $("#b_startDate").html(json.signDate);
 				   $("#b_endDate").html(json.expiryDate);
@@ -743,17 +791,65 @@ table tr td select {
 				   $("#c_debBranchCode").html(json.debBranchCode);
 				   $("#c_credName").html(json.credName);
 				   $("#c_credAccNo").html(json.credAccNo);
-				   $("#c_contractType").html(json.contractType);
+				   var contractType;
+				   if(json.contractType == 'CT00'){
+					   contractType = '代收协议';
+				   }else if(json.contractType == 'CT01'){
+					   contractType = '代付协议';
+				   }else if(json.contractType == 'CT02'){
+					   contractType = '代收付协议';
+				   }
+				   $("#c_contractType").html(contractType);
 				   $("#c_credBranchCode").html(json.credBranchCode);
 				   $("#c_debAmoLimit").html(json.debAmoLimit);
-				   $("#c_debTranLimitType").html(json.debTranLimitType);
+ 				   var debTranLimitType;
+				   if(json.debTranLimitType == '00'){
+					   debTranLimitType = '--不限--';
+				   }else if(json.debTranLimitType == '01'){
+					   debTranLimitType = '按年限次';
+				   }else if(json.debTranLimitType == '02'){
+					   debTranLimitType = '按月限次';
+				   }else if(json.debTranLimitType == '03'){
+					   debTranLimitType = '总计限次';
+				   }
+				   $("#c_debTranLimitType").html(debTranLimitType);
 				   $("#c_debAccyAmoLimit").html(json.debAccyAmoLimit);
-				   $("#c_debTransLimitType").html(json.debTransLimitType);
+				   var debTransLimitType;
+				   if(json.debTransLimitType == '00'){
+					   debTransLimitType = '--不限--';
+				   }else if(json.debTransLimitType == '01'){
+					   debTransLimitType = '按年限次';
+				   }else if(json.debTransLimitType == '02'){
+					   debTransLimitType = '按月限次';
+				   }else if(json.debTransLimitType == '03'){
+					   debTransLimitType = '总计限次';
+				   }
+				   $("#c_debTransLimitType").html(debTransLimitType);
 				   $("#c_debTransLimit").html(json.debTransLimit);
 				   $("#c_credAmoLimit").html(json.credAmoLimit);
-				   $("#c_credTranLimitType").html(json.credTranLimitType);
+				   var credTranLimitType;
+				   if(json.credTranLimitType == '00'){
+					   credTranLimitType = '--不限--';
+				   }else if(json.credTranLimitType == '01'){
+					   credTranLimitType = '按年限次';
+				   }else if(json.credTranLimitType == '02'){
+					   credTranLimitType = '按月限次';
+				   }else if(json.credTranLimitType == '03'){
+					   credTranLimitType = '总计限次';
+				   }
+				   $("#c_credTranLimitType").html(credTranLimitType);
 				   $("#c_credAccuAmoLimit").html(json.credAccuAmoLimit);
-				   $("#c_credTransLimitType").html(json.credTransLimitType);
+				   var credTransLimitType;
+				   if(json.credTransLimitType == '00'){
+					   credTransLimitType = '--不限--';
+				   }else if(json.credTransLimitType == '01'){
+					   credTransLimitType = '按年限次';
+				   }else if(json.credTransLimitType == '02'){
+					   credTransLimitType = '按月限次';
+				   }else if(json.credTransLimitType == '03'){
+					   credTransLimitType = '总计限次';
+				   }
+				   $("#c_credTransLimitType").html(credTransLimitType);
 				   $("#c_credTransLimit").html(json.credTransLimit);
 				   $("#c_startDate").html(json.signDate);
 				   $("#c_endDate").html(json.expiryDate);

@@ -75,13 +75,13 @@ table tr td font.current-step {
 							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr>
-							<td align="center" width="20%">机构名称</td>
+							<td align="center" width="15%">机构名称</td>
 							<td width="30%"><input id="merName"
 								name="enterpriseName" missingMessage="请输入机构名称"
 								value="${member.enterpriseName}" required="true"
 								maxlength="30" style="width: 250px" class="easyui-validatebox"
 								validType="MerchLength[60]"/> <font color="red">*</font></td>
-							<td align="center">机构编号</td>
+							<td align="center" width="15%">机构编号</td>
 							<td>${member.enterpriseMemberId}</td>
 						</tr>
 						<tr>
@@ -237,23 +237,21 @@ table tr td font.current-step {
 							<td colspan="3"></td>
 						</tr>
 						<tr id="delegation">
-							<td align="center">人姓名</td>
+							<td align="center">委托人姓名</td>
 							<td><input class="easyui-validatebox" maxlength="16"
 								id="signatory" name="signatory"
 								value="${member.signatory}" /> <font color="red">*</font>
 							</td>
-							<td align="center">人身份证号</td>
+							<td align="center">委托人身份证号</td>
 							<td><input class="easyui-validatebox" validType="cardNo[18]"
-								id="signCertNo" maxlength="18"
-								name="signCertNo"
+								id="signCertNo" maxlength="18" name="signCertNo"
 								value="${member.signCertNo}" /> <font color="red">*</font>
 							</td>
 						</tr>
 						<tr>
 							<td align="center">客户经理</td>
 							<td><input class="easyui-validatebox" maxlength="16"
-								name="custMgr"
-								value="${member.custMgr}" /></td>
+								name="custMgr" value="${member.custMgr}" /></td>
 							<td align="center">客户经理部门</td>
 							<td><input name="custMgrDept"
 								maxlength="16" type="text"
@@ -561,7 +559,7 @@ table tr td font.current-step {
 				dataType: "json",
 				success: function(json) {
 					var mcclist = $('#mcclist_old').val();
-					var html = "<option value=''>--机构所属行业--</option>";
+					var html = "<option value=''>--请选择机构所属行业--</option>";
 					$.each(json,
 					function(key, value) {
 						if(value.MCCLIST==mcclist){

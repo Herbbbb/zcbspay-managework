@@ -113,7 +113,7 @@ table tr td font.current-step {
 							<td class="update" align="center" id="psamORpass">法人姓名<font color="red">*</font></td>
 							<td class="update" >${merchMap.CORPORATION}</td>
 							<td class="update" align="center">法人身份证号<font color="red">*</font></td>
-							<td class="update"> ${merchMap.CORP_NO}</td>
+							<td class="update" ${merchMap.CORP_NO}</td>
 						</tr>
 
 						<tr>

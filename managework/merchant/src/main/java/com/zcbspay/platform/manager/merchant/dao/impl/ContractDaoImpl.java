@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zcbspay.platform.manager.dao.impl.HibernateBaseDAOImpl;
 import com.zcbspay.platform.manager.merchant.bean.ContractBean;
@@ -86,7 +88,7 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 	@Override
 	public List<?> findByCode(String contractNum) {
 		String sql = "select po from PojoContract po where po.contractNum=?";
-		return queryByHQL(sql, new Object[]{contractNum});
+		return queryByHQL(sql, new Object[]{Long.parseLong(contractNum)});
 	}
 
 	/**
@@ -162,6 +164,7 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
 	public List<StringBuffer> importBatch(List<ContractBean> list) {
 		String[] columns = new String[]{"v_CONTRACTNUM", "v_MERCHNO",
                 "v_DEBTORNAME", "v_DEBTORACCOUNTNO", "v_DEBTORBRANCHCODE",

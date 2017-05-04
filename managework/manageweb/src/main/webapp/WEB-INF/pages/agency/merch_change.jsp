@@ -230,12 +230,12 @@ table tr td font.current-step {
 							<td colspan="3"></td>
 						</tr>
 						<tr id="delegation">
-							<td align="center">人姓名</td>
+							<td align="center">委托人姓名</td>
 							<td><input class="easyui-validatebox" maxlength="16"
 								id="signatory" name="signatory"
 								value="${member.signatory}" /> <font color="red">*</font>
 							</td>
-							<td align="center">人身份证号</td>
+							<td align="center">委托人身份证号</td>
 							<td><input class="easyui-validatebox" validType="cardNo[18]"
 								id="signCertNo" maxlength="18"
 								name="signCertNo"
@@ -581,7 +581,7 @@ table tr td font.current-step {
 				dataType: "json",
 				success: function(json) {
 					var mcclist = $('#mcclist_old').val();
-					var html = "<option value=''>--机构所属行业--</option>";
+					var html = "<option value=''>--请选择机构所属行业--</option>";
 					$.each(json,
 					function(key, value) {
 						if(value.MCCLIST==mcclist){
