@@ -72,6 +72,12 @@ public interface ContractService {
 	 * @param list
 	 * @return
 	 */
-	List<StringBuffer> importBatch(List<ContractBean> list);
+	List<StringBuffer> importBatch(List<ContractBean> list,String batchNo,String merchNo);
+	/**
+	 * 合同批量上传
+	 * @param list
+	 * @return
+	 */
+	List<StringBuffer> saveContractList(List<ContractBean> list);
 	
 }

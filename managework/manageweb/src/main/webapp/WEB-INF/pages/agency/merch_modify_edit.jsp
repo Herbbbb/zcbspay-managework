@@ -86,11 +86,11 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td align="center">收费单位代码</td>
-							<td><input name="chargingunit" maxlength="256" type="text" missingMessage="请输入收费单位代码" 
+							<td><input name="chargingunit" maxlength="10" type="text" missingMessage="请输入收费单位代码" 
 							required="true" class="easyui-validatebox" value="${merchDeta.chargingunit}"/>
 							<font color="red">*</font></td>
 							<td align="center">机构代码</td>
-							<td><input class="easyui-validatebox" maxlength="30" id="instCode" missingMessage="请输入机构代码"
+							<td><input class="easyui-validatebox" maxlength="10" id="instCode" missingMessage="请输入机构代码"
 								 required="true" name="instCode" value="${merchDeta.instCode}"/> <font color="red">*</font></td>
 						</tr>
 						<tr>
@@ -321,8 +321,7 @@ table tr td font.current-step {
 				<a class="easyui-linkbutton" iconCls="icon-ok" id="button_id"
 					href="javascript:savemerchDeta()" onclick="">下一步</a>
 				<!--  <a class="easyui-linkbutton" iconCls="icon-cancel" href="javascript:resize()" onclick="init()">取消</a>-->
-				<a href="javascript:backToMerchIndex()" class="easyui-linkbutton"
-					iconCls="icon-back">返回</a>
+				<a href="javascript:backToMerchIndex()" class="easyui-linkbutton" iconCls="icon-back">返回</a>
 			</div>
 		</div>
 	</div>

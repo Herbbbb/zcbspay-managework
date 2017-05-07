@@ -1,5 +1,6 @@
 package com.zcbspay.platform.manager.merchant.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zcbspay.platform.manager.merchant.bean.ContractBean;
+import com.zcbspay.platform.manager.merchant.dao.ContractBarchDao;
 import com.zcbspay.platform.manager.merchant.dao.ContractDao;
 import com.zcbspay.platform.manager.merchant.pojo.PojoContract;
+import com.zcbspay.platform.manager.merchant.pojo.PojoContractBatch;
 import com.zcbspay.platform.manager.merchant.service.ContractService;
 
 @Service("contractService")
@@ -17,6 +20,8 @@ public class ContractServiceImpl implements ContractService {
 
 	@Autowired
 	private ContractDao contractDao;
+	@Autowired
+	private ContractBarchDao contractBarchDao;
 
 	@Override
 	public Map<String, Object> findAll(Map<String, Object> variables, int page, int rows) {
@@ -66,7 +71,36 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
-	public List<StringBuffer> importBatch(List<ContractBean> list) {
-			return contractDao.importBatch(list);
+	public List<StringBuffer> importBatch(List<ContractBean> list,String batchNo,String merchNo) {
+		List<StringBuffer> result = new ArrayList<StringBuffer>();
+		StringBuffer msg = new StringBuffer();
+		
+    	boolean resultSucc= contractBarchDao.queryContractBatch(batchNo,merchNo);
+    	PojoContractBatch batch = new PojoContractBatch();
+    	Long total = (long) list.size();
+    	batch.setTotalCount(total);
+    	batch.setBatchNo(batchNo);
+    	batch.setMerchNo(merchNo);
+    	
+    	if (resultSucc) {
+			msg.append("该批次号已存在或尚未被注销!");
+			result.add(msg);
+			return result;
+		}
+    	
+		 result=contractDao.importBatch_2(list);
+		 
+        if (result.size() == 0) {
+        	boolean isSucc = contractBarchDao.saveBatch(batch);
+        	if (!isSucc) {
+        		msg.append("批次添加失败！");
+				result.add(msg);
+			}
+		}
+		return result;
+	}
+	@Override
+	public List<StringBuffer> saveContractList(List<ContractBean> list) {
+		return contractDao.saveContractList(list);
 	}
 }

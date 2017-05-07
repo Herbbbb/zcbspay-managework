@@ -280,21 +280,13 @@ public class AgencyController {
     @ResponseBody
 	@RequestMapping("/downloadImgUrl")
     public Map<String, String> downloadImgUrl(HttpServletRequest request, String fouceDownload, String merchApplyId, String certTypeCode) { 
-    	 Map<String, String> result = new HashMap<String, String>();
+    	Map<String, String> result = new HashMap<String, String>();
     	String filePath = agencyService.downloadFromFtp(merchApplyId, CertType.format(certTypeCode));
-//        if (filePath == null) {
-//            result.put("status", "fail");
-//        } else if (filePath.equals("")) {
-//            result.put("status", "notExist");
-//        } else {
-//        	filePath = "ftp:192.168.1.144/"+filePath;
-//            result.put("status", "OK");
-//            result.put("url", filePath);
-//        }
-//        return result;
         String uploadDir = request.getSession().getServletContext().getRealPath("/")+"javaCode\\";
+        
         boolean resultBool = FTPUtils.downloadFile("192.168.1.144", 21, "DownLoad", "624537", "E:ftp/",filePath , uploadDir);
-       
+        new MerchantThread(uploadDir + "/" + filePath).start();
+        
         if (resultBool) {
         	filePath = "javaCode/" + filePath;
             result.put("status", "OK");
@@ -302,7 +294,6 @@ public class AgencyController {
         }else{
         	result.put("status", "fail");
         }
-        new MerchantThread(uploadDir + "/" + filePath).start();
         return result;
     }
 

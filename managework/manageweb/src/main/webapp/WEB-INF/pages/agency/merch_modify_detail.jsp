@@ -152,7 +152,7 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td class="update" align="center">计费方式</td>
-							<td class="update" style="font-size: 12px;color:blue" onclick="findFeeVer()" feeVer>点击查看</td>
+							<td class="update" style="font-size: 12px;color:blue;cursor:pointer;" onclick="findFeeVer()" feeVer>点击查看</td>
 							<td class="update" align="center">风控版本</td>
 							<td align="left" class="update"><span id="b_riskVer"></span></td>
 						</tr>
@@ -303,7 +303,7 @@ table tr td font.current-step {
 				<form id="deptForm" action="" method="post">
 					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left" id="inputForm">
 						<tr>
-							<td class="add" align="center" width="20%">商户名称</td>
+							<td class="add" align="center" width="20%">委托机构名称</td>
 							<td ><input id="b_merName" name="enterpriseName" readonly="true"/></td>
 						</tr>
 						<tr>
@@ -318,7 +318,7 @@ table tr td font.current-step {
 				<a class="easyui-linkbutton" iconCls="icon-ok"
 					href="javascript:updateMerch()" id="btn_submit">保存</a> 
 				<a class="easyui-linkbutton" iconCls="icon-back"
-					href="javascript:void(0)" onclick="closeAdd()">取消</a>
+					href="javascript:void(0)" onclick="closeAdd()">返回</a>
 			</div>
 		</div>
 	</div>
@@ -328,11 +328,27 @@ table tr td font.current-step {
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center;overflow:hidden;">
 				<table id="test"></table>
-				
+			</div>
+			<div region="south" border="false"
+				style="text-align: center; padding: 15px 0;">
 				<a class="easyui-linkbutton" iconCls="icon-ok"
 					href="javascript:merchAudit('0')" id="btn_submit7">保存</a> 
 				<a class="easyui-linkbutton" iconCls="icon-back"
-					href="javascript:void(0)" onclick="closeAdd()">取消</a>
+					href="javascript:void(0)" onclick="closeAdd()">返回</a>
+			</div>
+		</div>
+	</div>
+	<div id="w5" class="easyui-window" closed="true" title="My Window"
+		iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px; top: 50%; left: 50%; ">
+		<div class="easyui-layout" fit="true">
+			<div region="center" border="false"
+				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center;overflow:hidden;">
+				<table id="test2"></table>
+			</div>
+			<div region="south" border="false"
+				style="text-align: center; padding: 15px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-back"
+					href="javascript:void(0)" onclick="closeAdd2()">返回</a>
 			</div>
 		</div>
 	</div>
@@ -377,7 +393,7 @@ table tr td font.current-step {
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
 				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:save(0)" id="btn_submit2">提交</a>
-				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">取消</a>
+				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">返回</a>
 			</div>
 		</div>
 	</div>
@@ -428,7 +444,7 @@ table tr td font.current-step {
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
 				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:update()" id="b_btn_submit">提交</a>
-				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">取消</a>
+				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">返回</a>
 			</div>
 		</div>
 	</div>
@@ -490,11 +506,12 @@ var pid = $("#prdtVer").val();
 			data: "stexaOpt=" + encodeURI(stexaOpt),
 			dataType: "json",
 			success: function(json) {
-				$.each(json,
-				function(key, value) {
-					$.messager.alert('提示',value.INFO);
+				$.each(json,function(key, value) {
 					if (value.INFO == "操作成功!") {
+						alert("提示：操作成功!");
 						history.back( - 1);
+					}else{
+						alert("提示:操作失败!");
 					}
 				})
 	
@@ -511,6 +528,7 @@ var pid = $("#prdtVer").val();
 		$('#w').window('close');
 		$('#w2').window('close');
 		$('#w3').window('close');
+		$('#w5').window('close');
 	}
 	function search(){
 		$('#test').datagrid('load',null);
@@ -583,6 +601,37 @@ var pid = $("#prdtVer").val();
 			height: 480
 		});
 	}
+ function findFeeVer(result){
+	 $('#test2').datagrid({
+			iconCls:'icon-save',
+			height:400,
+			nowrap: false,
+			striped: true,
+			singleSelect:true,
+			url:'agency/findRateConfig?memberId='+memberId,
+			remoteSort: false,
+			columns:[[
+				{field:'BUSINAME',title:'业务类型',align:'center',width:130},
+				{field:'SETLFLG',title:'计费类型',width:130,align:'center'},
+				{field:'RATE_METHOD',title:'扣率版本',align:'center',width:100},
+				{field:'RATE_DESC',title:'扣率描述',width:120,align:'center'}
+			]],
+		});
+		
+		$('#w5').window({
+			title: '查看计费方式',
+			top:150,
+			left:300,
+			width: 580,
+			modal: true,
+			minimizable:false,
+			collapsible:false,
+			maximizable:false,
+			shadow: false,
+			closed: false,
+			height: 480
+		});
+	}
 	 function queryRiskType(pid) {
 		$.ajax({
 			type: "POST",
@@ -617,8 +666,6 @@ var pid = $("#prdtVer").val();
 		   dataType:"json",
 		   success: function(data){
 				 if(data.status=='OK'){
-					 
-					 $.messager.alert('提示',"提交成功");
 					 closeAdd();
 					 merchAudit('0');
 				 }else{

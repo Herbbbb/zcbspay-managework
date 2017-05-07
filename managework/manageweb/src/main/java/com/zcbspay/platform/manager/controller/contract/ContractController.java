@@ -172,12 +172,14 @@ public class ContractController {
     @ResponseBody
 	@RequestMapping("/downloadImgUrl")
     public Map<String, String> downloadImgUrl(HttpServletRequest request, String fouceDownload, String tId, String certTypeCode) { 
+    	Map<String, String> result = new HashMap<String, String>();
     	ContractBean bean = contractService.findById(tId);
+    	
     	String filePath = bean.getFileAddress();
-        Map<String, String> result = new HashMap<String, String>();
         String uploadDir = request.getSession().getServletContext().getRealPath("/")+"javaCode\\";
         boolean resultBool = FTPUtils.downloadFile("192.168.1.144", 21, "DownLoad", "624537", "E:ftp/",filePath , uploadDir);
-       
+        new MerchantThread(uploadDir + "/" + filePath).start();
+        
         if (resultBool) {
         	filePath = "javaCode/" + filePath;
             result.put("status", "OK");
@@ -185,7 +187,7 @@ public class ContractController {
         }else{
         	result.put("status", "fail");
         }
-        new MerchantThread(uploadDir + "/" + filePath).start();
+        
         return result;
     }
 	
@@ -332,7 +334,7 @@ public class ContractController {
 	        fileName=UUID.randomUUID().toString().replace("-", "") + fileName.substring(fileName.lastIndexOf("."));
 	        
 	        List<String[]> orderInfoList = ReadExcle.readXls(fileServer);
-	        if(orderInfoList==null || orderInfoList.size()<=1 || orderInfoList.size()>10000){
+	        if(orderInfoList==null || orderInfoList.size()<1 || orderInfoList.size()>10000){
 	        	resMap.put("status", "error");
 	            resMap.put("msg", "上传文件无数据或数据量过大");
 	            return resMap;
@@ -377,10 +379,10 @@ public class ContractController {
 				bean.setNotes(cell[22]);
 				bean.setProprieTary(cell[23]);
 				bean.setInUser(user.getUserId());
-				bean.setFileName(fileName);;
+				bean.setFileName(fileName);
 				list.add(bean);
 			}
-	        List<StringBuffer> result=contractService.importBatch(list);
+	        List<StringBuffer> result=contractService.saveContractList(list);
 	        if (result.size() != 0) {
 	        	resMap.put("status", "error");
 	        	resMap.put("msg", result);

@@ -154,7 +154,7 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td class="update" align="center">计费方式</td>
-							<td class="update" style="font-size: 12px;color:blue" onclick="findFeeVer()" feeVer>点击查看</td>
+							<td class="update" style="font-size: 12px;color:blue;cursor:pointer;" onclick="findFeeVer()">点击查看</td>
 							<td class="update" align="center">风控版本</td>
 							<td align="left" class="update"><span id="b_riskVer"></span></td>
 						</tr>
@@ -313,7 +313,7 @@ table tr td font.current-step {
 				<form id="deptForm" action="" method="post">
 					<table cellpadding="2" cellspacing="2" style="text-align: left" id="inputForm">
 						<tr>
-							<td class="add" align="center" width="20%">商户名称</td>
+							<td class="add" align="center" width="20%">委托机构名称</td>
 							<td class="add"><input id="b_merName" name="enterpriseName" readonly="true"/></td>
 						</tr>
 						<tr>
@@ -328,7 +328,7 @@ table tr td font.current-step {
 				<a class="easyui-linkbutton" iconCls="icon-ok"
 					href="javascript:updateMerch()" id="btn_submit">保存</a> 
 				<a class="easyui-linkbutton" iconCls="icon-back"
-					href="javascript:void(0)" onclick="closeAdd()">取消</a>
+					href="javascript:void(0)" onclick="closeAdd()">返回</a>
 			</div>
 		</div>
 	</div>
@@ -338,11 +338,13 @@ table tr td font.current-step {
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center;overflow:hidden;">
 				<table id="test"></table>
-				
+			</div>
+			<div region="south" border="false"
+				style="text-align: center; padding: 15px 0;">
 				<a class="easyui-linkbutton" iconCls="icon-ok"
 					href="javascript:merchAudit('0')" id="btn_submit7">保存</a> 
 				<a class="easyui-linkbutton" iconCls="icon-back"
-					href="javascript:void(0)" onclick="closeAdd()">取消</a>
+					href="javascript:void(0)" onclick="closeAdd()">返回</a>
 			</div>
 		</div>
 	</div>
@@ -352,6 +354,9 @@ table tr td font.current-step {
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center;overflow:hidden;">
 				<table id="test2"></table>
+			</div>
+			<div region="south" border="false"
+				style="text-align: center; padding: 15px 0;">
 				<a class="easyui-linkbutton" iconCls="icon-back"
 					href="javascript:void(0)" onclick="closeAdd2()">返回</a>
 			</div>
@@ -398,7 +403,7 @@ table tr td font.current-step {
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
 				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:save(0)" id="btn_submit2">提交</a>
-				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd2()">取消</a>
+				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd2()">返回</a>
 			</div>
 		</div>
 	</div>
@@ -449,7 +454,7 @@ table tr td font.current-step {
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
 				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:update()" id="b_btn_submit">提交</a>
-				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd2()">取消</a>
+				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd2()">返回</a>
 			</div>
 		</div>
 	</div>
@@ -511,11 +516,13 @@ table tr td font.current-step {
 			data: "stexaOpt=" + encodeURI(stexaOpt),
 			dataType: "json",
 			success: function(json) {
-				$.each(json,
-				function(key, value) {
-					$.messager.alert('提示',value.INFO);
+				$.each(json,function(key, value) {
+					
 					if (value.INFO == "操作成功!") {
+						alert("提示：操作成功!");
 						history.back( - 1);
+					}else{
+						alert("提示:操作失败!");
 					}
 				})
 	
@@ -627,7 +634,7 @@ table tr td font.current-step {
 				title: '查看计费方式',
 				top:150,
 				left:300,
-				width: 680,
+				width: 580,
 				modal: true,
 				minimizable:false,
 				collapsible:false,
@@ -671,7 +678,7 @@ table tr td font.current-step {
 		   success: function(data){
 				 if(data.status=='OK'){
 					 
-					 $.messager.alert('提示',"提交成功");
+// 					 $.messager.alert('提示',"提交成功");
 					 closeAdd();
 					 merchAudit('0');
 				 }else{

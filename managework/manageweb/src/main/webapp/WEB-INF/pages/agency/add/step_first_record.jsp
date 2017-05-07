@@ -71,7 +71,7 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td align="center">机构代码</td>
-							<td><input class="easyui-validatebox" maxlength="30" missingMessage="请输入机构代码"
+							<td><input class="easyui-validatebox" maxlength="10" missingMessage="请输入机构代码"
 								 required="true" name="instCode" /> <font color="red">*</font></td>
 						</tr>
 						<tr>

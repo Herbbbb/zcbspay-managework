@@ -87,6 +87,8 @@ public class ContractBean implements java.io.Serializable {
 	private String proprieTary;
 	/** 业务类型代码  **/
 	private String categoryPurpose;
+	/** 批次号，接口导入时有批次号  **/
+	private String batchNo;
 	
 	public Long gettId() {
 		return tId;
@@ -335,4 +337,11 @@ public class ContractBean implements java.io.Serializable {
 	public void setCategoryPurpose(String categoryPurpose) {
 		this.categoryPurpose = categoryPurpose;
 	}
+	public String getBatchNo() {
+		return batchNo;
+	}
+	public void setBatchNo(String batchNo) {
+		this.batchNo = batchNo;
+	}
+	
 }

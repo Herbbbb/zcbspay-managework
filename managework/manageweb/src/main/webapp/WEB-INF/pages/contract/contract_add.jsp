@@ -267,7 +267,7 @@ table tr td select {
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
 				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveUser()" id="btn_submit" onclick="">提交</a>
-				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">取消</a>
+				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">返回</a>
 			</div>
 		</div>
 	</div>
@@ -508,7 +508,7 @@ table tr td select {
 						<td class="add" align="center"  style="font-size: 15px;">合同文件</td>
 						<td class="add" align="left">
 							<input style="height: 25px;" class="easyui-validatebox" name="orderCSV" type="file"/>
-							<div id="fileAddress_span"></div> 
+<!-- 							<div id="fileAddress_span"></div>  -->
 						</td>
 					</tr>
 					<tr style="height: 30px">
@@ -522,6 +522,23 @@ table tr td select {
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
 			<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveFile()" id="d_btn_submit">提交</a>
 				<a class="easyui-linkbutton" iconCls="icon-back" onclick="closeAdd()">返回</a>
+			</div>
+		</div>
+	</div>
+	<div id="w5" class="easyui-window" closed="true" title="My Window"
+		iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px; top: 50%; left: 50%; ">
+		<div class="easyui-layout" fit="true">
+			<div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center;overflow:hidden;">
+				<form id="d_saveForm" action="" method="post">
+					<table width="90%" cellpadding="2" cellspacing="2">
+						<tr style="height: 30px">
+							<td align="left" class="update"><span id="error_message"></span></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div region="south" border="false" style="text-align: center; padding: 15px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">返回</a>
 			</div>
 		</div>
 	</div>
@@ -542,8 +559,8 @@ table tr td select {
 				columns:[[
 					{field:'MERCHNO',title:'委托机构号',align:'center',width:130},
 					{field:'CONTRACTNUM',title:'合同编号',width:130,align:'center'},
-					{field:'DEBTORNAME',title:'付款人',align:'center',width:100},
-					{field:'CREDITORNAME',title:'收款人',width:120,align:'center'},
+					{field:'DEBTORNAME',title:'付款人名称',align:'center',width:100},
+					{field:'CREDITORNAME',title:'收款人名称',width:120,align:'center'},
 					{field:'CONTRACTTYPE',title:'合同类型',width:100,align:'center',
 						formatter:function(value,rec){
 							if(value=="CT00"){
@@ -628,7 +645,8 @@ table tr td select {
 			$('#org_province').html('');
 			$('#w4').window({
 				title: '合同批量上传',
-				top:100,
+				top:150,
+				left:300,
 				width: 600,
 				modal: true,
 				minimizable:false,
@@ -636,7 +654,7 @@ table tr td select {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 380
+				height: 180
 			});
 			$('#d_btn_submit').linkbutton('enable');	
 		}
@@ -645,6 +663,7 @@ table tr td select {
 			$('#w2').window('close');
 			$('#w3').window('close');
 			$('#w4').window('close');
+			$('#w5').window('close');
 			
 		}		
 		function search(){
@@ -1028,11 +1047,13 @@ table tr td select {
 			   success: function(json){	
 				   console.log("json:"+JSON.stringify(json));
 				   		if(json.status == "error"){
+				   			showError();
 				   			var html ="<div>--批量上传错误信息--</div>";
 				   		   for (var i = 0; i < json.msg.length; i++) {
 							   html += '<div>'+json.msg[i]+'</div>';
 				   		   }
-				   		 $("#org_province").html(html);
+				   		 $("#error_message").html(html);
+						
 					   }else{
 						   $.messager.alert('提示', '导入成功！');
 					   }
@@ -1041,6 +1062,19 @@ table tr td select {
 			  
 			});
 		}
-		
+		function showError(){	
+			$('#w5').window({
+				title: '批量上传错误信息',
+				top:100,
+				width: 700,
+				collapsible:false,
+				minimizable:false,
+				maximizable:false,
+				modal: true,
+				shadow: false,
+				closed: false,
+				height: 340
+			});
+		}
 	</script>
 </html>

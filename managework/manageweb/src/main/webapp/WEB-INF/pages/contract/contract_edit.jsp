@@ -224,8 +224,8 @@ table tr td select {
 				columns:[[
 					{field:'MERCHNO',title:'委托机构号',align:'center',width:130},
 					{field:'CONTRACTNUM',title:'合同编号',width:130,align:'center'},
-					{field:'DEBTORNAME',title:'付款人',align:'center',width:100},
-					{field:'CREDITORNAME',title:'收款人',width:120,align:'center'},
+					{field:'DEBTORNAME',title:'付款人名称',align:'center',width:100},
+					{field:'CREDITORNAME',title:'收款人名称',width:120,align:'center'},
 					{field:'CONTRACTTYPE',title:'合同类型',width:100,align:'center',
 						formatter:function(value,rec){
 							if(value=="CT00"){
