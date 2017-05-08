@@ -255,11 +255,11 @@ table tr td select {
 							<td class="add">收费代码</td>
 							<td class="add" align="left">
 							<input type="text" id="chargeNo" name="chargeNo" class="easyui-validatebox" required="true"
-								maxlength="10" missingMessage="请输入收费代码"/></td>
+								maxlength="20" missingMessage="请输入收费代码"/></td>
 							<td class="add">收费协议号</td>
 							<td class="add" align="left">
 							<input type="text" id="chargeConntract" name="chargeConntract" class="easyui-validatebox" required="true"
-								maxlength="10" missingMessage="请输入收费协议号"/></td>
+								maxlength="12" missingMessage="请输入收费协议号"/></td>
 						</tr>
 						<tr style="height: 30px">
 							<td class="add" align="center">合同附件</td>
@@ -269,7 +269,7 @@ table tr td select {
 							<td id="delegation2" class="add">付费协议号</td>
 							<td id="delegation3" class="add" align="left">
 							<input type="text" id="payContract" name="payContract" class="easyui-validatebox" required="true"
-								maxlength="10" missingMessage="请输入付费协议号"/></td>
+								maxlength="12" missingMessage="请输入付费协议号"/></td>
 						</tr>
 						<tr style="height: 30px">
 							<td class="add">备注</td>
