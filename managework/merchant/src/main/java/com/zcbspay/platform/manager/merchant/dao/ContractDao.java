@@ -77,7 +77,7 @@ public interface ContractDao extends BaseDAO<PojoContract> {
 	 * @param list
 	 * @return
 	 */
-	List<StringBuffer> importBatch_2(List<ContractBean> list);
+	Map<String, Object> importBatch_2(List<ContractBean> list,String batch);
 	
 	/**
 	 * 查询机构类型

@@ -15,11 +15,6 @@ import javax.persistence.Table;
 @Table(name = "T_DEPT")
 public class PojoDept implements java.io.Serializable {
 
-	// Fields
-
-	/**
-	 * serialVersionUID
-	 */
 	private static final long serialVersionUID = -4501697449117436974L;
 	private Long deptId;
 	private String deptCode;
@@ -31,13 +26,8 @@ public class PojoDept implements java.io.Serializable {
 	private String notes;
 	private String remarks;
 
-	// Constructors
-
-	/** default constructor */
 	public PojoDept() {
 	}
-
-	/** full constructor */
 	public PojoDept(String deptCode, String deptName, Long organId,
 			String creator, Timestamp crateTime, String status, String notes,
 			String remarks) {
@@ -51,7 +41,6 @@ public class PojoDept implements java.io.Serializable {
 		this.remarks = remarks;
 	}
 
-	// Property accessors
 	@Id
 	@GeneratedValue
 	@Column(name = "DEPT_ID", unique = true, nullable = false, precision = 10, scale = 0)

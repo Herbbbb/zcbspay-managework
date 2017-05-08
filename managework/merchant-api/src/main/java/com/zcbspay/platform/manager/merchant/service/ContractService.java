@@ -1,5 +1,6 @@
 package com.zcbspay.platform.manager.merchant.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -72,7 +73,7 @@ public interface ContractService {
 	 * @param list
 	 * @return
 	 */
-	List<StringBuffer> importBatch(List<ContractBean> list,String batchNo,String merchNo);
+	Map<String, Object> importBatch(List<ContractBean> list,String batchNo,String merchNo);
 	/**
 	 * 合同批量上传
 	 * @param list

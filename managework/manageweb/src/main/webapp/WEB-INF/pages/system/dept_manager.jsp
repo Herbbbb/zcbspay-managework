@@ -40,57 +40,40 @@ table tr td select {
 		</div>
 
 	</div>
-	<div id="w" class="easyui-window" closed="true" title="My Window"
-		iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px;">
+	<div id="w" class="easyui-window" closed="true" title="My Window" iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px;">
 		<div class="easyui-layout" fit="true">
-			<div region="center" border="false"
-				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
-<!-- 				<form id="deptForm" action="pages/system/saveDeptAction.action" method="post"> -->
+			<div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
 				<form id="deptForm" action="dept/save" method="post">
-					<input type="hidden" id="dept_id" name="deptId" /> <input
-						type="hidden" id="dept_status" name="status" />
-					<table width="100%" cellpadding="2" cellspacing="2"
-						style="text-align: left" id="inputForm">
+					<input type="hidden" id="dept_id" name="deptId" /> 
+					<input type="hidden" id="dept_status" name="status" />
+					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left" id="inputForm">
 						<tr>
 							<td width="15%">部门代码</td>
-							<td width="30%"><input id="dept_code" name="deptCode"
-								required="true" type="text" maxlength="4"
-								class="easyui-validatebox" validType="minLength[4,4]" /> <font
-								color="red">*</font></td>
+							<td width="30%"><input id="dept_code" name="deptCode" required="true" type="text" maxlength="4"
+								class="easyui-validatebox" validType="minLength[4,4]" /><font color="red">*</font></td>
 							<td width="15%">部门名称</td>
-							<td><input id="dept_name" name="deptName"
-								required="true" missingMessage="请输入部门名称" type="text"
-								class="easyui-validatebox" maxlength="20"
-								onkeyup="value=value.replace(/^[\s]*$/g,'')" /> <font
-								color="red">*</font></td>
+							<td><input id="dept_name" name="deptName" required="true" missingMessage="请输入部门名称" type="text"
+								class="easyui-validatebox" maxlength="20" onkeyup="value=value.replace(/^[\s]*$/g,'')" /><font color="red">*</font></td>
 						</tr>
 						<tr>
 							<td>所属机构</td>
-							<td><select id="dept_organId" class="easyui-validatebox"
-								missingMessage="请选择所属机构" required="true" name="organId"
-								class="easyui-validatebox">
-									<option value="">--请选择所属机构--</option>
+							<td><select id="dept_organId" class="easyui-validatebox" missingMessage="请选择所属机构" required="true" name="organId"
+								class="easyui-validatebox"><option value="">--请选择所属机构--</option>
 							</select></td>
 							<td></td>
 							<td></td>
 						</tr>
-
 						<tr>
-
 							<td>备注</td>
-							<td colspan="3"><textarea rows="3" cols="60" id="dept_notes"
-									maxlength="64" name="notes" style="resize: none;"
-									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
+							<td colspan="3"><textarea rows="3" cols="60" id="dept_notes" maxlength="64" name="notes" 
+								style="resize: none;" onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
 						</tr>
 					</table>
 				</form>
 			</div>
-			<div region="south" border="false"
-				style="text-align: center; padding: 5px 0;">
-				<a class="easyui-linkbutton" iconCls="icon-ok"
-					href="javascript:saveDept()" id="btn_submit" onclick="">保存</a> <a
-					class="easyui-linkbutton" iconCls="icon-cancel"
-					href="javascript:void(0)" onclick="closeAdd()">取消</a>
+			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveDept()" id="btn_submit" onclick="">保存</a>
+				<a class="easyui-linkbutton" iconCls="icon-cancel" href="javascript:void(0)" onclick="closeAdd()">取消</a>
 			</div>
 		</div>
 	</div>
@@ -109,7 +92,6 @@ table tr td select {
 				nowrap: false,
 				striped: true,
 				url:'dept/query',
-// 				url:'pages/system/queryDeptAction.action',
 				remoteSort: false,
 				idField:'ORGAN_ID',
 				columns:[
@@ -184,7 +166,6 @@ table tr td select {
 				height: 220
 			});
 			$("#deptForm").attr("action","dept/save");
-// 			$("#deptForm").attr("action","pages/system/saveDeptAction.action");
 			$('#btn_submit').linkbutton('enable');		
 		}
 		function closeAdd(){
@@ -219,7 +200,6 @@ table tr td select {
 				    	}
 			    		$('#btn_submit').linkbutton('enable');		
 					}) 
-			        
 			    }   
 			});  
 			
@@ -228,7 +208,6 @@ table tr td select {
 			$.ajax({
 			   type: "POST",
 			   url: "dept/showOrgan",
-// 			   url: "pages/system/showOrganDeptAction.action",
 			   dataType:"json",
 			   success: function(json){
 			   		var html ="<option value=''>--请选择所属机构--</option>";
@@ -247,7 +226,6 @@ table tr td select {
 				$.ajax({
 				   type: "POST",
 				   url: "dept/delete",
-// 				   url: "pages/system/deleteDeptAction.action",
 				   data: "deptId="+deptId,
 				   dataType:"json",
 				   success:function(json){
@@ -269,7 +247,6 @@ table tr td select {
 			$.ajax({
 			   type: "POST",
 			   url: "dept/getSingleById",
-// 			   url: "pages/system/getSingleByIdDeptAction.action",
 			   data: "deptId="+deptId,
 			   dataType:"json",
 			   success: function(json){
@@ -298,7 +275,6 @@ table tr td select {
 				height: 220
 			});
 			$("#deptForm").attr("action","dept/update");
-// 			$("#deptForm").attr("action","pages/system/updateDeptAction.action");
 			$('#btn_submit').linkbutton('enable');		
 		}
 		//注销部门 
@@ -308,7 +284,6 @@ table tr td select {
 			$.ajax({
 				   type: "POST",
 				   url: "dept/getSingleById",
-// 				   url: "pages/system/getSingleByIdDeptAction.action",
 				   data: "deptId="+deptId,
 				   dataType:"json",
 				   success: function(json){

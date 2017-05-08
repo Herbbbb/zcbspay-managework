@@ -72,8 +72,10 @@ table tr td font.current-step {
 						<tr>
 							<td class="update" align="center">收费单位代码<font color="red">*</font></td>
 							<td class="update" >${merchMap.CHARGINGUNIT}</td>
-							<td class="update" align="center">机构代码<font color="red">*</font></td>
-							<td class="update" >${merchMap.INSTCODE}</td>
+							<td class="update" align="center"></td>
+							<td class="update"></td>
+<!-- 							<td class="update" align="center">机构代码<font color="red">*</font></td> -->
+<%-- 							<td class="update" >${merchMap.INSTCODE}</td> --%>
 						</tr>
 						<tr>
 							<td class="update" align="center">机构所在地<font color="red">*</font></td>

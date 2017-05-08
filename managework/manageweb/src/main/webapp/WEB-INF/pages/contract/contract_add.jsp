@@ -117,11 +117,11 @@ table tr td select {
 							<td class="add">业务类型</td>
 							<td class="add" align="left">
 							<input type="text" id="categoryPurpose" name="categoryPurpose" class="easyui-validatebox" required="true"
-								maxlength="10" missingMessage="请输入业务类型" validType="debName"/></td>
+								maxlength="10" missingMessage="请输入业务类型"/></td>
 							<td class="add">业务种类</td>
 							<td class="add" align="left">
 							<input type="text" id="proprieTary" name="proprieTary" class="easyui-validatebox" required="true"
-								maxlength="10" missingMessage="请输入业务种类" validType="debName"/></td>
+								maxlength="10" missingMessage="请输入业务种类"/></td>
 						</tr>
 						<tr style="height: 30px">
 							<td class="add">合同类型</td>

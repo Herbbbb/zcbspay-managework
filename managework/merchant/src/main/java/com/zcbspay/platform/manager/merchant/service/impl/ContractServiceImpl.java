@@ -1,6 +1,7 @@
 package com.zcbspay.platform.manager.merchant.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,9 +72,8 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
-	public List<StringBuffer> importBatch(List<ContractBean> list,String batchNo,String merchNo) {
-		List<StringBuffer> result = new ArrayList<StringBuffer>();
-		StringBuffer msg = new StringBuffer();
+	public Map<String, Object> importBatch(List<ContractBean> list,String batchNo,String merchNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		
     	boolean resultSucc= contractBarchDao.queryContractBatch(batchNo,merchNo);
     	PojoContractBatch batch = new PojoContractBatch();
@@ -83,21 +83,23 @@ public class ContractServiceImpl implements ContractService {
     	batch.setMerchNo(merchNo);
     	
     	if (resultSucc) {
-			msg.append("该批次号已存在或尚未被注销!");
-			result.add(msg);
-			return result;
+			map.put("ret", "error");
+			map.put("INFO", "该批次号已存在或尚未被注销!");
 		}
     	
-		 result=contractDao.importBatch_2(list);
+    	Map<String, Object> result = contractDao.importBatch_2(list,batchNo);
 		 
-        if (result.size() == 0) {
+        if (!result.get("RET").equals("error")) {
         	boolean isSucc = contractBarchDao.saveBatch(batch);
         	if (!isSucc) {
-        		msg.append("批次添加失败！");
-				result.add(msg);
+        		map.put("ret", "error");
+    			map.put("INFO", "该批次号添加失败！");
+			}else{
+				map.put("ret", "succ");
+    			map.put("INFO", "添加成功");
 			}
 		}
-		return result;
+		return map;
 	}
 	@Override
 	public List<StringBuffer> saveContractList(List<ContractBean> list) {

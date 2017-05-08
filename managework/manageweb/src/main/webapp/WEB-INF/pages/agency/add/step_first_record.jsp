@@ -67,13 +67,12 @@ table tr td font.current-step {
 							<td><input name="chargingunit" maxlength="10" type="text"  
 							missingMessage="请输入收费单位代码" required="true" class="easyui-validatebox" />
 							<font color="red">*</font></td>
-<!-- 							<td colspan="2"></td> -->
 						</tr>
-						<tr>
-							<td align="center">机构代码</td>
-							<td><input class="easyui-validatebox" maxlength="10" missingMessage="请输入机构代码"
-								 required="true" name="instCode" /> <font color="red">*</font></td>
-						</tr>
+<!-- 						<tr> -->
+<!-- 							<td align="center">机构代码</td> -->
+<!-- 							<td><input class="easyui-validatebox" maxlength="10" missingMessage="请输入机构代码" -->
+<!-- 								 required="true" name="instCode" /> <font color="red">*</font></td> -->
+<!-- 						</tr> -->
 						<tr>
 							<td align="center">机构所在地</td>
 							<td colspan="3">
