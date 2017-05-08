@@ -47,8 +47,8 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
                 "v_DEBTORACCUAMOUNTLIMIT", "v_DEBTORTRANSNUMLIMITTYPE","v_DEBTORTRANSLIMIT",
                 "v_CREDITORAMOUNTLIMIT", "v_CREDITORTRANSAMTLIMITTYPE", "v_CREDITORACCUAMOUNTLIMIT",
                 "v_CREDITORTRANSNUMLIMITTYPE", "v_CREDITORTRANSLIMIT", "v_SIGNDATE", "v_EXPIRYDATE",
-                "v_INUSER", "v_FILEADDRESS", "v_NOTES", "v_REMARKS",
-                "v_filename", "v_PROPRIETARY","v_CATEGORYPURPOSE"};
+                "v_INUSER", "v_FILEADDRESS", "v_NOTES", "v_REMARKS","v_filename", "v_PROPRIETARY",
+                "v_CATEGORYPURPOSE", "v_CHARGENO", "v_CHARGECONTRACT", "v_PAYCONTRACT"};
         Object[] paramaters = null;
 			paramaters = new Object[]{
 			        "".equals(pojo.getContractNum()) ? null : pojo.getContractNum(),
@@ -78,8 +78,11 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
     				"".equals(pojo.getRemarks()) ? null : pojo.getRemarks(),
 					"".equals(pojo.getFileName()) ? null : pojo.getFileName(),
 					"".equals(pojo.getProprieTary()) ? null : pojo.getProprieTary(),
-					"".equals(pojo.getCategoryPurpose()) ? null : pojo.getCategoryPurpose()};
-		return executeOracleProcedure("{CALL PCK_T_CONTRACT.ins_t_contract(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", columns,
+					"".equals(pojo.getCategoryPurpose()) ? null : pojo.getCategoryPurpose(),
+					"".equals(pojo.getChargeNo()) ? null : pojo.getChargeNo(),
+					"".equals(pojo.getChargeConntract()) ? null : pojo.getChargeConntract(),
+					"".equals(pojo.getPayContract()) ? null : pojo.getPayContract()};
+		return executeOracleProcedure("{CALL PCK_T_CONTRACT.ins_t_contract(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", columns,
 				paramaters, "cursor0").get(0);
 	}
 
@@ -176,8 +179,8 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
                 "v_DEBTORACCUAMOUNTLIMIT", "v_DEBTORTRANSNUMLIMITTYPE","v_DEBTORTRANSLIMIT",
                 "v_CREDITORAMOUNTLIMIT", "v_CREDITORTRANSAMTLIMITTYPE", "v_CREDITORACCUAMOUNTLIMIT",
                 "v_CREDITORTRANSNUMLIMITTYPE", "v_CREDITORTRANSLIMIT", "v_SIGNDATE", "v_EXPIRYDATE",
-                "v_INUSER", "v_FILEADDRESS", "v_NOTES", "v_REMARKS",
-                "v_filename", "v_PROPRIETARY","v_CATEGORYPURPOSE"};
+                "v_INUSER", "v_FILEADDRESS", "v_NOTES", "v_REMARKS","v_filename", "v_PROPRIETARY",
+                "v_CATEGORYPURPOSE", "v_CHARGENO", "v_CHARGECONTRACT", "v_PAYCONTRACT"};
 		List<StringBuffer> result = new ArrayList<StringBuffer>();
 		for (ContractBean pojo : list) {
 			
@@ -209,8 +212,11 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 	 			        "".equals(pojo.getRemarks()) ? null : pojo.getRemarks(),
 						"".equals(pojo.getFileName()) ? null : pojo.getFileName(),
 						"".equals(pojo.getProprieTary()) ? null : pojo.getProprieTary(),
-						"".equals(pojo.getCategoryPurpose()) ? null : pojo.getCategoryPurpose()};
-			Object total = executeOracleProcedure("{CALL PCK_T_CONTRACT.ins_t_contract(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", columns,
+						"".equals(pojo.getCategoryPurpose()) ? null : pojo.getCategoryPurpose(),
+						"".equals(pojo.getChargeNo()) ? null : pojo.getChargeNo(),
+						"".equals(pojo.getChargeConntract()) ? null : pojo.getChargeConntract(),
+						"".equals(pojo.getPayContract()) ? null : pojo.getPayContract()};
+			Object total = executeOracleProcedure("{CALL PCK_T_CONTRACT.ins_t_contract(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", columns,
 					paramaters, "cursor0").get(0).get("INFO");
 			if (!total.equals("添加成功!")) {
 				StringBuffer msg = new StringBuffer();

@@ -99,6 +99,13 @@ public class PojoContract implements java.io.Serializable {
 	private String categoryPurpose;
 	/** 批次号，接口导入时有批次号  **/
 	private String batchNo;
+	/** 收费代码(电话费时就是电话号码) **/
+	private String chargeNo;
+	/** 收费协议号 **/
+	private String chargeConntract;
+	/** 付费协议号 **/
+	private String payContract;
+	
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="seq_t_contract_tid") 
@@ -439,6 +446,28 @@ public class PojoContract implements java.io.Serializable {
 	public void setBatchNo(String batchNo) {
 		this.batchNo = batchNo;
 	}
+	@Column(name = "CHARGENO")
+	public String getChargeNo() {
+		return chargeNo;
+	}
+	public void setChargeNo(String chargeNo) {
+		this.chargeNo = chargeNo;
+	}
+	@Column(name = "CHARGECONTRACT")
+	public String getChargeConntract() {
+		return chargeConntract;
+	}
+	public void setChargeConntract(String chargeConntract) {
+		this.chargeConntract = chargeConntract;
+	}
+	@Column(name = "PAYCONTRACT")
+	public String getPayContract() {
+		return payContract;
+	}
+	public void setPayContract(String payContract) {
+		this.payContract = payContract;
+	}
+	
 	
 	
 }

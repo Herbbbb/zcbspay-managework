@@ -89,6 +89,13 @@ public class ContractBean implements java.io.Serializable {
 	private String categoryPurpose;
 	/** 批次号，接口导入时有批次号  **/
 	private String batchNo;
+	/** 收费代码(电话费时就是电话号码) **/
+	private String chargeNo;
+	/** 收费协议号 **/
+	private String chargeConntract;
+	/** 付费协议号 **/
+	private String payContract;
+	
 	
 	public Long gettId() {
 		return tId;
@@ -343,5 +350,24 @@ public class ContractBean implements java.io.Serializable {
 	public void setBatchNo(String batchNo) {
 		this.batchNo = batchNo;
 	}
+	public String getChargeNo() {
+		return chargeNo;
+	}
+	public void setChargeNo(String chargeNo) {
+		this.chargeNo = chargeNo;
+	}
+	public String getChargeConntract() {
+		return chargeConntract;
+	}
+	public void setChargeConntract(String chargeConntract) {
+		this.chargeConntract = chargeConntract;
+	}
+	public String getPayContract() {
+		return payContract;
+	}
+	public void setPayContract(String payContract) {
+		this.payContract = payContract;
+	}
+	
 	
 }

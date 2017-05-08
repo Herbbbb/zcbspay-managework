@@ -2,8 +2,14 @@
 <jsp:include page="../../top.jsp"></jsp:include>
 <body>
 	<style type="text/css">
-table tr td {
-	height: 25px
+table tr td.update {
+	height: 25px;
+	padding-left: 10px;
+	border-width: 1px 1px 1px 1px;
+	border-style: groove;
+}
+table tr td.add {
+	height: 25px;
 }
 
 table tr td input {
@@ -21,13 +27,13 @@ table tr td select {
 			<form id="theForm" method="post">
 				<table width="100%">
 					<tr>
-						<td align="right" width="15%">部门代码</td>
-						<td align="left" style="padding-left: 5px" width="25%"><input
+						<td class="add" align="right" width="15%">部门代码</td>
+						<td class="add" align="left" style="padding-left: 5px" width="25%"><input
 							name="deptCode" id="deptCode" maxlength="4" /></td>
-						<td align="right" width="15%">部门名称</td>
-						<td align="left" style="padding-left: 5px" width="25%"><input
+						<td class="add" align="right" width="15%">部门名称</td>
+						<td class="add" align="left" style="padding-left: 5px" width="25%"><input
 							name="deptName" id="deptName" /></td>
-						<td align="right">
+						<td class="add" align="right">
 						<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a> 
 						<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a></td>
 					</tr>
@@ -48,24 +54,24 @@ table tr td select {
 					<input type="hidden" id="dept_status" name="status" />
 					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left" id="inputForm">
 						<tr>
-							<td width="15%">部门代码</td>
-							<td width="30%"><input id="dept_code" name="deptCode" required="true" type="text" maxlength="4"
+							<td class="add" width="15%">部门代码</td>
+							<td class="add" width="30%"><input id="dept_code" name="deptCode" required="true" type="text" maxlength="4"
 								class="easyui-validatebox" validType="minLength[4,4]" /><font color="red">*</font></td>
-							<td width="15%">部门名称</td>
-							<td><input id="dept_name" name="deptName" required="true" missingMessage="请输入部门名称" type="text"
+							<td class="add" width="15%">部门名称</td>
+							<td class="add"><input id="dept_name" name="deptName" required="true" missingMessage="请输入部门名称" type="text"
 								class="easyui-validatebox" maxlength="20" onkeyup="value=value.replace(/^[\s]*$/g,'')" /><font color="red">*</font></td>
 						</tr>
 						<tr>
-							<td>所属机构</td>
-							<td><select id="dept_organId" class="easyui-validatebox" missingMessage="请选择所属机构" required="true" name="organId"
+							<td class="add">所属机构</td>
+							<td class="add"><select id="dept_organId" class="easyui-validatebox" missingMessage="请选择所属机构" required="true" name="organId"
 								class="easyui-validatebox"><option value="">--请选择所属机构--</option>
 							</select></td>
-							<td></td>
-							<td></td>
+							<td class="add"></td>
+							<td class="add"></td>
 						</tr>
 						<tr>
-							<td>备注</td>
-							<td colspan="3"><textarea rows="3" cols="60" id="dept_notes" maxlength="64" name="notes" 
+							<td class="add">备注</td>
+							<td class="add" colspan="3"><textarea rows="3" cols="60" id="dept_notes" maxlength="64" name="notes" 
 								style="resize: none;" onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
 						</tr>
 					</table>
@@ -77,9 +83,39 @@ table tr td select {
 			</div>
 		</div>
 	</div>
-
+	<div id="w2" class="easyui-window" closed="true" title="My Window" iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px;">
+		<div class="easyui-layout" fit="true">
+			<div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
+				<form id="b_deptForm" action="" method="post">
+					<input type="hidden" id="b_dept_id" name="deptId" /> 
+					<input type="hidden" id="b_dept_status" name="status" />
+					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left">
+						<tr>
+							<td class="update" width="15%">部门代码</td>
+							<td class="update" cwidth="30%"><span id="b_dept_code"></span></td>
+							<td class="update" width="15%">部门名称</td>
+							<td class="update"><span id="b_dept_name"></span></td>
+						</tr>
+						<tr>
+							<td class="update">所属机构</td>
+							<td class="update"><span id="b_dept_organId"></span></td>
+							<td class="update"></td>
+							<td class="update"></td>
+						</tr>
+						<tr>
+							<td class="update">备注</td>
+							<td class="update" colspan="3"><span id="b_dept_notes"></span></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-ok" id="b_btn_submit" onclick="deletDept()">提交</a>
+				<a class="easyui-linkbutton" iconCls="icon-cancel" href="javascript:void(0)" onclick="closeAdd()">取消</a>
+			</div>
+		</div>
+	</div>
 </body>
-
 <script>
   	var width = $("#continer").width();
 		$(function(){
@@ -170,6 +206,7 @@ table tr td select {
 		}
 		function closeAdd(){
 			$('#w').window('close');
+			$('#w2').window('close');
 			
 		}		
 		function search(){
@@ -210,8 +247,12 @@ table tr td select {
 			   url: "dept/showOrgan",
 			   dataType:"json",
 			   success: function(json){
+				    var organId = $("#b_dept_organId").val();
 			   		var html ="<option value=''>--请选择所属机构--</option>";
 			   		$.each(json, function(key,value){
+			   			if(value.organId == organId){
+			   				$("#b_dept_organId").html(value.organName);
+			   			}
 			   			html += '<option value="'+value.organId+'">'+value.organName+'</option>';
 					})
 					$("#dept_organId").html(html);
@@ -220,9 +261,10 @@ table tr td select {
 		}
 
 		
-		function deleteDept(deptId){
-			$.messager.confirm('提示','您是否想要注销此部门?',function(r){   
-			   if (r){  
+		function deletDept(){
+			var deptId = $("#b_dept_id").val();
+// 			$.messager.confirm('提示','您是否想要注销此部门?',function(r){   
+// 			   if (r){  
 				$.ajax({
 				   type: "POST",
 				   url: "dept/delete",
@@ -238,8 +280,8 @@ table tr td select {
 				   
 				 	}
 				});
-				    }   
-				});  
+// 				    }   
+// 				});  
 		}
 		function showDept(deptId){	
 			
@@ -279,25 +321,27 @@ table tr td select {
 		}
 		//注销部门 
 		function deleteDept(deptId){
-			$("#deptForm").attr("action","dept/delete");
-			$("#dept_code").attr('class','easyui-validatebox');
+			$("#b_deptForm").attr("action","dept/delete");
+			$("#b_dept_code").attr('class','easyui-validatebox');
 			$.ajax({
 				   type: "POST",
 				   url: "dept/getSingleById",
 				   data: "deptId="+deptId,
 				   dataType:"json",
 				   success: function(json){
-					$("#dept_code").val(json.deptCode);
-					$('#dept_code').attr('disabled','disabled');
-					$("#dept_name").val(json.deptName);		
-					$("#dept_organId").val(json.organId);					
-					$("#dept_notes").val(json.notes);
-					$("#dept_id").val(json.deptId);
-					$("#dept_status").val(json.status);
+					$("#b_dept_code").html(json.deptCode);
+					$('#b_dept_code').attr('disabled','disabled');
+					$("#b_dept_name").html(json.deptName);		
+					$("#b_dept_organId").val(json.organId);					
+					$("#b_dept_notes").html(json.notes);
+					$("#b_dept_id").html(json.deptId);
+					$("#b_dept_id").val(json.deptId);
+					$("#b_dept_status").html(json.status);
+					showOgan();
 				   }
 			});
-				$('#dept_code').removeAttr('class');
-				$('#w').window({
+				$('#b_dept_code').removeAttr('class');
+				$('#w2').window({
 					title: '注销部门', 
 					top:100,
 					width: 500,
@@ -310,7 +354,7 @@ table tr td select {
 					height: 220
 				});				
 				
-				$('#btn_submit').linkbutton('enable');
+				$('#b_btn_submit').linkbutton('enable');
 				
 		}			
 	</script>

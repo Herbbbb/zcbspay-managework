@@ -186,12 +186,17 @@ table tr td select {
 							<td align="center" class="update">合约终止日期</td>
 							<td align="left" class="update"><span id="b_endDate"></span></td>
 						</tr>
+						<tr id="b_delegation" style="height: 30px">
+							<td class="update">收费代码</td>
+							<td class="update" align="left"><span id="b_chargeNo"></span></td>
+							<td class="update">收费协议号</td>
+							<td class="update" align="left"><span id="b_chargeConntract"></span></td>
+						</tr>
 						<tr style="height: 30px">
 							<td align="center" class="update">合同附件</td>
-							<td align="left" class="update">
-								<div id="signfileOpp_span"></div></td>
-							<td class="update"></td>
-							<td align="left" class="update"></span></td>
+							<td align="left" class="update"><div id="signfileOpp_span"></div></td>
+							<td id="b_delegation2" class="update">付费协议号</td>
+							<td id="b_delegation3" class="update" align="left"><span id="b_payContract"></span></td>
 						</tr>
 						<tr style="height: 30px">
 							<td class="update">备注</td>
@@ -229,11 +234,13 @@ table tr td select {
 					{field:'CONTRACTTYPE',title:'合同类型',width:100,align:'center',
 						formatter:function(value,rec){
 							if(value=="CT00"){
-								return "代收";
+								return "批量代收协议";
 							}else if(value=="CT01"){
-								return "代付";
+								return "批量代付协议";
 							}else if(value=="CT02"){
-								return "代收付";
+								return "实时代收协议";
+							}else if(value=="CT03"){
+								return "实时代付协议";
 							}
 						}
 					},
@@ -302,13 +309,16 @@ table tr td select {
 				   $("#b_credAccNo").html(json.credAccNo);
 				   var contractType;
 				   if(json.contractType == 'CT00'){
-					   contractType = '代收协议';
+					   contractType = '批量代收协议';
 				   }else if(json.contractType == 'CT01'){
-					   contractType = '代付协议';
+					   contractType = '批量代付协议';
 				   }else if(json.contractType == 'CT02'){
-					   contractType = '代收付协议';
+					   contractType = '实时代收付协议';
+				   }else if(json.contractType == 'CT03'){
+					   contractType = '实时代收付协议';
 				   }
 				   $("#b_contractType").html(contractType);
+				   $("#b_contractType").val(json.contractType);
 				   $("#b_credBranchCode").html(json.credBranchCode);
 				   $("#b_debAmoLimit").html(json.debAmoLimit);
  				   var debTranLimitType;
@@ -367,6 +377,7 @@ table tr td select {
 				   $("#proprieTary").html(json.proprieTary);
 				   $("#categoryPurpose").html(json.categoryPurpose);
 				   initCertUrl(tId);
+				   checkIsDelegation();
 			   }
 			});
 			$('#w2').window({
@@ -488,6 +499,22 @@ table tr td select {
 					}) 
 				}
 			});
+		}
+		function checkIsDelegation(){
+			var isDelegation = $('#b_contractType').val();
+			if(isDelegation == "CT00"){
+				$('#b_delegation').show();
+				$('#b_delegation2').hide();
+				$('#b_delegation3').hide();
+			}else if(isDelegation == "CT01"){
+				$('#b_delegation').hide();
+				$('#b_delegation2').show();
+				$('#b_delegation3').show();
+			}else{
+				$('#b_delegation').hide();
+				$('#b_delegation2').hide();
+				$('#b_delegation3').hide();
+			}
 		}
 	</script>
 </html>

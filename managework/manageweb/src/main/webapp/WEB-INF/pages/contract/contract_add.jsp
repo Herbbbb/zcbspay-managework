@@ -127,11 +127,12 @@ table tr td select {
 							<td class="add">合同类型</td>
 							<td class="add" align="left">
 							<select id="contractType" class="easyui-validatebox" missingMessage="请选择类型"
-								required="true" name="contractType">
+								required="true" name="contractType" onchange="checkIsDelegation()">
 									<option value=''>请选择合同类型</option>
-									<option value='CT00'>代收协议</option>
-									<option value='CT01'>代付协议</option>
-									<option value='CT02'>代收付协议</option>
+									<option value='CT00'>批量代收协议</option>
+									<option value='CT01'>批量代付协议</option>
+									<option value='CT02'>实时代收协议</option>
+									<option value='CT03'>实时代付协议</option>
 							</select></td>
 						</tr>
 						<tr>
@@ -250,11 +251,25 @@ table tr td select {
 							<td class="add" align="center">合约终止日期</td>
 							<td class="add" align="left"><input type="text" class="easyui-datebox" name="expiryDate"/></td>
 						</tr>
+						<tr id="delegation" style="height: 30px">
+							<td class="add">收费代码</td>
+							<td class="add" align="left">
+							<input type="text" id="chargeNo" name="chargeNo" class="easyui-validatebox" required="true"
+								maxlength="10" missingMessage="请输入收费代码"/></td>
+							<td class="add">收费协议号</td>
+							<td class="add" align="left">
+							<input type="text" id="chargeConntract" name="chargeConntract" class="easyui-validatebox" required="true"
+								maxlength="10" missingMessage="请输入收费协议号"/></td>
+						</tr>
 						<tr style="height: 30px">
 							<td class="add" align="center">合同附件</td>
 							<td class="add" align="left"><input class="easyui-validatebox" required="true" id="fileAddress_cert_img" type="file"/>
 								<div id="fileAddress_span"></div> 
 							</td>
+							<td id="delegation2" class="add">付费协议号</td>
+							<td id="delegation3" class="add" align="left">
+							<input type="text" id="payContract" name="payContract" class="easyui-validatebox" required="true"
+								maxlength="10" missingMessage="请输入付费协议号"/></td>
 						</tr>
 						<tr style="height: 30px">
 							<td class="add">备注</td>
@@ -364,12 +379,17 @@ table tr td select {
 							<td align="center" class="update">合约终止日期</td>
 							<td align="left" class="update"><span id="b_endDate"></span></td>
 						</tr>
+						<tr id="b_delegation" style="height: 30px">
+							<td class="update">收费代码</td>
+							<td class="update" align="left"><span id="b_chargeNo"></span></td>
+							<td class="update">收费协议号</td>
+							<td class="update" align="left"><span id="b_chargeConntract"></span></td>
+						</tr>
 						<tr style="height: 30px">
 							<td align="center" class="update">合同附件</td>
-							<td align="left" class="update">
-								<div id="signfileOpp_span"></div></td>
-							<td class="update"></td>
-							<td align="left" class="update"></span></td>
+							<td align="left" class="update"><div id="signfileOpp_span"></div></td>
+							<td id="b_delegation2" class="update">付费协议号</td>
+							<td id="b_delegation3" class="update" align="left"><span id="b_payContract"></span></td>
 						</tr>
 						<tr style="height: 30px">
 							<td class="update">备注</td>
@@ -476,13 +496,17 @@ table tr td select {
 							<td align="center" class="update">合约终止日期</td>
 							<td align="left" class="update"><span id="c_endDate"></span></td>
 						</tr>
+						<tr id="b_delegation" style="height: 30px">
+							<td class="update">收费代码</td>
+							<td class="update" align="left"><span id="c_chargeNo"></span></td>
+							<td class="update">收费协议号</td>
+							<td class="update" align="left"><span id="c_chargeConntract"></span></td>
+						</tr>
 						<tr style="height: 30px">
 							<td align="center" class="update">合同附件</td>
-							<td align="left" class="update">
-								<div id="c_signfileOpp_span"></div> 
-							</td>
-							<td class="update"></td>
-							<td align="left" class="update"></span></td>
+							<td align="left" class="update"><div id="c_signfileOpp_span"></div></td>
+							<td id="c_delegation2" class="update">付费协议号</td>
+							<td id="c_delegation3" class="update" align="left"><span id="c_payContract"></span></td>
 						</tr>
 						<tr style="height: 30px">
 							<td class="update">备注</td>
@@ -508,19 +532,17 @@ table tr td select {
 						<td class="add" align="center"  style="font-size: 15px;">合同文件</td>
 						<td class="add" align="left">
 							<input style="height: 25px;" class="easyui-validatebox" name="orderCSV" type="file"/>
-<!-- 							<div id="fileAddress_span"></div>  -->
 						</td>
 					</tr>
 					<tr style="height: 30px">
 						<td class="add" align="center"></td>
 						<td class="add" align="left"><div style="height: 25px;font-size: 15px;" id="org_province"></div></td>
 					</tr>
-					
 				</table>
 				</form>
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
-			<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveFile()" id="d_btn_submit">提交</a>
+				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveFile()" id="d_btn_submit">提交</a>
 				<a class="easyui-linkbutton" iconCls="icon-back" onclick="closeAdd()">返回</a>
 			</div>
 		</div>
@@ -564,11 +586,13 @@ table tr td select {
 					{field:'CONTRACTTYPE',title:'合同类型',width:100,align:'center',
 						formatter:function(value,rec){
 							if(value=="CT00"){
-								return "代收";
+								return "批量代收协议";
 							}else if(value=="CT01"){
-								return "代付";
+								return "批量代付协议";
 							}else if(value=="CT02"){
-								return "代收付";
+								return "实时代收协议";
+							}else if(value=="CT03"){
+								return "实时代付协议";
 							}
 						}
 					},
@@ -626,6 +650,7 @@ table tr td select {
 		function showAdd(num){
 			$('#saveForm :input').val('');
 			$('#fileAddress_span').html("");
+			checkIsDelegation(1);
 			$('#w').window({
 				title: '新增合同信息',
 				top:100,
@@ -713,13 +738,16 @@ table tr td select {
 				   $("#b_credAccNo").html(json.credAccNo);
 				   var contractType;
 				   if(json.contractType == 'CT00'){
-					   contractType = '代收协议';
+					   contractType = '批量代收协议';
 				   }else if(json.contractType == 'CT01'){
-					   contractType = '代付协议';
+					   contractType = '批量代付协议';
 				   }else if(json.contractType == 'CT02'){
-					   contractType = '代收付协议';
+					   contractType = '实时代收付协议';
+				   }else if(json.contractType == 'CT03'){
+					   contractType = '实时代收付协议';
 				   }
 				   $("#b_contractType").html(contractType);
+				   $("#b_contractType").val(json.contractType);
 				   $("#b_credBranchCode").html(json.credBranchCode);
 				   $("#b_debAmoLimit").html(json.debAmoLimit);
  				   var debTranLimitType;
@@ -777,7 +805,11 @@ table tr td select {
 				   $("#b_fileAddress").html(json.fileAddress);
 				   $("#b_proprieTary").html(json.proprieTary);
 				   $("#b_categoryPurpose").html(json.categoryPurpose);
+				   $("#b_chargeNo").html(json.chargeNo);
+				   $("#b_chargeConntract").html(json.chargeConntract);
+				   $("#b_payContract").html(json.payContract);
 				   initCertUrl(tId);
+				   checkIsDelegation(2);
 			   }
 			});
 			$('#w2').window({
@@ -812,13 +844,16 @@ table tr td select {
 				   $("#c_credAccNo").html(json.credAccNo);
 				   var contractType;
 				   if(json.contractType == 'CT00'){
-					   contractType = '代收协议';
+					   contractType = '批量代收协议';
 				   }else if(json.contractType == 'CT01'){
-					   contractType = '代付协议';
+					   contractType = '批量代付协议';
 				   }else if(json.contractType == 'CT02'){
-					   contractType = '代收付协议';
+					   contractType = '实时代收付协议';
+				   }else if(json.contractType == 'CT03'){
+					   contractType = '实时代收付协议';
 				   }
 				   $("#c_contractType").html(contractType);
+				   $("#c_contractType").val(json.contractType);
 				   $("#c_credBranchCode").html(json.credBranchCode);
 				   $("#c_debAmoLimit").html(json.debAmoLimit);
  				   var debTranLimitType;
@@ -876,7 +911,11 @@ table tr td select {
 				   $("#c_fileAddress").html(json.fileAddress);
 				   $("#c_proprieTary").html(json.proprieTary);
 				   $("#c_categoryPurpose").html(json.categoryPurpose);
+				   $("#c_chargeNo").html(json.chargeNo);
+				   $("#c_chargeConntract").html(json.chargeConntract);
+				   $("#c_payContract").html(json.payContract);
 				   initCertUrl(tId);
+				   checkIsDelegation(3);
 			   }
 			});
 			$('#w3').window({
@@ -1075,6 +1114,48 @@ table tr td select {
 				closed: false,
 				height: 340
 			});
+		}
+		
+		function checkIsDelegation(type){
+			var isDelegation;
+			if(type == 1){
+				isDelegation = $('#contractType').val();
+			}else if(type == 2){
+				isDelegation = $('#b_contractType').val();
+			}else if(type == 3){
+				isDelegation = $('#c_contractType').val();
+			}
+			if(isDelegation == "CT00"){
+				$('#delegation').show();
+				$('#delegation2').hide();
+				$('#delegation3').hide();
+				$('#b_delegation').show();
+				$('#b_delegation2').hide();
+				$('#b_delegation3').hide();
+				$('#c_delegation').show();
+				$('#c_delegation2').hide();
+				$('#c_delegation3').hide();
+			}else if(isDelegation == "CT01"){
+				$('#delegation').hide();
+				$('#delegation2').show();
+				$('#delegation3').show();
+				$('#b_delegation').hide();
+				$('#b_delegation2').show();
+				$('#b_delegation3').show();
+				$('#c_delegation').hide();
+				$('#c_delegation2').show();
+				$('#c_delegation3').show();
+			}else{
+				$('#delegation').hide();
+				$('#delegation2').hide();
+				$('#delegation3').hide();
+				$('#b_delegation').hide();
+				$('#b_delegation2').hide();
+				$('#b_delegation3').hide();
+				$('#c_delegation').hide();
+				$('#c_delegation2').hide();
+				$('#c_delegation3').hide();
+			}
 		}
 	</script>
 </html>
