@@ -373,8 +373,8 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 				map.put("INFO", info);
 			}
 			
-			PojoContract contractBean = (PojoContract) findByCode(pojo.getContractNum()).get(0);
-			if(contractBean != null){
+			int contractBean = findByCode(pojo.getContractNum()).size();
+			if(contractBean == 0){
 				String info = pojo.getContractNum() + "该合同已存在或尚未被注销!";
 				map.put("RET", "error");
 				map.put("INFO", info);
