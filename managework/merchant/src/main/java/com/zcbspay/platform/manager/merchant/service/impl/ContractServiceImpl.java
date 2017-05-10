@@ -84,6 +84,7 @@ public class ContractServiceImpl implements ContractService {
     	if (resultSucc) {
 			map.put("RET", "error");
 			map.put("INFO", "该批次号已存在或尚未被注销!");
+			return map;
 		}
     	
     	map = contractDao.importBatch_2(list,batchNo);
@@ -93,9 +94,11 @@ public class ContractServiceImpl implements ContractService {
         	if (!isSucc) {
         		map.put("RET", "error");
     			map.put("INFO", "该批次号添加失败！");
+    			return map;
 			}else{
 				map.put("RET", "succ");
     			map.put("INFO", "添加成功");
+    			return map;
 			}
 		}
 		return map;

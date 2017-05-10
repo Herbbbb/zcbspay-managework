@@ -237,6 +237,7 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 				String info = "合同编号："+pojo.getContractNum()+","+ "该合同已存在或尚未被注销!";
 				map.put("RET", "error");
 				map.put("INFO", info);
+				return map;
 			}
 			
 			int merch = queryConType(pojo.getMerchNo()).size();
@@ -244,6 +245,7 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 				String info = "合同编号："+pojo.getContractNum()+","+ "该委托机构不存在或已被注销!";
 				map.put("RET", "error");
 				map.put("INFO", info);
+				return map;
 			}
 			
 			PojoContract bean = new PojoContract();
