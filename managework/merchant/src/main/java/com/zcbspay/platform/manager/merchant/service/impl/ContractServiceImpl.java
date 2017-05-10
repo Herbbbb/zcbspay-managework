@@ -82,19 +82,19 @@ public class ContractServiceImpl implements ContractService {
     	batch.setMerchNo(merchNo);
     	
     	if (resultSucc) {
-			map.put("ret", "error");
+			map.put("RET", "error");
 			map.put("INFO", "该批次号已存在或尚未被注销!");
 		}
     	
-    	Map<String, Object> result = contractDao.importBatch_2(list,batchNo);
+    	map = contractDao.importBatch_2(list,batchNo);
 		 
-        if (!result.get("RET").equals("error")) {
+        if (!map.get("RET").equals("error")) {
         	boolean isSucc = contractBarchDao.saveBatch(batch);
         	if (!isSucc) {
-        		map.put("ret", "error");
+        		map.put("RET", "error");
     			map.put("INFO", "该批次号添加失败！");
 			}else{
-				map.put("ret", "succ");
+				map.put("RET", "succ");
     			map.put("INFO", "添加成功");
 			}
 		}
