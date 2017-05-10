@@ -88,7 +88,7 @@ public class ContractServiceImpl implements ContractService {
     	
     	map = contractDao.importBatch_2(list,batchNo);
 		 
-        if (!map.get("RET").equals("error")) {
+        if (map.get("RET").equals("succ")) {
         	boolean isSucc = contractBarchDao.saveBatch(batch);
         	if (!isSucc) {
         		map.put("RET", "error");
