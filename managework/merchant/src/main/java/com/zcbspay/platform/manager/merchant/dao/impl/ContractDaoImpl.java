@@ -15,7 +15,6 @@ import com.zcbspay.platform.manager.dao.impl.HibernateBaseDAOImpl;
 import com.zcbspay.platform.manager.merchant.bean.ContractBean;
 import com.zcbspay.platform.manager.merchant.dao.ContractDao;
 import com.zcbspay.platform.manager.merchant.pojo.PojoContract;
-import com.zcbspay.platform.manager.merchant.pojo.PojoMerchDetaApply;
 
 @Repository
 public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implements ContractDao {
@@ -233,140 +232,140 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 		Map<String, Object> map = new HashMap<String, Object>();
 		for (ContractBean pojo : list) {
 			
-			if(pojo.getContractNum() == null || pojo.getContractNum().equals("")){
-				map.put("RET", "error");
-				map.put("INFO", "合同号不能为空!");
-			}
-			if(pojo.getMerchNo() == null || pojo.getMerchNo().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "委托机构代码不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getInUser() == null || pojo.getInUser().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "操作员代码不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getContractType() == null || pojo.getContractType().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "合同类型不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getCredAccNo() == null || pojo.getCredAccNo().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "付款人账号不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getDebAccNo() == null || pojo.getDebAccNo().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "收款人账号不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getCredName() == null || pojo.getCredName().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "付款人名称不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getDebName() == null || pojo.getDebName().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "收款人名称不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getDebBranchCode() == null || pojo.getDebBranchCode().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "付款行行号不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getCredBranchCode() == null || pojo.getCredBranchCode().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "收款行行号不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getContractType() == null || pojo.getContractType().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "合同类型不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getDebAmoLimit() == null || pojo.getDebAmoLimit().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "付款单笔金额上限不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getDebTranLimitType() == null || pojo.getDebTranLimitType().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "付款累计金额限制类型不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getDebAccyAmoLimit() == null || pojo.getDebAccyAmoLimit().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "付款累计金额上限不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getDebTransLimitType() == null || pojo.getDebTransLimitType().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "付款次数限制类型不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getDebTransLimit() == null || pojo.getDebTransLimit().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "付款次数不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getCredAmoLimit() == null || pojo.getCredAmoLimit().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "收款单笔金额上限不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getCredTranLimitType() == null || pojo.getCredTranLimitType().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "收款累计金额限制类型不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getCredAccuAmoLimit() == null || pojo.getCredAccuAmoLimit().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "收款累计金额上限不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getCredTransLimitType() == null || pojo.getCredTransLimitType().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "收款次数限制类型不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getCredTransLimit() == null || pojo.getCredTransLimit().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "收款次数不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getSignDate() == null || pojo.getSignDate().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "合同开始日期不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getExpiryDate() == null || pojo.getExpiryDate().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "合同截止日期不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getFileAddress() == null || pojo.getFileAddress().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "合同附件保存地址名不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getFileName() == null || pojo.getFileName().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "批量导入文件名不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getProprieTary() == null || pojo.getProprieTary().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "业务种类代码不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
-			if(pojo.getCategoryPurpose() == null || pojo.getCategoryPurpose().equals("")){
-				String info = "合同编号："+pojo.getContractNum()+","+ "业务种类代码不能为空!";
-				map.put("RET", "error");
-				map.put("INFO", info);
-			}
+//			if(pojo.getContractNum() == null || pojo.getContractNum().equals("")){
+//				map.put("RET", "error");
+//				map.put("INFO", "合同号不能为空!");
+//			}
+//			if(pojo.getMerchNo() == null || pojo.getMerchNo().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "委托机构代码不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getInUser() == null || pojo.getInUser().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "操作员代码不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getContractType() == null || pojo.getContractType().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "合同类型不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getCredAccNo() == null || pojo.getCredAccNo().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "付款人账号不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getDebAccNo() == null || pojo.getDebAccNo().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "收款人账号不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getCredName() == null || pojo.getCredName().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "付款人名称不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getDebName() == null || pojo.getDebName().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "收款人名称不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getDebBranchCode() == null || pojo.getDebBranchCode().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "付款行行号不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getCredBranchCode() == null || pojo.getCredBranchCode().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "收款行行号不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getContractType() == null || pojo.getContractType().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "合同类型不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getDebAmoLimit() == null || pojo.getDebAmoLimit().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "付款单笔金额上限不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getDebTranLimitType() == null || pojo.getDebTranLimitType().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "付款累计金额限制类型不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getDebAccyAmoLimit() == null || pojo.getDebAccyAmoLimit().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "付款累计金额上限不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getDebTransLimitType() == null || pojo.getDebTransLimitType().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "付款次数限制类型不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getDebTransLimit() == null || pojo.getDebTransLimit().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "付款次数不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getCredAmoLimit() == null || pojo.getCredAmoLimit().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "收款单笔金额上限不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getCredTranLimitType() == null || pojo.getCredTranLimitType().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "收款累计金额限制类型不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getCredAccuAmoLimit() == null || pojo.getCredAccuAmoLimit().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "收款累计金额上限不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getCredTransLimitType() == null || pojo.getCredTransLimitType().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "收款次数限制类型不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getCredTransLimit() == null || pojo.getCredTransLimit().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "收款次数不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getSignDate() == null || pojo.getSignDate().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "合同开始日期不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getExpiryDate() == null || pojo.getExpiryDate().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "合同截止日期不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getFileAddress() == null || pojo.getFileAddress().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "合同附件保存地址名不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getFileName() == null || pojo.getFileName().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "批量导入文件名不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getProprieTary() == null || pojo.getProprieTary().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "业务种类代码不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
+//			if(pojo.getCategoryPurpose() == null || pojo.getCategoryPurpose().equals("")){
+//				String info = "合同编号："+pojo.getContractNum()+","+ "业务种类代码不能为空!";
+//				map.put("RET", "error");
+//				map.put("INFO", info);
+//			}
 			int contractBean = findByCode(pojo.getContractNum()).size();
 			if(contractBean == 0){
 				String info = "合同编号："+pojo.getContractNum()+","+ "该合同已存在或尚未被注销!";
