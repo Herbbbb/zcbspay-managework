@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zcbspay.platform.manager.exception.ContractException;
 import com.zcbspay.platform.manager.merchant.bean.ContractBean;
 import com.zcbspay.platform.manager.merchant.dao.ContractBarchDao;
 import com.zcbspay.platform.manager.merchant.dao.ContractDao;
@@ -86,8 +87,13 @@ public class ContractServiceImpl implements ContractService {
 			map.put("INFO", "该批次号已存在或尚未被注销!");
 			return map;
 		}
-    	
-    	map = contractDao.importBatch_2(list,batchNo);
+    	try {
+    		map = contractDao.importBatch_2(list,batchNo);
+		}catch(ContractException e){
+			map.put("RET", "error");
+			map.put("INFO", e.getMessage());
+			return map;
+		}
 		 
         if (map.get("RET").equals("succ")) {
         	boolean isSucc = contractBarchDao.saveBatch(batch);

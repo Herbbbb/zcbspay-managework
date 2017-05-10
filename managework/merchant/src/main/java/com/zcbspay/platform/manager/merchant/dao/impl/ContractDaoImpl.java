@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zcbspay.platform.manager.dao.impl.HibernateBaseDAOImpl;
+import com.zcbspay.platform.manager.exception.ContractException;
 import com.zcbspay.platform.manager.merchant.bean.ContractBean;
 import com.zcbspay.platform.manager.merchant.dao.ContractDao;
 import com.zcbspay.platform.manager.merchant.pojo.PojoContract;
@@ -228,7 +229,7 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 	}
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
-	public Map<String, Object> importBatch_2(List<ContractBean> list,String batch) {
+	public Map<String, Object> importBatch_2(List<ContractBean> list,String batch) throws ContractException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		for (ContractBean pojo : list) {
 			
@@ -237,7 +238,7 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 				String info = "合同编号："+pojo.getContractNum()+","+ "该合同已存在或尚未被注销!";
 				map.put("RET", "error");
 				map.put("INFO", info);
-				return map;
+				throw new ContractException(info); 
 			}
 			
 			int merch = queryConType(pojo.getMerchNo()).size();
@@ -245,7 +246,7 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 				String info = "合同编号："+pojo.getContractNum()+","+ "该委托机构不存在或已被注销!";
 				map.put("RET", "error");
 				map.put("INFO", info);
-				return map;
+				throw new ContractException(info); 
 			}
 			
 			PojoContract bean = new PojoContract();

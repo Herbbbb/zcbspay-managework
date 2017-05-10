@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.zcbspay.platform.manager.dao.BaseDAO;
+import com.zcbspay.platform.manager.exception.ContractException;
 import com.zcbspay.platform.manager.merchant.bean.ContractBean;
 import com.zcbspay.platform.manager.merchant.pojo.PojoContract;
 
@@ -77,7 +78,7 @@ public interface ContractDao extends BaseDAO<PojoContract> {
 	 * @param list
 	 * @return
 	 */
-	Map<String, Object> importBatch_2(List<ContractBean> list,String batch);
+	Map<String, Object> importBatch_2(List<ContractBean> list,String batch) throws ContractException;
 	
 	/**
 	 * 查询机构类型
@@ -86,13 +87,5 @@ public interface ContractDao extends BaseDAO<PojoContract> {
 	 * @return
 	 */
 	List<?> queryConType(String merchNo);
-//	
-//	/**
-//	 * 查询合同批次
-//	 * @param contractNum
-//	 * @param merchNo
-//	 * @return
-//	 */
-//	List<?> queryContractBatch(String batchNo,String merchNo);
 	
 }
