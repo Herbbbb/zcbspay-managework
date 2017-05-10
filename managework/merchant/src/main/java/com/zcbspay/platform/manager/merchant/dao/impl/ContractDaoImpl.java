@@ -234,156 +234,156 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 		for (ContractBean pojo : list) {
 			
 			if(pojo.getContractNum() == null || pojo.getContractNum().equals("")){
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", "合同号不能为空!");
 			}
 			if(pojo.getMerchNo() == null || pojo.getMerchNo().equals("")){
 				String info = pojo.getContractNum() + "委托机构代码不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getInUser() == null || pojo.getInUser().equals("")){
 				String info = pojo.getContractNum() + "操作员代码不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getContractType() == null || pojo.getContractType().equals("")){
 				String info = pojo.getContractNum() + "合同类型不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getCredAccNo() == null || pojo.getCredAccNo().equals("")){
 				String info = pojo.getContractNum() + "付款人账号不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getDebAccNo() == null || pojo.getDebAccNo().equals("")){
 				String info = pojo.getContractNum() + "收款人账号不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getCredName() == null || pojo.getCredName().equals("")){
 				String info = pojo.getContractNum() + "付款人名称不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getDebName() == null || pojo.getDebName().equals("")){
 				String info = pojo.getContractNum() + "收款人名称不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getDebBranchCode() == null || pojo.getDebBranchCode().equals("")){
 				String info = pojo.getContractNum() + "付款行行号不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getCredBranchCode() == null || pojo.getCredBranchCode().equals("")){
 				String info = pojo.getContractNum() + "收款行行号不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getContractType() == null || pojo.getContractType().equals("")){
 				String info = pojo.getContractNum() + "合同类型不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getDebAmoLimit() == null || pojo.getDebAmoLimit().equals("")){
 				String info = pojo.getContractNum() + "付款单笔金额上限不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getDebTranLimitType() == null || pojo.getDebTranLimitType().equals("")){
 				String info = pojo.getContractNum() + "付款累计金额限制类型不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getDebAccyAmoLimit() == null || pojo.getDebAccyAmoLimit().equals("")){
 				String info = pojo.getContractNum() + "付款累计金额上限不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getDebTransLimitType() == null || pojo.getDebTransLimitType().equals("")){
 				String info = pojo.getContractNum() + "付款次数限制类型不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getDebTransLimit() == null || pojo.getDebTransLimit().equals("")){
 				String info = pojo.getContractNum() + "付款次数不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getCredAmoLimit() == null || pojo.getCredAmoLimit().equals("")){
 				String info = pojo.getContractNum() + "收款单笔金额上限不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getCredTranLimitType() == null || pojo.getCredTranLimitType().equals("")){
 				String info = pojo.getContractNum() + "收款累计金额限制类型不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getCredAccuAmoLimit() == null || pojo.getCredAccuAmoLimit().equals("")){
 				String info = pojo.getContractNum() + "收款累计金额上限不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getCredTransLimitType() == null || pojo.getCredTransLimitType().equals("")){
 				String info = pojo.getContractNum() + "收款次数限制类型不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getCredTransLimit() == null || pojo.getCredTransLimit().equals("")){
 				String info = pojo.getContractNum() + "收款次数不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getSignDate() == null || pojo.getSignDate().equals("")){
 				String info = pojo.getContractNum() + "合同开始日期不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getExpiryDate() == null || pojo.getExpiryDate().equals("")){
 				String info = pojo.getContractNum() + "合同截止日期不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getFileAddress() == null || pojo.getFileAddress().equals("")){
 				String info = pojo.getContractNum() + "合同附件保存地址名不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getFileName() == null || pojo.getFileName().equals("")){
 				String info = pojo.getContractNum() + "批量导入文件名不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getProprieTary() == null || pojo.getProprieTary().equals("")){
 				String info = pojo.getContractNum() + "业务种类代码不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getCategoryPurpose() == null || pojo.getCategoryPurpose().equals("")){
 				String info = pojo.getContractNum() + "业务种类代码不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			if(pojo.getBatchNo() == null || pojo.getBatchNo().equals("")){
 				String info = pojo.getContractNum() + "批次号不能为空!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			
 			PojoContract contractBean = (PojoContract) findByCode(pojo.getContractNum()).get(0);
 			if(contractBean != null){
 				String info = pojo.getContractNum() + "该合同已存在或尚未被注销!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			
-			PojoMerchDetaApply merch = (PojoMerchDetaApply) queryConType(pojo.getMerchNo()).get(0);
-			if(merch == null){
+			int merch = queryConType(pojo.getMerchNo()).size();
+			if(merch == 0){
 				String info = pojo.getContractNum() + "该委托机构不存在或已被注销!";
-				map.put("ret", "error");
+				map.put("RET", "error");
 				map.put("INFO", info);
 			}
 			
