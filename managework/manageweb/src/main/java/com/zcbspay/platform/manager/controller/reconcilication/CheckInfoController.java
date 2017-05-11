@@ -28,7 +28,7 @@ import com.zcbspay.platform.manager.reconcilication.service.CheckInfoService;
 import com.zcbspay.platform.manager.reconcilication.service.UploadlogService;
 import com.zcbspay.platform.manager.utils.CSVUtils;
 import com.zcbspay.platform.manager.utils.UserHelper;
-
+@SuppressWarnings("all")
 @Controller
 @RequestMapping("/checkinfo/")
 public class CheckInfoController {
@@ -246,7 +246,7 @@ public class CheckInfoController {
 	        }
 	        String[] files=fileName.split("_");
 	        String organization=files[0];
-	        String date=files[1];
+			String date=files[1];
 	        String busiType=files[2];
 	        List<ChnTxnBean> list=new ArrayList<>();
 	        for (int i = 1; i < orderInfoList.size(); i++) {

@@ -107,6 +107,9 @@ table tr td select {
 					</tr>
 				</table>
 			</div>
+			<div region="south" border="false" style="text-align: center; padding: 15px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-back" onclick="closeAdd()">返回</a>
+			</div>
 		</div>
 	</div>
 </body>
@@ -144,14 +147,14 @@ table tr td select {
 							idField : 'MSGID',
 							columns : [ [
 								{field:'MERID',title:'委托机构号',width:120,align:'center'},
-								{field:'VERSION',title:'版本',width:120,align:'center'},
-								{field:'ENCODING',title:'编码方式',width:120,align:'center',
-									formatter : function(value, rec) {
-										if (rec.ENCODING == "1") {
-											return "UTF-8";
-										} 
-									}		
-								},
+// 								{field:'VERSION',title:'版本',width:120,align:'center'},
+// 								{field:'ENCODING',title:'编码方式',width:120,align:'center',
+// 									formatter : function(value, rec) {
+// 										if (rec.ENCODING == "1") {
+// 											return "UTF-8";
+// 										} 
+// 									}		
+// 								},
 								{field:'BATCHNO',title:'批次号',width:180,align:'center'},
 								{field:'TXNTIME',title:'订单发送时间',width:150,align:'center',
 									formatter : function(value, rec) {
@@ -209,7 +212,7 @@ table tr td select {
 									columns:[
 									[
 										{field:'BATCHNO',title:'批次号',width:180,align:'center'},
-										{field:'ORDERID',title:'商户订单号',width:120,align:'center'},
+										{field:'ORDERID',title:'委托机构订单号',width:120,align:'center'},
 										{field:'CURRENCYCODE',title:'交易币种',width:120,align:'center',
 											formatter : function(value, rec) {
 												if (rec.CURRENCYCODE == "156") {
@@ -270,6 +273,9 @@ table tr td select {
 	
 	function resize(){
 		$('#theForm :input').val('');
+	}
+	function closeAdd(){
+		$('#w').window('close');
 	}
 	function queryDetail(batchNo){
 		$("#tid").html("");

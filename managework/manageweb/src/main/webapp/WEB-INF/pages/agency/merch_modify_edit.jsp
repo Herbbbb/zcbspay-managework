@@ -327,8 +327,63 @@ table tr td font.current-step {
 			</div>
 		</div>
 	</div>
+	<div id="w2" class="easyui-window" closed="true" title="My Window" iconCls="icon-save" 
+		style="width: 500px; height: 400px; padding: 5px; top: 50%; left: 50%;">
+		<div class="easyui-layout" fit="true">
+			<div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
+				<form id="b_saveForm" action="agency/updateAgencyInfo" method="post">
+					<input type="hidden" id="b_merchNo" name="merchNo"/>
+					<table width="100%" cellpadding="2" cellspacing="2">
+						<tr>
+							<td colspan="4" class="head-title">实时代收</td>
+							<input type="hidden" id="a_bustCode" name="a_bustCode"/>
+						</tr>
+						<tr style="height: 25px">
+							<td width="18%">付款单位代码</td>
+							<td align="left"><input id="a_chargingunit" name="a_chargingunit" maxlength="8" class="easyui-validatebox" type="text" /></td>
+							<td width="18%">业务种类</td>
+							<td align="left"><input id="a_busiSort" name="a_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
+						</tr>
+						<tr>
+							<td colspan="4" class="head-title">实时代付</td>
+							<input type="hidden" id="b_bustCode" name="b_bustCode"/>
+						</tr>
+						<tr style="height: 25px">
+							<td width="18%">付款单位代码</td>
+							<td align="left"><input id="b_chargingunit" name="b_chargingunit" maxlength="8" class="easyui-validatebox" type="text" /></td>
+							<td width="18%">业务种类</td>
+							<td align="left"><input id="b_busiSort" name="b_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
+						</tr>
+						<tr>
+							<td colspan="4" class="head-title">批量代收</td>
+							<input type="hidden" id="c_bustCode" name="c_bustCode"/>
+						</tr>
+						<tr style="height: 25px">
+							<td width="18%">付款单位代码</td>
+							<td align="left"><input id="c_chargingunit" name="c_chargingunit" maxlength="8" class="easyui-validatebox" type="text" /></td>
+							<td width="18%">业务种类</td>
+							<td align="left"><input id="c_busiSort" name="c_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
+						</tr>
+						<tr>
+							<td colspan="4" class="head-title">批量代付</td>
+							<input type="hidden" id="d_bustCode" name="d_bustCode"/>
+						</tr>
+						<tr style="height: 25px">
+							<td width="18%">付款单位代码</td>
+							<td align="left"><input id="d_chargingunit" name="d_chargingunit" maxlength="8" class="easyui-validatebox" type="text" /></td>
+							<td width="18%">业务种类</td>
+							<td align="left"><input id="d_busiSort" name="d_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div region="south" border="false" style="text-align: center; padding: 15px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:save(0)" id="b_btn_submit2">提交</a>
+				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd2()">返回</a>
+			</div>
+		</div>
+	</div>
 </body>
-
 <script>
 	$(function() {
 		init();
@@ -394,12 +449,15 @@ table tr td font.current-step {
 						json = eval('(' + json + ')');	
 						$.each(json,function(key, value) {
 							if (value.RET == "succ") {
-								$("#button_id").linkbutton('enable');
-								$.messager.confirm('提示', '保存成功,等待上传证件照片',function(data){
-									if(data){
-										window.location.href= "<%=basePath%>" +'/agency/toUploadModifyInfo?merchApplyId='+value.INFO;
-									}
-								});
+								var num = $("#enterpriseMemberId").val();
+								var info = $("#merchApplyId").val();
+								saveAgency(num,info);
+// 								$("#button_id").linkbutton('enable');
+// 								$.messager.confirm('提示', '保存成功,等待上传证件照片',function(data){
+// 									if(data){
+<%-- 										window.location.href= "<%=basePath%>" +'/agency/toUpload?merchApplyId='+value.INFO; --%>
+// 									}								
+// 								});
 							} else {
 								$.messager.alert('提示', value.INFO);
 								$("#button_id").linkbutton('enable');
@@ -876,6 +934,89 @@ table tr td font.current-step {
 		
 		function backToMerchIndex(){
 			window.location.href= "<%=basePath%>" +'agency/showMerchModify';
+		}
+		function saveAgency(num,info){
+			
+			$('#b_saveForm :input').val('');
+			$('#a_bustCode').val(11000001);
+			$('#b_bustCode').val(11000002);
+			$('#c_bustCode').val(11000003);
+			$('#d_bustCode').val(11000004);
+			$('#b_merchNo').val(num);
+			
+			$.ajax({
+			   type: "POST",
+			   url: "agency/queryByMerchNo",
+			   data: "merchNo="+num,
+			   async: false,
+			   dataType:"json",
+			   success: function(json){
+				   $.each(json, function(key,value){
+					   if(value.bustCode == "11000001"){
+						   $('#a_chargingunit').val(value.chargingunit);
+						   $('#a_busiSort').val(value.busiSort);
+					   }else if(value.bustCode == "11000002"){
+						   $('#b_chargingunit').val(value.chargingunit);
+						   $('#b_busiSort').val(value.busiSort);
+					   }else if(value.bustCode == "11000003"){
+						   $('#c_chargingunit').val(value.chargingunit);
+						   $('#c_busiSort').val(value.busiSort);
+					   }else if(value.bustCode == "11000004"){
+						   $('#d_chargingunit').val(value.chargingunit);
+						   $('#d_busiSort').val(value.busiSort);
+					   }
+				   });
+			   }
+			});
+			$('#w2').window({
+				title: '新增业务收费信息',
+				top:100,
+				left:300,
+				width:700,
+				modal: true,
+				minimizable:false,
+				collapsible:false,
+				maximizable:false,
+				shadow: false,
+				closed: false,
+				height: 330
+			});
+			$('#b_btn_submit2').linkbutton('enable');	
+		}
+		function backToMerchIndex(){
+			window.location.href= "<%=basePath%>" +'agency/show';
+		}
+		function save(){
+			$('#b_saveForm').form('submit', {  
+			    onSubmit: function(){  
+				    if($('#b_saveForm').form('validate')){
+// 				    	$('#b_btn_submit2').linkbutton('disable');		
+						return true;
+					}
+			        return false;   
+			    },   
+			    success:function(data){  
+			    	var json = eval('(' + data + ')');
+			    	var info = $("#merchApplyId").val();
+			    	$.each(json, function(key,value){
+			    		if(value.ERR != 'succ'){
+			    			$("#b_btn_submit2").linkbutton('enable');
+							$.messager.confirm('提示', '保存成功,等待上传证件照片',function(data){
+								if(data){
+									window.location.href='agency/toUpload?merchApplyId='+info;
+								}
+							});
+				    	}else{
+				    		$.messager.alert('提示',value.INFO);
+				    		closeAdd2();
+				    	}
+			    		$('#b_btn_submit2').linkbutton('enable');		
+					}) 
+			    }   
+			});  
+		}
+		function closeAdd2(){
+			$('#w2').window('close');
 		}
 	</script>
 </html>

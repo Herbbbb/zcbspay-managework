@@ -24,7 +24,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zcbspay.platform.manager.controller.contract.ContractController.MerchantThread;
+import com.zcbspay.platform.manager.merchant.bean.AgencyInfoBean;
+import com.zcbspay.platform.manager.merchant.bean.BustSortType;
 import com.zcbspay.platform.manager.merchant.bean.CertType;
 import com.zcbspay.platform.manager.merchant.bean.EnterpriseDetaApplyBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchDetaApplyBean;
@@ -50,7 +51,6 @@ public class AgencyController {
     private String charge;
     private final static BigDecimal HUNDERED = new BigDecimal(100);
     
-//    @Reference
     @Autowired
 	private AgencyService agencyService;
     @Autowired
@@ -72,7 +72,7 @@ public class AgencyController {
     private RateAllService rateAllService;
     @Autowired
     private MerchRateConfigService merchRateConfigService;
-    // 商户信息管理页面
+    // 委托机构信息管理页面
     @ResponseBody
 	@RequestMapping("/show")
     public ModelAndView show(HttpServletRequest request) { 
@@ -81,7 +81,7 @@ public class AgencyController {
     	return result; 
     }
 
-    // 商户新增页面
+    // 委托机构新增页面
     @ResponseBody
 	@RequestMapping("/showMerchAdd")
     public ModelAndView showMerchAdd(HttpServletRequest request) { 
@@ -89,7 +89,7 @@ public class AgencyController {
     	return result; 
     }
 
-    // 商户初审分页查询页面
+    // 委托机构初审分页查询页面
     @ResponseBody
 	@RequestMapping("/showMerchAuditQuery")
     public ModelAndView showMerchAuditQuery(HttpServletRequest request) { 
@@ -98,7 +98,7 @@ public class AgencyController {
     	return result;
     }
 
-    // 商户复审分页查询页面
+    // 委托机构复审分页查询页面
     @ResponseBody
 	@RequestMapping("/showMerchReAuditQuery")
     public ModelAndView showMerchReAuditQuery(HttpServletRequest request) {
@@ -107,7 +107,7 @@ public class AgencyController {
     	 return result; 
     }
 
-    // 商户初审审核页面
+    // 委托机构初审审核页面
     @ResponseBody
 	@RequestMapping("/toMerchAudit")
     public ModelAndView toMerchAudit(HttpServletRequest request) {
@@ -116,7 +116,7 @@ public class AgencyController {
     	 return result; 
     }
 
-    // 商户查询页面（查询所有状态）
+    // 委托机构查询页面（查询所有状态）
     @ResponseBody
 	@RequestMapping("/showMerchQueryAll")
     public ModelAndView showMerchQueryAll(HttpServletRequest request) {
@@ -127,7 +127,7 @@ public class AgencyController {
 
 
     /**
-     * 保存商户信息
+     * 保存委托机构信息
      */
     @ResponseBody
 	@RequestMapping("/saveMerchDeta")
@@ -162,7 +162,7 @@ public class AgencyController {
     }
 
     /**
-     * 商户信息管理（查询，修改，查看详情）页面
+     * 委托机构信息管理（查询，修改，查看详情）页面
      */
     @ResponseBody
 	@RequestMapping("/queryMerch")
@@ -177,6 +177,131 @@ public class AgencyController {
         variables.put("status", merchStatus);
         variables.put("flag", flag);
         return agencyService.findMerchByPage(variables, page, rows);
+    }
+    
+
+    /**
+     * 保存业务收费信息
+     */
+    @ResponseBody
+	@RequestMapping("/saveAgencyInfo")
+    public Map<String, Object> saveAgencyInfo(String merchNo,BustSortType type,HttpServletRequest request) {
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	UserBean user = (UserBean)request.getSession().getAttribute("LOGIN_USER");
+    	
+    	AgencyInfoBean bean = new AgencyInfoBean();
+    	boolean a_result = false;
+    	boolean b_result = false;
+    	boolean c_result = false;
+    	boolean d_result = false;
+    	
+    	bean.setInUser(user.getUserId());
+    	bean.setMerchNo(merchNo);
+    	if (type.getA_bustCode().equals("11000001")) {
+			bean.setBustCode(type.getA_bustCode());
+			bean.setChargingunit(type.getA_chargingunit());
+			bean.setBusiSort(type.getA_busiSort());
+			a_result = agencyService.saveAgencyInfo(bean);
+		}
+    	if (type.getB_bustCode().equals("11000002")) {
+    		bean.setBustCode(type.getB_bustCode());
+    		bean.setChargingunit(type.getB_chargingunit());
+    		bean.setBusiSort(type.getB_busiSort());
+    		b_result = agencyService.saveAgencyInfo(bean);
+    	}
+    	if (type.getC_bustCode().equals("11000003")) {
+    		bean.setBustCode(type.getC_bustCode());
+    		bean.setChargingunit(type.getC_chargingunit());
+    		bean.setBusiSort(type.getC_busiSort());
+    		c_result = agencyService.saveAgencyInfo(bean);
+    	}
+    	if (type.getD_bustCode().equals("11000004")) {
+    		bean.setBustCode(type.getD_bustCode());
+    		bean.setChargingunit(type.getD_chargingunit());
+    		bean.setBusiSort(type.getD_busiSort());
+    		d_result = agencyService.saveAgencyInfo(bean);
+    	}
+    	
+    	if(!a_result || !b_result || !c_result || !d_result){
+    		map.put("RET", "succ");
+			map.put("INFO", "操作成功");
+    	}else{
+    		map.put("RET", "error");
+			map.put("INFO", "操作失败！");
+    	}
+    	return map;
+    }
+    
+    /**
+     * 查询业务收费信息
+     */
+    @ResponseBody
+	@RequestMapping("/queryByMerchNo")
+    public List<?> queryByMerchNo(String merchNo) {
+    	return agencyService.queryByMerchNo(merchNo);
+    }
+    
+    /**
+     * 查询业务收费信息
+     */
+    @ResponseBody
+    @RequestMapping("/updateAgencyInfo")
+    public Map<String, Object> updateAgencyInfo(String merchNo,BustSortType type) {
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	boolean a_result = false;
+    	boolean b_result = false;
+    	boolean c_result = false;
+    	boolean d_result = false;
+    	AgencyInfoBean bean = new AgencyInfoBean();
+    	bean.setMerchNo(merchNo);
+    	if (type.getA_bustCode().equals("11000001")) {
+			bean.setBustCode("11000001");
+			bean = agencyService.queryByCode(merchNo,type.getA_bustCode());
+			bean.setChargingunit(type.getA_chargingunit());
+			bean.setBusiSort(type.getA_busiSort());
+			AgencyInfoBean pojo = agencyService.updateAgencyInfo(bean);
+			if (pojo.getChargingunit().equals(type.getA_chargingunit())) {
+				a_result=true;
+			}
+		}
+    	if (type.getB_bustCode().equals("11000002")) {
+    		bean.setBustCode(type.getB_bustCode());
+    		bean = agencyService.queryByCode(merchNo,type.getB_bustCode());
+    		bean.setChargingunit(type.getB_chargingunit());
+    		bean.setBusiSort(type.getB_busiSort());
+    		AgencyInfoBean pojo = agencyService.updateAgencyInfo(bean);
+    		if (pojo.getChargingunit().equals(type.getA_chargingunit())) {
+				a_result=true;
+			}
+    	}
+    	if (type.getC_bustCode().equals("11000003")) {
+    		bean.setBustCode(type.getC_bustCode());
+    		bean = agencyService.queryByCode(merchNo,type.getC_bustCode());
+    		bean.setChargingunit(type.getC_chargingunit());
+    		bean.setBusiSort(type.getC_busiSort());
+    		AgencyInfoBean pojo = agencyService.updateAgencyInfo(bean);
+    		if (pojo.getChargingunit().equals(type.getA_chargingunit())) {
+				a_result=true;
+			}
+    	}
+    	if (type.getD_bustCode().equals("11000004")) {
+    		bean.setBustCode(type.getD_bustCode());
+    		bean = agencyService.queryByCode(merchNo,type.getD_bustCode());
+    		bean.setChargingunit(type.getD_chargingunit());
+    		bean.setBusiSort(type.getD_busiSort());
+    		AgencyInfoBean pojo = agencyService.updateAgencyInfo(bean);
+    		if (pojo.getChargingunit().equals(type.getA_chargingunit())) {
+				a_result=true;
+			}
+    	}
+    	if(!a_result || !b_result || !c_result || !d_result){
+    		map.put("RET", "succ");
+			map.put("INFO", "操作成功");
+    	}else{
+    		map.put("RET", "error");
+			map.put("INFO", "操作失败！");
+    	}
+    	return map;
     }
     /**
      * 跳转到上传证件页面
@@ -298,7 +423,7 @@ public class AgencyController {
     }
 
     /**
-     * 商户修改页面
+     * 委托机构修改页面
      * 
      * @return
      */
@@ -361,7 +486,7 @@ public class AgencyController {
     }
 
     /**
-     * 修改商户信息
+     * 修改委托机构信息
      * @return
      */
     @ResponseBody
@@ -391,7 +516,7 @@ public class AgencyController {
     }
 
     /**
-     * 商户申请提交
+     * 委托机构申请提交
      * @return
      */
     @ResponseBody
@@ -408,7 +533,7 @@ public class AgencyController {
     }
 
     /**
-     * 查看某一条商户信息,查看商户详细信息
+     * 查看某一条委托机构信息,查看委托机构详细信息
      * @return
      */
     @ResponseBody
@@ -422,7 +547,7 @@ public class AgencyController {
     	return result; 
     }
     /***
-     * 复审未通过，则允许变更商户申请信息
+     * 复审未通过，则允许变更委托机构申请信息
      * @return
      */
     @ResponseBody
@@ -438,7 +563,7 @@ public class AgencyController {
     }
 
     /**
-     * 商户审核（通过，否决，驳回） --0 通过 1 拒绝 9 终止
+     * 委托机构审核（通过，否决，驳回） --0 通过 1 拒绝 9 终止
      * @throws Exception
      */
     @ResponseBody
@@ -472,7 +597,7 @@ public class AgencyController {
     }
 
     /**
-     * 商户秘钥下载
+     * 委托机构秘钥下载
      * @return
      */
     @ResponseBody
@@ -488,7 +613,7 @@ public class AgencyController {
         return "merch_mk_export";
     }
     /**
-     * 查询正式在用的商户详细信息    
+     * 查询正式在用的委托机构详细信息    
      * @return
      */
     @ResponseBody
@@ -536,7 +661,7 @@ public class AgencyController {
     	return agencyService.queryTrade();
     }
     /**
-     * 商户类型
+     * 委托机构类型
      */
     @ResponseBody
 	@RequestMapping("/queryMerchType")
@@ -545,7 +670,7 @@ public class AgencyController {
     }
 
     /**
-     * 商户清算类型
+     * 委托机构清算类型
      */
     @ResponseBody
 	@RequestMapping("/queryMerchClearType")
@@ -554,7 +679,7 @@ public class AgencyController {
     }
 
     /**
-     * 所属商户
+     * 所属委托机构
      */
     @ResponseBody
 	@RequestMapping("/showMerchParent")
@@ -759,7 +884,7 @@ public class AgencyController {
 //*********************************复审添加风控*******************************************
     
     /**
-     * 复审风控--查询商户信息
+     * 复审风控--查询委托机构信息
      * @param memberId
      * @param request
      * @return
@@ -770,7 +895,7 @@ public class AgencyController {
        	return enterpriseDetaService.findById(memberId);
    	}
     /**
-     * 复审风控--查询商户信息
+     * 复审风控--查询委托机构信息
      * @param memberId
      * @param request
      * @return
@@ -790,9 +915,9 @@ public class AgencyController {
         return result; 
     }
     
-//*********************************商户信息变更*******************************************
+//*********************************委托机构信息变更*******************************************
     /**
-     * 商户信息变更菜单
+     * 委托机构信息变更菜单
      * @return
      */
     @ResponseBody
@@ -804,7 +929,7 @@ public class AgencyController {
    	 	return result; 
     }
     /**
-     * 商户变更初审
+     * 委托机构变更初审
      */
     @ResponseBody
 	@RequestMapping("/merchModifyFirstCheck")
@@ -814,7 +939,7 @@ public class AgencyController {
     	return result;
     }
     /**
-     * 商户变更复审
+     * 委托机构变更复审
      */
     @ResponseBody
 	@RequestMapping("/merchModifySecondCheck")
@@ -824,7 +949,7 @@ public class AgencyController {
    	 	return result;
     }
     /**
-     * 商户信息变更界面
+     * 委托机构信息变更界面
      * @return
      */
     @ResponseBody
@@ -844,7 +969,7 @@ public class AgencyController {
     }
     
     /**
-     * 商户信息变更列表的变更功能
+     * 委托机构信息变更列表的变更功能
      * @return
      */
     @ResponseBody
@@ -888,7 +1013,7 @@ public class AgencyController {
     }
     /**
      * 
-     * 商户变更的提交申请功能
+     * 委托机构变更的提交申请功能
      * @return
      */
     @ResponseBody
@@ -917,7 +1042,7 @@ public class AgencyController {
     }
     
     /**
-     * 点击下一步，对商户变更信息做保存更新
+     * 点击下一步，对委托机构变更信息做保存更新
      * @return
      */
     @ResponseBody

@@ -87,7 +87,7 @@ table tr td select {
 					<td>接入类型</td><td id="accesstype"></td>
 					</tr>
 					<tr>
-					<td>商户号</td><td id="merid"></td>
+					<td>委托机构号</td><td id="merid"></td>
 					<td>异步通知结果</td><td id="syncnotify"></td>
 					</tr>
 					<tr>
@@ -104,7 +104,7 @@ table tr td select {
 					</tr>
 					<tr>
 					<td>订单发送时间</td><td id="txntime"></td>
-					<td>商户订单号</td><td id="orderid"></td>
+					<td>委托机构订单号</td><td id="orderid"></td>
 					</tr>
 					<tr>
 					<td>交易币种</td><td id="currencycode"></td>
@@ -144,6 +144,9 @@ table tr td select {
 					</tr>
 				</table>
 			</div>
+			<div region="south" border="false" style="text-align: center; padding: 15px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-back" onclick="closeAdd()">返回</a>
+			</div>
 		</div>
 	</div>
 </body>
@@ -180,40 +183,40 @@ table tr td select {
 							idField : 'ORGAN_ID',
 							columns : [ [
 									{field:'MERID',title:'委托机构号',width:123,align:'center'},
-									{field:'MERNAME',title:'委托机构名称',width:123,align:'center'},
-									{field:'VERSION',title:'版本',width:124,align:'center'},
-									{field:'ENCODING',title:'编码方式',width:125,align:'center',
-										formatter : function(value, rec) {
-											if (rec.ENCODING == "1") {
-												return "UTF-8";
-											} 
-										}	
-									},
-									{field:'TXNTIME',title:'订单发送时间',width:150,align:'center',
+									{field:'MERNAME',title:'委托机构名称',width:106,align:'center'},
+// 									{field:'VERSION',title:'版本',width:42,align:'center'},
+// 									{field:'ENCODING',title:'编码方式',width:58,align:'center',
+// 										formatter : function(value, rec) {
+// 											if (rec.ENCODING == "1") {
+// 												return "UTF-8";
+// 											} 
+// 										}	
+// 									},
+									{field:'TXNTIME',title:'订单发送时间',width:86,align:'center',
 										formatter : function(value, rec) {
 											return changeDate(rec.TXNTIME);
 										}},
-									{field:'ORDERID',title:'订单号',width:131,align:'center'},
-									{field:'CURRENCYCODE',title:'交易币种',width:132,align:'center',
+									{field:'ORDERID',title:'订单号',width:111,align:'center'},
+									{field:'CURRENCYCODE',title:'交易币种',width:52,align:'center',
 										formatter : function(value, rec) {
 											if (rec.CURRENCYCODE == "156") {
 												return "人民币";
 											} 
 										}	
 									},
-									{field:'TXNAMT',title:'金额',width:133,align:'center'},
-									{field:'DEBTORBANK',title:'付款人银行号',width:150,align:'center'},
-									{field:'DEBTORACCOUNT',title:'付款人账号',width:150,align:'center'},
-									{field:'DEBTORNAME',title:'付款人名称',width:150,align:'center'},
-									{field:'DEBTORCONSIGN',title:'付款合同号',width:150,align:'center'},
-									{field:'CREDITORBANK',title:'收款人银行号',width:150,align:'center'},
-									{field:'CREDITORACCOUNT',title:'收款人账号',width:150,align:'center'},
-									{field:'CREDITORNAME',title:'收款人名称',width:150,align:'center'},
-									{field:'PROPRIETARY',title:'业务种类编码',width:141,align:'center'},
-									{field:'RESPCODE',title:'响应码',width:144,align:'center'},
-									{field:'RESPMSG',title:'应答信息',width:145,align:'center'},
+									{field:'TXNAMT',title:'金额',width:63,align:'center'},
+									{field:'DEBTORBANK',title:'付款人银行号',width:110,align:'center'},
+									{field:'DEBTORACCOUNT',title:'付款人账号',width:130,align:'center'},
+									{field:'DEBTORNAME',title:'付款人名称',width:70,align:'center'},
+									{field:'DEBTORCONSIGN',title:'付款合同号',width:110,align:'center'},
+									{field:'CREDITORBANK',title:'收款人银行号',width:110,align:'center'},
+									{field:'CREDITORACCOUNT',title:'收款人账号',width:130,align:'center'},
+									{field:'CREDITORNAME',title:'收款人名称',width:70,align:'center'},
+									{field:'PROPRIETARY',title:'业务种类编码',width:91,align:'center'},
+									{field:'RESPCODE',title:'响应码',width:74,align:'center'},
+									{field:'RESPMSG',title:'应答信息',width:85,align:'center'},
 									{field:'TN',title:'受理订单号',width:146,align:'center'},
-									{field:'RELATETRADETXN',title:'交易序列号',width:147,align:'center'},
+									{field:'RELATETRADETXN',title:'交易序列号',width:97,align:'center'},
 									{field:'STATUS',title:'状态',width:148,align:'center',
 										formatter : function(value, rec) {
 											if (rec.STATUS == "00") {
@@ -231,14 +234,14 @@ table tr td select {
 											if (rec.STATUS == "04") {
 												return "订单失效";
 											} 
-										}	
+										}
 									},
-									{field:'ORDERCOMMITIME',title:'订单提交时间',width:150,align:'center',
+									{field:'ORDERCOMMITIME',title:'订单提交时间',width:86,align:'center',
 										formatter : function(value, rec) {
 											return changeDate(rec.ORDERCOMMITIME);
 										}	
 									},
-									{field:'SYNCNOTIFY',title:'异步通知结果',width:150,align:'center'},
+									{field:'SYNCNOTIFY',title:'异步通知结果',width:120,align:'center'},
 									{
 										field : 'ID',
 										title : '操作',
@@ -279,7 +282,9 @@ table tr td select {
 	function resize(){
 		$('#theForm :input').val('');
 	}
-	
+	function closeAdd(){
+		$('#w').window('close');
+	}
 	function queryTxnsLog(txnseqno) {
 		$("#tid").html("");
 		$("#accesstype").html("");
@@ -324,7 +329,7 @@ table tr td select {
 			maximizable : false,
 			shadow : false,
 			closed : false,
-			height : 550
+			height : 500
 		});
 		
 		function getStatus(value){
@@ -361,7 +366,7 @@ table tr td select {
 		$("#txntime").html(changeDate(rows["TXNTIME"]));
 		$("#orderid").html(rows["ORDERID"]);
 		if (rows["CURRENCYCODE"] == "156") {
-			$("#currencycode").html("人名币");
+			$("#currencycode").html("人民币");
 		}
 		$("#txnamt").html(rows["TXNAMT"]);
 		$("#debtorbank").html(rows["DEBTORBANK"]);

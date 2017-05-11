@@ -127,7 +127,7 @@ table tr td select {
 							<td class="add">合同类型</td>
 							<td class="add" align="left">
 							<select id="contractType" class="easyui-validatebox" missingMessage="请选择类型"
-								required="true" name="contractType" onchange="checkIsDelegation()">
+								required="true" name="contractType" onchange="checkIsDelegation(1)">
 									<option value=''>请选择合同类型</option>
 									<option value='CT00'>批量代收协议</option>
 									<option value='CT01'>批量代付协议</option>
@@ -254,11 +254,11 @@ table tr td select {
 						<tr id="delegation" style="height: 30px">
 							<td class="add">收费代码</td>
 							<td class="add" align="left">
-							<input type="text" id="chargeNo" name="chargeNo" class="easyui-validatebox" required="true"
+							<input type="text" id="chargeNo" name="chargeNo" class="easyui-validatebox"
 								maxlength="20" missingMessage="请输入收费代码"/></td>
 							<td class="add">收费协议号</td>
 							<td class="add" align="left">
-							<input type="text" id="chargeConntract" name="chargeConntract" class="easyui-validatebox" required="true"
+							<input type="text" id="chargeConntract" name="chargeConntract" class="easyui-validatebox"
 								maxlength="12" missingMessage="请输入收费协议号"/></td>
 						</tr>
 						<tr style="height: 30px">
@@ -268,7 +268,7 @@ table tr td select {
 							</td>
 							<td id="delegation2" class="add">付费协议号</td>
 							<td id="delegation3" class="add" align="left">
-							<input type="text" id="payContract" name="payContract" class="easyui-validatebox" required="true"
+							<input type="text" id="payContract" name="payContract" class="easyui-validatebox"
 								maxlength="12" missingMessage="请输入付费协议号"/></td>
 						</tr>
 						<tr style="height: 30px">

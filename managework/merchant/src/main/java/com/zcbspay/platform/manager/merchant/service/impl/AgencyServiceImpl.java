@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zcbspay.platform.manager.merchant.bean.AgencyInfoBean;
 import com.zcbspay.platform.manager.merchant.bean.CertType;
 import com.zcbspay.platform.manager.merchant.bean.EnterpriseDetaApplyBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchDetaApplyBean;
@@ -21,7 +22,9 @@ import com.zcbspay.platform.manager.merchant.certhandler.SignFileFacePicHandler;
 import com.zcbspay.platform.manager.merchant.certhandler.SignFileOppPicHandler;
 import com.zcbspay.platform.manager.merchant.certhandler.TaxRegCertPicHandler;
 import com.zcbspay.platform.manager.merchant.dao.AgencyDao;
+import com.zcbspay.platform.manager.merchant.dao.AgencyInfoDao;
 import com.zcbspay.platform.manager.merchant.dao.EnterpriseDetaDao;
+import com.zcbspay.platform.manager.merchant.pojo.PojoAgencyInfo;
 import com.zcbspay.platform.manager.merchant.pojo.PojoEnterpriseDetaApply;
 import com.zcbspay.platform.manager.merchant.pojo.PojoMerchDetaApply;
 import com.zcbspay.platform.manager.merchant.service.AgencyService;
@@ -34,6 +37,8 @@ public class AgencyServiceImpl implements AgencyService {
 	private AgencyDao agencyDAO;
 	@Autowired
 	private EnterpriseDetaDao enterpriseDetaDao;
+	@Autowired
+	private AgencyInfoDao agencyInfoDao;
 	
 	public List<?> queryMerchParent() {
 		return agencyDAO.queryMerchParent();
@@ -185,6 +190,36 @@ public class AgencyServiceImpl implements AgencyService {
 	@Override
 	public void updateMerch(String memberId, String riskVer) {
 		agencyDAO.updateMerch(memberId,riskVer);
+	}
+
+	@Override
+	public boolean saveAgencyInfo(AgencyInfoBean bean) {
+		PojoAgencyInfo pojo = new PojoAgencyInfo();
+		BeanUtils.copyProperties(bean, pojo);
+		return agencyInfoDao.saveAgencyInfo(pojo);
+	}
+
+	@Override
+	public List<?> queryByMerchNo(String merchNo) {
+		return agencyInfoDao.queryByMerchNo(merchNo);
+	}
+
+	@Override
+	public AgencyInfoBean updateAgencyInfo(AgencyInfoBean bean) {
+		PojoAgencyInfo pojo = new PojoAgencyInfo();
+		BeanUtils.copyProperties(bean, pojo);
+		
+		PojoAgencyInfo pojo2 = agencyInfoDao.updateAgencyInfo(pojo);
+		BeanUtils.copyProperties(pojo,bean);
+		return bean;
+	}
+	
+	@Override
+	public AgencyInfoBean queryByCode(String merchNo, String bustCode) {
+		AgencyInfoBean bean = new AgencyInfoBean();
+		PojoAgencyInfo pojo = (PojoAgencyInfo) agencyInfoDao.queryByCode(merchNo,bustCode).get(0);
+		BeanUtils.copyProperties(pojo,bean);
+		return bean;
 	}
 
 }
