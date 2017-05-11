@@ -217,8 +217,14 @@ public class AgencyServiceImpl implements AgencyService {
 	@Override
 	public AgencyInfoBean queryByCode(String merchNo, String bustCode) {
 		AgencyInfoBean bean = new AgencyInfoBean();
-		PojoAgencyInfo pojo = (PojoAgencyInfo) agencyInfoDao.queryByCode(merchNo,bustCode).get(0);
-		BeanUtils.copyProperties(pojo,bean);
+		PojoAgencyInfo pojo;
+		List<?> result = agencyInfoDao.queryByCode(merchNo,bustCode);
+		if(result.size() == 0){
+			bean = null;
+		}else{
+			pojo = (PojoAgencyInfo) agencyInfoDao.queryByCode(merchNo,bustCode).get(0);
+			BeanUtils.copyProperties(pojo,bean);
+		}
 		return bean;
 	}
 

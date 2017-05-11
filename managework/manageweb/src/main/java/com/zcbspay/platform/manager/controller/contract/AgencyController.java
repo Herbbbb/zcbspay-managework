@@ -246,8 +246,10 @@ public class AgencyController {
      */
     @ResponseBody
     @RequestMapping("/updateAgencyInfo")
-    public Map<String, Object> updateAgencyInfo(String merchNo,BustSortType type) {
+    public Map<String, Object> updateAgencyInfo(String merchNo,BustSortType type,HttpServletRequest request) {
     	Map<String, Object> map = new HashMap<String, Object>();
+    	UserBean user = (UserBean)request.getSession().getAttribute("LOGIN_USER");
+    	
     	boolean a_result = false;
     	boolean b_result = false;
     	boolean c_result = false;
@@ -255,43 +257,81 @@ public class AgencyController {
     	AgencyInfoBean bean = new AgencyInfoBean();
     	bean.setMerchNo(merchNo);
     	if (type.getA_bustCode().equals("11000001")) {
-			bean.setBustCode("11000001");
+			
 			bean = agencyService.queryByCode(merchNo,type.getA_bustCode());
-			bean.setChargingunit(type.getA_chargingunit());
-			bean.setBusiSort(type.getA_busiSort());
-			AgencyInfoBean pojo = agencyService.updateAgencyInfo(bean);
-			if (pojo.getChargingunit().equals(type.getA_chargingunit())) {
-				a_result=true;
+			if(bean == null){
+				AgencyInfoBean agencyInfo = new AgencyInfoBean();
+				agencyInfo.setInUser(user.getUserId());
+				agencyInfo.setMerchNo(merchNo);
+				agencyInfo.setBustCode("11000001");
+				agencyInfo.setChargingunit(type.getA_chargingunit());
+				agencyInfo.setBusiSort(type.getA_busiSort());
+				a_result = agencyService.saveAgencyInfo(agencyInfo);
+			}else{
+				bean.setChargingunit(type.getA_chargingunit());
+				bean.setBusiSort(type.getA_busiSort());
+				AgencyInfoBean pojo = agencyService.updateAgencyInfo(bean);
+				if (pojo.getChargingunit().equals(type.getA_chargingunit())) {
+					a_result=true;
+				}
 			}
 		}
     	if (type.getB_bustCode().equals("11000002")) {
-    		bean.setBustCode(type.getB_bustCode());
     		bean = agencyService.queryByCode(merchNo,type.getB_bustCode());
-    		bean.setChargingunit(type.getB_chargingunit());
-    		bean.setBusiSort(type.getB_busiSort());
-    		AgencyInfoBean pojo = agencyService.updateAgencyInfo(bean);
-    		if (pojo.getChargingunit().equals(type.getA_chargingunit())) {
-				a_result=true;
+    		if(bean == null){
+    			AgencyInfoBean agencyInfo = new AgencyInfoBean();
+    			agencyInfo.setInUser(user.getUserId());
+				agencyInfo.setMerchNo(merchNo);
+				agencyInfo.setBustCode("11000002");
+				agencyInfo.setChargingunit(type.getB_chargingunit());
+				agencyInfo.setBusiSort(type.getB_busiSort());
+				a_result = agencyService.saveAgencyInfo(agencyInfo);
+			}else{
+				bean.setChargingunit(type.getB_chargingunit());
+	    		bean.setBusiSort(type.getB_busiSort());
+	    		AgencyInfoBean pojo = agencyService.updateAgencyInfo(bean);
+	    		if (pojo.getChargingunit().equals(type.getB_chargingunit())) {
+					a_result=true;
+				}
 			}
+    		
     	}
     	if (type.getC_bustCode().equals("11000003")) {
-    		bean.setBustCode(type.getC_bustCode());
     		bean = agencyService.queryByCode(merchNo,type.getC_bustCode());
-    		bean.setChargingunit(type.getC_chargingunit());
-    		bean.setBusiSort(type.getC_busiSort());
-    		AgencyInfoBean pojo = agencyService.updateAgencyInfo(bean);
-    		if (pojo.getChargingunit().equals(type.getA_chargingunit())) {
-				a_result=true;
+    		if(bean == null){
+    			AgencyInfoBean agencyInfo = new AgencyInfoBean();
+    			agencyInfo.setInUser(user.getUserId());
+    			agencyInfo.setMerchNo(merchNo);
+    			agencyInfo.setBustCode("11000003");
+		    	agencyInfo.setChargingunit(type.getC_chargingunit());
+		    	agencyInfo.setBusiSort(type.getC_busiSort());
+				a_result = agencyService.saveAgencyInfo(agencyInfo);
+			}else{
+				bean.setChargingunit(type.getC_chargingunit());
+	    		bean.setBusiSort(type.getC_busiSort());
+	    		AgencyInfoBean pojo = agencyService.updateAgencyInfo(bean);
+	    		if (pojo.getChargingunit().equals(type.getC_chargingunit())) {
+					a_result=true;
+				}
 			}
     	}
     	if (type.getD_bustCode().equals("11000004")) {
-    		bean.setBustCode(type.getD_bustCode());
     		bean = agencyService.queryByCode(merchNo,type.getD_bustCode());
-    		bean.setChargingunit(type.getD_chargingunit());
-    		bean.setBusiSort(type.getD_busiSort());
-    		AgencyInfoBean pojo = agencyService.updateAgencyInfo(bean);
-    		if (pojo.getChargingunit().equals(type.getA_chargingunit())) {
-				a_result=true;
+    		if(bean == null){
+    			AgencyInfoBean agencyInfo = new AgencyInfoBean();
+    			agencyInfo.setInUser(user.getUserId());
+    			agencyInfo.setMerchNo(merchNo);
+    			agencyInfo.setBustCode("11000004");
+    			agencyInfo.setChargingunit(type.getD_chargingunit());
+    			agencyInfo.setBusiSort(type.getD_busiSort());
+				a_result = agencyService.saveAgencyInfo(agencyInfo);
+			}else{
+				bean.setChargingunit(type.getD_chargingunit());
+	    		bean.setBusiSort(type.getD_busiSort());
+	    		AgencyInfoBean pojo = agencyService.updateAgencyInfo(bean);
+	    		if (pojo.getChargingunit().equals(type.getD_chargingunit())) {
+					a_result=true;
+				}
 			}
     	}
     	if(!a_result || !b_result || !c_result || !d_result){
