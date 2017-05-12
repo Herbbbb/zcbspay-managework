@@ -111,12 +111,12 @@ table tr td select {
 							<td width="18%" class="update">合同编号 </td>
 							<td align="left" class="update"><span id="b_contractNum"></span></td>
 						</tr>
-						<tr style="height: 30px">
-							<td class="update">业务类型</td>
-							<td align="left" class="update"><span id="b_categoryPurpose"></span></td>
-							<td class="update">业务种类</td>
-							<td align="left" class="update"><span id="b_proprieTary"></span></td>
-						</tr>
+<!-- 						<tr style="height: 30px"> -->
+<!-- 							<td class="update">业务类型</td> -->
+<!-- 							<td align="left" class="update"><span id="b_categoryPurpose"></span></td> -->
+<!-- 							<td class="update">业务种类</td> -->
+<!-- 							<td align="left" class="update"><span id="b_proprieTary"></span></td> -->
+<!-- 						</tr> -->
 						<tr style="height: 30px">
 							<td class="update">合同类型</td>
 							<td align="left" class="update"><span id="b_contractType"></span></td>

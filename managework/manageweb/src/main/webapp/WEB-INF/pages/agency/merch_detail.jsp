@@ -71,20 +71,21 @@ table tr td font.current-step {
 							<td class="update" align="center">机构编号</td>
 							<td class="update" >${merchMap.MEMBER_ID}</td>
 						</tr>
-						<tr>
-							<td class="update" align="center">收费单位代码<font color="red">*</font></td>
-							<td class="update" >${merchMap.CHARGINGUNIT}</td>
-							<td class="update" align="center">收费单位配置信息</td>
-							<td class="update" style="font-size: 12px;color:blue;cursor:pointer;" onclick="findChargingunit()">点击查看</td>
+<!-- 						<tr> -->
+<!-- 							<td class="update" align="center">收费单位代码<font color="red">*</font></td> -->
+<%-- 							<td class="update" >${merchMap.CHARGINGUNIT}</td> --%>
+							
 <!-- 							<td class="update" align="center"></td> -->
 <!-- 							<td class="update"></td> -->
 <!-- 							<td class="update" align="center">机构代码<font color="red">*</font></td> -->
 <%-- 							<td class="update" >${merchMap.INSTCODE}</td> --%>
-						</tr>
+<!-- 						</tr> -->
 						<tr>
 							<td class="update" align="center">机构所在地<font color="red">*</font></td>
-							<td class="update" colspan="3">${merchMap.PROVINCENAME }
+							<td class="update" >${merchMap.PROVINCENAME }
 								${merchMap.CITYNAME} ${merchMap.STREETNAME}</td>
+							<td class="update" align="center">收费单位配置信息</td>
+							<td class="update" style="font-size: 12px;color:blue;cursor:pointer;" onclick="findChargingunit()">点击查看</td>
 						</tr>
 						<tr>
 							<td class="update" align="center">联系手机号<font color="red">*</font></td>
@@ -377,40 +378,40 @@ table tr td font.current-step {
 						<input type="hidden" id="a_bustCode" name="a_bustCode"/>
 					</tr>
 					<tr style="height: 25px">
-						<td width="18%">付款单位代码</td>
-						<td align="left"><input id="a_chargingunit" name="a_chargingunit" maxlength="8" class="easyui-validatebox" type="text" /></td>
-						<td width="18%">业务种类</td>
-						<td align="left"><input id="a_busiSort" name="a_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
+						<td class="update" width="18%">付款单位代码</td>
+						<td align="left" class="update"><span id="a_chargingunit"></span></td>
+						<td width="18%" class="update">业务种类</td>
+						<td align="left" class="update"><span id="a_busiSort"></span></td>
 					</tr>
 					<tr>
 						<td colspan="4" class="head-title">实时代付</td>
 						<input type="hidden" id="b_bustCode" name="b_bustCode"/>
 					</tr>
 					<tr style="height: 25px">
-						<td width="18%">付款单位代码</td>
-						<td align="left"><input id="b_chargingunit" name="b_chargingunit" maxlength="8" class="easyui-validatebox" type="text" /></td>
-						<td width="18%">业务种类</td>
-						<td align="left"><input id="b_busiSort" name="b_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
+						<td width="18%" class="update">付款单位代码</td>
+						<td align="left" class="update"><span id="b_chargingunit"></span></td>
+						<td width="18%" class="update">业务种类</td>
+						<td align="left" class="update"><span id="b_busiSort"></span></td>
 					</tr>
 					<tr>
 						<td colspan="4" class="head-title">批量代收</td>
 						<input type="hidden" id="c_bustCode" name="c_bustCode"/>
 					</tr>
 					<tr style="height: 25px">
-						<td width="18%">付款单位代码</td>
-						<td align="left"><input id="c_chargingunit" name="c_chargingunit" maxlength="8" class="easyui-validatebox" type="text" /></td>
-						<td width="18%">业务种类</td>
-						<td align="left"><input id="c_busiSort" name="c_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
+						<td width="18%" class="update">付款单位代码</td>
+						<td align="left" class="update"><span id="c_chargingunit"></span></td>
+						<td width="18%" class="update">业务种类</td>
+						<td align="left" class="update"><span id="c_busiSort"></span></td>
 					</tr>
 					<tr>
 						<td colspan="4" class="head-title">批量代付</td>
 						<input type="hidden" id="d_bustCode" name="d_bustCode"/>
 					</tr>
 					<tr style="height: 25px">
-						<td width="18%">付款单位代码</td>
-						<td align="left"><input id="d_chargingunit" name="d_chargingunit" maxlength="8" class="easyui-validatebox" type="text" /></td>
-						<td width="18%">业务种类</td>
-						<td align="left"><input id="d_busiSort" name="d_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
+						<td width="18%" class="update">付款单位代码</td>
+						<td align="left" class="update"><span id="d_chargingunit"></span></td>
+						<td width="18%" class="update">业务种类</td>
+						<td align="left" class="update"><span id="d_busiSort"></span></td>
 					</tr>
 				</table>
 			</div>
@@ -720,17 +721,17 @@ table tr td font.current-step {
 		   success: function(json){
 			   $.each(json, function(key,value){
 				   if(value.bustCode == "11000001"){
-					   $('#a_chargingunit').val(value.chargingunit);
-					   $('#a_busiSort').val(value.busiSort);
+					   $('#a_chargingunit').html(value.chargingunit);
+					   $('#a_busiSort').html(value.busiSort);
 				   }else if(value.bustCode == "11000002"){
-					   $('#b_chargingunit').val(value.chargingunit);
-					   $('#b_busiSort').val(value.busiSort);
+					   $('#b_chargingunit').html(value.chargingunit);
+					   $('#b_busiSort').html(value.busiSort);
 				   }else if(value.bustCode == "11000003"){
-					   $('#c_chargingunit').val(value.chargingunit);
-					   $('#c_busiSort').val(value.busiSort);
+					   $('#c_chargingunit').html(value.chargingunit);
+					   $('#c_busiSort').html(value.busiSort);
 				   }else if(value.bustCode == "11000004"){
-					   $('#d_chargingunit').val(value.chargingunit);
-					   $('#d_busiSort').val(value.busiSort);
+					   $('#d_chargingunit').html(value.chargingunit);
+					   $('#d_busiSort').html(value.busiSort);
 				   }
 			   });
 		   }

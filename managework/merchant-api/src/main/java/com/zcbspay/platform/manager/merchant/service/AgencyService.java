@@ -193,7 +193,7 @@ public interface AgencyService {
 	 * @param bean
 	 * @return
 	 */
-	public boolean saveAgencyInfo(AgencyInfoBean bean);
+	public Map<String, Object> saveAgencyInfo(AgencyInfoBean bean);
 
 	/**
 	 * 查询业务收费信息
@@ -207,7 +207,7 @@ public interface AgencyService {
 	 * @param bean
 	 * @return
 	 */
-	public AgencyInfoBean updateAgencyInfo(AgencyInfoBean bean);
+	public Map<String, Object> updateAgencyInfo(AgencyInfoBean bean);
 
 	/**
 	 * 查询业务收费信息
@@ -216,4 +216,5 @@ public interface AgencyService {
 	 * @return
 	 */
 	public AgencyInfoBean queryByCode(String merchNo, String bustCode);
+
 }

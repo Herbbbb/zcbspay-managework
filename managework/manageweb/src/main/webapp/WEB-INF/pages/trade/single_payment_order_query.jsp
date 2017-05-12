@@ -204,7 +204,11 @@ table tr td select {
 											} 
 										}	
 									},
-									{field:'TXNAMT',title:'金额',width:63,align:'center'},
+									{field:'TXNAMT',title:'金额',width:63,align:'center',
+										formatter:function(value,rec){
+											return fenToYuan(rec.TXNAMT);
+										}
+									},
 									{field:'DEBTORBANK',title:'付款人银行号',width:110,align:'center'},
 									{field:'DEBTORACCOUNT',title:'付款人账号',width:130,align:'center'},
 									{field:'DEBTORNAME',title:'付款人名称',width:70,align:'center'},
@@ -368,7 +372,7 @@ table tr td select {
 		if (rows["CURRENCYCODE"] == "156") {
 			$("#currencycode").html("人民币");
 		}
-		$("#txnamt").html(rows["TXNAMT"]);
+		$("#txnamt").html(fenToYuan(rows["TXNAMT"]));
 		$("#debtorbank").html(rows["DEBTORBANK"]);
 		$("#debtoraccount").html(rows["DEBTORACCOUNT"]);
 		$("#debtorname").html(rows["DEBTORNAME"]);
@@ -388,6 +392,13 @@ table tr td select {
 		$("#syncnotify").html(rows["SYNCNOTIFY"]);
 		$("#notes").html(rows["NOTES"]);
 		$("#remarks").html(rows["REMARKS"]);
+	}
+	function fenToYuan(value){
+		var str = (value/100).toFixed(2) + '';
+		var intSum = str.substring(0,str.indexOf(".")).replace( /\B(?=(?:\d{3})+$)/g, ',' );
+		var dot = str.substring(str.length,str.indexOf("."))
+		var ret = intSum + dot;
+		return ret;
 	}
 </script>
 </html>

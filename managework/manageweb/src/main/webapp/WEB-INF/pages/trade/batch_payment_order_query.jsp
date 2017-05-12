@@ -90,8 +90,9 @@ table tr td select {
 						<td>总金额</td><td id="totalamt"></td>
 					</tr>
 					<tr>						
-						<td>保留域</td><td id="reserved"></td>
+<!-- 						<td>保留域</td><td id="reserved"></td> -->
 						<td>响应码</td><td id="respcode"></td>
+						<td></td><td></td>
 					</tr>
 					<tr>						
 						<td>应答信息</td><td id="respmsg"></td>
@@ -156,30 +157,34 @@ table tr td select {
 // 									}		
 // 								},
 								{field:'BATCHNO',title:'批次号',width:180,align:'center'},
+								{field:'TN',title:'受理批次号',width:180,align:'center'},
 								{field:'TXNTIME',title:'订单发送时间',width:150,align:'center',
 									formatter : function(value, rec) {
-										return changeDate(rec.TXNTIME);
+										return changeDate(rec.ORDERFINSHTIME);
 									}	
 								},
 								{field:'TOTALQTY',title:'总笔数',width:120,align:'center'},
-								{field:'TOTALAMT',title:'总金额',width:120,align:'center'},
-								{field:'RESERVED',title:'保留域',width:120,align:'center'},
+								{field:'TOTALAMT',title:'总金额(元)',width:120,align:'center',
+									formatter:function(value,rec){
+										return fenToYuan(rec.TOTALAMT);
+									}
+								},
 								{field:'STATUS',title:'状态',width:120,align:'center',
 									formatter : function(value, rec) {
 										if (rec.STATUS == "00") {
-											return "支付成功";
+											return "交易完成";
 										} 
 										if (rec.STATUS == "01") {
-											return "订单提交成功,但未支付";
+											return "订单提交成功";
 										} 
 										if (rec.STATUS == "02") {
-											return "支付中";
+											return "交易中";
 										} 
 										if (rec.STATUS == "03") {
-											return "支付失败";
+											return "交易失败";
 										} 
 										if (rec.STATUS == "04") {
-											return "订单失效";
+											return "批次失效";
 										} 
 									}	
 								},
@@ -220,7 +225,11 @@ table tr td select {
 												} 
 											}	
 										},
-										{field:'AMT',title:'单笔金额(元)',width:120,align:'center'},
+										{field:'AMT',title:'单笔金额(元)',width:120,align:'center',
+											formatter:function(value,rec){
+												return fenToYuan(rec.AMT);
+											}
+										},
 										{field:'DEBTORBANK',title:'付款人银行号',width:150,align:'center'},
 										{field:'DEBTORACCOUNT',title:'付款人账号',width:150,align:'center'},
 										{field:'DEBTORNAME',title:'付款人名称',width:150,align:'center'},
@@ -229,25 +238,25 @@ table tr td select {
 										{field:'CREDITORACCOUNT',title:'收款人账号',width:150,align:'center'},
 										{field:'CREDITORNAME',title:'收款人名称',width:150,align:'center'},
 										{field:'PROPRIETARY',title:'业务种类编码',width:120,align:'center'},
-										{field:'RESPCODE',title:'响应码',width:120,align:'center'},
-										{field:'RESPMSG',title:'应答信息',width:120,align:'center'},
+// 										{field:'RESPCODE',title:'响应码',width:120,align:'center'},
+// 										{field:'RESPMSG',title:'应答信息',width:120,align:'center'},
 										{field:'RELATETRADETXN',title:'交易序列号',width:120,align:'center'},
 										{field:'STATUS',title:'状态',width:120,align:'center',
 											formatter : function(value, rec) {
 												if (rec.STATUS == "00") {
-													return "支付成功";
+													return "交易完成";
 												} 
 												if (rec.STATUS == "01") {
-													return "订单提交成功,但未支付";
+													return "订单提交成功";
 												} 
 												if (rec.STATUS == "02") {
-													return "支付中";
+													return "交易中";
 												} 
 												if (rec.STATUS == "03") {
-													return "支付失败";
+													return "交易失败";
 												} 
 												if (rec.STATUS == "04") {
-													return "订单失效";
+													return "批次失效";
 												} 
 											}	
 										},
@@ -292,7 +301,7 @@ table tr td select {
 		$("#txntime").html("");
 		$("#totalqty").html("");
 		$("#totalamt").html("");
-		$("#reserved").html("");
+// 		$("#reserved").html("");
 		$("#respcode").html("");
 		$("#respmsg").html("");
 		$("#status").html("");
@@ -317,19 +326,19 @@ table tr td select {
 	
 		function getStatus(value){
 			if (value == "00") {
-				return "支付成功";
+				return "交易完成";
 			} 
 			if (value == "01") {
-				return "订单提交成功,但未支付";
+				return "订单提交成功";
 			} 
 			if (value == "02") {
-				return "支付中";
+				return "交易中";
 			} 
 			if (value == "03") {
-				return "支付失败";
+				return "交易失败";
 			} 
 			if (value == "04") {
-				return "订单失效";
+				return "批次失效";
 			} 
 		}
 		
@@ -347,10 +356,10 @@ table tr td select {
 		$("#biztype").html(rows["BIZTYPE"]);
 		$("#backurl").html(rows["BACKURL"]);
 		$("#batchno").html(rows["BATCHNO"]);
-		$("#txntime").html(changeDate(rows["TXNTIME"]));
+		$("#txntime").html(changeDate(rows["ORDERFINSHTIME"]));
 		$("#totalqty").html(rows["TOTALQTY"]);
-		$("#totalamt").html(rows["TOTALAMT"]);
-		$("#reserved").html(rows["RESERVED"]);
+		$("#totalamt").html(fenToYuan(rows["TOTALAMT"]));
+// 		$("#reserved").html(rows["RESERVED"]);
 		$("#respcode").html(rows["RESPCODE"]);
 		$("#respmsg").html(rows["RESPMSG"]);
 		$("#status").html(getStatus(rows["STATUS"]));
@@ -358,6 +367,13 @@ table tr td select {
 		$("#syncnotify").html(rows["SYNCNOTIFY"]);
 		$("#notes").html(rows["NOTES"]);
 		$("#remarks").html(rows["REMARKS"]);
+	}
+	function fenToYuan(value){
+		var str = (value/100).toFixed(2) + '';
+		var intSum = str.substring(0,str.indexOf(".")).replace( /\B(?=(?:\d{3})+$)/g, ',' );//取到整数部分
+		var dot = str.substring(str.length,str.indexOf("."))
+		var ret = intSum + dot;
+		return ret;
 	}
 </script>
 </html>

@@ -231,30 +231,10 @@ table tr td select {
 							remoteSort : false,
 							idField : 'ORGAN_ID',
 							columns : [ [
-									{
-										field : 'ORDERNO',
-										title : '订单号',
-										width : 120,
-										align : 'center'
-									},
-									{
-										field : 'ORDERAMT',
-										title : '订单金额(元)',
-										width : 120,
-										align : 'center'
-									},
-									{
-										field : 'ORDERFEE',
-										title : '订单手续费(元)',
-										width : 120,
-										align : 'center'
-									},
-									{
-										field : 'ORDERCOMMITIME',
-										title : '订单提交时间',
-										width : 120,
-										align : 'center'
-									},
+									{field : 'ORDERNO',title : '订单号',width : 120,align : 'center'},
+									{field : 'ORDERAMT',title : '订单金额(元)',width : 120,align : 'center'},
+									{field : 'ORDERFEE',title : '订单手续费(元)',width : 120,align : 'center'},
+									{field : 'ORDERCOMMITIME',title : '订单提交时间',width : 120,align : 'center'},
 									{
 										field : 'FIRMEMBERNO',
 										title : '一级委托机构号',

@@ -278,20 +278,42 @@ table tr td select {
 </body>
 
 <script>
-function changeDate(value){
-	var dateString = value;
-	if(dateString==null){
-		return "";
-	}else{
-		year=dateString.substring(0,4);//0123
-		month=dateString.substring(4,6);//45
-		day=dateString.substring(6,8);//67
-		hour=dateString.substring(8,10);//89
-		minte=dateString.substring(10,12);//10 11
-		s=dateString.substring(12,14);// 11 12
-		return year+"-"+month+"-"+day+" " + hour +":"+minte+":"+s;
+	function changeDate(value){
+		var dateString = value;
+		if(dateString==null || dateString== 0){
+			return "";
+		}else{
+			year=dateString.substring(0,4);//0123
+			month=dateString.substring(4,6);//45
+			day=dateString.substring(6,8);//67
+			hour=dateString.substring(8,10);//89
+			minte=dateString.substring(10,12);//10 11
+			s=dateString.substring(12,14);// 11 12
+			return year+"-"+month+"-"+day+" " + hour +":"+minte+":"+s;
+		}
 	}
-}
+	function b_changeDate(value){
+		var dateString = value;
+		if(dateString==null || dateString== 0){
+			return "";
+		}else{
+			year=dateString.substring(0,4);//0123
+			month=dateString.substring(4,6);//45
+			day=dateString.substring(6,8);//67
+			return year+"-"+month+"-"+day;
+		}
+	}
+	function c_changeDate(value){
+		var dateString = value;
+		if(dateString==null || dateString== 0){
+			return "";
+		}else{
+			hour=dateString.substring(8,10);//89
+			minte=dateString.substring(10,12);//10 11
+			s=dateString.substring(12,14);// 11 12
+			return hour +":"+minte+":"+s;
+		}
+	}
   	var width = $("#continer").width();
 		$(function(){
 			
@@ -314,8 +336,16 @@ function changeDate(value){
 						}
 					},
 					{field:'BUSINAME',title:'交易类型',width:120,align:'center'},
-					{field:'AMOUNT',title:'交易金额(元)',width:120,align:'center'},
-					{field:'TXNFEE',title:'交易手续费(元)',width:120,align:'center'},
+					{field:'AMOUNT',title:'交易金额(元)',width:120,align:'center',
+						formatter:function(value,rec){
+							return fenToYuan(rec.AMOUNT);
+						}
+					},
+					{field:'TXNFEE',title:'交易手续费(元)',width:120,align:'center',
+						formatter:function(value,rec){
+							return fenToYuan(rec.TXNFEE);
+						}
+					},
 					{field:'RETINFO',title:'中心应答信息',width:120,align:'center'},
 					{field:'PAN',title:'转出帐号或卡号',width:150,align:'center'},
 					{field:'ACCSECMERNO',title:'委托机构号',width:150,align:'center'},
@@ -330,7 +360,7 @@ function changeDate(value){
 					},
 					{field:'ACCSETTLEDATE',title:'受理清算日期',width:120,align:'center',
 						formatter : function(value, rec) {
-							return changeDate(rec.ACCSETTLEDATE);
+							return b_changeDate(rec.ACCSETTLEDATE);
 						}		
 					},
 					{field:'CHNLNAME',title:'交易渠道',width:120,align:'center'},
@@ -461,14 +491,14 @@ function changeDate(value){
 					   }else{
 						   json=date.json;		   
 					   $("#ttxnseqno").html(json.TXNSEQNO);
-					   $("#ttxndate").html(json.TXNDATE);
-					   $("#ttxntime").html(changeDate(json.TXNTIME));
+					   $("#ttxndate").html(b_changeDate(json.TXNDATE+json.TXNTIME));
+					   $("#ttxntime").html(c_changeDate(json.TXNDATE+json.TXNTIME));
 					   $("#tapptype").html(json.APPTYPE);
 					   $("#tbusitype").html(json.BUSITYPE);
 					   $("#tbusicode").html(json.BUSINAME);
-					   $("#tamount").html(json.AMOUNT);
-					   $("#ttradcomm").html(json.TRADCOMM);
-					   $("#ttxnfee").html(json.TXNFEE);
+					   $("#tamount").html(fenToYuan(json.AMOUNT));
+					   $("#ttradcomm").html(fenToYuan(json.TRADCOMM));
+					   $("#ttxnfee").html(fenToYuan(json.TXNFEE));
 					   $("#triskver").html(json.RISKNAME);
 					   $("#tsplitver").html(json.SPLITVER);
 					   $("#tfeever").html(json.FEENAME);
@@ -534,6 +564,13 @@ function changeDate(value){
 		
 		function closeAdd(){
 			$('#w').window('close');
+		}
+		function fenToYuan(value){
+			var str = (value/100).toFixed(2) + '';
+			var intSum = str.substring(0,str.indexOf(".")).replace( /\B(?=(?:\d{3})+$)/g, ',' );
+			var dot = str.substring(str.length,str.indexOf("."))
+			var ret = intSum + dot;
+			return ret;
 		}
 	</script>
 </html>

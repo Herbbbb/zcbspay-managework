@@ -85,15 +85,14 @@ table tr td font.current-step {
 							<td>${member.enterpriseMemberId}</td>
 						</tr>
 						<tr>
-							<td align="center">收费单位代码</td>
-							<td><input name="chargingunit" maxlength="10" type="text" missingMessage="请输入收费单位代码"
-							required="true" class="easyui-validatebox" value="${merchDeta.chargingunit}"/>
-							<font color="red">*</font></td>
-							<td></td>
-							<td></td>
-<!-- 							<td align="center">机构代码</td> -->
-<!-- 							<td><input class="easyui-validatebox" maxlength="10" id="instCode" missingMessage="请输入机构代码" -->
-<%-- 								 required="true" name="instCode" value="${merchDeta.instCode}"/> <font color="red">*</font></td> --%>
+<!-- 							<td align="center">收费单位代码</td> -->
+<!-- 							<td><input name="chargingunit" maxlength="10" type="text" missingMessage="请输入收费单位代码" -->
+<%-- 							required="true" class="easyui-validatebox" value="${merchDeta.chargingunit}"/> --%>
+<!-- 							<font color="red">*</font></td> -->
+<!-- 							<td></td> -->
+<!-- 							<td></td> -->
+							<td class="update" align="center">收费单位配置信息</td>
+							<td class="update" style="font-size: 12px;color:blue;cursor:pointer;" onclick="findChargingunit()">点击查看</td>
 						</tr>
 						<tr>
 							<td align="center">机构所在地</td>
@@ -336,7 +335,8 @@ table tr td font.current-step {
 						</tr>
 						<tr style="height: 25px">
 							<td width="18%">付款单位代码</td>
-							<td align="left"><input id="a_chargingunit" name="a_chargingunit" maxlength="8" class="easyui-validatebox" type="text" /></td>
+							<td align="left"><input id="a_chargingunit" name="a_chargingunit" required="true"
+							missingMessage="请输入（实时代收）付款单位代码" maxlength="10" class="easyui-validatebox" type="text" /></td>
 							<td width="18%">业务种类</td>
 							<td align="left"><input id="a_busiSort" name="a_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
 						</tr>
@@ -346,7 +346,8 @@ table tr td font.current-step {
 						</tr>
 						<tr style="height: 25px">
 							<td width="18%">付款单位代码</td>
-							<td align="left"><input id="b_chargingunit" name="b_chargingunit" maxlength="8" class="easyui-validatebox" type="text" /></td>
+							<td align="left"><input id="b_chargingunit" name="b_chargingunit" required="true"
+							missingMessage="请输入（实时代付）付款单位代码" maxlength="10" class="easyui-validatebox" type="text" /></td>
 							<td width="18%">业务种类</td>
 							<td align="left"><input id="b_busiSort" name="b_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
 						</tr>
@@ -356,7 +357,8 @@ table tr td font.current-step {
 						</tr>
 						<tr style="height: 25px">
 							<td width="18%">付款单位代码</td>
-							<td align="left"><input id="c_chargingunit" name="c_chargingunit" maxlength="8" class="easyui-validatebox" type="text" /></td>
+							<td align="left"><input id="c_chargingunit" name="c_chargingunit" required="true"
+							missingMessage="请输入（批量代收）付款单位代码" maxlength="10" class="easyui-validatebox" type="text" /></td>
 							<td width="18%">业务种类</td>
 							<td align="left"><input id="c_busiSort" name="c_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
 						</tr>
@@ -366,7 +368,8 @@ table tr td font.current-step {
 						</tr>
 						<tr style="height: 25px">
 							<td width="18%">付款单位代码</td>
-							<td align="left"><input id="d_chargingunit" name="d_chargingunit" maxlength="8" class="easyui-validatebox" type="text" /></td>
+							<td align="left"><input id="d_chargingunit" name="d_chargingunit" required="true"
+							missingMessage="请输入付款单位代码" maxlength="10" class="easyui-validatebox" type="text" /></td>
 							<td width="18%">业务种类</td>
 							<td align="left"><input id="d_busiSort" name="d_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
 						</tr>
@@ -374,7 +377,7 @@ table tr td font.current-step {
 				</form>
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 15px 0;">
-				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:save(0)" id="b_btn_submit2">提交</a>
+				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:validate(0)" >提交</a>
 				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd2()">返回</a>
 			</div>
 		</div>
@@ -451,18 +454,16 @@ table tr td font.current-step {
 					},
 					success: function(json) {
 						json = eval('(' + json + ')');
-						$.each(json,
-							function(key, value) {
+						$.each(json,function(key, value) {
 							if (value.RET == "succ") {
 								var num = $("#enterpriseMemberId").val();
 								var info = $("#merchApplyId").val();
-								saveAgency(num,info);
-// 								$("#button_id").linkbutton('enable');
-// 								$.messager.confirm('提示', '保存成功,等待上传证件照片',function(data){
-// 									if(data){
-<%-- 										window.location.href= "<%=basePath%>" +'/agency/toUpload?merchApplyId='+value.INFO; --%>
-// 									}								
-// 								});
+								$("#button_id").linkbutton('enable');
+								if($("#a_chargingunit").val() == null || $("#a_chargingunit").val() == ""){
+									findChargingunit();
+								}else{
+									save();
+								}
 							} else {
 								$.messager.alert('提示', value.INFO);
 								$("#button_id").linkbutton('enable');
@@ -1005,8 +1006,9 @@ table tr td font.current-step {
 		function backToMerchIndex(){
 			window.location.href= "<%=basePath%>" +'agency/show';
 		}
-		function saveAgency(num,info){
-			
+		function findChargingunit(){
+			var num = $("#enterpriseMemberId").val();
+			var info = $("#merchApplyId").val();
 			$('#b_saveForm :input').val('');
 			$('#a_bustCode').val(11000001);
 			$('#b_bustCode').val(11000002);
@@ -1055,6 +1057,13 @@ table tr td font.current-step {
 		}
 		function backToMerchIndex(){
 			window.location.href= "<%=basePath%>" +'agency/show';
+		}
+		function validate(){
+			 if($('#b_saveForm').form('validate')){
+			    	$('#b_btn_submit2').linkbutton('disable');		
+					return true;
+				}
+		        return false;
 		}
 		function save(){
 			$('#b_saveForm').form('submit', {  

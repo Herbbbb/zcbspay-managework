@@ -1,5 +1,6 @@
 package com.zcbspay.platform.manager.merchant.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zcbspay.platform.manager.exception.ContractException;
 import com.zcbspay.platform.manager.merchant.bean.AgencyInfoBean;
 import com.zcbspay.platform.manager.merchant.bean.CertType;
 import com.zcbspay.platform.manager.merchant.bean.EnterpriseDetaApplyBean;
@@ -193,10 +195,18 @@ public class AgencyServiceImpl implements AgencyService {
 	}
 
 	@Override
-	public boolean saveAgencyInfo(AgencyInfoBean bean) {
+	public Map<String, Object> saveAgencyInfo(AgencyInfoBean bean) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		PojoAgencyInfo pojo = new PojoAgencyInfo();
 		BeanUtils.copyProperties(bean, pojo);
-		return agencyInfoDao.saveAgencyInfo(pojo);
+		try {
+			return agencyInfoDao.saveAgencyInfo(pojo);
+		} catch (ContractException e) {
+			map.put("RET", "error");
+			map.put("INFO", "操作失败!");
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
@@ -205,13 +215,16 @@ public class AgencyServiceImpl implements AgencyService {
 	}
 
 	@Override
-	public AgencyInfoBean updateAgencyInfo(AgencyInfoBean bean) {
+	public Map<String, Object> updateAgencyInfo(AgencyInfoBean bean) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		PojoAgencyInfo pojo = new PojoAgencyInfo();
 		BeanUtils.copyProperties(bean, pojo);
-		
-		PojoAgencyInfo pojo2 = agencyInfoDao.updateAgencyInfo(pojo);
-		BeanUtils.copyProperties(pojo,bean);
-		return bean;
+		try {
+			map = agencyInfoDao.updateAgencyInfo(pojo);
+		} catch (ContractException e) {
+			e.printStackTrace();
+		}
+		return map;
 	}
 	
 	@Override
@@ -227,7 +240,6 @@ public class AgencyServiceImpl implements AgencyService {
 		}
 		return bean;
 	}
-
 }
 
 

@@ -232,7 +232,13 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 	public Map<String, Object> importBatch_2(List<ContractBean> list,String batch) throws ContractException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		for (ContractBean pojo : list) {
-			
+			String type = pojo.getContractType();
+			if(!type.equals("CT00") && !type.equals("CT01") && !type.equals("CT02") && !type.equals("CT03")){
+				String info = "合同编号："+pojo.getContractNum()+","+ "合同类型输入有误!";
+				map.put("RET", "error");
+				map.put("INFO", info);
+				throw new ContractException(info); 
+			}
 			int contractBean = findByCode(pojo.getContractNum()).size();
 			if(contractBean != 0){
 				String info = "合同编号："+pojo.getContractNum()+","+ "该合同已存在或尚未被注销!";
@@ -255,7 +261,18 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 			Date curDate = new Date(System.currentTimeMillis());
 			bean.setInTime(curDate);
 			bean.setBatchNo(batch);
-			
+//			bean.setDebAmoLimit(batch);
+//			bean.setDebTranLimitType(batch);
+//			bean.setDebAccyAmoLimit(batch);
+//			bean.setDebTransLimitType(batch);
+//			bean.setDebTransLimit(Long.parseLong("50"));
+//			
+//			bean.setCredAmoLimit(batch);
+//			bean.setCredTranLimitType(batch);
+//			bean.setCredAccuAmoLimit(batch);
+//			bean.setCredTransLimitType(batch);
+//			bean.setCredTransLimit(Long.parseLong("50"));
+			bean.setStatus("20");
 			saveEntity(bean);
 		}
 		map.put("RET", "succ");

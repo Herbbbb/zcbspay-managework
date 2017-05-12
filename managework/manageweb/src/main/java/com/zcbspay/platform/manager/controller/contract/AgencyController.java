@@ -201,33 +201,25 @@ public class AgencyController {
 			bean.setBustCode(type.getA_bustCode());
 			bean.setChargingunit(type.getA_chargingunit());
 			bean.setBusiSort(type.getA_busiSort());
-			a_result = agencyService.saveAgencyInfo(bean);
+			map = agencyService.saveAgencyInfo(bean);
 		}
     	if (type.getB_bustCode().equals("11000002")) {
     		bean.setBustCode(type.getB_bustCode());
     		bean.setChargingunit(type.getB_chargingunit());
     		bean.setBusiSort(type.getB_busiSort());
-    		b_result = agencyService.saveAgencyInfo(bean);
+    		map = agencyService.saveAgencyInfo(bean);
     	}
     	if (type.getC_bustCode().equals("11000003")) {
     		bean.setBustCode(type.getC_bustCode());
     		bean.setChargingunit(type.getC_chargingunit());
     		bean.setBusiSort(type.getC_busiSort());
-    		c_result = agencyService.saveAgencyInfo(bean);
+    		map = agencyService.saveAgencyInfo(bean);
     	}
     	if (type.getD_bustCode().equals("11000004")) {
     		bean.setBustCode(type.getD_bustCode());
     		bean.setChargingunit(type.getD_chargingunit());
     		bean.setBusiSort(type.getD_busiSort());
-    		d_result = agencyService.saveAgencyInfo(bean);
-    	}
-    	
-    	if(!a_result || !b_result || !c_result || !d_result){
-    		map.put("RET", "succ");
-			map.put("INFO", "操作成功");
-    	}else{
-    		map.put("RET", "error");
-			map.put("INFO", "操作失败！");
+    		map = agencyService.saveAgencyInfo(bean);
     	}
     	return map;
     }
@@ -242,7 +234,7 @@ public class AgencyController {
     }
     
     /**
-     * 查询业务收费信息
+     * 修改业务收费信息
      */
     @ResponseBody
     @RequestMapping("/updateAgencyInfo")
@@ -266,14 +258,11 @@ public class AgencyController {
 				agencyInfo.setBustCode("11000001");
 				agencyInfo.setChargingunit(type.getA_chargingunit());
 				agencyInfo.setBusiSort(type.getA_busiSort());
-				a_result = agencyService.saveAgencyInfo(agencyInfo);
+				map = agencyService.saveAgencyInfo(agencyInfo);
 			}else{
 				bean.setChargingunit(type.getA_chargingunit());
 				bean.setBusiSort(type.getA_busiSort());
-				AgencyInfoBean pojo = agencyService.updateAgencyInfo(bean);
-				if (pojo.getChargingunit().equals(type.getA_chargingunit())) {
-					a_result=true;
-				}
+				map= agencyService.updateAgencyInfo(bean);
 			}
 		}
     	if (type.getB_bustCode().equals("11000002")) {
@@ -285,14 +274,11 @@ public class AgencyController {
 				agencyInfo.setBustCode("11000002");
 				agencyInfo.setChargingunit(type.getB_chargingunit());
 				agencyInfo.setBusiSort(type.getB_busiSort());
-				a_result = agencyService.saveAgencyInfo(agencyInfo);
+				map = agencyService.saveAgencyInfo(agencyInfo);
 			}else{
 				bean.setChargingunit(type.getB_chargingunit());
 	    		bean.setBusiSort(type.getB_busiSort());
-	    		AgencyInfoBean pojo = agencyService.updateAgencyInfo(bean);
-	    		if (pojo.getChargingunit().equals(type.getB_chargingunit())) {
-					a_result=true;
-				}
+	    		map= agencyService.updateAgencyInfo(bean);
 			}
     		
     	}
@@ -305,14 +291,11 @@ public class AgencyController {
     			agencyInfo.setBustCode("11000003");
 		    	agencyInfo.setChargingunit(type.getC_chargingunit());
 		    	agencyInfo.setBusiSort(type.getC_busiSort());
-				a_result = agencyService.saveAgencyInfo(agencyInfo);
+		    	map = agencyService.saveAgencyInfo(agencyInfo);
 			}else{
 				bean.setChargingunit(type.getC_chargingunit());
 	    		bean.setBusiSort(type.getC_busiSort());
-	    		AgencyInfoBean pojo = agencyService.updateAgencyInfo(bean);
-	    		if (pojo.getChargingunit().equals(type.getC_chargingunit())) {
-					a_result=true;
-				}
+	    		map = agencyService.updateAgencyInfo(bean);
 			}
     	}
     	if (type.getD_bustCode().equals("11000004")) {
@@ -324,22 +307,12 @@ public class AgencyController {
     			agencyInfo.setBustCode("11000004");
     			agencyInfo.setChargingunit(type.getD_chargingunit());
     			agencyInfo.setBusiSort(type.getD_busiSort());
-				a_result = agencyService.saveAgencyInfo(agencyInfo);
+    			map = agencyService.saveAgencyInfo(agencyInfo);
 			}else{
 				bean.setChargingunit(type.getD_chargingunit());
 	    		bean.setBusiSort(type.getD_busiSort());
-	    		AgencyInfoBean pojo = agencyService.updateAgencyInfo(bean);
-	    		if (pojo.getChargingunit().equals(type.getD_chargingunit())) {
-					a_result=true;
-				}
+	    		map = agencyService.updateAgencyInfo(bean);
 			}
-    	}
-    	if(!a_result || !b_result || !c_result || !d_result){
-    		map.put("RET", "succ");
-			map.put("INFO", "操作成功");
-    	}else{
-    		map.put("RET", "error");
-			map.put("INFO", "操作失败！");
     	}
     	return map;
     }
