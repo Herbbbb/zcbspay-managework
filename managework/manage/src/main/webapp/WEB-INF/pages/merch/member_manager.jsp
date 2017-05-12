@@ -90,10 +90,10 @@ table tr td select {
 			<form id="theForm" method="post">
 				<table width="100%">
 					<tr>
-						<td align="right" width="15%">会员编号</td>
+						<td align="right" width="15%">委托机构编号</td>
 						<td align="left" style="padding-left: 5px" width="25%"><input
 							name="memberId" id="memberId" maxlength="15" /></td>
-						<td align="right" width="15%">会员名称</td>
+						<td align="right" width="15%">委托机构名称</td>
 						<td align="left" style="padding-left: 5px" width="25%"><input
 							name="memberName" id="memberName" /></td>
 						<td align="right"><a href="javascript:search()"
@@ -118,35 +118,35 @@ table tr td select {
 
 				<table style="width: 100%; height: 100%">
 					<tr>
-						<td align="center" width="20%">商户名称<font color="red">*</font></td>
+						<td align="center" width="20%">委托机构名称<font color="red">*</font></td>
 						<td id="MERCHNAME"></td>
-						<td align="center" width="20%">商户简称<font color="red">*</font></td>
+						<td align="center" width="20%">委托机构简称<font color="red">*</font></td>
 						<td id="ALIAS"></td>
 					</tr>
 					<tr>
-						<td align="center">商户英文名称</td>
+						<td align="center">委托机构英文名称</td>
 						<td id="ENGNAME"></td>
-						<td align="center">商户清算周期<font color="red">*</font></td>
+						<td align="center">委托机构清算周期<font color="red">*</font></td>
 						<td id="SETLNAME"></td>
 					</tr>
 
 					<tr>
-						<td align="center">商户所属省<font color="red">*</font></td>
+						<td align="center">委托机构所属省<font color="red">*</font></td>
 						<td id="PROVINCENAME"></td>
-						<td align="center">商户清算类型<font color="red">*</font></td>
+						<td align="center">委托机构清算类型<font color="red">*</font></td>
 						<td id="SETLTYPENAME"></td>
 
 					</tr>
 
 					<tr>
-						<td align="center">商户所属市<font color="red">*</font></td>
+						<td align="center">委托机构所属市<font color="red">*</font></td>
 						<td id="CITYNAME"></td>
 						<td align="center">营业执照号<font color="red">*</font></td>
 						<td id="LICENCENO"></td>
 					</tr>
 
 					<tr>
-						<td align="center">商户所属县<font color="red">*</font></td>
+						<td align="center">委托机构所属县<font color="red">*</font></td>
 						<td id="STREETNAME"></td>
 						<td align="center">税务登记号<font color="red">*</font></td>
 						<td id="TAXNO"></td>
@@ -160,9 +160,9 @@ table tr td select {
 					</tr>
 
 					<tr>
-						<td align="center">商户网址</td>
+						<td align="center">委托机构网址</td>
 						<td id="WEBSITE"></td>
-						<td align="center">商户类型</td>
+						<td align="center">委托机构类型</td>
 						<td id="MERCHTYPENAME"></td>
 					</tr>
 
@@ -223,7 +223,7 @@ table tr td select {
 
 						<td align="center">开户账号<font color="red">*</font></td>
 						<td id="ACCNUM"></td>
-						<td align="center">会员编号</td>
+						<td align="center">委托机构编号</td>
 						<td id="MEMBERID"></td>
 					</tr>
 					<tr>
@@ -291,13 +291,13 @@ table tr td select {
 					</tr>
 
 					<tr>
-						<td align="center">商户地址</td>
+						<td align="center">委托机构地址</td>
 						<td id="ADDRESS"></td>
-						<td align="center">商户密钥</td>
+						<td align="center">委托机构密钥</td>
 						<td>RSA</td>
 					</tr>
 					<tr>
-						<%-- <td align="center">上级商户</td>
+						<%-- <td align="center">上级委托机构</td>
 						<td>${merchMap.PARENT}</td> --%>
 						<td align="center">收银台版本 <font color="red">*</font></td>
 						<td id="CASHNAME"></td>
@@ -382,7 +382,7 @@ table tr td select {
 			<div title="基本信息" id="jbxx" data-options="selected:true">
 				<table style="width: 100%; height: 100%">
 					<tr>
-						<td align="center" id="psamORpass">会员ID<font color="red">*</font></td>
+						<td align="center" id="psamORpass">委托机构ID<font color="red">*</font></td>
 						<td id="pMemberid"></td>
 						<td align="center">性别<font color="red">*</font></td>
 						<td id="sex"></td>
@@ -464,7 +464,7 @@ table tr td select {
   	var width = $("#continer").width();
 		$(function(){
 			$('#test').datagrid({
-				title:'会员信息列表',
+				title:'委托机构信息列表',
 				iconCls:'icon-save',
 				height:400,
 				singleSelect:true,
@@ -475,14 +475,14 @@ table tr td select {
 				idField:'ORGAN_ID',
 				columns:[
 				[
-					{field:'MEMBERID',title:'会员编号',width:120,align:'center'},
-					{field:'MEMBERNAME',title:'商户姓名',width:150,align:'center'},
-					{field:'MEMBERTYPE',title:'会员类型',width:100,align:'center',
+					{field:'MEMBERID',title:'委托机构编号',width:120,align:'center'},
+					{field:'MEMBERNAME',title:'委托机构姓名',width:150,align:'center'},
+					{field:'MEMBERTYPE',title:'委托机构类型',width:100,align:'center',
 						formatter:function(value,rec){
 							if(value=="01"){
 								return "个人";
 							}else if(value=="02"){
-								return "商户";
+								return "委托机构";
 							}else if(value=="03"){
 								return "企业";
 							}
@@ -532,11 +532,11 @@ table tr td select {
 			var data={'memberId':$('#memberId').val(),'memberName':$("#memberName").val()};
 			$('#test').datagrid('load',data);
 		}
-		/*商户window*/
+		/*委托机构window*/
 		function queryMerch(merchId,status,type,memberId){
 		
 			$('#ws').window({
-				title: '商户会员信息',
+				title: '委托机构委托机构信息',
 				top:100,
 				width: 1300,
 				left:100,
@@ -564,7 +564,7 @@ table tr td select {
 		function queryPerson(personId,status,type,memberId){
 			
 			$('#pres').window({
-				title: '个人会员信息',
+				title: '个人委托机构信息',
 				top:100,
 				width: 1300,
 				left:100,
@@ -682,9 +682,9 @@ table tr td select {
 	 	$('#tt').tabs({
 		    border:false,
 		    onSelect:function(title){
-		/*商户merchId */
+		/*委托机构merchId */
 		   	var mid=$("#mId").val();
-		/*会员状态*/   
+		/*委托机构状态*/   
 		var type=$("#type").val();
 		/*memberId*/   
 		var memid=$("#memId").val();
@@ -764,9 +764,9 @@ table tr td select {
 	 	$('#pp').tabs({
 		    border:false,
 		    onSelect:function(title){
-		    	/*商户personId */
+		    	/*委托机构personId */
 			   	var mid=$("#mId").val();
-			/*会员状态*/   
+			/*委托机构状态*/   
 			var type=$("#type").val();
 			/*memberId*/   
 			var memid=$("#personId").val();

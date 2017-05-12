@@ -26,7 +26,7 @@ table tr td select {
 				<input type="hidden" id="flag_ins" value="${flag}" />
 				<table width="100%">
 					<tr>
-						<td align="right" width="10%">会员编号</td>
+						<td align="right" width="10%">委托机构编号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							id="enterpriseMemberId_ins" maxlength="15" /></td>
 						<td align="right" width="10%">企业名称</td>
@@ -63,7 +63,7 @@ table tr td select {
 				remoteSort: false,
 				columns:[
 				[
-					{field:'MEMBER_ID',title:' 会员编号',align:'center',width:120},
+					{field:'MEMBER_ID',title:' 委托机构编号',align:'center',width:120},
 					{field:'ENTERPRISE_NAME',title:'企业名称',width:120,align:'center'},
 					{field:'LICENCE_NO',title:'营业执照号',width:120,align:'center'},
 					{field:'CORPORATION',title:'法人名称',width:120,align:'center'}, 

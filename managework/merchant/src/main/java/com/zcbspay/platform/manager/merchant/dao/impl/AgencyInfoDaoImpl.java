@@ -26,7 +26,7 @@ public class AgencyInfoDaoImpl extends HibernateBaseDAOImpl<PojoAgencyInfo> impl
 		pojo.setInTime(curDate);
 		pojo.setStatus("00");
 		if(queryByChargingunit(pojo.getChargingunit())){
-			String info = "付款单位代码已存在!";
+			String info = pojo.getChargingunit()+"付款单位代码已存在!";
 			map.put("RET", "error");
 			map.put("INFO", info);
 			throw new ContractException(info);
@@ -67,7 +67,7 @@ public class AgencyInfoDaoImpl extends HibernateBaseDAOImpl<PojoAgencyInfo> impl
 		Map<String, Object> map = new HashMap<String, Object>();
 		PojoAgencyInfo pojo = update(bean);
 		if(queryByChargingunit(pojo.getChargingunit())){
-			String info = "付款单位代码已存在!";
+			String info = pojo.getChargingunit() + "付款单位代码已存在!";
 			map.put("RET", "error");
 			map.put("INFO", info);
 			throw new ContractException(info);

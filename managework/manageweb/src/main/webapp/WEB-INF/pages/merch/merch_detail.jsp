@@ -42,7 +42,7 @@ table tr td font.current-step {
 
 <body>
 	<div style="margin: 5px;" id="continer">
-		<div id="title" name="title" class="easyui-panel" title="商户信息"
+		<div id="title" name="title" class="easyui-panel" title="委托机构信息"
 			style="background: #fafafa;" iconCls="icon-save"
 			data-options="fit:true,border:false" collapsible="false">
 			<div style="padding-left: 5px; padding-right: 5px">
@@ -61,7 +61,7 @@ table tr td font.current-step {
 						<tr>
 							<td align="center" width="15%">企业名称<font color="red">*</font></td>
 							<td width="30%">${merchMap.ENTERPRISE_NAME}</td>
-							<td align="center">会员编号</td>
+							<td align="center">委托机构编号</td>
 							<td>${merchMap.MEMBER_ID}</td>
 						</tr>
 						<tr>
@@ -113,9 +113,9 @@ table tr td font.current-step {
 							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr>
-							<td align="center">商户清算类型<font color="red">*</font></td>
+							<td align="center">委托机构清算类型<font color="red">*</font></td>
 							<td>${merchMap.SETLTYPENAME}</td>
-							<td align="center">商户清算周期<font color="red">*</font></td>
+							<td align="center">委托机构清算周期<font color="red">*</font></td>
 							<td>${merchMap.SETLNAME}</td>
 						</tr>
 						<tr>
@@ -290,7 +290,7 @@ table tr td font.current-step {
 				<form id="deptForm" action="dept/save" method="post">
 					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left" id="inputForm">
 						<tr>
-							<td align="center" width="20%">商户名称</td>
+							<td align="center" width="20%">委托机构名称</td>
 							<td><input id="b_merName" name="enterpriseName" readonly="true"/></td>
 						</tr>
 						<tr>

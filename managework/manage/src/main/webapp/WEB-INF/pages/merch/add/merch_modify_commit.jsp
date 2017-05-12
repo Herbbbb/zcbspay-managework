@@ -44,7 +44,7 @@ table tr td font.current-step {
 </head>
 <body>
 	<div style="margin: 5px;" id="continer">
-		<div id="title" name="title" class="easyui-panel" title="商户开通"
+		<div id="title" name="title" class="easyui-panel" title="委托机构开通"
 			style="background: #fafafa;" iconCls="icon-save" collapsible="false">
 			<div style="padding-left: 5px; padding-right: 5px">
 				<form id="merchDateForm" action="merchant/commitMerch" method="post">
@@ -69,7 +69,7 @@ table tr td font.current-step {
 						<tr>
 							<td align="center" width="20%">企业名称</td>
 							<td width="30%">${member.enterpriseName}</td>
-							<td align="center" width="20%">商户号</td>
+							<td align="center" width="20%">委托机构号</td>
 							<td width="30%">${merchDeta.memberId}</td>
 						</tr>
 						<tr>

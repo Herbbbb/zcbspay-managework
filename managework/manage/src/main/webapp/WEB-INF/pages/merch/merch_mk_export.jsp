@@ -25,12 +25,12 @@
 <body>
 	<TABLE cellSpacing=0 cellPadding=2 width=1200 align=center border=1>
 		<tr>
-			<td align="center" colspan="4">商户秘钥</td>
+			<td align="center" colspan="4">委托机构秘钥</td>
 
 		</tr>
 		<TR>
 			<td align="center">序号</td>
-			<td align="center">商户私钥</td>
+			<td align="center">委托机构私钥</td>
 			<td align="center">平台公钥</td>
 
 		</tr>

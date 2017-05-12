@@ -200,13 +200,13 @@ public class AgencyServiceImpl implements AgencyService {
 		PojoAgencyInfo pojo = new PojoAgencyInfo();
 		BeanUtils.copyProperties(bean, pojo);
 		try {
-			return agencyInfoDao.saveAgencyInfo(pojo);
-		} catch (ContractException e) {
+			map = agencyInfoDao.saveAgencyInfo(pojo);
+			
+		} catch(ContractException e){
 			map.put("RET", "error");
-			map.put("INFO", "操作失败!");
-			e.printStackTrace();
+			map.put("INFO", e.getMessage());
 		}
-		return null;
+		return map;
 	}
 
 	@Override
@@ -222,7 +222,8 @@ public class AgencyServiceImpl implements AgencyService {
 		try {
 			map = agencyInfoDao.updateAgencyInfo(pojo);
 		} catch (ContractException e) {
-			e.printStackTrace();
+			map.put("RET", "error");
+			map.put("INFO", e.getMessage());
 		}
 		return map;
 	}
