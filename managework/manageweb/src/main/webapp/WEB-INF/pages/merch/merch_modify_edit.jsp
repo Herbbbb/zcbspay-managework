@@ -40,7 +40,7 @@ table tr td font.current-step {
 </head>
 <body>
 	<div style="margin: 5px;" id="continer">
-		<div id="title" name="title" class="easyui-panel" title="商户修改 "
+		<div id="title" name="title" class="easyui-panel" title="委托机构修改 "
 			style="background: #fafafa;" iconCls="icon-save" collapsible="false">
 			<div style="padding-left: 5px; padding-right: 5px">
 				<form id="merchDetaForm" action="merchant/saveMerchModifyDeta" method="post">
@@ -81,7 +81,7 @@ table tr td font.current-step {
 								value="${member.enterpriseName}" required="true"
 								maxlength="30" style="width: 250px" class="easyui-validatebox"
 								validType="MerchLength[60]" /> <font color="red">*</font></td>
-							<td align="center">会员编号</td>
+							<td align="center">委托机构编号</td>
 							<td>${member.enterpriseMemberId}</td>
 						</tr>
 						<tr>
@@ -176,11 +176,11 @@ table tr td font.current-step {
 							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr>
-							<td align="center">商户清算类型</td>
+							<td align="center">委托机构清算类型</td>
 							<td><select id="setltype_ins" class="easyui-validatebox"
 								required="true" name="setlType" /></select> <font color="red">*</font>
 							</td>
-							<td align="center">商户清算周期</td>
+							<td align="center">委托机构清算周期</td>
 							<td><select id="setlcycle_ins" class="easyui-validatebox"
 								required="true" name="setlCycle" /></select> <font color="red">*</font>
 							</td>
@@ -574,7 +574,7 @@ table tr td font.current-step {
 				data: "rand=" + new Date().getTime(),
 				dataType: "json",
 				success: function(json) {
-					var html = "<option value=''>--请选择商户类型--</option>";
+					var html = "<option value=''>--请选择委托机构类型--</option>";
 					$.each(json,
 					function(key, value) {
 						//alert(value.roleName);
@@ -613,7 +613,7 @@ table tr td font.current-step {
 				dataType: "json",
 				success: function(json) {
 					var mcclist = $('#mcclist_old').val();
-					var html = "<option value=''>--商户所属行业--</option>";
+					var html = "<option value=''>--委托机构所属行业--</option>";
 					$.each(json,
 					function(key, value) {
 						if(value.MCCLIST==mcclist){

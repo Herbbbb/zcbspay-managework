@@ -60,10 +60,10 @@ table tr td select {
 						<td class="add" class="add" align="right">委托机构号</td>
 						<td class="add" class="add" align="left" style="padding-left: 5px"><input
 							id="merchNo" name="merchNo" /></td>
-						<td class="add" class="add" align="right">账户号</td>
+						<td class="add" class="add" align="right">银行账号</td>
 						<td class="add" class="add" align="left" style="padding-left: 5px"><input
 							id="accoutNo" name="accoutNo" /></td>
-						<td class="add" class="add" align="right">账户名称</td>
+						<td class="add" class="add" align="right">银行账户名称</td>
 						<td class="add" class="add" align="left" style="padding-left: 5px"><input
 							id="accoutName" name="accoutName" /></td>
 						
@@ -94,17 +94,17 @@ table tr td select {
 							<td class="add" width="15%">银行账号</td>
 							<td class="add" align="left">
 							<input type="text" id="accoutNoa" name="accoutNo" class="easyui-validatebox" required="true"
-								maxlength="7" missingMessage="请输入银行账号" validType="bankcard"/></td>
+								maxlength="30" missingMessage="请输入银行账号" validType="bankcard"/></td>
 							<td class="add">银行账户名称</td>
 							<td class="add" align="left">
 							<input type="text" id="accoutNamea" name="accoutName" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="请输入银行账户名称" validType="debName"/></td>
+								maxlength="15" missingMessage="请输入银行账户名称" validType="debName"/></td>
 						</tr>
 						<tr style="height: 25px">
 							<td class="add">委托机构号</td>
 							<td class="add" align="left">
 							<input type="text" id="merchNoa" name="merchNo" class="easyui-validatebox" required="true"
-								maxlength="32" missingMessage="请输入委托机构号" validType="merchno"/></td>
+								maxlength="15" missingMessage="请输入委托机构号" validType="merchno"/></td>
 							<td class="add">协议类型</td>
 							<td class="add" align="left">
 							<select id="protocoltype" class="easyui-validatebox" missingMessage="请选择协议类型"
@@ -157,7 +157,7 @@ table tr td select {
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
 				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveUser()" id="btn_submit" onclick="">提交</a>
-				<a class="easyui-linkbutton" iconCls="icon-cancel" href="javascript:void(0)" onclick="closeAdd()">取消</a>
+				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">返回</a>
 			</div>
 		</div>
 	</div>
@@ -171,51 +171,75 @@ table tr td select {
 					<input type="hidden" id="b_status" name="status" />
 					<input type="hidden" id="b_bankProvince" name="bankProvince" />
 					<input type="hidden" id="b_bankCity" name="bankCity" />
-					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left">
-						<tr>
-							<td colspan="4" class="head-title"></td>
+					<table width="90%" cellpadding="2" cellspacing="2">
+						<tr style="height: 25px">
+							<td class="add"width="15%">银行账号</td>
+							<td class="add"align="left">
+							<input type="text" id="b_accoutNoa" name="accoutNo" class="easyui-validatebox" required="true"
+								maxlength="7" missingMessage="请输入银行账号" validType="bankcard"/></td>
+							<td class="add">银行账户名称</td>
+							<td class="add"align="left">
+							<input type="text" id="b_accoutNamea" name="accoutName" class="easyui-validatebox" required="true"
+								maxlength="20" missingMessage="请输入银行账户名称" validType="debName"/></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="update" style="width: 75px;">银行账号</td>
-							<td class="update" align="left"><span id="b_accoutNoa"></span></td>
-							<td class="update" style="width: 75px;">银行账户名称</td>
-							<td class="update" align="left"><span id="b_accoutNamea"></span></td>
+							<td class="add">委托机构号</td>
+							<td class="add"align="left">
+							<input type="text" id="b_merchNoa" name="merchNo" class="easyui-validatebox" required="true"
+								maxlength="32" missingMessage="请输入委托机构号" validType="merchno"/></td>
+							<td class="add">协议类型</td>
+							<td class="add"align="left">
+							<select id="b_protocoltype" class="easyui-validatebox" missingMessage="请选择所属机构"
+								required="true" name="protocoltype">
+									<option value=''>--请选择协议类型--</option>
+									<option value='1'>代理收款</option>
+									<option value='2'>代理付款</option>
+							</select></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="update">委托机构号</td>
-							<td class="update" align="left"><span id="b_merchNoa"></span></td>
-							<td class="update">协议类型</td>
-							<td class="update" align="left"><span id="b_protocoltype"></span></td>
-						</tr>
-						<tr>
-							<td colspan="4" class="head-title"></td>
-						</tr>
-						<tr style="height: 25px">
-							<td class="update">支行行号</td>
-							<td class="update" align="left"><span id="b_bankNode"></span></td>
-							<td class="update">清算行号</td>
-							<td class="update" align="left"><span id="b_bankCode"></span></td>
+							<td class="add">支行行号</td>
+							<td class="add"align="left">
+							<input type="text" id="b_bankNode" name="bankNode" class="easyui-validatebox" required="true"
+								maxlength="32" missingMessage="请输入支行行号" onchange="showBankInfo()"/></td>
+							<td class="add">清算行号</td>
+							<td class="add"align="left">
+							<input type="text" id="b_bankCode" name="bankCode" class="easyui-validatebox" required="true"
+								maxlength="32"  onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+							<td class="add"></td>
+							<td class="add"align="left"></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="update">所属省</td>
-							<td class="update" align="left"><span id="c_bankProvince"></span></td>
-							<td class="update">所属市</td>
-							<td class="update" align="left"><span id="c_bankCity"></span></td>
+							<td class="add">所属省</td>
+							<td class="add"align="left">
+							<input type="text" id="c_bankProvince" name="a_bankProvince" class="easyui-validatebox" required="true"
+								maxlength="32"  onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+							</select></td>
+							<td class="add">所属市</td>
+							<td class="add"align="left">
+							<input type="text" id="c_bankCity" name="a_bankCity" class="easyui-validatebox" required="true"
+								maxlength="32"  onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+							<td class="add"align="left"></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="update">渠道代码</td>
-							<td class="update" align="left"><span id="b_channelCode"></span></td>
+							<td class="add">渠道代码</td>
+							<td class="add"align="left">
+							<input type="text" id="b_channelCode" name="channelCode" class="easyui-validatebox"
+								maxlength="32" missingMessage="请输入渠道代码" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+							<td class="add"align="left"></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="update">备注</td>
-							<td align="left" colspan="3" class="update"><span id="b_notes" rows="3" cols="81" style="resize: none;"></span></td>
+							<td class="add">备注</td>
+							<td class="add"align="left" colspan="3">
+							<textarea rows="3" cols="81" id="b_notes" maxlength="64" name="notes" style="resize: none;"
+									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
+
 						</tr>
 					</table>
 				</form>
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
 				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveBank()" id="b_btn_submit" onclick="">提交</a>
-				<a class="easyui-linkbutton" iconCls="icon-cancel" href="javascript:void(0)" onclick="closeAdd()">取消</a>
+				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">返回</a>
 			</div>
 		</div>
 	</div>
@@ -269,7 +293,7 @@ table tr td select {
 				</form>
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
-				<a class="easyui-linkbutton" iconCls="icon-cancel" href="javascript:void(0)" onclick="closeAdd()">返回</a>
+				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">返回</a>
 			</div>
 		</div>
 	</div>
@@ -356,14 +380,14 @@ table tr td select {
 					   data: "pId="+pId,
 					   dataType:"json",
 					   success: function(json){
-						   $("#a_bankCity").html(cname);
-						   $("#bankCity").html(cid);
-						   $("#a_bankProvince").html(json.pname);
+						   $("#a_bankCity").val(cname);
+						   $("#bankCity").val(cid);
+						   $("#a_bankProvince").val(json.pname);
 						   $("#bankProvince").html(json.pid);
-						   $("#c_bankCity").html(cname);
+						   $("#c_bankCity").val(cname);
 						   $("#d_bankCity").html(cname);
 						   $("#b_bankCity").html(cid);
-						   $("#c_bankProvince").html(json.pname);
+						   $("#c_bankProvince").val(json.pname);
 						   $("#d_bankProvince").html(json.pname);
 						   $("#b_bankProvince").html(json.pid);
 					   }
@@ -458,19 +482,18 @@ table tr td select {
 			   async: false,
 			   dataType:"json",
 			   success: function(json){	
-					$("#b_tId").val(json.tId);
-					$("#b_status").html(json.status);
-					$("#b_bankProvince").html(json.bankProvince);
-					$("#b_bankCity").html(json.accoutNo);
-					$("#b_accoutNoa").html(json.accoutNo);
-					$("#b_accoutNamea").html(json.accoutName);
-					$("#b_merchNoa").html(json.merchNo);
-					$("#b_protocoltype").html(json.protocoltype);
-					$("#b_bankNode").html(json.bankNode);
-					$("#b_bankCode").html(json.bankCode);
+				   $("#b_tId").val(json.tId);
+					$("#b_status").val(json.status);
+					$("#b_bankProvince").val(json.bankProvince);
+					$("#b_bankCity").val(json.accoutNo);
+					$("#b_accoutNoa").val(json.accoutNo);
+					$("#b_accoutNamea").val(json.accoutName);
+					$("#b_merchNoa").val(json.merchNo);
+					$("#b_protocoltype").val(json.protocoltype);
+					$("#b_bankNode").val(json.bankNode);
 					$("#b_bankCode").val(json.bankCode);
-					$("#b_channelCode").html(json.channelCode);
-					$("#b_notes").html(json.notes);
+					$("#b_channelCode").val(json.channelCode);
+					$("#b_notes").val(json.notes);
 					var bankNode = $("#b_bankCode").val();
 					$.ajax({
 					   type: "POST",
@@ -512,7 +535,15 @@ table tr td select {
 					$("#d_accoutNoa").html(json.accoutNo);
 					$("#d_accoutNamea").html(json.accoutName);
 					$("#d_merchNoa").html(json.merchNo);
-					$("#d_protocoltype").html(json.protocoltype);
+					var protocoltype;
+					   if(json.protocoltype == ''){
+						   protocoltype = '未选择协议类型';
+					   }else if(json.protocoltype == '1'){
+						   protocoltype = '代理收款';
+					   }else if(json.protocoltype == '2'){
+						   protocoltype = '代理付款';
+					   }
+					$("#d_protocoltype").html(protocoltype);
 					$("#d_bankNode").html(json.bankNode);
 					$("#d_bankCode").html(json.bankCode);
 					$("#d_bankCode").val(json.bankCode);

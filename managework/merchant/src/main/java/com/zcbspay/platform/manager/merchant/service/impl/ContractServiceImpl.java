@@ -1,5 +1,6 @@
 package com.zcbspay.platform.manager.merchant.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,9 +8,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zcbspay.platform.manager.exception.ContractException;
 import com.zcbspay.platform.manager.merchant.bean.ContractBean;
+import com.zcbspay.platform.manager.merchant.dao.ContractBarchDao;
 import com.zcbspay.platform.manager.merchant.dao.ContractDao;
 import com.zcbspay.platform.manager.merchant.pojo.PojoContract;
+import com.zcbspay.platform.manager.merchant.pojo.PojoContractBatch;
 import com.zcbspay.platform.manager.merchant.service.ContractService;
 
 @Service("contractService")
@@ -17,6 +21,8 @@ public class ContractServiceImpl implements ContractService {
 
 	@Autowired
 	private ContractDao contractDao;
+	@Autowired
+	private ContractBarchDao contractBarchDao;
 
 	@Override
 	public Map<String, Object> findAll(Map<String, Object> variables, int page, int rows) {
@@ -66,7 +72,45 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
-	public List<StringBuffer> importBatch(List<ContractBean> list) {
-			return contractDao.importBatch(list);
+	public Map<String, Object> importBatch(List<ContractBean> list,String batchNo,String merchNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+    	boolean resultSucc= contractBarchDao.queryContractBatch(batchNo,merchNo);
+    	PojoContractBatch batch = new PojoContractBatch();
+    	Long total = (long) list.size();
+    	batch.setTotalCount(total);
+    	batch.setBatchNo(batchNo);
+    	batch.setMerchNo(merchNo);
+    	
+    	if (resultSucc) {
+			map.put("RET", "error");
+			map.put("INFO", "该批次号已存在或尚未被注销!");
+			return map;
+		}
+    	try {
+    		map = contractDao.importBatch_2(list,batchNo);
+		}catch(ContractException e){
+			map.put("RET", "error");
+			map.put("INFO", e.getMessage());
+			return map;
+		}
+		 
+        if (map.get("RET").equals("succ")) {
+        	boolean isSucc = contractBarchDao.saveBatch(batch);
+        	if (!isSucc) {
+        		map.put("RET", "error");
+    			map.put("INFO", "该批次号添加失败！");
+    			return map;
+			}else{
+				map.put("RET", "succ");
+    			map.put("INFO", "添加成功");
+    			return map;
+			}
+		}
+		return map;
+	}
+	@Override
+	public List<StringBuffer> saveContractList(List<ContractBean> list) {
+		return contractDao.saveContractList(list);
 	}
 }

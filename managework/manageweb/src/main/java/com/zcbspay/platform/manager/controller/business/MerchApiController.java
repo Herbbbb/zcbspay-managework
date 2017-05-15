@@ -1,7 +1,6 @@
 package com.zcbspay.platform.manager.controller.business;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zcbspay.platform.manager.business.bean.BusiRateBean;
 import com.zcbspay.platform.manager.business.bean.MerchAPIBean;
 import com.zcbspay.platform.manager.business.service.ProductService;
 import com.zcbspay.platform.manager.utils.JsonUtils;

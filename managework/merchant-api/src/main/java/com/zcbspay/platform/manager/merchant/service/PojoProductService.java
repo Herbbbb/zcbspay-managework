@@ -10,5 +10,6 @@ public interface PojoProductService {
      * 合作机构相关产品
      * @return
      */
-	List<ProductBean> queryProduct(long coopInstiId);
+//	List<ProductBean> queryProduct(long coopInstiId);
+	List<ProductBean> queryProduct();
 }

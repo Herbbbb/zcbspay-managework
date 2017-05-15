@@ -48,7 +48,7 @@ table tr td select {
 							id="busiCase_ins" class="easyui-validatebox">
 								<option value="">--请选择业务--</option>
 						</select></td>
-						<td align="right" width="15%">会员号</td>
+						<td align="right" width="15%">委托机构号</td>
 						<td align="left" style="padding-left: 5px" width="25%"><input
 							id="memberid_ins"></td>
 						<td align="right"><a href="javascript:search()"
@@ -89,7 +89,7 @@ table tr td select {
 							</select></td>
 						</tr>
 						<tr>
-							<td width="15%">商户会员号</td>
+							<td width="15%">委托机构委托机构号</td>
 							<td width="30%"><input id="memberid"
 								name="memberrateModel.memberid" required="true" type="text"
 								class="easyui-validatebox" /></td>
@@ -162,7 +162,7 @@ table tr td select {
 		});
 		$(function() {
 			$('#test').datagrid({
-				title: '商户扣率列表',
+				title: '委托机构扣率列表',
 				iconCls: 'icon-save',
 				height: gridHeight,
 				singleSelect: true,
@@ -185,7 +185,7 @@ table tr td select {
 	
 				{
 					field: 'MEMBERID',
-					title: '会员号',
+					title: '委托机构号',
 					width: 150,
 					align: 'center'
 				},
@@ -221,7 +221,7 @@ table tr td select {
 				rownumbers: true,
 				toolbar: [{
 					id: 'btnadd',
-					text: '新增商户类型扣率',
+					text: '新增委托机构类型扣率',
 					iconCls: 'icon-add',
 					handler: function() {
 						showAdd(false);
@@ -244,7 +244,7 @@ table tr td select {
 			$('#txnRateForm').clearForm();
 			$("#txnRateForm").attr("action", "pages/fee/saveMemberRateFeeAction.action");
 			$('#w').window({
-				title: '商户扣率信息', 
+				title: '委托机构扣率信息', 
 				top: panelVertFloat,
 		  		left: panelHoriFloat,
 		  		width: panelWidth,

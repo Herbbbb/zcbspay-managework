@@ -104,7 +104,7 @@ table tr td select {
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
 				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:save(0)" id="btn_submit">提交</a>
-				<a class="easyui-linkbutton" iconCls="icon-cancel" href="javascript:void(0)" onclick="closeAdd()">取消</a>
+				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">返回</a>
 			</div>
 		</div>
 	</div>
@@ -155,7 +155,7 @@ table tr td select {
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
 				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:update()" id="b_btn_submit">提交</a>
-				<a class="easyui-linkbutton" iconCls="icon-cancel" href="javascript:void(0)" onclick="closeAdd()">取消</a>
+				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">返回</a>
 			</div>
 		</div>
 	</div>

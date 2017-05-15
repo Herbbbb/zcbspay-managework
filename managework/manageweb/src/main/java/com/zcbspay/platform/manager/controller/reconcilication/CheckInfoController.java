@@ -1,6 +1,9 @@
 package com.zcbspay.platform.manager.controller.reconcilication;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +31,7 @@ import com.zcbspay.platform.manager.reconcilication.service.CheckInfoService;
 import com.zcbspay.platform.manager.reconcilication.service.UploadlogService;
 import com.zcbspay.platform.manager.utils.CSVUtils;
 import com.zcbspay.platform.manager.utils.UserHelper;
-
+@SuppressWarnings("all")
 @Controller
 @RequestMapping("/checkinfo/")
 public class CheckInfoController {
@@ -240,20 +243,20 @@ public class CheckInfoController {
 	        String fileName= fileUp.getOriginalFilename();	        
 	        fileUp.transferTo(fileServer);
 	        List<String> orderInfoList = CSVUtils.importCsv(fileServer);
-	        if(orderInfoList==null || orderInfoList.size()<=1 || orderInfoList.size()>10000){
+	        if(orderInfoList==null || orderInfoList.size()<1 || orderInfoList.size()>10000){
 	            resMap.put("error", "上传文件无数据或数据量过大");
 	            return resMap;
 	        }
 	        String[] files=fileName.split("_");
 	        String organization=files[0];
-	        String date=files[1];
+			String date=files[1];
 	        String busiType=files[2];
 	        List<ChnTxnBean> list=new ArrayList<>();
-	        for (int i = 1; i < orderInfoList.size(); i++) {
+	        for (int i = 0; i < orderInfoList.size(); i++) {
 	        	String row=orderInfoList.get(i);
 	        	ChnTxnBean chnTxnBean=new ChnTxnBean();
 				String[] cell=row.split(",");
-				chnTxnBean.setInstiid(instiid);//TODO 这需要数据库获取,service中获取就可以
+				chnTxnBean.setInstiid(instiid);
 				chnTxnBean.setBusicode(busiType.contains("D")?"11000001":"11000002");//TODO:这里出现的是C或者D  需要对应成数据库编码
 				chnTxnBean.setChargingunit(organization);
 				chnTxnBean.setTransdate(cell[0]);
@@ -265,7 +268,7 @@ public class CheckInfoController {
 				chnTxnBean.setDebtoraccountno(cell[3]);
 				chnTxnBean.setDebtorname(cell[4]);
 				chnTxnBean.setCurrencysymbol("156");
-				chnTxnBean.setAmount(cell[8]);
+				chnTxnBean.setAmount(cell[8].replace("RMB", ""));
 				chnTxnBean.setBillnumber(cell[9]);
 				chnTxnBean.setRspcode(cell[10]);
 				chnTxnBean.setSettledate(cell[13]);

@@ -158,18 +158,18 @@ table tr td select {
 						</tr>
 
 						<tr>
-							<td align="right">商户对交易额记帐标志</td>
+							<td align="right">委托机构对交易额记帐标志</td>
 							<td align="left"><select id="merchAmtflag"
 								class="easyui-validatebox" name="feecaseModel.merchamtflag">
-									<option value="" selected>请选择商户对交易额记帐标志</option>
+									<option value="" selected>请选择委托机构对交易额记帐标志</option>
 									<option value="N">无此项</option>
 									<option value="C">贷记</option>
 									<option value="D">借记</option>
 							</select></td>
-							<td align="right">商户手续费记帐标志</td>
+							<td align="right">委托机构手续费记帐标志</td>
 							<td align="left"><select id="merchFeeflag"
 								class="easyui-validatebox" name="feecaseModel.merchfeeflag">
-									<option value="" selected>请选择商户手续费记帐标志</option>
+									<option value="" selected>请选择委托机构手续费记帐标志</option>
 									<option value="N">无此项</option>
 									<option value="C">贷记</option>
 									<option value="D">借记</option>

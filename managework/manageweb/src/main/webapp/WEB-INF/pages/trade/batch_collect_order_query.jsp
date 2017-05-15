@@ -67,7 +67,7 @@ table tr td select {
 					</tr>
 					<tr>
 					<td>合作机构号</td><td id="coopinstiid"></td>
-					<td>商户号</td><td id="merid"></td>
+					<td>委托机构号</td><td id="merid"></td>
 					</tr>
 					<tr>
 					<td>版本</td><td id="version"></td>
@@ -87,7 +87,7 @@ table tr td select {
 					</tr>
 					<tr>
 					<td>总笔数</td><td id="totalqty"></td>
-					<td>总金额 </td><td id="totalamt "></td>
+					<td>总金额 </td><td id="totalamt"></td>
 					</tr>
 					<tr>
 					<td>保留域</td><td id="reserved"></td>
@@ -112,6 +112,20 @@ table tr td select {
 </body>
 
 <script>
+	function changeDate(value){
+		var dateString = value;
+		if(dateString==null){
+			return "";
+		}else{
+			year=dateString.substring(0,4);//0123
+			month=dateString.substring(4,6);//45
+			day=dateString.substring(6,8);//67
+			hour=dateString.substring(8,10);//89
+			minte=dateString.substring(10,12);//10 11
+			s=dateString.substring(12,14);// 11 12
+			return year+"-"+month+"-"+day+" " + hour +":"+minte+":"+s;
+		}
+	}
 	var width = $("#continer").width();
 	$(function() {
 		$('#test')
@@ -127,24 +141,53 @@ table tr td select {
 							remoteSort : false,
 							idField : 'MSGID',
 							columns : [ [
-								{field:'ACCESSTYPE',title:'接入类型',width:121,align:'center'},
-								{field:'COOPINSTIID',title:'合作机构号',width:122,align:'center'},
-								{field:'MERID',title:'商户号',width:123,align:'center'},
+								{field:'MERID',title:'委托机构号',width:123,align:'center'},
 								{field:'VERSION',title:'版本',width:124,align:'center'},
-								{field:'ENCODING',title:'编码方式',width:125,align:'center'},
-								{field:'TXNTYPE',title:'交易类型',width:126,align:'center'},
-								{field:'TXNSUBTYPE',title:'交易子类',width:127,align:'center'},
-								{field:'BIZTYPE',title:'产品类型',width:128,align:'center'},
-								{field:'BACKURL',title:'通知地址',width:129,align:'center'},
-								{field:'BATCHNO',title:'批次号',width:130,align:'center'},
-								{field:'TXNTIME',title:'订单发送时间',width:131,align:'center'},
+								{field:'ENCODING',title:'编码方式',width:125,align:'center',
+									formatter : function(value, rec) {
+										if (rec.ENCODING == "1") {
+											return "UTF-8";
+										} 
+									}	
+								},
+								{field:'BATCHNO',title:'批次号',width:180,align:'center'},
+								{field:'TXNTIME',title:'订单发送时间',width:150,align:'center',
+									formatter : function(value, rec) {
+										return changeDate(rec.ORDERFINSHTIME);
+									}	
+								},
 								{field:'TOTALQTY',title:'总笔数',width:132,align:'center'},
-								{field:'TOTALAMT ',title:'总金额 ',width:133,align:'center'},
-								{field:'RESERVED',title:'保留域',width:134,align:'center'},
+								{field:'TOTALAMT ',title:'总金额 ',width:133,align:'center',
+									formatter:function(value,rec){
+										return fenToYuan(rec.TOTALAMT);
+									}
+								},
 								{field:'RESPCODE',title:'响应码',width:135,align:'center'},
 								{field:'RESPMSG',title:'应答信息',width:136,align:'center'},
-								{field:'STATUS',title:'状态',width:137,align:'center'},
-								{field:'ORDERCOMMITIME',title:'订单提交时间',width:138,align:'center'},
+								{field:'STATUS',title:'状态',width:137,align:'center',
+									formatter : function(value, rec) {
+										if (rec.STATUS == "00") {
+											return "交易完成";
+										} 
+										if (rec.STATUS == "01") {
+											return "订单提交成功";
+										} 
+										if (rec.STATUS == "02") {
+											return "交易中";
+										} 
+										if (rec.STATUS == "03") {
+											return "交易失败";
+										} 
+										if (rec.STATUS == "04") {
+											return "批次失效";
+										} 
+									}		
+								},
+								{field:'ORDERCOMMITIME',title:'订单提交时间',width:150,align:'center',
+									formatter : function(value, rec) {
+										return changeDate(rec.ORDERCOMMITIME);
+									}	
+								},
 								{field:'SYNCNOTIFY',title:'异步通知结果',width:139,align:'center'},
 								{field:'ID',title:'操作',width:120,align:'center',
 									formatter:function(value,rec){
@@ -170,10 +213,20 @@ table tr td select {
 									[
 										{field:'TID',title:'标志',width:141,align:'center'},
 										{field:'BATCHTID',title:'批次表标志',width:142,align:'center'},
-										{field:'BATCHNO',title:'批次号',width:143,align:'center'},
-										{field:'ORDERID',title:'商户订单号',width:144,align:'center'},
-										{field:'CURRENCYCODE',title:'交易币种',width:145,align:'center'},
-										{field:'AMT',title:'单笔金额',width:146,align:'center'},
+										{field:'BATCHNO',title:'批次号',width:180,align:'center'},
+										{field:'ORDERID',title:'订单号',width:144,align:'center'},
+										{field:'CURRENCYCODE',title:'交易币种',width:145,align:'center',
+											formatter : function(value, rec) {
+												if (rec.CURRENCYCODE == "156") {
+													return "人民币";
+												} 
+											}	
+										},
+										{field:'AMT',title:'单笔金额',width:146,align:'center',
+											formatter:function(value,rec){
+												return fenToYuan(rec.AMT);
+											}
+										},
 										{field:'DEBTORBANK',title:'付款人银行号',width:147,align:'center'},
 										{field:'DEBTORACCOUNT',title:'付款人账号',width:148,align:'center'},
 										{field:'DEBTORNAME',title:'付款人名称',width:149,align:'center'},
@@ -182,11 +235,28 @@ table tr td select {
 										{field:'CREDITORACCOUNT',title:'收款人账号',width:152,align:'center'},
 										{field:'CREDITORNAME',title:'收款人名称',width:153,align:'center'},
 										{field:'PROPRIETARY',title:'业务种类编码',width:154,align:'center'},
-										{field:'SUMMARY',title:'摘要',width:155,align:'center'},
 										{field:'RESPCODE',title:'响应码',width:156,align:'center'},
 										{field:'RESPMSG',title:'应答信息',width:157,align:'center'},
 										{field:'RELATETRADETXN',title:'关联交易序列号',width:158,align:'center'},
-										{field:'STATUS',title:'状态',width:159,align:'center'},
+										{field:'STATUS',title:'状态',width:159,align:'center',
+											formatter : function(value, rec) {
+												if (rec.STATUS == "00") {
+													return "交易完成";
+												} 
+												if (rec.STATUS == "01") {
+													return "订单提交成功";
+												} 
+												if (rec.STATUS == "02") {
+													return "交易中";
+												} 
+												if (rec.STATUS == "03") {
+													return "交易失败";
+												} 
+												if (rec.STATUS == "04") {
+													return "批次失效";
+												} 
+											}		
+										},
 									]],
 									pagination:true,
 									rownumbers:true,
@@ -248,30 +318,55 @@ table tr td select {
 			closed: false,
 			height: 400
 		});
-	
+		function getStatus(value){
+			if (value == "00") {
+				return "交易完成";
+			} 
+			if (value == "01") {
+				return "订单提交成功";
+			} 
+			if (value == "02") {
+				return "交易中";
+			} 
+			if (value == "03") {
+				return "交易失败";
+			} 
+			if (value == "04") {
+				return "批次失效";
+			} 
+		}
 		var rows = $('#test').datagrid('getSelected');
 		$("#tid").html(rows["TID"]);
 		$("#accesstype").html(rows["ACCESSTYPE"]);
 		$("#coopinstiid").html(rows["COOPINSTIID"]);
 		$("#merid").html(rows["MERID"]);
 		$("#version").html(rows["VERSION"]);
-		$("#encoding").html(rows["ENCODING"]);
+		if (rows["ENCODING"] == "1") {
+			$("#encoding").html("UTF-8");
+		}
 		$("#txntype").html(rows["TXNTYPE"]);
 		$("#txnsubtype").html(rows["TXNSUBTYPE"]);
 		$("#biztype").html(rows["BIZTYPE"]);
 		$("#backurl").html(rows["BACKURL"]);
 		$("#batchno").html(rows["BATCHNO"]);
-		$("#txntime").html(rows["TXNTIME"]);
+		$("#txntime").html(changeDate(rows["ORDERFINSHTIME"]));
 		$("#totalqty").html(rows["TOTALQTY"]);
-		$("#totalamt ").html(rows["TOTALAMT "]);
+		$("#totalamt ").html(fenToYuan(rows["TOTALAMT"]));
 		$("#reserved").html(rows["RESERVED"]);
 		$("#respcode").html(rows["RESPCODE"]);
 		$("#respmsg").html(rows["RESPMSG"]);
-		$("#status").html(rows["STATUS"]);
-		$("#ordercommitime").html(rows["ORDERCOMMITIME"]);
+		$("#status").html(getStatus(rows["STATUS"]));
+		$("#ordercommitime").html(changeDate(rows["ORDERCOMMITIME"]));
 		$("#syncnotify").html(rows["SYNCNOTIFY"]);
 		$("#notes").html(rows["NOTES"]);
 		$("#remarks").html(rows["REMARKS"]);
+	}
+	function fenToYuan(value){
+		var str = (value/100).toFixed(2) + '';
+		var intSum = str.substring(0,str.indexOf(".")).replace( /\B(?=(?:\d{3})+$)/g, ',' );
+		var dot = str.substring(str.length,str.indexOf("."))
+		var ret = intSum + dot;
+		return ret;
 	}
 </script>
 </html>

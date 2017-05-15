@@ -159,7 +159,7 @@ public class ContractController {
         } else if (bean.equals("")) {
             result.put("status", "notExist");
         } else {
-        	filePath = "ftp:192.168.1.116/"+filePath;
+        	filePath = "ftp:192.168.2.116/"+filePath;
             result.put("status", "OK");
             result.put("url", filePath);
         }
@@ -201,9 +201,9 @@ public class ContractController {
 					
 					mf.transferTo(outFile);
 					String fileName = UUID.randomUUID().toString().replace("-", "") + resFileName.substring(resFileName.lastIndexOf("."));
-					String path = "ftp:192.168.1.116/"+fileName;
+					String path = "ftp:192.168.2.116/"+fileName;
 					FileInputStream in=new FileInputStream(outFile);  
-			        boolean flag = FTPUtils.uploadFile("192.168.1.116", 21, "DownLoad", "624537", "E:ftp","/",fileName , in);
+			        boolean flag = FTPUtils.uploadFile("192.168.2.116", 21, "DownLoad", "624537", "E:ftp","/",fileName , in);
 					result.put("status", "OK");
 					result.put("path", path);
 					result.put("fileName", fileName);
@@ -312,7 +312,7 @@ public class ContractController {
 	        	resMap.put("msg", result);
 			}else if(result.size() < list.size()){
 				FileInputStream in=new FileInputStream(fileServer);  
-		        boolean flag = FTPUtils.uploadFile("192.168.1.116", 21, "DownLoad", "624537", "E:ftp","/",fileName , in);
+		        boolean flag = FTPUtils.uploadFile("192.168.2.116", 21, "DownLoad", "624537", "E:ftp","/",fileName , in);
 			}else{
 				resMap.put("status", "OK");
 				resMap.put("msg", "成功");

@@ -264,7 +264,7 @@ public class MerchDetaController {
 						new MerchantThread(uploadDir+"/"+resFileName).start();
 //						String fileName = UUID.randomUUID().toString().replace("-", "") + resFileName.substring(resFileName.lastIndexOf("."));
 						FileInputStream in=new FileInputStream(outFile);  
-				        boolean flag = FTPUtils.uploadFile("192.168.1.144", 21, "DownLoad", "624537", "E:ftp","/",mf.getOriginalFilename() , in);
+				        boolean flag = FTPUtils.uploadFile("192.168.2.144", 21, "DownLoad", "624537", "E:ftp","/",mf.getOriginalFilename() , in);
 					}else{
 						return null;
 					}
@@ -288,7 +288,7 @@ public class MerchDetaController {
         } else if (filePath.equals("")) {
             result.put("status", "notExist");
         } else {
-        	filePath = "ftp:192.168.1.144/"+filePath;
+        	filePath = "ftp:192.168.2.144/"+filePath;
             result.put("status", "OK");
             result.put("url", filePath);
         }
@@ -657,8 +657,8 @@ public class MerchDetaController {
      */
     @ResponseBody
 	@RequestMapping("/queryProduct")
-    public List<?> queryProduct(long coopInstiId){
-    	return pojoProductService.queryProduct(coopInstiId);
+    public List<?> queryProduct(){
+    	return pojoProductService.queryProduct();
     }
     @ResponseBody
 	@RequestMapping("/showProdCase")

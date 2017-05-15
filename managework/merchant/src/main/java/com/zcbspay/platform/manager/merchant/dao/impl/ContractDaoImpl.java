@@ -1,14 +1,18 @@
 package com.zcbspay.platform.manager.merchant.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zcbspay.platform.manager.dao.impl.HibernateBaseDAOImpl;
+import com.zcbspay.platform.manager.exception.ContractException;
 import com.zcbspay.platform.manager.merchant.bean.ContractBean;
 import com.zcbspay.platform.manager.merchant.dao.ContractDao;
 import com.zcbspay.platform.manager.merchant.pojo.PojoContract;
@@ -43,8 +47,8 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
                 "v_DEBTORACCUAMOUNTLIMIT", "v_DEBTORTRANSNUMLIMITTYPE","v_DEBTORTRANSLIMIT",
                 "v_CREDITORAMOUNTLIMIT", "v_CREDITORTRANSAMTLIMITTYPE", "v_CREDITORACCUAMOUNTLIMIT",
                 "v_CREDITORTRANSNUMLIMITTYPE", "v_CREDITORTRANSLIMIT", "v_SIGNDATE", "v_EXPIRYDATE",
-                "v_INUSER", "v_FILEADDRESS", "v_NOTES", "v_REMARKS",
-                "v_filename", "v_PROPRIETARY","v_CATEGORYPURPOSE"};
+                "v_INUSER", "v_FILEADDRESS", "v_NOTES", "v_REMARKS","v_filename", "v_PROPRIETARY",
+                "v_CATEGORYPURPOSE", "v_CHARGENO", "v_CHARGECONTRACT", "v_PAYCONTRACT"};
         Object[] paramaters = null;
 			paramaters = new Object[]{
 			        "".equals(pojo.getContractNum()) ? null : pojo.getContractNum(),
@@ -74,8 +78,11 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
     				"".equals(pojo.getRemarks()) ? null : pojo.getRemarks(),
 					"".equals(pojo.getFileName()) ? null : pojo.getFileName(),
 					"".equals(pojo.getProprieTary()) ? null : pojo.getProprieTary(),
-					"".equals(pojo.getCategoryPurpose()) ? null : pojo.getCategoryPurpose()};
-		return executeOracleProcedure("{CALL PCK_T_CONTRACT.ins_t_contract(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", columns,
+					"".equals(pojo.getCategoryPurpose()) ? null : pojo.getCategoryPurpose(),
+					"".equals(pojo.getChargeNo()) ? null : pojo.getChargeNo(),
+					"".equals(pojo.getChargeConntract()) ? null : pojo.getChargeConntract(),
+					"".equals(pojo.getPayContract()) ? null : pojo.getPayContract()};
+		return executeOracleProcedure("{CALL PCK_T_CONTRACT.ins_t_contract(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", columns,
 				paramaters, "cursor0").get(0);
 	}
 
@@ -88,7 +95,7 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 	@Override
 	public List<?> findByCode(String contractNum) {
 		String sql = "select po from PojoContract po where po.contractNum=?";
-		return queryByHQL(sql, new Object[]{Long.parseLong(contractNum)});
+		return queryByHQL(sql, new Object[]{contractNum});
 	}
 
 	/**
@@ -164,8 +171,7 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
-	public List<StringBuffer> importBatch(List<ContractBean> list) {
+	public List<StringBuffer> saveContractList(List<ContractBean> list) {
 		String[] columns = new String[]{"v_CONTRACTNUM", "v_MERCHNO",
                 "v_DEBTORNAME", "v_DEBTORACCOUNTNO", "v_DEBTORBRANCHCODE",
                 "v_CREDITORNAME", "v_CREDITORACCOUNTNO", "v_CREDITORBRANCHCODE", 
@@ -173,10 +179,11 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
                 "v_DEBTORACCUAMOUNTLIMIT", "v_DEBTORTRANSNUMLIMITTYPE","v_DEBTORTRANSLIMIT",
                 "v_CREDITORAMOUNTLIMIT", "v_CREDITORTRANSAMTLIMITTYPE", "v_CREDITORACCUAMOUNTLIMIT",
                 "v_CREDITORTRANSNUMLIMITTYPE", "v_CREDITORTRANSLIMIT", "v_SIGNDATE", "v_EXPIRYDATE",
-                "v_INUSER", "v_FILEADDRESS", "v_NOTES", "v_REMARKS",
-                "v_filename", "v_PROPRIETARY","v_CATEGORYPURPOSE"};
+                "v_INUSER", "v_FILEADDRESS", "v_NOTES", "v_REMARKS","v_filename", "v_PROPRIETARY",
+                "v_CATEGORYPURPOSE", "v_CHARGENO", "v_CHARGECONTRACT", "v_PAYCONTRACT"};
 		List<StringBuffer> result = new ArrayList<StringBuffer>();
 		for (ContractBean pojo : list) {
+			
 			 Object[] paramaters = new Object[]{
 				        "".equals(pojo.getContractNum()) ? null : pojo.getContractNum(),
 				        "".equals(pojo.getMerchNo()) ? null : pojo.getMerchNo(),
@@ -205,19 +212,78 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 	 			        "".equals(pojo.getRemarks()) ? null : pojo.getRemarks(),
 						"".equals(pojo.getFileName()) ? null : pojo.getFileName(),
 						"".equals(pojo.getProprieTary()) ? null : pojo.getProprieTary(),
-						"".equals(pojo.getCategoryPurpose()) ? null : pojo.getCategoryPurpose()};
-			Object total = executeOracleProcedure("{CALL PCK_T_CONTRACT.ins_t_contract(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", columns,
+						"".equals(pojo.getCategoryPurpose()) ? null : pojo.getCategoryPurpose(),
+						"".equals(pojo.getChargeNo()) ? null : pojo.getChargeNo(),
+						"".equals(pojo.getChargeConntract()) ? null : pojo.getChargeConntract(),
+						"".equals(pojo.getPayContract()) ? null : pojo.getPayContract()};
+			Object total = executeOracleProcedure("{CALL PCK_T_CONTRACT.ins_t_contract(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", columns,
 					paramaters, "cursor0").get(0).get("INFO");
 			if (!total.equals("添加成功!")) {
-//				ContractBean bean = new ContractBean();
-//				bean.setContractNum(pojo.getContractNum());
-//				bean.setNotes(total.toString());
 				StringBuffer msg = new StringBuffer();
-				msg.append("合同编号:").append(pojo.getContractNum());
+				msg.append("合同编号:").append("合同编号："+pojo.getContractNum());
 				msg.append(" : [ ").append(total.toString()).append(" ];");
 				result.add(msg);
 			}
 		}
 			return result;
 	}
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
+	public Map<String, Object> importBatch_2(List<ContractBean> list,String batch) throws ContractException {
+		Map<String, Object> map = new HashMap<String, Object>();
+		for (ContractBean pojo : list) {
+			String type = pojo.getContractType();
+			if(!type.equals("CT00") && !type.equals("CT01") && !type.equals("CT02") && !type.equals("CT03")){
+				String info = "合同编号："+pojo.getContractNum()+","+ "合同类型输入有误!";
+				map.put("RET", "error");
+				map.put("INFO", info);
+				throw new ContractException(info); 
+			}
+			int contractBean = findByCode(pojo.getContractNum()).size();
+			if(contractBean != 0){
+				String info = "合同编号："+pojo.getContractNum()+","+ "该合同已存在或尚未被注销!";
+				map.put("RET", "error");
+				map.put("INFO", info);
+				throw new ContractException(info); 
+			}
+			
+			int merch = queryConType(pojo.getMerchNo()).size();
+			if(merch == 0){
+				String info = "合同编号："+pojo.getContractNum()+","+ "该委托机构不存在或已被注销!";
+				map.put("RET", "error");
+				map.put("INFO", info);
+				throw new ContractException(info); 
+			}
+			
+			PojoContract bean = new PojoContract();
+			BeanUtils.copyProperties(pojo, bean);
+			
+			Date curDate = new Date(System.currentTimeMillis());
+			bean.setInTime(curDate);
+			bean.setBatchNo(batch);
+			bean.setDebAmoLimit("5000000");
+			bean.setDebTranLimitType("01");
+			bean.setDebAccyAmoLimit("20000000");
+			bean.setDebTransLimitType("01");
+			bean.setDebTransLimit(Long.parseLong("50"));
+			
+			bean.setCredAmoLimit("5000000");
+			bean.setCredTranLimitType("01");
+			bean.setCredAccuAmoLimit("20000000");
+			bean.setCredTransLimitType("01");
+			bean.setCredTransLimit(Long.parseLong("50"));
+			bean.setStatus("20");
+			saveEntity(bean);
+		}
+		map.put("RET", "succ");
+		map.put("INFO", "添加成功");
+		return map;
+	}
+
+	@Override
+	public List<?> queryConType(String merchNo){
+		String sql = "select po from PojoMerchDetaApply po where po.memberId=? and po.memberType=03";
+		return queryByHQL(sql, new Object[]{merchNo});
+	}
+
 }

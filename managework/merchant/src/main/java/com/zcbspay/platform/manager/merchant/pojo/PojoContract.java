@@ -4,7 +4,10 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -94,8 +97,21 @@ public class PojoContract implements java.io.Serializable {
 	private String proprieTary;
 	/** 业务类型代码  **/
 	private String categoryPurpose;
+	/** 批次号，接口导入时有批次号  **/
+	private String batchNo;
+	/** 收费代码(电话费时就是电话号码) **/
+	private String chargeNo;
+	/** 收费协议号 **/
+	private String chargeConntract;
+	/** 付费协议号 **/
+	private String payContract;
+	
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="seq_t_contract_tid") 
+	@SequenceGenerator(name="seq_t_contract_tid",sequenceName="SEQ_T_CONTRACT_TID",allocationSize=1)
+//	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="seq_order_collect_deta") 
+//	@SequenceGenerator(name="seq_order_collect_deta",sequenceName="SEQ_ORDER_COLLECT_DETA",allocationSize=1)
 	@Column(name = "TID")
 	public Long gettId() {
 		return tId;
@@ -423,5 +439,35 @@ public class PojoContract implements java.io.Serializable {
 	public void setCategoryPurpose(String categoryPurpose) {
 		this.categoryPurpose = categoryPurpose;
 	}
+	@Column(name = "BATCHNO")
+	public String getBatchNo() {
+		return batchNo;
+	}
+	public void setBatchNo(String batchNo) {
+		this.batchNo = batchNo;
+	}
+	@Column(name = "CHARGENO")
+	public String getChargeNo() {
+		return chargeNo;
+	}
+	public void setChargeNo(String chargeNo) {
+		this.chargeNo = chargeNo;
+	}
+	@Column(name = "CHARGECONTRACT")
+	public String getChargeConntract() {
+		return chargeConntract;
+	}
+	public void setChargeConntract(String chargeConntract) {
+		this.chargeConntract = chargeConntract;
+	}
+	@Column(name = "PAYCONTRACT")
+	public String getPayContract() {
+		return payContract;
+	}
+	public void setPayContract(String payContract) {
+		this.payContract = payContract;
+	}
+	
+	
 	
 }

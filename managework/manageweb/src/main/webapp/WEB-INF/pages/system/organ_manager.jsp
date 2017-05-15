@@ -275,7 +275,6 @@ table tr td select {
 			$.ajax({
 				   type: "POST",
 				   url: "organ/getSuper",
-// 				   url: "pages/system/getSuperOrganAction.action",
 				   dataType:"json",
 				   success: function(json){
 				   		var html ="<option value=''>--请选择上级机构--</option>";
@@ -292,7 +291,6 @@ table tr td select {
 					$.ajax({
 					   type: "POST",
 					   url: "organ/delete",
-	// 				   url: "pages/system/deleteOrganAction.action",
 					   data: "organId="+organId,
 					   dataType:"json",
 					   success:function(json){

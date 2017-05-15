@@ -16,8 +16,8 @@ public class PojoProductServiceImpl implements PojoProductService {
 	@Autowired
 	private ProductDao productDao;
 	@Override
-	public List<ProductBean> queryProduct(long coopInstiId) {
-		return (List<ProductBean>) productDao.queryProduct(coopInstiId);
+	public List<ProductBean> queryProduct() {
+		return (List<ProductBean>) productDao.queryProduct();
 	}
 
 }

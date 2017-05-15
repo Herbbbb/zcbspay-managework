@@ -41,7 +41,7 @@ table tr td select {
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="pan" id="pan" maxlength="32" /></td>
 
-						<td align="right" width="10%">商户订单号</td>
+						<td align="right" width="10%">委托机构订单号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="accordno" id="accordno" maxlength="32" /></td>
 
@@ -51,7 +51,7 @@ table tr td select {
 						<td align="right" width="10%">合作机构号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="accfirmerno" id="accfirmerno" maxlength="32" /></td>
-						<td align="right" width="10%">商户号</td>
+						<td align="right" width="10%">委托机构号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="accsecmerno" id="accsecmerno" maxlength="32" /></td>
 						<td align="right" width="10%">支付流水号</td>
@@ -84,7 +84,7 @@ table tr td select {
 						</select></td>
 					<tr>
 
-						<td align="right" width="10%">会员号</td>
+						<td align="right" width="10%">委托机构号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="accmemberid" id="accmemberid" maxlength="32" /></td>
 
@@ -146,19 +146,19 @@ table tr td select {
 					<tr>
 						<td>交易手续费</td>
 						<td id="ttxnfee"></td>
-						<td>分控版本[商户角色]</td>
+						<td>分控版本[委托机构角色]</td>
 						<td id="triskver"></td>
 					</tr>
 					<tr>
-						<td>分润版本[商户角色]</td>
+						<td>分润版本[委托机构角色]</td>
 						<td id="tsplitver"></td>
-						<td>扣率版本[商户角色]</td>
+						<td>扣率版本[委托机构角色]</td>
 						<td id="tfeever"></td>
 					</tr>
 					<tr>
-						<td>产品版本[商户角色]</td>
+						<td>产品版本[委托机构角色]</td>
 						<td id="tprdtver"></td>
-						<td>收银台版本[商户角色]</td>
+						<td>收银台版本[委托机构角色]</td>
 						<td id="tcheckstandver"></td>
 					</tr>
 					<tr>
@@ -188,7 +188,7 @@ table tr td select {
 					<tr>
 						<td>受理订单所属机构</td>
 						<td id="taccordinst"></td>
-						<td>受理商户号</td>
+						<td>受理委托机构号</td>
 						<td id="taccsecmerno"></td>
 					</tr>
 					<tr>
@@ -216,7 +216,7 @@ table tr td select {
 						<td id="tpayfirmerno"></td>
 					</tr>
 					<tr>
-						<td>支付商户号</td>
+						<td>支付委托机构号</td>
 						<td id="tpaysecmerno"></td>
 						<td>支付定单提交时间</td>
 						<td id="tpayordcomtime"></td>
@@ -282,7 +282,7 @@ table tr td select {
 						<td id="tremarks"></td>
 					</tr>
 					<tr>
-						<td>受理会员号</td>
+						<td>受理委托机构号</td>
 						<td id="taccmemberid"></td>
 						<td>应用定单状态</td>
 						<td id="tapporderstatus"></td>
@@ -323,10 +323,10 @@ table tr td select {
 					{field:'RETINFO',title:'中心应答信息',width:120,align:'center'},
 					{field:'PAN',title:'转出帐号或卡号',width:120,align:'center'},
 					{field:'ACCFIRMERNO',title:'合作机构号',width:120,align:'center'},
-					{field:'ACCSECMERNO',title:'商户号',width:120,align:'center'},
-					{field:'ACCORDNO',title:'商户订单号',width:120,align:'center'},
+					{field:'ACCSECMERNO',title:'委托机构号',width:120,align:'center'},
+					{field:'ACCORDNO',title:'委托机构订单号',width:120,align:'center'},
 					{field:'PAYORDNO',title:'支付订单号',width:120,align:'center'},
-					{field:'ACCMEMBERID',title:'会员号',width:120,align:'center'},
+					{field:'ACCMEMBERID',title:'委托机构号',width:120,align:'center'},
 					{field:'PAYRETTSNSEQNO',title:'支付流水号',width:120,align:'center'},
 					{field:'ACCORDCOMMITIME',title:'受理定单提交时间',width:120,align:'center'},
 					{field:'ACCORDFINTIME',title:'受理定单完成时间',width:120,align:'center'},

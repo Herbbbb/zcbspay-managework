@@ -40,7 +40,7 @@ table tr td font.current-step {
 </head>
 <body>
 	<div style="margin: 5px;" id="continer">
-		<div id="title" name="title" class="easyui-panel" title="商户开通"
+		<div id="title" name="title" class="easyui-panel" title="委托机构开通"
 			style="background: #fafafa;" iconCls="icon-save" collapsible="false">
 			<div style="padding-left: 5px; padding-right: 5px">
 				<form id="merchDetaForm" action="merchant/saveMerchDeta"
@@ -146,10 +146,10 @@ table tr td font.current-step {
 							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr>
-							<td align="center">商户清算类型</td>
+							<td align="center">委托机构清算类型</td>
 							<td><select id="setltype_ins" class="easyui-validatebox"
 								required="true" name="setlType" /></select> <font color="red">*</font></td>
-							<td align="center">商户清算周期</td>
+							<td align="center">委托机构清算周期</td>
 							<td><select id="setlcycle_ins" class="easyui-validatebox"
 								required="true" name="setlCycle" /></select> <font color="red">*</font>
 							</td>
@@ -506,7 +506,7 @@ table tr td font.current-step {
 				data: "rand=" + new Date().getTime(),
 				dataType: "json",
 				success: function(json) {
-					var html = "<option value=''>--请选择商户类型--</option>";
+					var html = "<option value=''>--请选择委托机构类型--</option>";
 					$.each(json,function(key, value) {
 						html += '<option value="' + value.PARA_CODE + '">' + value.PARA_NAME + '</option>';
 					}) ;
@@ -522,7 +522,7 @@ table tr td font.current-step {
 				data: "rand=" + new Date().getTime(),
 				dataType: "json",
 				success: function(json) {
-					var html = "<option value=''>--请选择上级商户--</option>";
+					var html = "<option value=''>--请选择上级委托机构--</option>";
 					$.each(json,
 					function(key, value) {
 						html += '<option value="' + value.MEMBERID + '">' + value.MERCHNAME + '</option>';
@@ -539,7 +539,7 @@ table tr td font.current-step {
 				url: "merchant/queryMccList",
 				dataType: "json",
 				success: function(json) {
-					var html = "<option value=''>--商户所属行业--</option>";
+					var html = "<option value=''>--委托机构所属行业--</option>";
 					$.each(json,
 					function(key, value) {
 						html += '<option value="' + value.MCCLIST + '">' + value.MCCCONT+'('+value.MCCLIST+')</option>';

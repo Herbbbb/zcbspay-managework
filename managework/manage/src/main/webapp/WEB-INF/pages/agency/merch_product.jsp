@@ -148,7 +148,7 @@ table tr td select {
  	var memberId = $("#memberId").val();
 	$(function(){
 		$('#test').datagrid({
-			title:'商户业务计费列表',
+			title:'委托机构业务计费列表',
 			iconCls:'icon-save',
 			height:600,
 			nowrap: false,
