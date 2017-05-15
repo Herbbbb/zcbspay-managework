@@ -12,13 +12,13 @@
 </head>
 <body>
 	<div style="margin: 5px; border:" id="continer">
-		<div id="p" class="easyui-panel" title="商户月累计限次限额查询"
+		<div id="p" class="easyui-panel" title="委托机构月累计限次限额查询"
 			style="height: 72px; padding: 10px; background: #fafafa;"
 			iconCls="icon-save" collapsible="true">
 			<form id="dedurateForm" method="post">
 				<table width="100%">
 					<tr>
-						<td align="right">会员号</td>
+						<td align="right">委托机构号</td>
 						<td align="left" style="padding-left: 5px"><input
 							id="merber_qid" maxlength="15" /></td>
 
@@ -44,7 +44,7 @@
 					<table width="100%" cellpadding="2" cellspacing="2"
 						style="text-align: left" id="inputForm">
 						<tr>
-							<td align="right" width="15%" height="30px">会员号</td>
+							<td align="right" width="15%" height="30px">委托机构号</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
 								name="memberid" id="memberid"
 								validType="merchno" maxlength="15" class="easyui-validatebox" />
@@ -99,7 +99,7 @@
 	
 		$(function() {
 			$('#test').datagrid({
-				title: '商户月累计限次限额列表',
+				title: '委托机构月累计限次限额列表',
 				singleSelect: true,
 				iconCls: 'icon-save',
 				height: gridHeight,
@@ -110,13 +110,13 @@
 				remoteSort: false,
 				columns: [[{
 					field: 'MEMBERID',
-					title: '会员号',
+					title: '委托机构号',
 					width: 150,
 					align: 'center'
 				},
 				{
 					field: 'MERCHNAME',
-					title: '商户名称',
+					title: '委托机构名称',
 					width: 150,
 					align: 'center'
 				},
@@ -181,7 +181,7 @@
 				rownumbers: true,
 				toolbar: [{
 					id: 'btnadd',
-					text: '新增商户月累计限次限额',
+					text: '新增委托机构月累计限次限额',
 					iconCls: 'icon-add',
 					handler: function() {
 						showAdd();
@@ -205,7 +205,7 @@
 			$('#theForm').clearForm();
 			$("#memberid").removeAttr("readonly");
 			$('#w').window({
-				title: '商户月累计限次限额信息',
+				title: '委托机构月累计限次限额信息',
 				top: panelVertFloat, 
 		  		width: panelWidth,
 		  		height: panelHeight,
@@ -292,7 +292,7 @@
 	
 			});
 			$('#w').window({
-				title: '修改商户月累计限次限额',
+				title: '修改委托机构月累计限次限额',
 				top: panelVertFloat, 
 		  		width: panelWidth,
 		  		height: panelHeight,
@@ -309,7 +309,7 @@
 		}
 		
 		function deleteLimitMem(tid) {
-			$.messager.confirm('提示', '您是否想要注销此商户月累计限次限额?',
+			$.messager.confirm('提示', '您是否想要注销此委托机构月累计限次限额?',
 			function(r) {
 				if (r) {
 					$.ajax({
@@ -326,7 +326,7 @@
 			});
 		}
 		function startLimitMem(tid) {
-			$.messager.confirm('提示', '您是否想要启用此商户月累计限次限额?',
+			$.messager.confirm('提示', '您是否想要启用此委托机构月累计限次限额?',
 			function(r) {
 				if (r) {
 					$.ajax({

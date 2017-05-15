@@ -233,7 +233,8 @@ table tr td font.current-step {
 						<tr>
 							<td align="center">联系人姓名</td>
 							<td><input name="contact" maxlength="16" type="text"
-								class="easyui-validatebox" />
+								class="easyui-validatebox" required="true" missingMessage="请输入联系人姓名"/><font
+								color="red">*</font></td>
 							<td align="center">联系人地址</td>
 							<td><input name="contAddress" maxlength="120"
 								style="width: 250px" type="text" class="easyui-validatebox" />
@@ -242,14 +243,16 @@ table tr td font.current-step {
 						<tr>
 							<td align="center">联系人电话</td>
 							<td><input class="easyui-validatebox" maxlength="11"
-								validType="chinesetest" name="contPhone" /></td>
+								validType="chinesetest" name="contPhone" required="true" missingMessage="请输入联系人电话"/><font
+								color="red">*</font></td>
 							<td align="center">联系人职位</td>
 							<td><input name="contTitle" maxlength="16" type="text" /></td>
 						</tr>
 						<tr>
 							<td align="center">联系人邮箱</td>
 							<td><input class="easyui-validatebox" maxlength="16"
-								validType="email" name="contEmail" /></td>
+								validType="email" name="contEmail" required="true" missingMessage="请输入联系人邮箱"/><font
+								color="red">*</font></td>
 							<td colspan="2"></td>
 						</tr>
 					</table>

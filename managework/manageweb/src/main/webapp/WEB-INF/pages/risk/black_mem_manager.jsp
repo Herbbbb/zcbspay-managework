@@ -11,16 +11,16 @@
 </head>
 <body>
 	<div style="margin: 5px; border:" id="continer">
-		<div id="p" class="easyui-panel" title="商户黑名单查询"
+		<div id="p" class="easyui-panel" title="委托机构黑名单查询"
 			style="height: 72px; padding: 10px; background: #fafafa;"
 			iconCls="icon-save" collapsible="true">
 			<form id="dedurateForm" method="post">
 				<table width="100%">
 					<tr>
-						<td align="right">会员号</td>
+						<td align="right">委托机构号</td>
 						<td align="left" style="padding-left: 5px"><input
 							id="merber_qid" maxlength="15" /></td>
-						<td align="right">商户名称</td>
+						<td align="right">委托机构名称</td>
 						<td align="left" style="padding-left: 5px"><input
 							id="merbername_qid" maxlength="20" /></td>
 						<td align="right" colspan=2>
@@ -45,7 +45,7 @@
 					<table width="100%" cellpadding="2" cellspacing="2"
 						style="text-align: left" id="inputForm">
 						<tr>
-							<td align="right" width="15%" height="30px">会员号</td>
+							<td align="right" width="15%" height="30px">委托机构号</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
 								name="memberid" id="memberid"
 								validType="amount[]" maxlength="15" class="easyui-validatebox" />
@@ -90,7 +90,7 @@
 					}
 					return value.length >= param[0];
 				},
-				message: '请输入15位的会员号'
+				message: '请输入15位的委托机构号'
 			}
 		});
 		var width = $("#continer").width();
@@ -102,7 +102,7 @@
 	
 		$(function() {
 			$('#test').datagrid({
-				title: '商户黑名单列表',
+				title: '委托机构黑名单列表',
 				singleSelect: true,
 				iconCls: 'icon-save',
 				height: gridHeight,
@@ -113,13 +113,13 @@
 				remoteSort: false,
 				columns: [[{
 					field: 'MEMBERID',
-					title: '会员号',
+					title: '委托机构号',
 					width: 150,
 					align: 'center'
 				},
 				{
 					field: 'MEMBERNAME',
-					title: '商户名称',
+					title: '委托机构名称',
 					width: 150,
 					align: 'center'
 				},
@@ -173,7 +173,7 @@
 				rownumbers: true,
 				toolbar: [{
 					id: 'btnadd',
-					text: '新增商户黑名单',
+					text: '新增委托机构黑名单',
 					iconCls: 'icon-add',
 					handler: function() {
 						showAdd();
@@ -200,7 +200,7 @@
 			$('#theForm').clearForm();
 			$("#memberid").attr("disabled", false);
 			$('#w').window({
-				title: '商户黑名单信息',
+				title: '委托机构黑名单信息',
 				top: panelVertFloat, 
 		  		width: panelWidth,
 		  		height: panelHeight,
@@ -296,7 +296,7 @@
 			$('#btn_submit').linkbutton('enable');
 		}
 		function deleteLimitMem(tid) {
-			$.messager.confirm('提示', '您是否想要注销商户黑名单?',
+			$.messager.confirm('提示', '您是否想要注销委托机构黑名单?',
 			function(r) {
 				if (r) {
 					$.ajax({
@@ -313,7 +313,7 @@
 			});
 		}
 		function startLimitMem(tid) {
-			$.messager.confirm('提示', '您是否想要启用商户黑名单?',
+			$.messager.confirm('提示', '您是否想要启用委托机构黑名单?',
 			function(r) {
 				if (r) {
 					$.ajax({

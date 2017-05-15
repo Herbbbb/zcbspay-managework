@@ -30,7 +30,7 @@ table tr td select {
 			<form id="theForm" method="post">
 				<table width="100%">
 					<tr>
-						<td align="right" width="15%">会员号</td>
+						<td align="right" width="15%">委托机构号</td>
 						<td align="left" style="padding-left: 5px" width="25%"><input
 							name="memberid" id="memberids"
 							class="easyui-validatebox" /></td>
@@ -60,7 +60,7 @@ table tr td select {
 					<table width="100%" cellpadding="2" cellspacing="2"
 						style="text-align: left">
 						<tr>
-							<td align="right" width="15%" height="20px">会员号</td>
+							<td align="right" width="15%" height="20px">委托机构号</td>
 							<td align="left" style="padding-left: 5px" width="25%">
 								<input required="true"
 								name="memberid" id="memberid"
@@ -160,7 +160,7 @@ table tr td select {
 				url: 'merchapi/queryMerchs',
 				remoteSort: false,
 				columns: [[
-				           {field: 'MEMBERID',title: '会员号',width: 100,align: 'center'},
+				           {field: 'MEMBERID',title: '委托机构号',width: 100,align: 'center'},
 							{field: 'BIZTYPE',title: '产品类型',width: 100,align: 'center'},
 						    {field: 'TXNTYPE',title: '交易类型',width: 100,align: 'center'},
 						    {field: 'TXNSUBTYPE',title: '交易子类',width: 100,align: 'center'},

@@ -51,7 +51,7 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
                 "v_CATEGORYPURPOSE", "v_CHARGENO", "v_CHARGECONTRACT", "v_PAYCONTRACT"};
         Object[] paramaters = null;
 			paramaters = new Object[]{
-			        "".equals("合同编号："+pojo.getContractNum()) ? null : "合同编号："+pojo.getContractNum(),
+			        "".equals(pojo.getContractNum()) ? null : pojo.getContractNum(),
 			        "".equals(pojo.getMerchNo()) ? null : pojo.getMerchNo(),
 			        "".equals(pojo.getDebName()) ? null : pojo.getDebName(),
 			        "".equals(pojo.getDebAccNo()) ? null : pojo.getDebAccNo(),
@@ -185,7 +185,7 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 		for (ContractBean pojo : list) {
 			
 			 Object[] paramaters = new Object[]{
-				        "".equals("合同编号："+pojo.getContractNum()) ? null : "合同编号："+pojo.getContractNum(),
+				        "".equals(pojo.getContractNum()) ? null : pojo.getContractNum(),
 				        "".equals(pojo.getMerchNo()) ? null : pojo.getMerchNo(),
 				        "".equals(pojo.getDebName()) ? null : pojo.getDebName(),
 				        "".equals(pojo.getDebAccNo()) ? null : pojo.getDebAccNo(),

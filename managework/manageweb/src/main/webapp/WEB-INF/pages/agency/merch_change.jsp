@@ -1060,7 +1060,7 @@ table tr td font.current-step {
 		}
 		function validate(){
 			 if($('#b_saveForm').form('validate')){
-			    	$('#b_btn_submit2').linkbutton('disable');		
+			    	closeAdd2();
 					return true;
 				}
 		        return false;
@@ -1069,28 +1069,25 @@ table tr td font.current-step {
 			$('#b_saveForm').form('submit', {  
 			    onSubmit: function(){  
 				    if($('#b_saveForm').form('validate')){
-// 				    	$('#b_btn_submit2').linkbutton('disable');		
 						return true;
 					}
 			        return false;   
 			    },   
 			    success:function(data){  
-			    	var json = eval('(' + data + ')');
 			    	var info = $("#merchApplyId").val();
-			    	$.each(json, function(key,value){
-			    		if(value.ERR != 'succ'){
+// 			    	$.each(data, function(key,value){
+			    		if(data.RET == "succ"){
 			    			$("#b_btn_submit2").linkbutton('enable');
 							$.messager.confirm('提示', '保存成功,等待上传证件照片',function(data){
 								if(data){
 									window.location.href='agency/toUpload?merchApplyId='+info;
 								}
 							});
-				    	}else{
-				    		$.messager.alert('提示',value.INFO);
-				    		closeAdd2();
+				    	}else if(data.RET == "error"){
+				    		$.messager.alert('提示',data.INFO);
 				    	}
 			    		$('#b_btn_submit2').linkbutton('enable');		
-					}) 
+// 					}) 
 			    }   
 			});  
 		}
