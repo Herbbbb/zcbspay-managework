@@ -111,15 +111,15 @@ table tr td font.current-step {
 						<tr>
 							<td class="update" align="center">税务登记号<font color="red">*</font></td>
 							<td class="update" >${merchMap.TAX_NO}</td>
-							<td class="update" align="center">所属行业<font color="red">*</font></td>
-							<td class="update" >${merchMap.MCCLIST}</td>
-						</tr>
+<!-- 							<td class="update" align="center">所属行业<font color="red">*</font></td> -->
+<%-- 							<td class="update" >${merchMap.MCCLIST}</td> --%>
+<!-- 						</tr> -->
 						
-						<tr>
+<!-- 						<tr> -->
 							<td class="update" align="center">机构网站地址<font color="red">*</font></td>
 							<td class="update" >${merchMap.WEBSITE}</td>
-							<td class="update"></td>
-							<td class="update"></td>
+<!-- 							<td class="update"></td> -->
+<!-- 							<td class="update"></td> -->
 						</tr>
 						<tr>
 							<td class="update" align="center" id="psamORpass">法人姓名<font color="red">*</font></td>
@@ -153,8 +153,8 @@ table tr td font.current-step {
 							<td class="update" >${merchMap.SETLNAME}</td>
 						</tr>
 						<tr>
-							<td class="update" align="center">合作机构<font color="red">*</font></td>
-							<td class="update">${merchMap.INSTI_NAME}</td>
+<!-- 							<td class="update" align="center">合作机构<font color="red">*</font></td> -->
+<%-- 							<td class="update">${merchMap.INSTI_NAME}</td> --%>
 							<td class="update" align="center">产品<font color="red">*</font></td>
 							<td class="update">${merchMap.PRDTNAME}</td>
 						</tr>
@@ -328,12 +328,9 @@ table tr td font.current-step {
 					</table>
 				</form>
 			</div>
-			<div region="south" border="false"
-				style="text-align: center; padding: 5px 0;">
-				<a class="easyui-linkbutton" iconCls="icon-ok"
-					href="javascript:updateMerch()" id="btn_submit">保存</a> 
-				<a class="easyui-linkbutton" iconCls="icon-back"
-					href="javascript:void(0)" onclick="closeAdd()">返回</a>
+			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:updateMerch()" id="btn_submit">保存</a> 
+				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">返回</a>
 			</div>
 		</div>
 	</div>
@@ -784,12 +781,9 @@ table tr td font.current-step {
 		   dataType:"json",
 		   success: function(data){
 				 if(data.status=='OK'){
-					 
-// 					 $.messager.alert('提示',"提交成功");
 					 closeAdd();
 					 merchAudit('0');
 				 }else{
-					 closeAdd();
 					 $.messager.alert('提示',"提交失败");  
 				 }
 		    }
@@ -919,7 +913,6 @@ table tr td font.current-step {
 		    		if(value.ERR != 'succ'){
 	    				$.messager.alert('提示',"操作失败!");
 	    				search();
-	    				closeAdd2();
 			    	}else{
 			    		$.messager.alert('提示',value.INFO);
 			    		search();
@@ -946,7 +939,6 @@ table tr td font.current-step {
 		    		if(value.ERR != 'succ'){
 	    				$.messager.alert('提示',"操作失败!");
 	    				search();
-	    				closeAdd2();
 			    	}else{
 			    		$.messager.alert('提示',value.INFO);
 			    		search();

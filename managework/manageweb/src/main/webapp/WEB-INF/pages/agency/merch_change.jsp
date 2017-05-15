@@ -149,12 +149,12 @@ table tr td font.current-step {
 								onkeyup="value=value.replace(/[^0-9a-zA-Z]/g,'')"
 								class="easyui-validatebox" value="${member.taxno}" />
 								<font color="red">*</font></td>
-							<td align="center">所属行业</td>
-							<td><select id="mcclist_ins" class="easyui-validatebox" missingMessage="请输入所属行业"
-								name="mccList" required="true" /></select><font
-								color="red">*</font></td>
-						</tr>
-						<tr>
+<!-- 							<td align="center">所属行业</td> -->
+<!-- 							<td><select id="mcclist_ins" class="easyui-validatebox" missingMessage="请输入所属行业" -->
+<!-- 								name="mccList" required="true" /></select><font -->
+<!-- 								color="red">*</font></td> -->
+<!-- 						</tr> -->
+<!-- 						<tr> -->
 							<td align="center">机构网站地址</td>
 							<td><input name="website" maxlength="256" missingMessage="请输入机构网站地址"
 								type="text" validType="url" required="true"
@@ -211,11 +211,11 @@ table tr td font.current-step {
 							<td><input type="hidden" id="setlcycle_ins" name="setlCycle" value="0" />-无清算周期-</td>
 						</tr>
 						<tr>
-							<td align="center">合作机构</td>
-							<td><select id="coop_insti_ins" class="easyui-validatebox"
-								required="true" name="coopInstiId" missingMessage="请输入合作机构"
-								style="width: 150px" onchange="refreshProduct()" /></select> <font
-								color="red">*</font></td>
+<!-- 							<td align="center">合作机构</td> -->
+<!-- 							<td><select id="coop_insti_ins" class="easyui-validatebox" -->
+<!-- 								required="true" name="coopInstiId" missingMessage="请输入合作机构" -->
+<!-- 								style="width: 150px" onchange="refreshProduct()" /></select> <font -->
+<!-- 								color="red">*</font></td> -->
 							<td align="center">产品</td>
 							<td><select id="prdtver_ins" class="easyui-validatebox"
 								required="true" name="prdtVer" style="width: 150px" missingMessage="请输入产品"
@@ -338,7 +338,8 @@ table tr td font.current-step {
 							<td align="left"><input id="a_chargingunit" name="a_chargingunit" required="true"
 							missingMessage="请输入（实时代收）付款单位代码" maxlength="10" class="easyui-validatebox" type="text" /></td>
 							<td width="18%">业务种类</td>
-							<td align="left"><input id="a_busiSort" name="a_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
+							<td align="left"><input id="a_busiSort" name="a_busiSort" required="true"
+							missingMessage="请输入（实时代收）业务种类" maxlength="8" class="easyui-validatebox" type="text" /></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title">实时代付</td>
@@ -349,7 +350,8 @@ table tr td font.current-step {
 							<td align="left"><input id="b_chargingunit" name="b_chargingunit" required="true"
 							missingMessage="请输入（实时代付）付款单位代码" maxlength="10" class="easyui-validatebox" type="text" /></td>
 							<td width="18%">业务种类</td>
-							<td align="left"><input id="b_busiSort" name="b_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
+							<td align="left"><input id="b_busiSort" name="b_busiSort" required="true"
+							missingMessage="请输入（实时代付）业务种类" maxlength="8" class="easyui-validatebox" type="text" /></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title">批量代收</td>
@@ -360,7 +362,8 @@ table tr td font.current-step {
 							<td align="left"><input id="c_chargingunit" name="c_chargingunit" required="true"
 							missingMessage="请输入（批量代收）付款单位代码" maxlength="10" class="easyui-validatebox" type="text" /></td>
 							<td width="18%">业务种类</td>
-							<td align="left"><input id="c_busiSort" name="c_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
+							<td align="left"><input id="c_busiSort" name="c_busiSort" required="true"
+							missingMessage="请输入（批量代收）业务种类" maxlength="8" class="easyui-validatebox" type="text" /></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title">批量代付</td>
@@ -369,15 +372,16 @@ table tr td font.current-step {
 						<tr style="height: 25px">
 							<td width="18%">付款单位代码</td>
 							<td align="left"><input id="d_chargingunit" name="d_chargingunit" required="true"
-							missingMessage="请输入付款单位代码" maxlength="10" class="easyui-validatebox" type="text" /></td>
+							missingMessage="请输入(批量代付)付款单位代码" maxlength="10" class="easyui-validatebox" type="text" /></td>
 							<td width="18%">业务种类</td>
-							<td align="left"><input id="d_busiSort" name="d_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
+							<td align="left"><input id="d_busiSort" name="d_busiSort" required="true"
+							missingMessage="请输入(批量代付)业务种类" maxlength="8" class="easyui-validatebox" type="text" /></td>
 						</tr>
 					</table>
 				</form>
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 15px 0;">
-				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:validate(0)" >提交</a>
+				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:save()" >提交</a>
 				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd2()">返回</a>
 			</div>
 		</div>
@@ -398,9 +402,9 @@ table tr td font.current-step {
 			showCity('province_ins');
 			showCounty('city_ins');
 			 
-			showMccList();
-			showCoopInsti() ;
-			//showProduct();
+// 			showMccList();
+// 			showCoopInsti() ;
+			showProduct();
 			queryDistType($('#prdtver_old').val());
 			queryFee($('#prdtver_old').val());
 			queryRiskType($('#prdtver_old').val())
@@ -447,7 +451,7 @@ table tr td font.current-step {
 			}
 			if ($('#merchDetaForm').form("validate")) {
 				$("#button_id").linkbutton('disable');
-				$("#coop_insti_ins").removeAttr('disabled');
+// 				$("#coop_insti_ins").removeAttr('disabled');
 				$('#merchDetaForm').form('submit', {
 					onSubmit: function() {
 						return $('#merchDetaForm').form('validate');
@@ -635,28 +639,28 @@ table tr td font.current-step {
 		}*/
 		 
 		
-		function showMccList(){
-			$.ajax({
-				type: "POST",
-				url: "agency/queryMccList",
-				data: "rand=" + new Date().getTime(),
-				dataType: "json",
-				success: function(json) {
-					var mcclist = $('#mcclist_old').val();
-					var html = "<option value=''>--请选择机构所属行业--</option>";
-					$.each(json,
-					function(key, value) {
-						if(value.MCCLIST==mcclist){
-							html += '<option value="' + value.MCCLIST + '" selected="selected">' + value.MCCCONT + '</option>';
-						}else{
-							html += '<option value="' + value.MCCLIST + '">' + value.MCCCONT + '</option>';
-						}
-					}) ;
-					$("#mcclist_ins").html(html);
+// 		function showMccList(){
+// 			$.ajax({
+// 				type: "POST",
+// 				url: "agency/queryMccList",
+// 				data: "rand=" + new Date().getTime(),
+// 				dataType: "json",
+// 				success: function(json) {
+// 					var mcclist = $('#mcclist_old').val();
+// 					var html = "<option value=''>--请选择机构所属行业--</option>";
+// 					$.each(json,
+// 					function(key, value) {
+// 						if(value.MCCLIST==mcclist){
+// 							html += '<option value="' + value.MCCLIST + '" selected="selected">' + value.MCCCONT + '</option>';
+// 						}else{
+// 							html += '<option value="' + value.MCCLIST + '">' + value.MCCCONT + '</option>';
+// 						}
+// 					}) ;
+// 					$("#mcclist_ins").html(html);
 		
-				}
-			});
-		}
+// 				}
+// 			});
+// 		}
 		
 		function showUpload(type) {
 			$("#btn_upload").linkbutton('enable');
@@ -758,11 +762,11 @@ table tr td font.current-step {
 			file.remove();
 		}
 		
-		function showProduct(coopInstiId) {
+		function showProduct() {
 			$.ajax({
 				async:false,
 				type: "POST",
-				url: "agency/queryProduct?coopInstiId="+coopInstiId,
+				url: "agency/queryProduct?",
 				dataType: "json",
 				success: function(json) {
 					var prdtver = $('#prdtver_old').val();
@@ -844,42 +848,42 @@ table tr td font.current-step {
 			});
 		}
 		
-		function showCoopInsti() {
-			$.ajax({
-				type: "POST",
-				url: "agency/queryAll",
-				dataType: "json",
-				success: function(json) {
-					var merCoopInstiId = $('#coopInstiId_old').val();
-					var html = "<option value=''>--请选择合作机构--</option>";
-					$.each(json,
-					function(key, value) {
-						if(value.ID==merCoopInstiId){
-							html += '<option value="' + value.ID + '" selected="selected">' + value.INSTI_NAME + '</option>';
-						}else{
-							html += '<option value="' + value.ID + '">' + value.INSTI_NAME + '</option>';
-						}
+// 		function showCoopInsti() {
+// 			$.ajax({
+// 				type: "POST",
+// 				url: "agency/queryAll",
+// 				dataType: "json",
+// 				success: function(json) {
+// 					var merCoopInstiId = $('#coopInstiId_old').val();
+// 					var html = "<option value=''>--请选择合作机构--</option>";
+// 					$.each(json,
+// 					function(key, value) {
+// 						if(value.ID==merCoopInstiId){
+// 							html += '<option value="' + value.ID + '" selected="selected">' + value.INSTI_NAME + '</option>';
+// 						}else{
+// 							html += '<option value="' + value.ID + '">' + value.INSTI_NAME + '</option>';
+// 						}
 						
-					}) ;
-					$("#coop_insti_ins").html(html);
-					refreshProduct(merCoopInstiId);
-					$('#coop_insti_ins').attr('disabled','disabled');
-				}
-			});
-		}
+// 					}) ;
+// 					$("#coop_insti_ins").html(html);
+// 					refreshProduct(merCoopInstiId);
+// 					$('#coop_insti_ins').attr('disabled','disabled');
+// 				}
+// 			});
+// 		}
 		
-		function refreshProduct(){
-			var coopInstiId = $("#coop_insti_ins").val();
-			if (coopInstiId != "" && coopInstiId != null) {
-				showProduct(coopInstiId);
-			}
-			showThreeVersion();
-		}
+// 		function refreshProduct(){
+// 			var coopInstiId = $("#coop_insti_ins").val();
+// 			if (coopInstiId != "" && coopInstiId != null) {
+// 				showProduct();
+// 			}
+// 			showThreeVersion();
+// 		}
 		
 		function showThreeVersion() {
 			var pid = $("#prdtver_ins").val();
 			if (pid != "" && !pid != null) {
-				queryDistType(pid);
+// 				queryDistType(pid);
 				queryFee(pid);
 				queryRiskType(pid)
 			}
@@ -1041,7 +1045,7 @@ table tr td font.current-step {
 			   }
 			});
 			$('#w2').window({
-				title: '新增业务收费信息',
+				title: '业务收费信息',
 				top:100,
 				left:300,
 				width:700,
@@ -1074,17 +1078,19 @@ table tr td font.current-step {
 			        return false;   
 			    },   
 			    success:function(data){  
+			    	json = eval('(' + data + ')');
 			    	var info = $("#merchApplyId").val();
 // 			    	$.each(data, function(key,value){
-			    		if(data.RET == "succ"){
+			    		if(json.RET == "succ"){
 			    			$("#b_btn_submit2").linkbutton('enable');
 							$.messager.confirm('提示', '保存成功,等待上传证件照片',function(data){
 								if(data){
 									window.location.href='agency/toUpload?merchApplyId='+info;
 								}
 							});
-				    	}else if(data.RET == "error"){
-				    		$.messager.alert('提示',data.INFO);
+				    	}else if(json.RET == "error"){
+				    		findChargingunit();
+				    		$.messager.alert('提示',json.INFO);
 				    	}
 			    		$('#b_btn_submit2').linkbutton('enable');		
 // 					}) 

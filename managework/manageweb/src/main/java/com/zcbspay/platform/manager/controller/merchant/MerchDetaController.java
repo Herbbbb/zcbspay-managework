@@ -657,8 +657,8 @@ public class MerchDetaController {
      */
     @ResponseBody
 	@RequestMapping("/queryProduct")
-    public List<?> queryProduct(long coopInstiId){
-    	return pojoProductService.queryProduct(coopInstiId);
+    public List<?> queryProduct(){
+    	return pojoProductService.queryProduct();
     }
     @ResponseBody
 	@RequestMapping("/showProdCase")

@@ -109,11 +109,11 @@ table tr td font.current-step {
 						<tr>
 							<td class="update" align="center">税务登记号<font color="red">*</font></td>
 							<td class="update" >${merchMap.TAX_NO}</td>
-							<td class="update" align="center">所属行业<font color="red">*</font></td>
-							<td class="update" >${merchMap.MCCLIST}</td>
-						</tr>
+<!-- 							<td class="update" align="center">所属行业<font color="red">*</font></td> -->
+<%-- 							<td class="update" >${merchMap.MCCLIST}</td> --%>
+<!-- 						</tr> -->
 						
-						<tr>
+<!-- 						<tr> -->
 							<td class="update" align="center">机构网站地址<font color="red">*</font></td>
 							<td class="update" >${merchMap.WEBSITE}</td>
 							
@@ -150,8 +150,8 @@ table tr td font.current-step {
 							<td class="update">${merchMap.SETLNAME}</td>
 						</tr>
 						<tr>
-							<td class="update" align="center">合作机构<font color="red">*</font></td>
-							<td class="update">${merchMap.INSTI_NAME}</td>
+<!-- 							<td class="update" align="center">合作机构<font color="red">*</font></td> -->
+<%-- 							<td class="update">${merchMap.INSTI_NAME}</td> --%>
 							<td align="center">产品<font color="red">*</font></td>
 							<td class="update">${merchMap.PRDTNAME}</td>
 						</tr>
@@ -775,7 +775,6 @@ var pid = $("#prdtVer").val();
 					 closeAdd();
 					 merchAudit('0');
 				 }else{
-					 closeAdd();
 					 $.messager.alert('提示',"提交失败");  
 				 }
 		    }
@@ -904,7 +903,6 @@ var pid = $("#prdtVer").val();
 			    		if(value.ERR != 'succ'){
 		    				$.messager.alert('提示',"操作失败!");
 		    				search();
-		    				closeAdd2();
 				    	}else{
 				    		$.messager.alert('提示',value.INFO);
 				    		search();
