@@ -205,20 +205,20 @@ table tr td select {
 				remoteSort: false,
 				columns: [
 				[{
-					title: '扣率代码',
+					title: '',
 					align: 'center'
 					
 				},
 				{
-					title: '扣率描述',
+					title: '',
 					align: 'center'
 				}, 
 				{
-					title: '累计方式',
+					title: '',
 					align: 'center'
 				},
 				{
-					title: '计费方式',
+					title: '',
 					align: 'center'
 				},
 				{
@@ -245,7 +245,7 @@ table tr td select {
 					colspan:3
 				},
 				{
-					title: '操作',
+					title: '',
 					align: 'center',
 					colspan:4
 				}

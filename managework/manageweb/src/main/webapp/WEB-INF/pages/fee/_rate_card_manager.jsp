@@ -216,12 +216,12 @@ table tr td select {
 				columns: [
 				          
 				[{
-					title: '扣率代码',
+					title: '',
 					align: 'center'
 					
 				},
 				{
-					title: '扣率描述',
+					title: '',
 					align: 'center'
 				}, 
 				{
@@ -240,7 +240,7 @@ table tr td select {
 					colspan:4
 				},
 				{
-					title: '操作',
+					title: '',
 					align: 'center',
 					colspan:4
 				}
