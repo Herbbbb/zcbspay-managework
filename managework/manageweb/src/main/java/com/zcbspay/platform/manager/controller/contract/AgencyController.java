@@ -263,7 +263,7 @@ public class AgencyController {
 						
 //						String fileName = UUID.randomUUID().toString().replace("-", "") + resFileName.substring(resFileName.lastIndexOf("."));
 						FileInputStream in=new FileInputStream(outFile);  
-				        boolean flag = FTPUtils.uploadFile("192.168.1.144", 21, "DownLoad", "624537", "E:ftp","/",resFileName, in);
+				        boolean flag = FTPUtils.uploadFile("192.168.2.144", 21, "DownLoad", "624537", "E:ftp","/",resFileName, in);
 					}else{
 						return null;
 					}
@@ -284,7 +284,7 @@ public class AgencyController {
     	String filePath = agencyService.downloadFromFtp(merchApplyId, CertType.format(certTypeCode));
         String uploadDir = request.getSession().getServletContext().getRealPath("/")+"javaCode\\";
         
-        boolean resultBool = FTPUtils.downloadFile("192.168.1.144", 21, "DownLoad", "624537", "E:ftp/",filePath , uploadDir);
+        boolean resultBool = FTPUtils.downloadFile("192.168.2.144", 21, "DownLoad", "624537", "E:ftp/",filePath , uploadDir);
         new MerchantThread(uploadDir + "/" + filePath).start();
         
         if (resultBool) {

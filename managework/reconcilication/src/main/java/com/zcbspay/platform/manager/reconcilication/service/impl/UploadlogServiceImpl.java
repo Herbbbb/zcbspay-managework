@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zcbspay.platform.manager.reconcilication.bean.ChnTxnBean;
 import com.zcbspay.platform.manager.reconcilication.dao.UploadlogDao;
@@ -44,6 +45,7 @@ public class UploadlogServiceImpl implements UploadlogService{
 	}
 
 	@Override
+	@Transactional
 	public String importBatch(List<ChnTxnBean> list) {
 		try {
 			return (String) uploadlogDao.importBatch(list);
