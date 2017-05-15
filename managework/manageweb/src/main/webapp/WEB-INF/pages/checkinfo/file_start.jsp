@@ -37,10 +37,10 @@ table tr td select {
 					</tr>
 					<tr>
 
-						<td align="center">合约开始日期</td>
+						<td align="center">开始日期</td>
 						<td><input name="agreemtStart" maxlength="12" type="text"
 							id="startDate" /></td>
-						<td align="center">合约终止日期</td>
+						<td align="center">终止日期</td>
 						<td><input class="easyui-validatebox" maxlength="12"
 							name="agreemtEnd" id="endDate" /></td>
 						<td>
