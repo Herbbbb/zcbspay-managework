@@ -61,7 +61,7 @@ table tr td font.current-step {
 						<tr>
 							<td align="center" width="15%">委托机构名称<font color="red">*</font></td>
 							<td width="30%">${merchMap.ENTERPRISE_NAME}</td>
-							<td align="center">会员编号</td>
+							<td align="center">委托机构编号</td>
 							<td>${merchMap.MEMBER_ID}</td>
 						</tr>
 						<tr>
@@ -299,7 +299,7 @@ table tr td font.current-step {
 				<form id="deptForm" action="dept/save" method="post">
 					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left" id="inputForm">
 						<tr>
-							<td align="center" width="20%">商户名称</td>
+							<td align="center" width="20%">委托机构名称</td>
 							<td><input id="b_merName" name="enterpriseName" readonly="true"/></td>
 						</tr>
 						<tr>

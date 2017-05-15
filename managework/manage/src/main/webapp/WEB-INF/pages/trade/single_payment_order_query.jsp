@@ -88,7 +88,7 @@ table tr td select {
 					</tr>
 					<tr>
 					<td>合作机构号</td><td id="coopinstiid"></td>
-					<td>商户号</td><td id="merid"></td>
+					<td>委托机构号</td><td id="merid"></td>
 					</tr>
 					<tr>
 					<td>版本</td><td id="version"></td>
@@ -104,7 +104,7 @@ table tr td select {
 					</tr>
 					<tr>
 					<td>订单发送时间</td><td id="txntime"></td>
-					<td>商户订单号</td><td id="orderid"></td>
+					<td>委托机构订单号</td><td id="orderid"></td>
 					</tr>
 					<tr>
 					<td>交易币种</td><td id="currencycode"></td>
@@ -179,7 +179,7 @@ table tr td select {
 									{field:'BIZTYPE',title:'产品类型',width:128,align:'center'},
 									{field:'BACKURL',title:'通知地址',width:129,align:'center'},
 									{field:'TXNTIME',title:'订单发送时间',width:130,align:'center'},
-									{field:'ORDERID',title:'商户订单号',width:131,align:'center'},
+									{field:'ORDERID',title:'委托机构订单号',width:131,align:'center'},
 									{field:'CURRENCYCODE',title:'交易币种',width:132,align:'center'},
 									{field:'TXNAMT',title:'金额',width:133,align:'center'},
 									{field:'DEBTORBANK',title:'付款人银行号',width:134,align:'center'},

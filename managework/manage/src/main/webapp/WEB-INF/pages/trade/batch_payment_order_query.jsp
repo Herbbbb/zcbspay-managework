@@ -67,7 +67,7 @@ table tr td select {
 					</tr>
 					<tr>						
 						<td>合作机构号</td><td id="coopinstiid"></td>
-						<td>商户号</td><td id="merid"></td>
+						<td>委托机构号</td><td id="merid"></td>
 					</tr>
 					<tr>						
 						<td>版本</td><td id="version"></td>
@@ -130,7 +130,7 @@ table tr td select {
 							columns : [ [
 								{field:'ACCESSTYPE',title:'接入类型',width:120,align:'center'},
 								{field:'COOPINSTIID',title:'合作机构号',width:120,align:'center'},
-								{field:'MERID',title:'商户号',width:120,align:'center'},
+								{field:'MERID',title:'委托机构号',width:120,align:'center'},
 								{field:'VERSION',title:'版本',width:120,align:'center'},
 								{field:'ENCODING',title:'编码方式',width:120,align:'center'},
 								{field:'TXNTYPE',title:'交易类型',width:120,align:'center'},
@@ -172,7 +172,7 @@ table tr td select {
 										{field:'TID',title:'标志',width:120,align:'center'},
 										{field:'BATCHTID',title:'批次表标志',width:120,align:'center'},
 										{field:'BATCHNO',title:'批次号',width:120,align:'center'},
-										{field:'ORDERID',title:'商户订单号',width:120,align:'center'},
+										{field:'ORDERID',title:'委托机构订单号',width:120,align:'center'},
 										{field:'CURRENCYCODE',title:'交易币种',width:120,align:'center'},
 										{field:'AMT',title:'单笔金额',width:120,align:'center'},
 										{field:'DEBTORBANK',title:'付款人银行号',width:120,align:'center'},

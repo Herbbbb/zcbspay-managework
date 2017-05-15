@@ -41,19 +41,17 @@ table tr td select {
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="pan" id="pan" maxlength="32" /></td>
 
-						<td align="right" width="10%">订单号</td>
+						<td align="right" width="10%">受理订单号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="accordno" id="accordno" maxlength="32" /></td>
-
-
 					</tr>
 					<tr>
-						<td align="left" style="padding-left: 5px" width="15%"><input
-							name="accfirmerno" id="accfirmerno" maxlength="32" /></td>
+<!-- 						<td align="left" style="padding-left: 5px" width="15%"><input -->
+<!-- 							name="accfirmerno" id="accfirmerno" maxlength="32" /></td> -->
 						<td align="right" width="10%">委托机构号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="accsecmerno" id="accsecmerno" maxlength="32" /></td>
-						<td align="right" width="10%">支付订单号</td>
+						<td align="right" width="10%">支付方交易流水号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="payrettsnseqno" id="payrettsnseqno" maxlength="32" /></td>
 
@@ -64,12 +62,12 @@ table tr td select {
 								<option value="00">成功</option>
 								<option value="01">失败</option>
 						</select></td>
-					</tr>
-					<tr>
 						<td align="right" width="10%">受理清算日期</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							id="accsettledate" type="text" class="easyui-datebox"
 							name="accsettledate"></input></td>
+					</tr>
+					<tr>
 						<td align="right" width="10%">支付订单号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="payordno" id="payordno" maxlength="32" /></td>
@@ -81,9 +79,10 @@ table tr td select {
 									<option value=${channel.CHNLCODE }>${channel.CHNLNAME}</option>
 								</c:forEach>
 						</select></td>
+					</tr>
 					<tr>
 
-						<td align="right" width="10%">会员号</td>
+						<td align="right" width="10%">受理委托机构号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="accmemberid" id="accmemberid" maxlength="32" /></td>
 
@@ -101,7 +100,7 @@ table tr td select {
 							href="javascript:resize()" class="easyui-linkbutton"
 							iconCls="icon-redo">清空</a></td>
 							</td>
-					</tr>
+					
 					</tr>
 				</table>
 			</form>
@@ -127,7 +126,7 @@ table tr td select {
 					<tr>
 						<td>交易时间</td>
 						<td id="ttxntime"></td>
-						<td>产品版本[商户角色]</td>
+						<td>产品版本[委托机构角色]</td>
 						<td id="tprdtver"></td>
 					</tr>
 					<tr>
@@ -157,7 +156,7 @@ table tr td select {
 					<tr>
 						<td>转出帐号或卡号</td>
 						<td id="tpan"></td>
-						<td>受理商户号</td>
+						<td>受理委托机构号</td>
 						<td id="taccsecmerno"></td>
 					</tr>
 					<tr>
@@ -197,7 +196,7 @@ table tr td select {
 						<td id="tpayfirmerno"></td>
 					</tr>
 					<tr>
-						<td>支付商户号</td>
+						<td>支付委托机构号</td>
 						<td id="tpaysecmerno"></td>
 						<td>支付定单提交时间</td>
 						<td id="tpayordcomtime"></td>
@@ -252,43 +251,69 @@ table tr td select {
 					</tr>
 					
 					<tr>
-						<td>受理会员号</td>
+						<td>受理委托机构号</td>
 						<td id="taccmemberid"></td>
 						<td>应用定单状态</td>
 						<td id="tapporderstatus"></td>
 					</tr>
 					
 					<tr>
-						<td>备注</td>
-						<td id="tnotes"></td>
-						<td>备注</td>
-						<td id="tremarks"></td>
-					</tr>
-					<tr>
 						<td>应用订单应答信息</td>
 						<td id="tapporderinfo"></td>
+						<td>备注</td>
+						<td id="tnotes"></td>
 					</tr>
+<!-- 					<tr> -->
+<!-- 						<td>备注</td> -->
+<!-- 						<td id="tremarks"></td> -->
+						
+<!-- 					</tr> -->
 				</table>
+			</div>
+			<div region="south" border="false" style="text-align: center; padding: 15px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-back" onclick="closeAdd()">返回</a>
 			</div>
 		</div>
 	</div>
 </body>
 
 <script>
-function changeDate(value){
-	var dateString = value;
-	if(dateString==null){
-		return "";
-	}else{
-		year=dateString.substring(0,4);//0123
-		month=dateString.substring(4,6);//45
-		day=dateString.substring(6,8);//67
-		hour=dateString.substring(8,10);//89
-		minte=dateString.substring(10,12);//10 11
-		s=dateString.substring(12,14);// 11 12
-		return year+"-"+month+"-"+day+" " + hour +":"+minte+":"+s;
+	function changeDate(value){
+		var dateString = value;
+		if(dateString==null || dateString== 0){
+			return "";
+		}else{
+			year=dateString.substring(0,4);//0123
+			month=dateString.substring(4,6);//45
+			day=dateString.substring(6,8);//67
+			hour=dateString.substring(8,10);//89
+			minte=dateString.substring(10,12);//10 11
+			s=dateString.substring(12,14);// 11 12
+			return year+"-"+month+"-"+day+" " + hour +":"+minte+":"+s;
+		}
 	}
-}
+	function b_changeDate(value){
+		var dateString = value;
+		if(dateString==null || dateString== 0){
+			return "";
+		}else{
+			year=dateString.substring(0,4);//0123
+			month=dateString.substring(4,6);//45
+			day=dateString.substring(6,8);//67
+			return year+"-"+month+"-"+day;
+		}
+	}
+	function c_changeDate(value){
+		var dateString = value;
+		if(dateString==null || dateString== 0){
+			return "";
+		}else{
+			hour=dateString.substring(8,10);//89
+			minte=dateString.substring(10,12);//10 11
+			s=dateString.substring(12,14);// 11 12
+			return hour +":"+minte+":"+s;
+		}
+	}
   	var width = $("#continer").width();
 		$(function(){
 			
@@ -311,8 +336,16 @@ function changeDate(value){
 						}
 					},
 					{field:'BUSINAME',title:'交易类型',width:120,align:'center'},
-					{field:'AMOUNT',title:'交易金额(元)',width:120,align:'center'},
-					{field:'TXNFEE',title:'交易手续费(元)',width:120,align:'center'},
+					{field:'AMOUNT',title:'交易金额(元)',width:120,align:'center',
+						formatter:function(value,rec){
+							return fenToYuan(rec.AMOUNT);
+						}
+					},
+					{field:'TXNFEE',title:'交易手续费(元)',width:120,align:'center',
+						formatter:function(value,rec){
+							return fenToYuan(rec.TXNFEE);
+						}
+					},
 					{field:'RETINFO',title:'中心应答信息',width:120,align:'center'},
 					{field:'PAN',title:'转出帐号或卡号',width:150,align:'center'},
 					{field:'ACCSECMERNO',title:'委托机构号',width:150,align:'center'},
@@ -327,7 +360,7 @@ function changeDate(value){
 					},
 					{field:'ACCSETTLEDATE',title:'受理清算日期',width:120,align:'center',
 						formatter : function(value, rec) {
-							return changeDate(rec.ACCSETTLEDATE);
+							return b_changeDate(rec.ACCSETTLEDATE);
 						}		
 					},
 					{field:'CHNLNAME',title:'交易渠道',width:120,align:'center'},
@@ -434,7 +467,7 @@ function changeDate(value){
 			   
 			$('#w').window({
 				title: '详细信息',
-				top:90,
+				top:50,
 				left:100,
 				width:910,
 				modal: true,
@@ -443,7 +476,7 @@ function changeDate(value){
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 850
+				height: 750
 			});
 		
 	
@@ -458,14 +491,14 @@ function changeDate(value){
 					   }else{
 						   json=date.json;		   
 					   $("#ttxnseqno").html(json.TXNSEQNO);
-					   $("#ttxndate").html(json.TXNDATE);
-					   $("#ttxntime").html(changeDate(json.TXNTIME));
+					   $("#ttxndate").html(b_changeDate(json.TXNDATE+json.TXNTIME));
+					   $("#ttxntime").html(c_changeDate(json.TXNDATE+json.TXNTIME));
 					   $("#tapptype").html(json.APPTYPE);
 					   $("#tbusitype").html(json.BUSITYPE);
 					   $("#tbusicode").html(json.BUSINAME);
-					   $("#tamount").html(json.AMOUNT);
-					   $("#ttradcomm").html(json.TRADCOMM);
-					   $("#ttxnfee").html(json.TXNFEE);
+					   $("#tamount").html(fenToYuan(json.AMOUNT));
+					   $("#ttradcomm").html(fenToYuan(json.TRADCOMM));
+					   $("#ttxnfee").html(fenToYuan(json.TXNFEE));
 					   $("#triskver").html(json.RISKNAME);
 					   $("#tsplitver").html(json.SPLITVER);
 					   $("#tfeever").html(json.FEENAME);
@@ -527,6 +560,17 @@ function changeDate(value){
 					   }
 				 	}
 				});
+		}
+		
+		function closeAdd(){
+			$('#w').window('close');
+		}
+		function fenToYuan(value){
+			var str = (value/100).toFixed(2) + '';
+			var intSum = str.substring(0,str.indexOf(".")).replace( /\B(?=(?:\d{3})+$)/g, ',' );
+			var dot = str.substring(str.length,str.indexOf("."))
+			var ret = intSum + dot;
+			return ret;
 		}
 	</script>
 </html>

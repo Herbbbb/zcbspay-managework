@@ -85,15 +85,14 @@ table tr td font.current-step {
 							<td>${member.enterpriseMemberId}</td>
 						</tr>
 						<tr>
-							<td align="center">收费单位代码</td>
-							<td><input name="chargingunit" maxlength="10" type="text" missingMessage="请输入收费单位代码"
-							required="true" class="easyui-validatebox" value="${merchDeta.chargingunit}"/>
-							<font color="red">*</font></td>
-							<td></td>
-							<td></td>
-<!-- 							<td align="center">机构代码</td> -->
-<!-- 							<td><input class="easyui-validatebox" maxlength="10" id="instCode" missingMessage="请输入机构代码" -->
-<%-- 								 required="true" name="instCode" value="${merchDeta.instCode}"/> <font color="red">*</font></td> --%>
+<!-- 							<td align="center">收费单位代码</td> -->
+<!-- 							<td><input name="chargingunit" maxlength="10" type="text" missingMessage="请输入收费单位代码" -->
+<%-- 							required="true" class="easyui-validatebox" value="${merchDeta.chargingunit}"/> --%>
+<!-- 							<font color="red">*</font></td> -->
+<!-- 							<td></td> -->
+<!-- 							<td></td> -->
+							<td class="update" align="center">收费单位配置信息</td>
+							<td class="update" style="font-size: 12px;color:blue;cursor:pointer;" onclick="findChargingunit()">点击查看</td>
 						</tr>
 						<tr>
 							<td align="center">机构所在地</td>
@@ -323,6 +322,66 @@ table tr td font.current-step {
 			</div>
 		</div>
 	</div>
+	<div id="w2" class="easyui-window" closed="true" title="My Window" iconCls="icon-save" 
+		style="width: 500px; height: 400px; padding: 5px; top: 50%; left: 50%;">
+		<div class="easyui-layout" fit="true">
+			<div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
+				<form id="b_saveForm" action="agency/updateAgencyInfo" method="post">
+					<input type="hidden" id="b_merchNo" name="merchNo"/>
+					<table width="100%" cellpadding="2" cellspacing="2">
+						<tr>
+							<td colspan="4" class="head-title">实时代收</td>
+							<input type="hidden" id="a_bustCode" name="a_bustCode"/>
+						</tr>
+						<tr style="height: 25px">
+							<td width="18%">付款单位代码</td>
+							<td align="left"><input id="a_chargingunit" name="a_chargingunit" required="true"
+							missingMessage="请输入（实时代收）付款单位代码" maxlength="10" class="easyui-validatebox" type="text" /></td>
+							<td width="18%">业务种类</td>
+							<td align="left"><input id="a_busiSort" name="a_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
+						</tr>
+						<tr>
+							<td colspan="4" class="head-title">实时代付</td>
+							<input type="hidden" id="b_bustCode" name="b_bustCode"/>
+						</tr>
+						<tr style="height: 25px">
+							<td width="18%">付款单位代码</td>
+							<td align="left"><input id="b_chargingunit" name="b_chargingunit" required="true"
+							missingMessage="请输入（实时代付）付款单位代码" maxlength="10" class="easyui-validatebox" type="text" /></td>
+							<td width="18%">业务种类</td>
+							<td align="left"><input id="b_busiSort" name="b_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
+						</tr>
+						<tr>
+							<td colspan="4" class="head-title">批量代收</td>
+							<input type="hidden" id="c_bustCode" name="c_bustCode"/>
+						</tr>
+						<tr style="height: 25px">
+							<td width="18%">付款单位代码</td>
+							<td align="left"><input id="c_chargingunit" name="c_chargingunit" required="true"
+							missingMessage="请输入（批量代收）付款单位代码" maxlength="10" class="easyui-validatebox" type="text" /></td>
+							<td width="18%">业务种类</td>
+							<td align="left"><input id="c_busiSort" name="c_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
+						</tr>
+						<tr>
+							<td colspan="4" class="head-title">批量代付</td>
+							<input type="hidden" id="d_bustCode" name="d_bustCode"/>
+						</tr>
+						<tr style="height: 25px">
+							<td width="18%">付款单位代码</td>
+							<td align="left"><input id="d_chargingunit" name="d_chargingunit" required="true"
+							missingMessage="请输入付款单位代码" maxlength="10" class="easyui-validatebox" type="text" /></td>
+							<td width="18%">业务种类</td>
+							<td align="left"><input id="d_busiSort" name="d_busiSort" maxlength="8" class="easyui-validatebox" type="text" /></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div region="south" border="false" style="text-align: center; padding: 15px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:validate(0)" >提交</a>
+				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd2()">返回</a>
+			</div>
+		</div>
+	</div>
 </body>
 
 <script>
@@ -395,15 +454,16 @@ table tr td font.current-step {
 					},
 					success: function(json) {
 						json = eval('(' + json + ')');
-						$.each(json,
-							function(key, value) {
+						$.each(json,function(key, value) {
 							if (value.RET == "succ") {
+								var num = $("#enterpriseMemberId").val();
+								var info = $("#merchApplyId").val();
 								$("#button_id").linkbutton('enable');
-								$.messager.confirm('提示', '保存成功,等待上传证件照片',function(data){
-									if(data){
-										window.location.href= "<%=basePath%>" +'/agency/toUpload?merchApplyId='+value.INFO;
-									}								
-								});
+								if($("#a_chargingunit").val() == null || $("#a_chargingunit").val() == ""){
+									findChargingunit();
+								}else{
+									save();
+								}
 							} else {
 								$.messager.alert('提示', value.INFO);
 								$("#button_id").linkbutton('enable');
@@ -945,6 +1005,94 @@ table tr td font.current-step {
 		
 		function backToMerchIndex(){
 			window.location.href= "<%=basePath%>" +'agency/show';
+		}
+		function findChargingunit(){
+			var num = $("#enterpriseMemberId").val();
+			var info = $("#merchApplyId").val();
+			$('#b_saveForm :input').val('');
+			$('#a_bustCode').val(11000001);
+			$('#b_bustCode').val(11000002);
+			$('#c_bustCode').val(11000003);
+			$('#d_bustCode').val(11000004);
+			$('#b_merchNo').val(num);
+			
+			$.ajax({
+			   type: "POST",
+			   url: "agency/queryByMerchNo",
+			   data: "merchNo="+num,
+			   async: false,
+			   dataType:"json",
+			   success: function(json){
+				   $.each(json, function(key,value){
+					   if(value.bustCode == "11000001"){
+						   $('#a_chargingunit').val(value.chargingunit);
+						   $('#a_busiSort').val(value.busiSort);
+					   }else if(value.bustCode == "11000002"){
+						   $('#b_chargingunit').val(value.chargingunit);
+						   $('#b_busiSort').val(value.busiSort);
+					   }else if(value.bustCode == "11000003"){
+						   $('#c_chargingunit').val(value.chargingunit);
+						   $('#c_busiSort').val(value.busiSort);
+					   }else if(value.bustCode == "11000004"){
+						   $('#d_chargingunit').val(value.chargingunit);
+						   $('#d_busiSort').val(value.busiSort);
+					   }
+				   });
+			   }
+			});
+			$('#w2').window({
+				title: '新增业务收费信息',
+				top:100,
+				left:300,
+				width:700,
+				modal: true,
+				minimizable:false,
+				collapsible:false,
+				maximizable:false,
+				shadow: false,
+				closed: false,
+				height: 330
+			});
+			$('#b_btn_submit2').linkbutton('enable');	
+		}
+		function backToMerchIndex(){
+			window.location.href= "<%=basePath%>" +'agency/show';
+		}
+		function validate(){
+			 if($('#b_saveForm').form('validate')){
+			    	closeAdd2();
+					return true;
+				}
+		        return false;
+		}
+		function save(){
+			$('#b_saveForm').form('submit', {  
+			    onSubmit: function(){  
+				    if($('#b_saveForm').form('validate')){
+						return true;
+					}
+			        return false;   
+			    },   
+			    success:function(data){  
+			    	var info = $("#merchApplyId").val();
+// 			    	$.each(data, function(key,value){
+			    		if(data.RET == "succ"){
+			    			$("#b_btn_submit2").linkbutton('enable');
+							$.messager.confirm('提示', '保存成功,等待上传证件照片',function(data){
+								if(data){
+									window.location.href='agency/toUpload?merchApplyId='+info;
+								}
+							});
+				    	}else if(data.RET == "error"){
+				    		$.messager.alert('提示',data.INFO);
+				    	}
+			    		$('#b_btn_submit2').linkbutton('enable');		
+// 					}) 
+			    }   
+			});  
+		}
+		function closeAdd2(){
+			$('#w2').window('close');
 		}
 	</script>
 </html>

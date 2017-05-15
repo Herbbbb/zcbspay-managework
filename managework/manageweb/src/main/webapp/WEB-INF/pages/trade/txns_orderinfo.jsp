@@ -31,7 +31,7 @@ table tr td select {
 						<td></td>
 					</tr>
 					<tr>
-						<td align="right" width="10%">二级商户号</td>
+						<td align="right" width="10%">二级委托机构号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="secmemberNo" id="secmemberNo" maxlength="32" /></td>
 						<td align="right" width="10%">状态</td>
@@ -99,23 +99,23 @@ table tr td select {
 					<tr>
 						<td>订单提交时间</td>
 						<td id="tordercommitime"></td>
-						<td>一级商户号</td>
+						<td>一级委托机构号</td>
 						<td id="tfirmemberno"></td>
 					</tr>
 					<tr>
-						<td>一线商户名称</td>
+						<td>一线委托机构名称</td>
 						<td id="tfirmembername"></td>
-						<td>一级商户简称</td>
+						<td>一级委托机构简称</td>
 						<td id="tfirmembershortname"></td>
 					</tr>
 					<tr>
-						<td>二级商户号</td>
+						<td>二级委托机构号</td>
 						<td id="tsecmemberno"></td>
-						<td>二线商户名称</td>
+						<td>二线委托机构名称</td>
 						<td id="tsecmembername"></td>
 					</tr>
 					<tr>
-						<td>二级商户简称</td>
+						<td>二级委托机构简称</td>
 						<td id="tsecmembershortname"></td>
 						<td>商品名称</td>
 						<td id="tgoodsname"></td>
@@ -199,7 +199,7 @@ table tr td select {
 					<tr>
 						<td>接入方式</td>
 						<td id="taccesstype"></td>
-						<td>会员号</td>
+						<td>受理委托机构号</td>
 						<td id="tmemberid"></td>
 					</tr>
 					<tr>
@@ -231,51 +231,31 @@ table tr td select {
 							remoteSort : false,
 							idField : 'ORGAN_ID',
 							columns : [ [
-									{
-										field : 'ORDERNO',
-										title : '订单号',
-										width : 120,
-										align : 'center'
-									},
-									{
-										field : 'ORDERAMT',
-										title : '订单金额(元)',
-										width : 120,
-										align : 'center'
-									},
-									{
-										field : 'ORDERFEE',
-										title : '订单手续费(元)',
-										width : 120,
-										align : 'center'
-									},
-									{
-										field : 'ORDERCOMMITIME',
-										title : '订单提交时间',
-										width : 120,
-										align : 'center'
-									},
+									{field : 'ORDERNO',title : '订单号',width : 120,align : 'center'},
+									{field : 'ORDERAMT',title : '订单金额(元)',width : 120,align : 'center'},
+									{field : 'ORDERFEE',title : '订单手续费(元)',width : 120,align : 'center'},
+									{field : 'ORDERCOMMITIME',title : '订单提交时间',width : 120,align : 'center'},
 									{
 										field : 'FIRMEMBERNO',
-										title : '一级商户号',
+										title : '一级委托机构号',
 										width : 120,
 										align : 'center'
 									},
 									{
 										field : 'FIRMEMBERNAME',
-										title : '一线商户名称',
+										title : '一线委托机构名称',
 										width : 120,
 										align : 'center'
 									},
 									{
 										field : 'SECMEMBERNO',
-										title : '二级商户号',
+										title : '二级委托机构号',
 										width : 120,
 										align : 'center'
 									},
 									{
 										field : 'SECMEMBERNAME',
-										title : '二线商户名称',
+										title : '二线委托机构名称',
 										width : 120,
 										align : 'center'
 									},
@@ -335,7 +315,7 @@ table tr td select {
 									},
 									{
 										field : 'MEMBERID',
-										title : '会员号',
+										title : '受理委托机构号',
 										width : 120,
 										align : 'center'
 									},

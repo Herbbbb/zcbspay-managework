@@ -59,6 +59,7 @@ table tr td font.current-step {
 					<input type="hidden" id="merchApplyId" value="${merchMap.SELF_ID}" />
 					<input type="hidden" id="prdtVer" value="${merchMap.PRDT_VER}" />
 					<input type="hidden" id="a_riskVer" value="${merchMap.RISK_VER}" />
+					<input type="hidden" id="num_merchNo" value="${merchMap.MEMBER_ID}" />
 					<input type="hidden" id="flag_ins" value="${flag}" />
 					<table width="100%">
 						<tr>
@@ -70,18 +71,21 @@ table tr td font.current-step {
 							<td class="update" align="center">机构编号</td>
 							<td class="update" >${merchMap.MEMBER_ID}</td>
 						</tr>
-						<tr>
-							<td class="update" align="center">收费单位代码<font color="red">*</font></td>
-							<td class="update" >${merchMap.CHARGINGUNIT}</td>
-							<td class="update" align="center"></td>
-							<td class="update"></td>
+<!-- 						<tr> -->
+<!-- 							<td class="update" align="center">收费单位代码<font color="red">*</font></td> -->
+<%-- 							<td class="update" >${merchMap.CHARGINGUNIT}</td> --%>
+							
+<!-- 							<td class="update" align="center"></td> -->
+<!-- 							<td class="update"></td> -->
 <!-- 							<td class="update" align="center">机构代码<font color="red">*</font></td> -->
 <%-- 							<td class="update" >${merchMap.INSTCODE}</td> --%>
-						</tr>
+<!-- 						</tr> -->
 						<tr>
 							<td class="update" align="center">机构所在地<font color="red">*</font></td>
-							<td class="update" colspan="3">${merchMap.PROVINCENAME }
+							<td class="update" >${merchMap.PROVINCENAME }
 								${merchMap.CITYNAME} ${merchMap.STREETNAME}</td>
+							<td class="update" align="center">收费单位配置信息</td>
+							<td class="update" style="font-size: 12px;color:blue;cursor:pointer;" onclick="findChargingunit()">点击查看</td>
 						</tr>
 						<tr>
 							<td class="update" align="center">联系手机号<font color="red">*</font></td>
@@ -285,8 +289,7 @@ table tr td font.current-step {
 			</div>
 		</div>
 	</div>
-	<div region="south" border="false"
-		style="text-align: center; padding: 5px 0;">
+	<div region="south" border="false" style="text-align: center; padding: 5px 0;">
 		<c:if test="${flag==2}">
 			<a href="javascript:DetailParaDic('0');" id="button_ins1"
 				class="easyui-linkbutton" iconCls="icon-ok">下一步</a>
@@ -361,6 +364,59 @@ table tr td font.current-step {
 				style="text-align: center; padding: 15px 0;">
 				<a class="easyui-linkbutton" iconCls="icon-back"
 					href="javascript:void(0)" onclick="closeAdd2()">返回</a>
+			</div>
+		</div>
+	</div>
+	<div id="w6" class="easyui-window" closed="true" title="My Window"
+		iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px; top: 50%; left: 50%; ">
+		<div class="easyui-layout" fit="true">
+			<div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center;overflow:hidden;">
+				<input type="hidden" id="b_merchNo" name="merchNo"/>
+				<table width="100%" cellpadding="2" cellspacing="2">
+					<tr>
+						<td colspan="4" class="head-title">实时代收</td>
+						<input type="hidden" id="a_bustCode" name="a_bustCode"/>
+					</tr>
+					<tr style="height: 25px">
+						<td class="update" width="18%">付款单位代码</td>
+						<td align="left" class="update"><span id="a_chargingunit"></span></td>
+						<td width="18%" class="update">业务种类</td>
+						<td align="left" class="update"><span id="a_busiSort"></span></td>
+					</tr>
+					<tr>
+						<td colspan="4" class="head-title">实时代付</td>
+						<input type="hidden" id="b_bustCode" name="b_bustCode"/>
+					</tr>
+					<tr style="height: 25px">
+						<td width="18%" class="update">付款单位代码</td>
+						<td align="left" class="update"><span id="b_chargingunit"></span></td>
+						<td width="18%" class="update">业务种类</td>
+						<td align="left" class="update"><span id="b_busiSort"></span></td>
+					</tr>
+					<tr>
+						<td colspan="4" class="head-title">批量代收</td>
+						<input type="hidden" id="c_bustCode" name="c_bustCode"/>
+					</tr>
+					<tr style="height: 25px">
+						<td width="18%" class="update">付款单位代码</td>
+						<td align="left" class="update"><span id="c_chargingunit"></span></td>
+						<td width="18%" class="update">业务种类</td>
+						<td align="left" class="update"><span id="c_busiSort"></span></td>
+					</tr>
+					<tr>
+						<td colspan="4" class="head-title">批量代付</td>
+						<input type="hidden" id="d_bustCode" name="d_bustCode"/>
+					</tr>
+					<tr style="height: 25px">
+						<td width="18%" class="update">付款单位代码</td>
+						<td align="left" class="update"><span id="d_chargingunit"></span></td>
+						<td width="18%" class="update">业务种类</td>
+						<td align="left" class="update"><span id="d_busiSort"></span></td>
+					</tr>
+				</table>
+			</div>
+			<div region="south" border="false" style="text-align: center; padding: 15px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd2()">返回</a>
 			</div>
 		</div>
 	</div>
@@ -542,6 +598,7 @@ table tr td font.current-step {
 		$('#w2').window('close');
 		$('#w3').window('close');
 		$('#w5').window('close');
+		$('#w6').window('close');
 	}
 	function search(){
 		$('#test').datagrid('load',null);
@@ -646,6 +703,54 @@ table tr td font.current-step {
 				height: 480
 			});
 		}
+	 function findChargingunit(result){
+		 var num = $("#num_merchNo").val();
+		$('#b_saveForm :input').val('');
+		$('#a_bustCode').val(11000001);
+		$('#b_bustCode').val(11000002);
+		$('#c_bustCode').val(11000003);
+		$('#d_bustCode').val(11000004);
+		$('#b_merchNo').val(num);
+		
+		$.ajax({
+		   type: "POST",
+		   url: "agency/queryByMerchNo",
+		   data: "merchNo="+num,
+		   async: false,
+		   dataType:"json",
+		   success: function(json){
+			   $.each(json, function(key,value){
+				   if(value.bustCode == "11000001"){
+					   $('#a_chargingunit').html(value.chargingunit);
+					   $('#a_busiSort').html(value.busiSort);
+				   }else if(value.bustCode == "11000002"){
+					   $('#b_chargingunit').html(value.chargingunit);
+					   $('#b_busiSort').html(value.busiSort);
+				   }else if(value.bustCode == "11000003"){
+					   $('#c_chargingunit').html(value.chargingunit);
+					   $('#c_busiSort').html(value.busiSort);
+				   }else if(value.bustCode == "11000004"){
+					   $('#d_chargingunit').html(value.chargingunit);
+					   $('#d_busiSort').html(value.busiSort);
+				   }
+			   });
+		   }
+		});
+		$('#w6').window({
+			title: '业务收费信息',
+			top:100,
+			left:300,
+			width:700,
+			modal: true,
+			minimizable:false,
+			collapsible:false,
+			maximizable:false,
+			shadow: false,
+			closed: false,
+			height: 330
+		});
+		$('#b_btn_submit2').linkbutton('enable');	
+	}
 	 function queryRiskType(pid) {
 		$.ajax({
 			type: "POST",

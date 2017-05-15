@@ -87,7 +87,7 @@ table tr td select {
 					</tr>
 					<tr>
 					<td>总笔数</td><td id="totalqty"></td>
-					<td>总金额 </td><td id="totalamt "></td>
+					<td>总金额 </td><td id="totalamt"></td>
 					</tr>
 					<tr>
 					<td>保留域</td><td id="reserved"></td>
@@ -153,29 +153,33 @@ table tr td select {
 								{field:'BATCHNO',title:'批次号',width:180,align:'center'},
 								{field:'TXNTIME',title:'订单发送时间',width:150,align:'center',
 									formatter : function(value, rec) {
-										return changeDate(rec.ORDERCOMMITIME);
+										return changeDate(rec.ORDERFINSHTIME);
 									}	
 								},
 								{field:'TOTALQTY',title:'总笔数',width:132,align:'center'},
-								{field:'TOTALAMT ',title:'总金额 ',width:133,align:'center'},
+								{field:'TOTALAMT ',title:'总金额 ',width:133,align:'center',
+									formatter:function(value,rec){
+										return fenToYuan(rec.TOTALAMT);
+									}
+								},
 								{field:'RESPCODE',title:'响应码',width:135,align:'center'},
 								{field:'RESPMSG',title:'应答信息',width:136,align:'center'},
 								{field:'STATUS',title:'状态',width:137,align:'center',
 									formatter : function(value, rec) {
 										if (rec.STATUS == "00") {
-											return "支付成功";
+											return "交易完成";
 										} 
 										if (rec.STATUS == "01") {
-											return "订单提交成功,但未支付";
+											return "订单提交成功";
 										} 
 										if (rec.STATUS == "02") {
-											return "支付中";
+											return "交易中";
 										} 
 										if (rec.STATUS == "03") {
-											return "支付失败";
+											return "交易失败";
 										} 
 										if (rec.STATUS == "04") {
-											return "订单失效";
+											return "批次失效";
 										} 
 									}		
 								},
@@ -218,7 +222,11 @@ table tr td select {
 												} 
 											}	
 										},
-										{field:'AMT',title:'单笔金额',width:146,align:'center'},
+										{field:'AMT',title:'单笔金额',width:146,align:'center',
+											formatter:function(value,rec){
+												return fenToYuan(rec.AMT);
+											}
+										},
 										{field:'DEBTORBANK',title:'付款人银行号',width:147,align:'center'},
 										{field:'DEBTORACCOUNT',title:'付款人账号',width:148,align:'center'},
 										{field:'DEBTORNAME',title:'付款人名称',width:149,align:'center'},
@@ -233,19 +241,19 @@ table tr td select {
 										{field:'STATUS',title:'状态',width:159,align:'center',
 											formatter : function(value, rec) {
 												if (rec.STATUS == "00") {
-													return "支付成功";
+													return "交易完成";
 												} 
 												if (rec.STATUS == "01") {
-													return "订单提交成功,但未支付";
+													return "订单提交成功";
 												} 
 												if (rec.STATUS == "02") {
-													return "支付中";
+													return "交易中";
 												} 
 												if (rec.STATUS == "03") {
-													return "支付失败";
+													return "交易失败";
 												} 
 												if (rec.STATUS == "04") {
-													return "订单失效";
+													return "批次失效";
 												} 
 											}		
 										},
@@ -312,19 +320,19 @@ table tr td select {
 		});
 		function getStatus(value){
 			if (value == "00") {
-				return "支付成功";
+				return "交易完成";
 			} 
 			if (value == "01") {
-				return "订单提交成功,但未支付";
+				return "订单提交成功";
 			} 
 			if (value == "02") {
-				return "支付中";
+				return "交易中";
 			} 
 			if (value == "03") {
-				return "支付失败";
+				return "交易失败";
 			} 
 			if (value == "04") {
-				return "订单失效";
+				return "批次失效";
 			} 
 		}
 		var rows = $('#test').datagrid('getSelected');
@@ -341,9 +349,9 @@ table tr td select {
 		$("#biztype").html(rows["BIZTYPE"]);
 		$("#backurl").html(rows["BACKURL"]);
 		$("#batchno").html(rows["BATCHNO"]);
-		$("#txntime").html(changeDate(rows["TXNTIME"]));
+		$("#txntime").html(changeDate(rows["ORDERFINSHTIME"]));
 		$("#totalqty").html(rows["TOTALQTY"]);
-		$("#totalamt ").html(rows["TOTALAMT "]);
+		$("#totalamt ").html(fenToYuan(rows["TOTALAMT"]));
 		$("#reserved").html(rows["RESERVED"]);
 		$("#respcode").html(rows["RESPCODE"]);
 		$("#respmsg").html(rows["RESPMSG"]);
@@ -352,6 +360,13 @@ table tr td select {
 		$("#syncnotify").html(rows["SYNCNOTIFY"]);
 		$("#notes").html(rows["NOTES"]);
 		$("#remarks").html(rows["REMARKS"]);
+	}
+	function fenToYuan(value){
+		var str = (value/100).toFixed(2) + '';
+		var intSum = str.substring(0,str.indexOf(".")).replace( /\B(?=(?:\d{3})+$)/g, ',' );
+		var dot = str.substring(str.length,str.indexOf("."))
+		var ret = intSum + dot;
+		return ret;
 	}
 </script>
 </html>

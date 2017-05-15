@@ -193,16 +193,16 @@ table tr td select {
 				remoteSort: false,
 				columns: [
 				[{
-					title: '扣率代码',
-					align: 'center'
-					
+					title: '',
+					align: 'center',
+						
 				},
 				{
-					title: '扣率描述',
+					title: '',
 					align: 'center'
 				}, 
 				{
-					title: '计费方式',
+					title: '',
 					align: 'center'
 				},
 				{
@@ -229,7 +229,7 @@ table tr td select {
 					colspan:3
 				},
 				{
-					title: '操作',
+					title: '',
 					align: 'center',
 					colspan:4
 				}
@@ -243,7 +243,7 @@ table tr td select {
 				},
 				{
 					field: 'RATE_DESC',
-					title: '扣率描述',
+					title: '',
 					width: 120,
 					align: 'center',
 					rowspan:1

@@ -3,6 +3,7 @@ package com.zcbspay.platform.manager.merchant.service;
 import java.util.List;
 import java.util.Map;
 
+import com.zcbspay.platform.manager.merchant.bean.AgencyInfoBean;
 import com.zcbspay.platform.manager.merchant.bean.CertType;
 import com.zcbspay.platform.manager.merchant.bean.EnterpriseDetaApplyBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchDetaApplyBean;
@@ -186,4 +187,34 @@ public interface AgencyService {
 	 * @param riskVer
 	 */
 	public void updateMerch(String memberId, String riskVer);
+
+	/**
+	 * 保存业务收费信息
+	 * @param bean
+	 * @return
+	 */
+	public Map<String, Object> saveAgencyInfo(AgencyInfoBean bean);
+
+	/**
+	 * 查询业务收费信息
+	 * @param merchNo
+	 * @return
+	 */
+	public List<?> queryByMerchNo(String merchNo);
+
+	/**
+	 * 修改业务收费信息
+	 * @param bean
+	 * @return
+	 */
+	public Map<String, Object> updateAgencyInfo(AgencyInfoBean bean);
+
+	/**
+	 * 查询业务收费信息
+	 * @param merchNo
+	 * @param bustCode 
+	 * @return
+	 */
+	public AgencyInfoBean queryByCode(String merchNo, String bustCode);
+
 }

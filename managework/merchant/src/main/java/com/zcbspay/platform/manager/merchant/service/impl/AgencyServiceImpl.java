@@ -1,5 +1,6 @@
 package com.zcbspay.platform.manager.merchant.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zcbspay.platform.manager.exception.ContractException;
+import com.zcbspay.platform.manager.merchant.bean.AgencyInfoBean;
 import com.zcbspay.platform.manager.merchant.bean.CertType;
 import com.zcbspay.platform.manager.merchant.bean.EnterpriseDetaApplyBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchDetaApplyBean;
@@ -21,7 +24,9 @@ import com.zcbspay.platform.manager.merchant.certhandler.SignFileFacePicHandler;
 import com.zcbspay.platform.manager.merchant.certhandler.SignFileOppPicHandler;
 import com.zcbspay.platform.manager.merchant.certhandler.TaxRegCertPicHandler;
 import com.zcbspay.platform.manager.merchant.dao.AgencyDao;
+import com.zcbspay.platform.manager.merchant.dao.AgencyInfoDao;
 import com.zcbspay.platform.manager.merchant.dao.EnterpriseDetaDao;
+import com.zcbspay.platform.manager.merchant.pojo.PojoAgencyInfo;
 import com.zcbspay.platform.manager.merchant.pojo.PojoEnterpriseDetaApply;
 import com.zcbspay.platform.manager.merchant.pojo.PojoMerchDetaApply;
 import com.zcbspay.platform.manager.merchant.service.AgencyService;
@@ -34,6 +39,8 @@ public class AgencyServiceImpl implements AgencyService {
 	private AgencyDao agencyDAO;
 	@Autowired
 	private EnterpriseDetaDao enterpriseDetaDao;
+	@Autowired
+	private AgencyInfoDao agencyInfoDao;
 	
 	public List<?> queryMerchParent() {
 		return agencyDAO.queryMerchParent();
@@ -187,6 +194,53 @@ public class AgencyServiceImpl implements AgencyService {
 		agencyDAO.updateMerch(memberId,riskVer);
 	}
 
+	@Override
+	public Map<String, Object> saveAgencyInfo(AgencyInfoBean bean) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		PojoAgencyInfo pojo = new PojoAgencyInfo();
+		BeanUtils.copyProperties(bean, pojo);
+		try {
+			map = agencyInfoDao.saveAgencyInfo(pojo);
+			
+		} catch(ContractException e){
+			map.put("RET", "error");
+			map.put("INFO", e.getMessage());
+		}
+		return map;
+	}
+
+	@Override
+	public List<?> queryByMerchNo(String merchNo) {
+		return agencyInfoDao.queryByMerchNo(merchNo);
+	}
+
+	@Override
+	public Map<String, Object> updateAgencyInfo(AgencyInfoBean bean) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		PojoAgencyInfo pojo = new PojoAgencyInfo();
+		BeanUtils.copyProperties(bean, pojo);
+		try {
+			map = agencyInfoDao.updateAgencyInfo(pojo);
+		} catch (ContractException e) {
+			map.put("RET", "error");
+			map.put("INFO", e.getMessage());
+		}
+		return map;
+	}
+	
+	@Override
+	public AgencyInfoBean queryByCode(String merchNo, String bustCode) {
+		AgencyInfoBean bean = new AgencyInfoBean();
+		PojoAgencyInfo pojo;
+		List<?> result = agencyInfoDao.queryByCode(merchNo,bustCode);
+		if(result.size() == 0){
+			bean = null;
+		}else{
+			pojo = (PojoAgencyInfo) agencyInfoDao.queryByCode(merchNo,bustCode).get(0);
+			BeanUtils.copyProperties(pojo,bean);
+		}
+		return bean;
+	}
 }
 
 
