@@ -50,4 +50,12 @@ public interface AgencyInfoDao extends BaseDAO<PojoAgencyInfo>{
 	 * @return
 	 */
 	List<?> queryByCode(String merchNo, String bustCode);
+	
+	/**
+	 * 校验单位代码
+	 * @param merchNo
+	 * @param chargingunit
+	 * @return
+	 */
+	List<?> findByCode(String merchNo, String chargingunit);
 }

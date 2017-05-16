@@ -66,13 +66,14 @@ public class AgencyInfoDaoImpl extends HibernateBaseDAOImpl<PojoAgencyInfo> impl
 	public Map<String, Object> updateAgencyInfo(PojoAgencyInfo bean) throws ContractException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		PojoAgencyInfo pojo = update(bean);
-		if(queryByChargingunit(pojo.getChargingunit())){
-			String info = "付款单位代码: "+pojo.getChargingunit()+" 已存在!";
+		int size = findByCode(bean.getMerchNo(),bean.getChargingunit()).size();
+		if(size > 1){
+			String info = "付款单位代码: "+bean.getChargingunit()+" 已存在!";
 			map.put("RET", "error");
 			map.put("INFO", info);
 			throw new ContractException(info);
 		}
-		if (pojo.getChargingunit().equals(pojo.getChargingunit())) {
+		if (pojo.getChargingunit().equals(bean.getChargingunit())) {
 			map.put("RET", "succ");
 			map.put("INFO", "添加成功");
 		}else{
@@ -88,6 +89,11 @@ public class AgencyInfoDaoImpl extends HibernateBaseDAOImpl<PojoAgencyInfo> impl
 	public List<?> queryByCode(String merchNo, String bustCode){
 		String sql = "select t from PojoAgencyInfo t where t.merchNo=? and t.bustCode=?";
 		return queryByHQL(sql, new Object[]{merchNo,bustCode});
+	}
+	@Override
+	public List<?> findByCode(String merchNo, String chargingunit){
+		String sql = "select t from PojoAgencyInfo t where t.merchNo=? and t.chargingunit=?";
+		return queryByHQL(sql, new Object[]{merchNo,chargingunit});
 	}
 
 	@Override

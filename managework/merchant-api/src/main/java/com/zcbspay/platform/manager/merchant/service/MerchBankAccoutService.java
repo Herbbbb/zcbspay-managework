@@ -1,9 +1,11 @@
 package com.zcbspay.platform.manager.merchant.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.zcbspay.platform.manager.merchant.bean.BankInfoBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchBankAccoutBean;
+import com.zcbspay.platform.manager.merchant.bean.MerchTaxInvoiceBean;
 
 public interface MerchBankAccoutService {
 
@@ -56,4 +58,48 @@ public interface MerchBankAccoutService {
 	 * @return
 	 */
 	Integer findAll(MerchBankAccoutBean bankAccount);
+
+	/**
+	 * 查询所有发票信息
+	 * @param metchTax
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	List<?> findTaxAll(MerchTaxInvoiceBean metchTax, int page, int rows);
+
+	/**
+	 * 查询发票信息总数
+	 * @param metchTax
+	 * @return
+	 */
+	Integer findTaxAllCount(MerchTaxInvoiceBean metchTax);
+
+	/**
+	 * 新增发票信息
+	 * @param metchTax
+	 * @return
+	 */
+	Map<String, Object> addTax(MerchTaxInvoiceBean metchTax);
+
+	/**
+	 * 查询发票信息
+	 * @param tId
+	 * @return
+	 */
+	MerchTaxInvoiceBean findTaxById(String tId);
+
+	/**
+	 * 修改发票信息
+	 * @param metchTax
+	 * @return
+	 */
+	Map<String, Object> eidtTax(MerchTaxInvoiceBean metchTax);
+
+	/**
+	 * 注销发票信息
+	 * @param tId
+	 * @return
+	 */
+	Map<String, Object> delectTax(String tId);
 }
