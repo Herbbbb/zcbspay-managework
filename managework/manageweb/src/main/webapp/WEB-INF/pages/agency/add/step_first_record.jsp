@@ -62,7 +62,7 @@ table tr td font.current-step {
 							<td width="30%"><input id="merName" name="enterpriseName"
 								required="true" maxlength="30" style="width: 250px" missingMessage="请输入机构名称"
 								class="easyui-validatebox" validType="MerchLength[60]" /> <font
-								color="red">*</font></td
+								color="red">*</font></td>
 							<td class="update" align="center">收费单位配置信息</td>
 							<td class="update" style="font-size: 12px;color:blue;cursor:pointer;" onclick="findChargingunit()">点击查看</td>
 						</tr>
