@@ -30,6 +30,8 @@ table tr td.head-title {
 	height: 25px;
 	background-color: #F0F8FF;
 	font-weight: bold;
+	border-width: 1px 1px 1px 1px;
+	border-style: groove;
 }
 table tr td.update {
 	height: 25px;
@@ -57,21 +59,20 @@ table tr td select {
 			<form action="" id="searchForm">
 				<table width="100%">
 					<tr>
-						<td class="add" class="add" align="right">委托机构号</td>
-						<td class="add" class="add" align="left" style="padding-left: 5px"><input
-							id="merchNo" name="merchNo" /></td>
-						<td class="add" class="add" align="right">银行账号</td>
-						<td class="add" class="add" align="left" style="padding-left: 5px"><input
-							id="accoutNo" name="accoutNo" /></td>
-						<td class="add" class="add" align="right">银行账户名称</td>
-						<td class="add" class="add" align="left" style="padding-left: 5px"><input
-							id="accoutName" name="accoutName" /></td>
+						<td class="add" align="right">委托机构号</td>
+						<td class="add" align="left" style="padding-left: 5px">
+							<input id="merchNo" name="merchNo" /></td>
+						<td class="add" align="right">银行账号</td>
+						<td class="add" align="left" style="padding-left: 5px">
+							<input id="accoutNo" name="accoutNo" /></td>
+						<td class="add" align="right">银行账户名称</td>
+						<td class="add" align="left" style="padding-left: 5px">
+							<input id="accoutName" name="accoutName"/></td>
 						
-						<td class="add" class="add" align="right" colspan="3"><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a> <a
-							href="javascript:resize()" class="easyui-linkbutton"
-							iconCls="icon-redo">清空</a></td>
-							<td class="add" align="right"></td>
+						<td class="add" align="right" colspan="3">
+						<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a> 
+						<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a></td>
+						<td class="add" align="right"></td>
 					</tr>
 				</table>
 			</form>
@@ -87,27 +88,28 @@ table tr td select {
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; font-size: 12px; text-align: center">
 				<form id="saveForm" action="bankaccout/save" method="post">
-					<input type="hidden" id="bankProvince" name="bankProvince" />
-					<input type="hidden" id="bankCity" name="bankCity" />
+					<input type="hidden" id="bankProvince_a" name="bankProvince" />
+					<input type="hidden" id="bankCity_a" name="bankCity" />
+					<input type="hidden" id="bankCode_a" name="bankCode" />
 					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
-							<td class="add" width="15%">银行账号</td>
-							<td class="add" align="left">
-							<input type="text" id="accoutNoa" name="accoutNo" class="easyui-validatebox" required="true"
+							<td class="update" width="18%">银行账号</td>
+							<td class="update" align="left">
+							<input type="text" id="a_accoutNo" name="accoutNo" class="easyui-validatebox" required="true"
 								maxlength="30" missingMessage="请输入银行账号" validType="bankcard"/></td>
-							<td class="add">银行账户名称</td>
-							<td class="add" align="left">
-							<input type="text" id="accoutNamea" name="accoutName" class="easyui-validatebox" required="true"
+							<td class="update">银行账户名称</td>
+							<td class="update" align="left">
+							<input type="text" id="a_accoutName" name="accoutName" class="easyui-validatebox" required="true"
 								maxlength="15" missingMessage="请输入银行账户名称" validType="debName"/></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">委托机构号</td>
-							<td class="add" align="left">
-							<input type="text" id="merchNoa" name="merchNo" class="easyui-validatebox" required="true"
+							<td class="update">委托机构号</td>
+							<td class="update" align="left">
+							<input type="text" id="a_merchNo" name="merchNo" class="easyui-validatebox" required="true"
 								maxlength="15" missingMessage="请输入委托机构号" validType="merchno"/></td>
-							<td class="add">协议类型</td>
-							<td class="add" align="left">
-							<select id="protocoltype" class="easyui-validatebox" missingMessage="请选择协议类型"
+							<td class="update">协议类型</td>
+							<td class="update" align="left">
+							<select id="a_protocoltype" class="easyui-validatebox" missingMessage="请选择协议类型"
 								required="true" name="protocoltype">
 									<option value=''>--请选择协议类型--</option>
 									<option value='1'>代理收款</option>
@@ -115,42 +117,31 @@ table tr td select {
 							</select></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">支行行号</td>
-							<td class="add" align="left">
-							<input type="text" id="bankNode" name="bankNode" class="easyui-validatebox" required="true"
-								maxlength="32" missingMessage="请输入支行行号" onchange="showBankInfo()"/></td>
-							<td class="add">清算行号</td>
-							<td class="add" align="left">
-							<input type="text" id="bankCode" name="bankCode" class="easyui-validatebox" required="true"
-								maxlength="32"  /></td>
-							<td class="add"></td>
-							<td class="add" align="left"></td>
+							<td class="update">银行账户开户行全称</td>
+							<td class="update" align="left" colspan="3">
+							<select id="a_bankNode" class="easyui-validatebox" name="bankNode" style="width: 300px" onchange="showBankInfo('add')"/>
+							<option value=''>--请选择开户行--</option></select><font color="red">*</font>
+							<input id="banknode_key" maxlength="16" type="text" onclick="checkBankKey('add')" onchange="queryBankNode('add')"/></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">所属省</td>
-							<td class="add" align="left">
-							<input type="text" id="a_bankProvince" name="a_bankProvince" class="easyui-validatebox" required="true"
-								maxlength="32"  onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
-							</select></td>
-							<td class="add">所属市</td>
-							<td class="add" align="left">
-							<input type="text" id="a_bankCity" name="a_bankCity" class="easyui-validatebox" required="true"
-								maxlength="32"  onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
-							<td class="add" align="left"></td>
+							<td class="update">清算行号</td>
+							<td class="update" align="left"><span id="a_bankCode"></span></td>
+							<td class="update">渠道代码</td>
+							<td class="update" align="left">
+							<input type="text" id="a_channelCode" name="channelCode" class="easyui-validatebox"
+								maxlength="32" missingMessage="请输入渠道代码" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">渠道代码</td>
-							<td class="add" align="left">
-							<input type="text" id="channelCode" name="channelCode" class="easyui-validatebox"
-								maxlength="32" missingMessage="请输入登录账号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
-							<td class="add" align="left"></td>
+							<td class="update">所属省</td>
+							<td class="update" align="left"><span id="a_bankProvince"></span></td>
+							<td class="update">所属市</td>
+							<td class="update" align="left"><span id="a_bankCity"></span></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">备注</td>
-							<td class="add" align="left" colspan="3">
-							<textarea rows="3" cols="81" id="notes" maxlength="64" name="notes" style="resize: none;"
+							<td class="update">备注</td>
+							<td class="update" align="left" colspan="3">
+							<textarea rows="3" cols="81" id="a_notes" maxlength="64" name="notes" style="resize: none;"
 									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
-
 						</tr>
 					</table>
 				</form>
@@ -169,26 +160,27 @@ table tr td select {
 				<form id="b_saveForm" action="bankaccout/eidtBankAccount" method="post">
 					<input type="hidden" id="b_tId" name="tId" /> 
 					<input type="hidden" id="b_status" name="status" />
-					<input type="hidden" id="b_bankProvince" name="bankProvince" />
-					<input type="hidden" id="b_bankCity" name="bankCity" />
+					<input type="hidden" id="bankCode_b" name="bankCode" />
+					<input type="hidden" id="bankProvince_b" name="bankProvince" />
+					<input type="hidden" id="bankCity_b" name="bankCity" />
 					<table width="90%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
-							<td class="add"width="15%">银行账号</td>
-							<td class="add"align="left">
+							<td class="update"width="18%">银行账号</td>
+							<td class="update"align="left">
 							<input type="text" id="b_accoutNoa" name="accoutNo" class="easyui-validatebox" required="true"
-								maxlength="7" missingMessage="请输入银行账号" validType="bankcard"/></td>
-							<td class="add">银行账户名称</td>
-							<td class="add"align="left">
+								maxlength="30" missingMessage="请输入银行账号" validType="bankcard"/></td>
+							<td class="update">银行账户名称</td>
+							<td class="update"align="left">
 							<input type="text" id="b_accoutNamea" name="accoutName" class="easyui-validatebox" required="true"
 								maxlength="20" missingMessage="请输入银行账户名称" validType="debName"/></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">委托机构号</td>
-							<td class="add"align="left">
+							<td class="update">委托机构号</td>
+							<td class="update"align="left">
 							<input type="text" id="b_merchNoa" name="merchNo" class="easyui-validatebox" required="true"
 								maxlength="32" missingMessage="请输入委托机构号" validType="merchno"/></td>
-							<td class="add">协议类型</td>
-							<td class="add"align="left">
+							<td class="update">协议类型</td>
+							<td class="update"align="left">
 							<select id="b_protocoltype" class="easyui-validatebox" missingMessage="请选择所属机构"
 								required="true" name="protocoltype">
 									<option value=''>--请选择协议类型--</option>
@@ -197,39 +189,30 @@ table tr td select {
 							</select></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">支行行号</td>
-							<td class="add"align="left">
-							<input type="text" id="b_bankNode" name="bankNode" class="easyui-validatebox" required="true"
-								maxlength="32" missingMessage="请输入支行行号" onchange="showBankInfo()"/></td>
-							<td class="add">清算行号</td>
-							<td class="add"align="left">
-							<input type="text" id="b_bankCode" name="bankCode" class="easyui-validatebox" required="true"
-								maxlength="32"  onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
-							<td class="add"></td>
-							<td class="add"align="left"></td>
+							<td class="update">银行账户开户行全称</td>
+							<td class="update" align="left" colspan="3">
+							<select id="b_bankNode" class="easyui-validatebox" required="true" name="bankNode" style="width: 300px" onchange="showBankInfo('update')"/>
+							<option value=''>--请选择开户行--</option></select><font color="red">*</font>
+							<input id="b_banknode_key" maxlength="16" type="text" onclick="checkBankKey('update')" onchange="queryBankNode('update')"/></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">所属省</td>
-							<td class="add"align="left">
-							<input type="text" id="c_bankProvince" name="a_bankProvince" class="easyui-validatebox" required="true"
-								maxlength="32"  onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
-							</select></td>
-							<td class="add">所属市</td>
-							<td class="add"align="left">
-							<input type="text" id="c_bankCity" name="a_bankCity" class="easyui-validatebox" required="true"
-								maxlength="32"  onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
-							<td class="add"align="left"></td>
-						</tr>
-						<tr style="height: 25px">
-							<td class="add">渠道代码</td>
-							<td class="add"align="left">
+							<td class="update">清算行号</td>
+							<td class="update"align="left"><span id="b_bankCode" name="bankCode"></span></td>
+							<td class="update">渠道代码</td>
+							<td class="update"align="left">
 							<input type="text" id="b_channelCode" name="channelCode" class="easyui-validatebox"
 								maxlength="32" missingMessage="请输入渠道代码" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
-							<td class="add"align="left"></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">备注</td>
-							<td class="add"align="left" colspan="3">
+							<td class="update">所属省</td>
+							<td class="update"align="left"><span id="b_bankProvince" name="bankProvince"></span></td>
+							<td class="update">所属市</td>
+							<td class="update"align="left"><span id="b_bankCity" name="bankCity"></span></td>
+						</tr>
+						
+						<tr style="height: 25px">
+							<td class="update">备注</td>
+							<td class="update"align="left" colspan="3">
 							<textarea rows="3" cols="81" id="b_notes" maxlength="64" name="notes" style="resize: none;"
 									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
 
@@ -255,9 +238,9 @@ table tr td select {
 							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="update" style="width: 75px;">银行账号</td>
+							<td class="update" width="18%">银行账号</td>
 							<td class="update" align="left"><span id="d_accoutNoa"></span></td>
-							<td class="update" style="width: 75px;">银行账户名称</td>
+							<td class="update" width="18%">银行账户名称</td>
 							<td class="update" align="left"><span id="d_accoutNamea"></span></td>
 						</tr>
 						<tr style="height: 25px">
@@ -270,9 +253,9 @@ table tr td select {
 							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="update">支行行号</td>
+							<td class="update">银行账户开户行全称</td>
 							<td class="update" align="left"><span id="d_bankNode"></span></td>
-							<td class="update">清算行号</td>
+							<td class="update">银行账户开户行行号</td>
 							<td class="update" align="left"><span id="d_bankCode"></span></td>
 						</tr>
 						<tr style="height: 25px">	
@@ -315,8 +298,12 @@ table tr td select {
 				columns:[[
 					{field:'MERCHNO',title:'委托机构号',align:'center',width:130},
 					{field:'ACCOUNTNO',title:'银行账号',width:130,align:'center'},
-					{field:'BANKNODE',title:'支行行号',align:'center',width:100},
-					{field:'BANKCODE',title:'清算行号',width:120,align:'center'},
+					{field:'BANKNODE',title:'银行账号开户行名称',align:'center',width:300,
+						formatter : function(value, rec) {
+							return showBranchCode(rec.BANKNODE);
+						}
+					},
+					{field:'BANKCODE',title:'银行账号开户行行号',width:120,align:'center'},
 					{field:'ACCOUNTNAME',title:'银行账户名称',width:100,align:'center'},
 					{field:'PROTOCOLTYPE',title:'协议类型',width:100,align:'center',
 						formatter:function(value,rec){
@@ -380,16 +367,18 @@ table tr td select {
 					   data: "pId="+pId,
 					   dataType:"json",
 					   success: function(json){
-						   $("#a_bankCity").val(cname);
-						   $("#bankCity").val(cid);
-						   $("#a_bankProvince").val(json.pname);
-						   $("#bankProvince").html(json.pid);
-						   $("#c_bankCity").val(cname);
+						   $("#bankCity_a").val(cid);
+						   $("#a_bankCity").html(cname);
+						   $("#a_bankProvince").html(json.pname);
+						   $("#bankProvince_a").val(json.pid);
+						   
+						   $("#bankCity_b").val(cid);
+						   $("#b_bankCity").html(cname);
+						   $("#b_bankProvince").html(json.pname);
+						   $("#bankProvince_b").val(json.pid);
+						   
 						   $("#d_bankCity").html(cname);
-						   $("#b_bankCity").html(cid);
-						   $("#c_bankProvince").val(json.pname);
 						   $("#d_bankProvince").html(json.pname);
-						   $("#b_bankProvince").html(json.pid);
 					   }
 					});
 			   }
@@ -403,6 +392,9 @@ table tr td select {
 		function showAdd(num){
 			$("#saveForm").attr("action","bankaccout/save");
 			$('#saveForm :input').val('');
+			$('#a_bankCity').html('');
+			$('#a_bankProvince').html('');
+			$('#a_bankCode').html('');
 			$('#w').window({
 				title: '新增银行账户信息',
 				top:100,
@@ -490,7 +482,9 @@ table tr td select {
 					$("#b_accoutNamea").val(json.accoutName);
 					$("#b_merchNoa").val(json.merchNo);
 					$("#b_protocoltype").val(json.protocoltype);
-					$("#b_bankNode").val(json.bankNode);
+					var html = "<option value='"+json.bankNode+"'>"+showBranchCode(json.bankNode)+"</option>";
+					$("#b_bankNode").html(html);
+					$("#b_bankCode").html(json.bankCode);
 					$("#b_bankCode").val(json.bankCode);
 					$("#b_channelCode").val(json.channelCode);
 					$("#b_notes").val(json.notes);
@@ -530,8 +524,6 @@ table tr td select {
 			   success: function(json){	
 				   $("#d_tId").val(json.tId);
 					$("#d_status").html(json.status);
-					$("#d_bankProvince").html(json.bankProvince);
-					$("#d_bankCity").html(json.accoutNo);
 					$("#d_accoutNoa").html(json.accoutNo);
 					$("#d_accoutNamea").html(json.accoutName);
 					$("#d_merchNoa").html(json.merchNo);
@@ -544,9 +536,9 @@ table tr td select {
 						   protocoltype = '代理付款';
 					   }
 					$("#d_protocoltype").html(protocoltype);
-					$("#d_bankNode").html(json.bankNode);
-					$("#d_bankCode").html(json.bankCode);
-					$("#d_bankCode").val(json.bankCode);
+					$("#d_bankNode").html(showBranchCode(json.bankNode));
+					$("#d_bankCode").html(json.bankNode);
+					$("#d_bankCode").val(json.bankNode);
 					$("#d_channelCode").html(json.channelCode);
 					$("#d_notes").html(json.notes);
 					var bankNode = $("#d_bankCode").val();
@@ -580,30 +572,33 @@ table tr td select {
 			$.messager.confirm('提示','您是否想要注销此银行账户信息?',function(r){   
 			    if (r){  
 			    	$.ajax({
-						   type: "POST",
-						   url: "bankaccout/delect",
-						   data: "tId="+tId,
-						   async: false,
-						   dataType:"json",
-						   success: function(json){
-//		 					   json = eval("(" + data + ")");
-								 if(json.status=='OK'){
-									 $.messager.alert('提示',"注销成功");
-									 search();
-								 }else{
-									 $.messager.alert('提示',"注销失败");
-									 search();
-								 }
-						    }
-						});
+					   type: "POST",
+					   url: "bankaccout/delect",
+					   data: "tId="+tId,
+					   async: false,
+					   dataType:"json",
+					   success: function(json){
+						 if(json.status=='OK'){
+							 $.messager.alert('提示',"注销成功");
+							 search();
+						 }else{
+							 $.messager.alert('提示',"注销失败");
+							 search();
+						 }
+					    }
+					});
 			    }   
 			}); 
-			
-				
-						
 		}
-		function showBankInfo(){ 
-			var bankNode = $("#bankNode").val();
+		
+		
+		function showBankInfo(type){ 
+			var bankNode;
+			if (type == 'add') {
+				bankNode = $("#a_bankNode").val();
+			} else {
+				bankNode = $("#b_bankNode").val();
+			}
 			$.ajax({
 			   type: "POST",
 			   url: "bankaccout/queryBankInfo",
@@ -611,16 +606,85 @@ table tr td select {
 			   async: false,
 			   dataType:"json",
 			   success: function(json){	
-				   if(json != null){
-					   $("#bankCode").val(json.bankCode);
-						showCity(json.bankCity)
-				   }else{
-				   		$.messager.alert('提示', '银行行号输入错误!');
-				   }
+				   if (type == 'add') {
+					   $("#bankCode_a").val(json.bankCode);
+					   $("#a_bankCode").html(json.bankCode);
+					} else {
+						$("#bankCode_b").val(json.bankCode);
+						$("#b_bankCode").html(json.bankCode);
+					}
+				   showCity(json.bankCity)
 			   }
 			});
-			$("#saveForm").attr("action","bankaccout/save");
-			$('#btn_submit').linkbutton('enable');	
+		}
+		function showBranchCode(value){
+			var result 
+			$.ajax({
+			   type: "POST",
+			   url: "bankaccout/queryBankInfo",
+			   data: "bankNode="+value,
+			   async: false,
+			   dataType:"json",
+			   success: function(json){	
+				    result = json.bankName;
+			     }
+			});
+			return result;
+		}
+		
+		
+		function checkBankKey(type){
+			var pid;
+			if (type == 'add') {
+				pid = $("#banknode_key").val();
+			} else {
+				pid = $("#b_banknode_key").val();
+			}
+			 if(pid=='输入关键字检索开户行'){
+				if (type == 'add_a') {
+					 $("#banknode_key").val('');
+				} else {
+					 $("#b_banknode_key").val('');
+				}
+			}
+			$("#banknode_key").css({color:"#515151"});
+			$("#b_banknode_key").css({color:"#515151"});
+		}
+		
+		function queryBankNode(type) {
+			var pid;
+			if (type == 'add') {
+				pid = $("#banknode_key").val();
+			} else {
+				pid = $("#b_banknode_key").val();
+			}
+			if(pid==null||pid==''){
+				if (type == 'add') {
+					$("#banknode_key").val('输入关键字检索开户行');
+					$("#banknode_key").css({color:"#BEBEBE"});
+				} else {
+					$("#b_banknode_key").val('输入关键字检索开户行');
+					$("#b_banknode_key").css({color:"#BEBEBE"});
+				}
+				return;
+			} 
+			$.ajax({
+				type: "POST",
+				url: "agency/queryBankNode",
+				data: "bankName=" + pid,
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择开户行--</option>";
+					$.each(json,function(key, value) {
+						html += '<option value="' + value.BANK_NODE + '">' + value.BANK_NAME + '</option>';
+					});
+					if (type == 'add') {
+						$("#a_bankNode").html(html);
+					} else {
+						$("#b_bankNode").html(html);
+					}
+				}
+			});
 		}
 	</script>
 </html>

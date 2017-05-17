@@ -28,6 +28,8 @@ table tr td.head-title {
 	height: 25px;
 	background-color: #F0F8FF;
 	font-weight: bold;
+	border-width: 1px 1px 1px 1px;
+	border-style: groove;
 }
 table tr td.update {
 	height: 25px;
@@ -37,6 +39,7 @@ table tr td.update {
 }
 table tr td.add {
 	height: 25px;
+	
 }
 
 table tr td input {
@@ -92,47 +95,56 @@ table tr td select {
 					<input type="hidden" id="bankProvince" name="documenEvidence" />
 					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
-							<td class="add" width="15%">公司全称</td>
-							<td class="add" align="left">
+							<td class="update" width="15%">公司全称</td>
+							<td class="update" align="left">
 							<input type="text" id="companyName" name="companyName" class="easyui-validatebox" required="true"
 								maxlength="128" missingMessage="请输入公司全称" validType="debName[]"/></td>
-							<td class="add">委托机构号</td>
-							<td class="add" align="left">
+							<td class="update">委托机构号</td>
+							<td class="update" align="left">
 							<input type="text" id="merchNo" name="merchNo" class="easyui-validatebox" required="true"
 								maxlength="15" missingMessage="请输入委托机构号" validType="merchno[]"/></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">公司地址</td>
-							<td class="add" align="left">
+							<td class="update">纳税人识别号</td>
+							<td class="update" align="left">
+							<input type="text" id="taxPayerId" name="taxPayerId" class="easyui-validatebox" required="true"
+								maxlength="32" missingMessage="请输入纳税人识别号"/></td>
+							<td class="update">开户银行账号</td>
+							<td class="update" align="left">
+							<input type="text" id="accountNo" name="accountNo" class="easyui-validatebox" required="true"
+								maxlength="32" missingMessage="请输入开户银行全称" validType="bankcard[]"/></td>
+						</tr>
+						<tr style="height: 25px">
+							<td class="update">公司地址</td>
+							<td class="update" align="left">
 							<input type="text" id="companyAddress" name="companyAddress" class="easyui-validatebox" required="true"
 								maxlength="256" missingMessage="请选择公司地址" validType="debName[]"/></td>
-							<td class="add">公司电话</td>
-							<td class="add" align="left">
+							<td class="update">公司电话</td>
+							<td class="update" align="left">
 							<input type="text" id="compaynTelno" name="compaynTelno" class="easyui-validatebox" required="true"
 								maxlength="32" missingMessage="请选择公司电话"/></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">开户银行账号</td>
-							<td class="add" align="left">
-							<input type="text" id="accountNo" name="accountNo" class="easyui-validatebox" required="true"
-								maxlength="32" missingMessage="请输入开户银行全称" validType="bankcard[]"/></td>
-							<td class="add">开户银行全称</td>
-							<td class="add" align="left"><select id="banknode_ins" missingMessage="请输入开户行" maxlength="64"
-								class="easyui-validatebox" required="true" name="bankName"/><option value=''>--请选择开户行--</option></select>
-								<font color="red">*</font><input id="banknode_key" maxlength="16" type="text"
-								onclick="checkBankKey()" onchange="queryBankNode()"/></td>
+							<td class="update">开户银行全称</td>
+							<td class="update" align="left" colspan="3">
+								<select id="banknode_ins" maxlength="64" class="easyui-validatebox" required="true" name="bankName" style="width: 250px"/>
+								<option value=''>--请选择开户行--</option></select><font color="red">*</font>
+								<input id="banknode_key" maxlength="16" type="text" onclick="checkBankKey('add')" onchange="queryBankNode('add')"/></td>
+						</tr>
+						<tr>
+							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">增值税纳税人类型</td>
-							<td class="add" align="left">
+							<td class="update">增值税纳税人类型</td>
+							<td class="update" align="left">
 							<select id="taxpanyerType" class="easyui-validatebox" missingMessage="请选择增值税纳税人类型"
 								required="true" name="taxpanyerType">
 									<option value=''>--请选择增值税类型--</option>
 									<option value='01'>一般纳税人</option>
 									<option value='02'>小规模纳税人</option>
 							</select></td>
-							<td class="add">增值税发票类型</td>
-							<td class="add" align="left">
+							<td class="update">增值税发票类型</td>
+							<td class="update" align="left">
 							<select id="invoiceType" class="easyui-validatebox" missingMessage="请选择增值税发票类型"
 								required="true" name="invoiceType">
 									<option value=''>--请选择发票类型--</option>
@@ -141,30 +153,27 @@ table tr td select {
 							</select></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">纳税人识别号</td>
-							<td class="add" align="left">
-							<input type="text" id="taxPayerId" name="taxPayerId" class="easyui-validatebox" required="true"
-								maxlength="32" missingMessage="请输入纳税人识别号"/></td>
-							<td class="add">增值税证明文件</td>
-							<td class="add" align="left">
-								<input type="checkbox" id="ebidence_1" name="documen" style="align:left" value="01"/>资格证书
-								<input type="checkbox" id="ebidence_2" name="documen" style="align:left" value="02"/>税务登记证
-								<input type="checkbox" id="ebidence_3" name="documen" style="align:left" value="03"/>五证合一 
+							<td class="update">增值税证明文件</td>
+							<td class="update" align="left" colspan="3">&nbsp;&nbsp;&nbsp;
+								<input type="checkbox" id="ebidence_1" name="documen" style="align:center" value="01"/>&nbsp;&nbsp;&nbsp;资格证书&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="checkbox" id="ebidence_2" name="documen" style="align:center" value="02"/>&nbsp;&nbsp;&nbsp;税务登记证&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="checkbox" id="ebidence_3" name="documen" style="align:center" value="03"/>&nbsp;&nbsp;&nbsp;五证合一 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							</td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">联系人</td>
-							<td class="add" align="left">
+							<td class="update">财务部联系人</td>
+							<td class="update" align="left">
 							<input type="text" id="contAct" name="contAct" class="easyui-validatebox" required="true"
 								maxlength="32" missingMessage="请输入联系人" validType="debName[]"/></td>
-							<td class="add">联系人电话</td>
-							<td class="add" align="left">
+							<td class="update">财务部联系人电话</td>
+							<td class="update" align="left">
 							<input type="text" id="contPhone" name="contPhone" class="easyui-validatebox" required="true"
 								maxlength="32" missingMessage="请输入联系人电话" validType="cellphonenum[]"/></td>
 						</tr>
+						
 						<tr style="height: 25px">
-							<td class="add">备注</td>
-							<td class="add" align="left" colspan="3">
+							<td class="update">备注</td>
+							<td class="update" align="left" colspan="3">
 							<textarea rows="3" cols="81" id="notes" maxlength="512" name="notes" style="resize: none;"
 									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
 						</tr>
@@ -187,47 +196,56 @@ table tr td select {
 					<input type="hidden" id="bankProvince" name="documenEvidence" />
 					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
-							<td class="add" width="15%">公司全称</td>
-							<td class="add" align="left">
+							<td class="update" width="15%">公司全称</td>
+							<td class="update" align="left">
 							<input type="text" id="b_companyName" name="companyName" class="easyui-validatebox" required="true"
 								maxlength="128" missingMessage="请输入公司全称" validType="debName[]"/></td>
-							<td class="add">委托机构号</td>
-							<td class="add" align="left">
+							<td class="update">委托机构号</td>
+							<td class="update" align="left">
 							<input type="text" id="b_merchNo" name="merchNo" class="easyui-validatebox" required="true"
 								maxlength="15" missingMessage="请输入委托机构号" validType="merchno[]"/></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">公司地址</td>
-							<td class="add" align="left">
+							<td class="update">纳税人识别号</td>
+							<td class="update" align="left">
+							<input type="text" id="b_taxPayerId" name="taxPayerId" class="easyui-validatebox" required="true"
+								maxlength="32" missingMessage="请输入纳税人识别号"/></td>
+							<td class="update">开户银行账号</td>
+							<td class="update" align="left">
+							<input type="text" id="b_accountNo" name="accountNo" class="easyui-validatebox" required="true"
+								maxlength="32" missingMessage="请输入开户银行账号" validType="bankcard[]"/></td>
+						</tr>
+						<tr style="height: 25px">
+							<td class="update">公司地址</td>
+							<td class="update" align="left">
 							<input type="text" id="b_companyAddress" name="companyAddress" class="easyui-validatebox" required="true"
 								maxlength="256" missingMessage="请选择公司地址" validType="debName[]"/></td>
-							<td class="add">公司电话</td>
-							<td class="add" align="left">
+							<td class="update">公司电话</td>
+							<td class="update" align="left">
 							<input type="text" id="b_compaynTelno" name="compaynTelno" class="easyui-validatebox" required="true"
 								maxlength="32" missingMessage="请选择公司电话"/></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">开户银行账号</td>
-							<td class="add" align="left">
-							<input type="text" id="b_accountNo" name="accountNo" class="easyui-validatebox" required="true"
-								maxlength="32" missingMessage="请输入开户银行全称" validType="bankcard[]"/></td>
-							<td class="add">开户银行全称</td>
-							<td class="add" align="left"><select id="b_banknode_ins" missingMessage="请输入开户行" maxlength="64"
-								class="easyui-validatebox" required="true" name="bankName"/><option value=''>--请选择开户行--</option></select>
-								<font color="red">*</font><input id="banknode_key" maxlength="16" type="text"
-								onclick="checkBankKey()" onchange="queryBankNode()"/></td>
+							<td class="update">开户银行全称</td>
+							<td class="update" align="left" colspan="3">
+							<select id="b_banknode_ins" maxlength="64" class="easyui-validatebox" required="true" style="width: 250px" name="bankName"/>
+							<option value=''>--请选择开户行--</option></select><font color="red">*</font>
+							<input id="b_banknode_key" maxlength="16" type="text" onclick="checkBankKey('update')" onchange="queryBankNode('update')"/></td>
+						</tr>
+						<tr>
+							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">增值税纳税人类型</td>
-							<td class="add" align="left">
+							<td class="update">增值税纳税人类型</td>
+							<td class="update" align="left">
 							<select id="b_taxpanyerType" class="easyui-validatebox" missingMessage="请选择增值税纳税人类型"
 								required="true" name="taxpanyerType">
 									<option value=''>--请选择增值税类型--</option>
 									<option value='01'>一般纳税人</option>
 									<option value='02'>小规模纳税人</option>
 							</select></td>
-							<td class="add">增值税发票类型</td>
-							<td class="add" align="left">
+							<td class="update">增值税发票类型</td>
+							<td class="update" align="left">
 							<select id="b_invoiceType" class="easyui-validatebox" missingMessage="请选择增值税发票类型"
 								required="true" name="invoiceType">
 									<option value=''>--请选择发票类型--</option>
@@ -236,30 +254,26 @@ table tr td select {
 							</select></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">纳税人识别号</td>
-							<td class="add" align="left">
-							<input type="text" id="b_taxPayerId" name="taxPayerId" class="easyui-validatebox" required="true"
-								maxlength="32" missingMessage="请输入纳税人识别号"/></td>
-							<td class="add">增值税证明文件</td>
-							<td class="add" align="left">
-								<input type="checkbox" id="b_ebidence_1" name="b_documen" style="align:left" value="01"/>资格证书
-								<input type="checkbox" id="b_ebidence_2" name="b_documen" style="align:left" value="02"/>税务登记证
-								<input type="checkbox" id="b_ebidence_3" name="b_documen" style="align:left" value="03"/>五证合一 
+							<td class="update">增值税证明文件</td>
+							<td class="update" align="left" colspan="3">&nbsp;&nbsp;&nbsp;
+								<input type="checkbox" id="b_ebidence_1" name="b_documen" style="align:left" value="01"/>&nbsp;&nbsp;&nbsp;资格证书&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="checkbox" id="b_ebidence_2" name="b_documen" style="align:left" value="02"/>&nbsp;&nbsp;&nbsp;税务登记证&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="checkbox" id="b_ebidence_3" name="b_documen" style="align:left" value="03"/>&nbsp;&nbsp;&nbsp;五证合一 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							</td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">联系人</td>
-							<td class="add" align="left">
+							<td class="update">财务部联系人</td>
+							<td class="update" align="left">
 							<input type="text" id="b_contAct" name="contAct" class="easyui-validatebox" required="true"
 								maxlength="32" missingMessage="请输入联系人" validType="debName[]"/></td>
-							<td class="add">联系人电话</td>
-							<td class="add" align="left">
+							<td class="update">财务部联系人电话</td>
+							<td class="update" align="left">
 							<input type="text" id="b_contPhone" name="contPhone" class="easyui-validatebox" required="true"
 								maxlength="32" missingMessage="请输入联系人电话" validType="cellphonenum[]"/></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="add">备注</td>
-							<td class="add" align="left" colspan="3">
+							<td class="update">备注</td>
+							<td class="update" align="left" colspan="3">
 							<textarea rows="3" cols="81" id="b_notes" maxlength="512" name="notes" style="resize: none;"
 									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
 						</tr>
@@ -289,20 +303,25 @@ table tr td select {
 							<td class="update" width="18%">委托机构号</td>
 							<td class="update" align="left" width="28%"><span id="d_merchNo"></span></td>
 						</tr>
+						<tr style="height: 25px">	
+							<td class="update">纳税人识别号</td>
+							<td class="update" align="left"><span id="d_taxPayerId"></span></td>
+							<td class="update">开户银行账号</td>
+							<td class="update" align="left"><span id="d_accountNo"></span></td>
+						</tr>
 						<tr style="height: 25px">
 							<td class="update">公司地址</td>
 							<td class="update" align="left"><span id="d_companyAddress"></span></td>
 							<td class="update">公司电话</td>
 							<td class="update" align="left"><span id="d_compaynTelno"></span></td>
 						</tr>
+						
+						<tr style="height: 25px">
+							<td class="update">开户银行全称</td>
+							<td class="update" align="left"  colspan="3"><span id="d_bankName"></span></td>
+						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
-						</tr>
-						<tr style="height: 25px">
-							<td class="update">开户银行账号</td>
-							<td class="update" align="left"><span id="d_accountNo"></span></td>
-							<td class="update">开户银行全称</td>
-							<td class="update" align="left"><span id="d_bankName"></span></td>
 						</tr>
 						<tr style="height: 25px">	
 							<td class="update">纳税人类型</td>
@@ -310,19 +329,14 @@ table tr td select {
 							<td class="update">发票类型</td>
 							<td class="update" align="left"><span id="d_invoiceType"></span></td>
 						</tr>
-						<tr>
-							<td colspan="4" class="head-title"></td>
-						</tr>
 						<tr style="height: 25px">	
-							<td class="update">纳税人识别号</td>
-							<td class="update" align="left"><span id="d_taxPayerId"></span></td>
 							<td class="update">证明文件</td>
-							<td class="update" align="left"><span id="d_documenEvidence"></span></td>
+							<td class="update" align="left"  colspan="3"><span id="d_documenEvidence"></span></td>
 						</tr>
 						<tr style="height: 25px">	
-							<td class="update">联系人</td>
+							<td class="update">财务部联系人</td>
 							<td class="update" align="left"><span id="d_contAct"></span></td>
-							<td class="update">联系人电话</td>
+							<td class="update">财务部联系人电话</td>
 							<td class="update" align="left"><span id="d_contPhone"></span></td>
 						</tr>
 						<tr style="height: 25px">
@@ -354,7 +368,7 @@ table tr td select {
 					{field:'MERCHNO',title:'委托机构号',align:'center',width:130},
 					{field:'COMPANYNAME',title:'公司全称',width:130,align:'center'},
 					{field:'TAXPAYERID',title:'纳税人识别号',width:130,align:'center'},
-					{field:'BANKNAME',title:'开户银行全称',align:'center',width:100},
+					{field:'BANKNAME',title:'开户银行全称',align:'center',width:250},
 					{field:'ACCOUNTNO',title:'开户银行账号',width:120,align:'center'},
 					{field:'TAXPAYERTYPE',title:'纳税人类型',width:100,align:'center'},
 					{field:'INVOICETYPE',title:'发票类型',width:100,align:'center'},
@@ -406,8 +420,9 @@ table tr td select {
 			$("#ebidence_2").val("02");
 			$("#ebidence_3").val("03");
 			$('#w').window({
-				title: '新增发票信息',
+				title: '新增委托机构发票信息',
 				top:100,
+				left:400,
 				width: 800,
 				modal: true,
 				minimizable:false,
@@ -415,7 +430,7 @@ table tr td select {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 320
+				height: 350
 			});
 			$('#btn_submit').linkbutton('enable');	
 		}
@@ -533,8 +548,9 @@ table tr td select {
 			   }
 			});
 			$('#w2').window({
-				title: '修改发票信息',
+				title: '修改委托机构发票信息',
 				top:100,
+				left:400,
 				width: 800,
 				modal: true,
 				minimizable:false,
@@ -542,7 +558,7 @@ table tr td select {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 320
+				height: 350
 			});
 		}
 		function findById(tId){
@@ -588,11 +604,11 @@ table tr td select {
 					var documenEvidence = "";
 					for (i=0; i<resultList.length; i++){  
 				        if (resultList[i] == "01"){
-				        	documenEvidence += " 资格证书";
+				        	documenEvidence += "  资格证书 ";
 				        }else if(resultList[i] == "02"){
-				        	documenEvidence += " 税务登记证";
+				        	documenEvidence += "  税务登记证 ";
 				        }else if(resultList[i] == "03"){
-				        	documenEvidence += " 五证合一";
+				        	documenEvidence += "  五证合一 ";
 				        }  
 				    }  
 					$("#d_documenEvidence").html(documenEvidence);
@@ -627,8 +643,9 @@ table tr td select {
 			   }
 			});
 			$('#w3').window({
-				title: '发票信息',
+				title: '委托机构发票信息详情',
 				top:100,
+				left:400,
 				width: 800,
 				modal: true,
 				minimizable:false,
@@ -641,7 +658,7 @@ table tr td select {
 		}
 
 		function deleteUser(tId){
-			$.messager.confirm('提示','您是否想要注销此发票信息?',function(r){   
+			$.messager.confirm('提示','您是否想要注销此委托机构发票信息?',function(r){   
 			    if (r){  
 			    	$.ajax({
 						   type: "POST",
@@ -663,19 +680,41 @@ table tr td select {
 			    }   
 			}); 
 		}
-		function checkBankKey(){
-			var pid = $("#banknode_key").val();
-			 if(pid=='输入关键字检索开户行'){
-				$("#banknode_key").val('');
+		function checkBankKey(type){
+			var pid;
+			if (type == 'add') {
+				pid = $("#banknode_key").val();
+			} else {
+				pid = $("#b_banknode_key").val();
 			}
+// 			var pid = $("#banknode_key").val();
+			 if(pid=='输入关键字检索开户行'){
+				if (type == 'add') {
+					 $("#banknode_key").val('');
+				} else {
+					 $("#b_banknode_key").val('');
+				}
+			}
+			$("#b_banknode_key").css({color:"#515151"});
 			$("#banknode_key").css({color:"#515151"});
 		}
 		
-		function queryBankNode() {
-			var pid = $("#banknode_key").val();
+		function queryBankNode(type) {
+			var pid;
+			if (type == 'add') {
+				pid = $("#banknode_key").val();
+			} else {
+				pid = $("#b_banknode_key").val();
+			}
+// 			var pid = $("#banknode_key").val();
 			if(pid==null||pid==''){
-				$("#banknode_key").val('输入关键字检索开户行');
-				$("#banknode_key").css({color:"#BEBEBE"});
+				if (type == 'add') {
+					$("#banknode_key").val('输入关键字检索开户行');
+					$("#banknode_key").css({color:"#BEBEBE"});
+				} else {
+					$("#b_banknode_key").val('输入关键字检索开户行');
+					$("#b_banknode_key").css({color:"#BEBEBE"});
+				}
 				return;
 			} 
 			$.ajax({
@@ -688,7 +727,12 @@ table tr td select {
 					$.each(json,function(key, value) {
 						html += '<option value="' + value.BANK_NAME + '">' + value.BANK_NAME + '</option>';
 					});
-					$("#banknode_ins").html(html);
+					if (type == 'add') {
+						$("#banknode_ins").html(html);
+					} else {
+						$("#b_banknode_ins").html(html);
+					}
+// 					$("#banknode_ins").html(html);
 				}
 			});
 		}

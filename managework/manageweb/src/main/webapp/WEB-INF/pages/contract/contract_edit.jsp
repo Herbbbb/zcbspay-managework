@@ -99,8 +99,8 @@ table tr td select {
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
 				<form id="b_saveForm" action="" method="post">
-					<input type="hidden" id="b_tId" name="tId" readonly="true"/> 
-					<input type="hidden" id="b_fileAddress" name="fileAddress" readonly="true"/> 
+					<input type="hidden" id="b_tId" name="tId"/> 
+					<input type="hidden" id="b_fileAddress" name="fileAddress"/> 
 					<table width="90%" cellpadding="2" cellspacing="2">
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -133,7 +133,7 @@ table tr td select {
 							<td align="left" class="update"><span id="b_debAccNo"></span></td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="update">付款行行号</td>
+							<td class="update">付款行银行全称</td>
 							<td align="left" class="update"><span id="b_debBranchCode"></span></td>
 							<td class="update">单笔金额上限 </td>
 							<td align="left" class="update"><span id="b_debAmoLimit"></span></td>
@@ -160,7 +160,7 @@ table tr td select {
 							<td align="left" class="update"><span id="b_credAccNo"></span></td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="update">收款行行号</td>
+							<td class="update">收款行银行全称</td>
 							<td align="left" class="update"><span id="b_credBranchCode"></span></td>
 							<td class="update">单笔金额上限 </td>
 							<td align="left" class="update"><span id="b_credAmoLimit"></span></td>
@@ -299,12 +299,13 @@ table tr td select {
 			   dataType:"json",
 			   success: function(json){
 				   var tId = json.tId;
-				   $("#b_tId").html(json.tId);
+				   $("#b_tId").val(json.tId);
 				   $("#b_merchNo").html(json.merchNo);
 				   $("#b_contractNum").html(json.contractNum);
 				   $("#b_debName").html(json.debName);
 				   $("#b_debAccNo").html(json.debAccNo);
-				   $("#b_debBranchCode").html(json.debBranchCode);
+				   showBranchCode('find',json.debBranchCode);
+// 				   $("#b_debBranchCode").html(json.debBranchCode);
 				   $("#b_credName").html(json.credName);
 				   $("#b_credAccNo").html(json.credAccNo);
 				   var contractType;
@@ -319,7 +320,8 @@ table tr td select {
 				   }
 				   $("#b_contractType").html(contractType);
 				   $("#b_contractType").val(json.contractType);
-				   $("#b_credBranchCode").html(json.credBranchCode);
+				   showBranchCode('find_a',json.credBranchCode);
+// 				   $("#b_credBranchCode").html(json.credBranchCode);
 				   $("#b_debAmoLimit").html(json.debAmoLimit);
  				   var debTranLimitType;
 				   if(json.debTranLimitType == '00'){
@@ -515,6 +517,23 @@ table tr td select {
 				$('#b_delegation2').hide();
 				$('#b_delegation3').hide();
 			}
+		}
+		function showBranchCode(type,value){ 
+			$.ajax({
+			   type: "POST",
+			   url: "bankaccout/queryBankInfo",
+			   data: "bankNode="+value,
+			   async: false,
+			   dataType:"json",
+			   success: function(json){	
+				    var result = json.bankName;
+				    if(type == 'find') {
+		 				$("#b_debBranchCode").html(result);
+		 			} else if(type == 'find_a'){
+		 				$("#b_credBranchCode").html(result);
+		 			}
+			     }
+			});
 		}
 	</script>
 </html>
