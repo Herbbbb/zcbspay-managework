@@ -21,14 +21,14 @@ public class CoopAgencyBean implements Serializable {
 	private Long caCity;
 	/** 状态:00在用 99停用 **/
 	private String status;
-	/** 账户(银行账号) **/
+	/** 银行账户(银行账号) **/
 	private String caBankAcc;
 	/** 银行账户名 **/
 	private String caAccName;
 	/** 开户行名称 **/
 	private String caBank;
 	/** 开户行行号 **/
-	private String bankCode;
+	private String bankNode;
 	/** 组织机构代码（扩展用） **/
 	private Long organId;
 	/** 级别（拓展类用）--暂时只需支持二级代理 **/
@@ -103,11 +103,11 @@ public class CoopAgencyBean implements Serializable {
 	public void setCaBank(String caBank) {
 		this.caBank = caBank;
 	}
-	public String getBankCode() {
-		return bankCode;
+	public String getBankNode() {
+		return bankNode;
 	}
-	public void setBankCode(String bankCode) {
-		this.bankCode = bankCode;
+	public void setBankNode(String bankNode) {
+		this.bankNode = bankNode;
 	}
 	public Long getOrganId() {
 		return organId;

@@ -38,7 +38,7 @@ public class PojoCoopAgency implements Serializable {
 	/** 开户行名称 **/
 	private String caBank;
 	/** 开户行行号 **/
-	private String bankCode;
+	private String bankNode;
 	/** 组织机构代码（扩展用） **/
 	private Long organId;
 	/** 级别（拓展类用）--暂时只需支持二级代理 **/
@@ -127,12 +127,12 @@ public class PojoCoopAgency implements Serializable {
 	public void setCaBank(String caBank) {
 		this.caBank = caBank;
 	}
-	@Column(name = "BANKCODE")
-	public String getBankCode() {
-		return bankCode;
+	@Column(name = "BANKNODE")
+	public String getBankNode() {
+		return bankNode;
 	}
-	public void setBankCode(String bankCode) {
-		this.bankCode = bankCode;
+	public void setBankNode(String bankNode) {
+		this.bankNode = bankNode;
 	}
 	@Column(name = "ORGANID")
 	public Long getOrganId() {

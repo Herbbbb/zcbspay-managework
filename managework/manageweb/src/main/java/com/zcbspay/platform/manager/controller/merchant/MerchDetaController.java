@@ -168,9 +168,9 @@ public class MerchDetaController {
     		HttpServletRequest request, String flag) {
         Map<String, Object> variables = new HashMap<String, Object>();
         UserBean loginUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
+        
         variables.put("userId", loginUser.getUserId());
-        MerchDetaApplyBean merchDeta = new MerchDetaApplyBean();
-        merchDeta = null; variables.put("merberId", memberId);
+        variables.put("merberId", memberId);
         variables.put("merchName", memberName);
         variables.put("status", merchStatus);
         variables.put("flag", flag);
@@ -264,7 +264,7 @@ public class MerchDetaController {
 						new MerchantThread(uploadDir+"/"+resFileName).start();
 //						String fileName = UUID.randomUUID().toString().replace("-", "") + resFileName.substring(resFileName.lastIndexOf("."));
 						FileInputStream in=new FileInputStream(outFile);  
-				        boolean flag = FTPUtils.uploadFile("192.168.2.144", 21, "DownLoad", "624537", "E:ftp","/",mf.getOriginalFilename() , in);
+				        boolean flag = FTPUtils.uploadFile("192.168.2.138", 21, "DownLoad", "624537", "E:ftp","/",mf.getOriginalFilename() , in);
 					}else{
 						return null;
 					}
@@ -288,7 +288,7 @@ public class MerchDetaController {
         } else if (filePath.equals("")) {
             result.put("status", "notExist");
         } else {
-        	filePath = "ftp:192.168.2.144/"+filePath;
+        	filePath = "ftp:192.168.2.138/"+filePath;
             result.put("status", "OK");
             result.put("url", filePath);
         }
