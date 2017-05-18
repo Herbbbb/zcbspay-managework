@@ -243,7 +243,7 @@ table tr td select {
 				},
 				{
 					field: 'RATE_DESC',
-					title: '',
+					title: '扣率描述',
 					width: 120,
 					align: 'center',
 					rowspan:1
