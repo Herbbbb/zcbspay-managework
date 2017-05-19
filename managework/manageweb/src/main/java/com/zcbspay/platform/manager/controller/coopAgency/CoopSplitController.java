@@ -12,22 +12,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zcbspay.platform.manager.merchant.bean.CoopAgencyBean;
-import com.zcbspay.platform.manager.merchant.bean.CoopAgencyBean;
+import com.zcbspay.platform.manager.merchant.bean.SplitByAccNumsBean;
 import com.zcbspay.platform.manager.merchant.service.CoopAgencyService;
 import com.zcbspay.platform.manager.system.bean.UserBean;
 
 @Controller
-@RequestMapping("/coopAgency")
+@RequestMapping("/coopSplit")
 @SuppressWarnings("all")
-public class CoopAgencyController {
+public class CoopSplitController {
+	
 	
 	@Autowired
 	private CoopAgencyService coopAgencyService;
+	
+	
+	
+	/**
+	 * 代理商分润首页
+	 * @param request
+	 * @return
+	 */
 	@ResponseBody
     @RequestMapping("/show")
     public ModelAndView index(HttpServletRequest request) {
-        ModelAndView result=new ModelAndView("/coopAgency/coop_agency");
+        ModelAndView result=new ModelAndView("/coopAgency/coop_split");
         return result;
     }
 	
@@ -40,12 +48,10 @@ public class CoopAgencyController {
 	 */
 	@ResponseBody
     @RequestMapping("/query")
-	public Map<String, Object> query(CoopAgencyBean coop,Integer page,Integer rows) {
+	public Map<String, Object> query(SplitByAccNumsBean split,Integer page,Integer rows) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("caName", coop.getCaName());
-		result.put("status", coop.getStatus());
-		result.put("caCode", coop.getCaCode());
-		return coopAgencyService.findAll(result,page, rows);
+		result.put("caCode", split.getCaCode());
+		return coopAgencyService.findSplitAll(result,page, rows);
 	}
 	
 	/**
@@ -56,12 +62,11 @@ public class CoopAgencyController {
 	 */
 	@ResponseBody
     @RequestMapping("/save")
-	public Map<String, Object> save(HttpServletRequest request,CoopAgencyBean coop) {
+	public Map<String, Object> save(HttpServletRequest request,SplitByAccNumsBean split) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		UserBean user = (UserBean)request.getSession().getAttribute("LOGIN_USER");
-		coop.setStatus("00");
-		coop.setInUser(user.getUserId());
-		result = coopAgencyService.addCoopAgency(coop);
+		split.setInUser(user.getUserId());
+		result = coopAgencyService.addSplit(split);
         return result;
 	}
 	
@@ -73,8 +78,8 @@ public class CoopAgencyController {
 	 */
 	@ResponseBody
     @RequestMapping("/findById")
-	public List<?> findTaxById(String tId) {
-		return coopAgencyService.findById(tId);
+	public SplitByAccNumsBean findSplitById(String tId) {
+		return coopAgencyService.findSplitById(tId);
 	}
 	
 	/**
@@ -84,8 +89,10 @@ public class CoopAgencyController {
 	 */
 	@ResponseBody
     @RequestMapping("/eidtBankAccount")
-	public Map<String, Object> eidtBankAccount(CoopAgencyBean coop) {
-        return coopAgencyService.editCoopAgency(coop);
+	public Map<String, Object> editSplit(HttpServletRequest request,SplitByAccNumsBean split) {
+		UserBean user = (UserBean)request.getSession().getAttribute("LOGIN_USER");
+		split.setUpUser(user.getUserId());
+        return coopAgencyService.editSplit(split);
 	}
 	/**
 	 * 删除信息
@@ -95,17 +102,7 @@ public class CoopAgencyController {
 	@ResponseBody
     @RequestMapping("/delect")
 	public Map<String, Object> delect(String tId) {
-        return coopAgencyService.deleteCoopAgency(tId);
+        return coopAgencyService.deleteSplit(tId);
 	}
-	
-	/**
-	 * 查询代理商获利模式
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping("/queryProfitType")
-    public List<?> queryProfitType() {
-    	return coopAgencyService.queryProfitType();
-    }
 	
 }

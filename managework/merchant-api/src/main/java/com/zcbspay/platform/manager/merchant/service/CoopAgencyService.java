@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.zcbspay.platform.manager.merchant.bean.CoopAgencyBean;
+import com.zcbspay.platform.manager.merchant.bean.SplitByAccNumsBean;
 
 public interface CoopAgencyService {
 
@@ -46,5 +47,42 @@ public interface CoopAgencyService {
 	 * @return
 	 */
 	List<?> queryProfitType();
+
+	/**
+	 * 查询代理商分润信息列表
+	 * @param result
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	Map<String, Object> findSplitAll(Map<String, Object> result, Integer page, Integer rows);
+
+	/**
+	 * 新增代理商分润信息
+	 * @param split
+	 * @return
+	 */
+	Map<String, Object> addSplit(SplitByAccNumsBean split);
+
+	/**
+	 * 查询代理商分润信息详情
+	 * @param tId
+	 * @return
+	 */
+	SplitByAccNumsBean findSplitById(String tId);
+
+	/**
+	 * 修改代理商分润信息
+	 * @param split
+	 * @return
+	 */
+	Map<String, Object> editSplit(SplitByAccNumsBean split);
+
+	/**
+	 * 注销代理商分润信息
+	 * @param tId
+	 * @return
+	 */
+	Map<String, Object> deleteSplit(String tId);
 
 }

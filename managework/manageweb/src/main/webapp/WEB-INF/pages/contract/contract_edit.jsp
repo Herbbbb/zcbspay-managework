@@ -51,9 +51,7 @@ table tr td select {
 }
 </style>
 	<div style="padding-top: 5px; margin-left: 5px; margin-right: 5px" id="continer">
-		<div id="p" class="easyui-panel" title="查询条件"
-			style="height: 130px; padding-top: 10px; background: #fafafa;"
-			iconCls="icon-save" collapsible="true">
+		<div id="p" class="easyui-panel" title="查询条件" style="height: 130px;background: #fafafa;" iconCls="icon-save" collapsible="true">
 			<form action="" id="searchForm">
 				<table width="100%">
 					<tr>
@@ -101,7 +99,7 @@ table tr td select {
 				<form id="b_saveForm" action="" method="post">
 					<input type="hidden" id="b_tId" name="tId"/> 
 					<input type="hidden" id="b_fileAddress" name="fileAddress"/> 
-					<table width="90%" cellpadding="2" cellspacing="2">
+					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>

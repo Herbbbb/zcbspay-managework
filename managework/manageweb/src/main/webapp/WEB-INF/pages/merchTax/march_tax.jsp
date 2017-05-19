@@ -430,7 +430,7 @@ table tr td select {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 350
+				height: 370
 			});
 			$('#btn_submit').linkbutton('enable');	
 		}
@@ -558,7 +558,7 @@ table tr td select {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 350
+				height: 370
 			});
 		}
 		function findById(tId){
@@ -653,7 +653,7 @@ table tr td select {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 350
+				height: 370
 			});
 		}
 

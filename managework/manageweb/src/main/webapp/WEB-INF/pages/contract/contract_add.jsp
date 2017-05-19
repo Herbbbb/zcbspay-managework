@@ -301,7 +301,7 @@ table tr td select {
 				<form id="b_saveForm" action="" method="post">
 					<input type="hidden" id="b_tId" name="tId" readonly="true"/> 
 					<input type="hidden" id="b_fileAddress" name="fileAddress" readonly="true"/> 
-					<table width="90%" cellpadding="2" cellspacing="2">
+					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
@@ -831,7 +831,7 @@ table tr td select {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 680
+				height: 630
 			});
 		}
 		function delFindById(tId){
@@ -939,7 +939,7 @@ table tr td select {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 680
+				height: 630
 			});
 		}
 
