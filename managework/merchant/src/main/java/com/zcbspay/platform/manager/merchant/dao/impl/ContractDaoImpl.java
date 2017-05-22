@@ -261,17 +261,17 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 			Date curDate = new Date(System.currentTimeMillis());
 			bean.setInTime(curDate);
 			bean.setBatchNo(batch);
-//			bean.setDebAmoLimit(batch);
-//			bean.setDebTranLimitType(batch);
-//			bean.setDebAccyAmoLimit(batch);
-//			bean.setDebTransLimitType(batch);
-//			bean.setDebTransLimit(Long.parseLong("50"));
-//			
-//			bean.setCredAmoLimit(batch);
-//			bean.setCredTranLimitType(batch);
-//			bean.setCredAccuAmoLimit(batch);
-//			bean.setCredTransLimitType(batch);
-//			bean.setCredTransLimit(Long.parseLong("50"));
+			bean.setDebAmoLimit("5000000");
+			bean.setDebTranLimitType("01");
+			bean.setDebAccyAmoLimit("20000000");
+			bean.setDebTransLimitType("01");
+			bean.setDebTransLimit(Long.parseLong("50"));
+			
+			bean.setCredAmoLimit("5000000");
+			bean.setCredTranLimitType("01");
+			bean.setCredAccuAmoLimit("20000000");
+			bean.setCredTransLimitType("01");
+			bean.setCredTransLimit(Long.parseLong("50"));
 			bean.setStatus("20");
 			saveEntity(bean);
 		}

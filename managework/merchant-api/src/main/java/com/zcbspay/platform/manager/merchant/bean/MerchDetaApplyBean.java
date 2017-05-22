@@ -10,7 +10,7 @@ public class MerchDetaApplyBean implements Serializable{
     /**在用会员表主键**/
     private Long merchId;
     /**会员外键**/
-//    private MemberApplyBean memberApply;
+    private Long memId;
     /**会员号**/
     private String memberId;
     /**上级商户**/
@@ -96,12 +96,12 @@ public class MerchDetaApplyBean implements Serializable{
 	public void setMerchId(Long merchId) {
 		this.merchId = merchId;
 	}
-//	public MemberApplyBean getMemberApply() {
-//		return memberApply;
-//	}
-//	public void setMemberApply(MemberApplyBean memberApply) {
-//		this.memberApply = memberApply;
-//	}
+	public Long getMemId() {
+		return memId;
+	}
+	public void setMemId(Long memId) {
+		this.memId = memId;
+	}
 	public String getMemberId() {
 		return memberId;
 	}

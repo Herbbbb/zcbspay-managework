@@ -137,7 +137,7 @@ public class UserController {
 //			UserBean user = new UserBean();
 			user.setCreator(loginUser.getLoginName());
 			String passwordMark = "w5y1j5z1s1l1z6z0y8z1m1l0c5r5y3z4";
-			passwordMark = passwordMark + pwd;
+			passwordMark = passwordMark + "123456";
 			user.setPwd(MD5Util.MD5(passwordMark));
 //			List<UserBean> returnList = (List<UserBean>) userService.saveUser(user);
 //			return returnList;

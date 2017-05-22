@@ -32,6 +32,8 @@ table tr td.head-title {
 	height: 25px;
 	background-color: #F0F8FF;
 	font-weight: bold;
+	border-width: 1px 1px 1px 1px;
+	border-style: groove;
 }
 table tr td.update {
 	height: 25px;
@@ -58,7 +60,7 @@ table tr td select {
 			<form action="" id="searchForm">
 				<table width="100%">
 					<tr>
-						<td class="add" align="right" width="18%" class="add">委托机构号</td>
+						<td class="add" align="right" width="18%">委托机构号</td>
 						<td class="add" align="left" style="padding-left: 5px"><input
 							id="a_merchNo" name="merchNo" /></td>
 						<td class="add" align="right" width="18%">合同编号</td>
@@ -104,28 +106,28 @@ table tr td select {
 							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="add" width="18%">委托机构号</td>
-							<td class="add" align="left">
+							<td class="update" width="18%">委托机构号</td>
+							<td class="update" align="left">
 							<input type="text" id="merchNo" name="merchNo" class="easyui-validatebox" required="true"
 								maxlength="15" missingMessage="请输入委托机构号" validType="merchno"/></td>
-							<td class="add" width="18%">合同编号 </td>
-							<td class="add" align="left">
+							<td class="update" width="18%">合同编号 </td>
+							<td class="update" align="left">
 							<input type="text" id="contractNum" name="contractNum" class="easyui-validatebox" required="true"
 								maxlength="20" missingMessage="请输入合同编号" validType="contract"/></td>
 						</tr>
 <!-- 						<tr style="height: 30px"> -->
-<!-- 							<td class="add">业务类型</td> -->
-<!-- 							<td class="add" align="left"> -->
+<!-- 							<td class="update">业务类型</td> -->
+<!-- 							<td class="update" align="left"> -->
 <!-- 							<input type="text" id="categoryPurpose" name="categoryPurpose" class="easyui-validatebox" required="true" -->
 <!-- 								maxlength="10" missingMessage="请输入业务类型"/></td> -->
-<!-- 							<td class="add">业务种类</td> -->
-<!-- 							<td class="add" align="left"> -->
+<!-- 							<td class="update">业务种类</td> -->
+<!-- 							<td class="update" align="left"> -->
 <!-- 							<input type="text" id="proprieTary" name="proprieTary" class="easyui-validatebox" required="true" -->
 <!-- 								maxlength="10" missingMessage="请输入业务种类"/></td> -->
 <!-- 						</tr> -->
 						<tr style="height: 30px">
-							<td class="add">合同类型</td>
-							<td class="add" align="left">
+							<td class="update">合同类型</td>
+							<td class="update" align="left">
 							<select id="contractType" class="easyui-validatebox" missingMessage="请选择类型"
 								required="true" name="contractType" onchange="checkIsDelegation(1)">
 									<option value=''>请选择合同类型</option>
@@ -139,28 +141,25 @@ table tr td select {
 							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="add">付款人名称</td>
-							<td class="add" align="left">
+							<td class="update">付款人名称</td>
+							<td class="update" align="left">
 							<input type="text" name="debName" required="true" maxlength="15" 
 							missingMessage="请输入付款人名称" class="easyui-validatebox" validType="debName"/></td>
-							<td class="add">付款人账号 </td>
-							<td class="add" align="left">
+							<td class="update">付款人账号 </td>
+							<td class="update" align="left">
 							<input type="text" id="debAccNo" name="debAccNo" class="easyui-validatebox" required="true"
 								maxlength="20" missingMessage="请输入付款人账号" validType="bankcard"/></td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="add">付款行行号</td>
-							<td class="add" align="left">
-							<input type="text" id="debBranchCode" name="debBranchCode" class="easyui-validatebox" required="true"
-								maxlength="12" missingMessage="请输入付款人行号" onchange="showBranchCode('debBranchCode')"/></td>
-							<td class="add">单笔金额上限 </td>
-							<td class="add" align="left">
-							<input type="text" id="debAmoLimit" name="debAmoLimit" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="请输入单笔上限金额" validType="amount"/></td>
+							<td class="update">付款行银行全称</td>
+							<td class="update" align="left" colspan="3">
+								<select id="debBranchCode" class="easyui-validatebox" required="true" name="debBranchCode" style="width: 250px"/>
+								<option value=''>--请选择开户行--</option></select><font color="red">*</font>
+								<input id="banknode_key" maxlength="16" type="text" onclick="checkBankKey('add_a')" onchange="queryBankNode('add_a')"/></td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="add">金额限制类型</td>
-							<td class="add" align="left">
+							<td class="update">金额限制类型</td>
+							<td class="update" align="left">
 							<select id="debTranLimitType" class="easyui-validatebox" missingMessage="请选择类型"
 								required="true" name="debTranLimitType">
 									<option value='00'>--不限--</option>
@@ -168,53 +167,54 @@ table tr td select {
 									<option value='02'>按月限次</option>
 									<option value='03'>总计限次</option>
 							</select></td>
-							<td class="add">累计金额上限</td>
-							<td class="add" align="left">
+							<td class="update">累计金额上限(元)</td>
+							<td class="update" align="left">
 							<input type="text" id="debAccyAmoLimit" name="debAccyAmoLimit" class="easyui-validatebox" required="true"
-								maxlength="12" missingMessage="请输入累计上限金额" validType="amount"/></td>
+								maxlength="12" missingMessage="请输入累计上限金额(元)" validType="amount"/></td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="add">付款次数限制类型</td>
-							<td class="add" align="left">
-							<select id="debTransLimitType" class="easyui-validatebox" missingMessage="请选择类型"
-								required="true" name="debTransLimitType">
+							<td class="update">付款次数限制类型</td>
+							<td class="update" align="left">
+							<select id="debTransLimitType" class="easyui-validatebox" missingMessage="请选择类型" name="debTransLimitType">
 									<option value='00'>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
 									<option value='03'>总计限次</option>
 							</select></td>
-							<td class="add">付款次数限制</td>
-							<td class="add" align="left">
-							<input type="text" id="debTransLimit" name="debTransLimit" class="easyui-validatebox" required="true"
-								maxlength="10" missingMessage="请输入限制次数" validType="number"/></td>
-							<td class="add" align="left"></td>
+							<td class="update">付款次数限制</td>
+							<td class="update" align="left">
+							<input type="text" id="debTransLimit" name="debTransLimit" class="easyui-validatebox" 
+								maxlength="10" missingMessage="请输入限制次数"/></td>
+						</tr>
+						<tr style="height:30px">
+							<td class="update">单笔金额上限(元) </td>
+							<td class="update" align="left"  colspan="3">
+							<input type="text" id="debAmoLimit" name="debAmoLimit" class="easyui-validatebox" required="true"
+								maxlength="20" missingMessage="请输入单笔上限金额(元)" validType="amount"/></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="add">收款人名称</td>
-							<td class="add" align="left">
+							<td class="update">收款人名称</td>
+							<td class="update" align="left">
 							<input type="text" id="credName" name="credName" class="easyui-validatebox" required="true"
 								maxlength="12" missingMessage="请输入收款人名称" class="easyui-validatebox" validType="debName"/></td>
-							<td class="add">收款人账号 </td>
-							<td class="add" align="left">
+							<td class="update">收款人账号 </td>
+							<td class="update" align="left">
 							<input type="text" id="credAccNo" name="credAccNo" class="easyui-validatebox" required="true"
 								maxlength="20" missingMessage="请输入收款人账号" validType="bankcard"/></td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="add">收款行行号</td>
-							<td class="add" align="left">
-							<input type="text" id="credBranchCode" name="credBranchCode" class="easyui-validatebox" required="true"
-								maxlength="12" missingMessage="请输入收款人行号" onchange="showBranchCode('credBranchCode')"/></td>
-							<td class="add">单笔金额上限 </td>
-							<td class="add" align="left">
-							<input type="text" id="credAmoLimit" name="credAmoLimit" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="请输入单笔上限金额" validType="amount"/></td>
+							<td class="update">收款行银行全称</td>
+							<td class="update" align="left" colspan="3">
+								<select id="credBranchCode" class="easyui-validatebox" required="true" name="credBranchCode" style="width: 250px"/>
+								<option value=''>--请选择开户行--</option></select><font color="red">*</font>
+								<input id="b_banknode_key" maxlength="16" type="text" onclick="checkBankKey('add_b')" onchange="queryBankNode('add_b')"/></td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="add">金额限制类型</td>
-							<td class="add" align="left">
+							<td class="update">金额限制类型</td>
+							<td class="update" align="left">
 							<select id="credTranLimitType" class="easyui-validatebox" missingMessage="请选择类型"
 								required="true" name="credTranLimitType">
 									<option value='00'>--不限--</option>
@@ -222,58 +222,70 @@ table tr td select {
 									<option value='02'>按月限次</option>
 									<option value='03'>总计限次</option>
 							</select></td>
-							<td class="add">累计金额上限</td>
-							<td class="add" align="left">
+							<td class="update">累计金额上限(元)</td>
+							<td class="update" align="left">
 							<input type="text" id="credAccuAmoLimit" name="credAccuAmoLimit" class="easyui-validatebox" required="true"
-								maxlength="12" missingMessage="请输入累计上限金额" validType="amount"/></td>
+								maxlength="12" missingMessage="请输入累计上限金额(元)" validType="amount"/></td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="add">收款次数限制类型</td>
-							<td class="add" align="left">
-							<select id="credTransLimitType" class="easyui-validatebox" missingMessage="请选择类型"
-								required="true" name="credTransLimitType">
+							<td class="update">收款次数限制类型</td>
+							<td class="update" align="left">
+							<select id="credTransLimitType" class="easyui-validatebox" missingMessage="请选择类型" name="credTransLimitType">
 									<option value='00'>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
 									<option value='03'>总计限次</option>
 							</select></td>
-							<td class="add">收款次数限制</td>
-							<td class="add" align="left">
-							<input type="text" id="credTransLimit" name="credTransLimit" class="easyui-validatebox" required="true"
-								maxlength="10" missingMessage="请输入限制次数" validType="number"/></td>
+							<td class="update">收款次数限制</td>
+							<td class="update" align="left">
+							<input type="text" id="credTransLimit" name="credTransLimit" class="easyui-validatebox" 
+								maxlength="10" missingMessage="请输入限制次数"/></td>
+						</tr>
+						<tr style="height: 30px">
+							<td class="update">单笔金额上限(元) </td>
+							<td class="update" align="left" colspan="3">
+							<input type="text" id="credAmoLimit" name="credAmoLimit" class="easyui-validatebox" required="true"
+								maxlength="20" missingMessage="请输入单笔上限金额(元)" validType="amount"/></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="add" align="center">合约开始日期</td>
-							<td class="add" align="left"><input type="text" class="easyui-datebox" name="signDate"/></td>
-							<td class="add" align="center">合约终止日期</td>
-							<td class="add" align="left"><input type="text" class="easyui-datebox" name="expiryDate"/></td>
+							<td class="update" align="center">合约开始日期</td>
+							<td class="update" align="left"><input type="text" class="easyui-datebox" name="signDate"/></td>
+							<td class="update" align="center">合约终止日期</td>
+							<td class="update" align="left"><input type="text" class="easyui-datebox" name="expiryDate"/></td>
 						</tr>
 						<tr id="delegation" style="height: 30px">
-							<td class="add">收费代码</td>
-							<td class="add" align="left">
-							<input type="text" id="chargeNo" name="chargeNo" class="easyui-validatebox"
-								maxlength="20" missingMessage="请输入收费代码"/></td>
-							<td class="add">收费协议号</td>
-							<td class="add" align="left">
+							<td class="update">收费协议号</td>
+							<td class="update" align="left">
 							<input type="text" id="chargeConntract" name="chargeConntract" class="easyui-validatebox"
 								maxlength="12" missingMessage="请输入收费协议号"/></td>
+							<td class="update">收费代码</td>
+							<td class="update" align="left">
+							<input type="text" id="chargeNo" name="chargeNo" class="easyui-validatebox"
+								maxlength="20" missingMessage="请输入收费代码"/></td>
 						</tr>
-						<tr style="height: 30px">
-							<td class="add" align="center">合同附件</td>
-							<td class="add" align="left"><input class="easyui-validatebox" required="true" id="fileAddress_cert_img" type="file"/>
-								<div id="fileAddress_span"></div> 
-							</td>
-							<td id="delegation2" class="add">付费协议号</td>
-							<td id="delegation3" class="add" align="left">
+						<tr id="delegation_2" style="height: 30px">
+							<td class="update">付费协议号</td>
+							<td class="update" align="left">
 							<input type="text" id="payContract" name="payContract" class="easyui-validatebox"
 								maxlength="12" missingMessage="请输入付费协议号"/></td>
+							<td class="update"></td>
+							<td class="update" align="left">
+							</td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="add">备注</td>
-							<td class="add" align="left" colspan="3">
+							<td class="update" align="center">合同附件</td>
+							<td class="update" align="left"><input class="easyui-validatebox" required="true" id="fileAddress_cert_img" type="file"/>
+								<div id="fileAddress_span"></div> 
+							</td>
+							<td class="update"></td>
+							<td class="update" align="left"></td>
+						</tr>
+						<tr style="height: 30px">
+							<td class="update">备注</td>
+							<td class="update" align="left" colspan="3">
 							<textarea rows="3" cols="81" id="notes" maxlength="64" name="notes" 
 							style="resize: none;"></textarea></td>
 						</tr>
@@ -281,7 +293,7 @@ table tr td select {
 				</form>
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
-				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveUser()" id="btn_submit" onclick="">提交</a>
+				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveUser('0')" id="btn_submit">提交</a>
 				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">返回</a>
 			</div>
 		</div>
@@ -294,7 +306,7 @@ table tr td select {
 				<form id="b_saveForm" action="" method="post">
 					<input type="hidden" id="b_tId" name="tId" readonly="true"/> 
 					<input type="hidden" id="b_fileAddress" name="fileAddress" readonly="true"/> 
-					<table width="90%" cellpadding="2" cellspacing="2">
+					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
@@ -326,15 +338,15 @@ table tr td select {
 							<td align="left" class="update"><span id="b_debAccNo"></span></td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="update">付款行行号</td>
+							<td class="update">付款行银行全称</td>
 							<td align="left" class="update"><span id="b_debBranchCode"></span></td>
-							<td class="update">单笔金额上限 </td>
+							<td class="update">单笔金额上限(元) </td>
 							<td align="left" class="update"><span id="b_debAmoLimit"></span></td>
 						</tr>
 						<tr style="height: 30px">
 							<td class="update">金额限制类型</td>
 							<td align="left" class="update"><span id="b_debTranLimitType"></span></td>
-							<td class="update">累计金额上限</td>
+							<td class="update">累计金额上限(元)</td>
 							<td align="left" class="update"><span id="b_debAccyAmoLimit"></span></td>
 						</tr>
 						<tr style="height: 30px">
@@ -353,15 +365,15 @@ table tr td select {
 							<td align="left" class="update"><span id="b_credAccNo"></span></td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="update">收款行行号</td>
+							<td class="update">收款行银行全称</td>
 							<td align="left" class="update"><span id="b_credBranchCode"></span></td>
-							<td class="update">单笔金额上限 </td>
+							<td class="update">单笔金额上限(元) </td>
 							<td align="left" class="update"><span id="b_credAmoLimit"></span></td>
 						</tr>
 						<tr style="height: 30px">
 							<td class="update">金额限制类型</td>
 							<td align="left" class="update"><span id="b_credTranLimitType"></span></td>
-							<td class="update">累计金额上限</td>
+							<td class="update">累计金额上限(元)</td>
 							<td align="left" class="update"><span id="b_credAccuAmoLimit"></span></td>
 						</tr>
 						<tr style="height: 30px">
@@ -380,16 +392,22 @@ table tr td select {
 							<td align="left" class="update"><span id="b_endDate"></span></td>
 						</tr>
 						<tr id="b_delegation" style="height: 30px">
-							<td class="update">收费代码</td>
-							<td class="update" align="left"><span id="b_chargeNo"></span></td>
 							<td class="update">收费协议号</td>
 							<td class="update" align="left"><span id="b_chargeConntract"></span></td>
+							<td class="update">收费代码</td>
+							<td class="update" align="left"><span id="b_chargeNo"></span></td>
+						</tr>
+						<tr id="b_delegation_2" style="height: 30px">
+							<td class="update">付费协议号</td>
+							<td class="update" align="left"><span id="b_payContract"></span></td>
+							<td class="update"></td>
+							<td class="update" align="left"></td>
 						</tr>
 						<tr style="height: 30px">
 							<td align="center" class="update">合同附件</td>
 							<td align="left" class="update"><div id="signfileOpp_span"></div></td>
-							<td id="b_delegation2" class="update">付费协议号</td>
-							<td id="b_delegation3" class="update" align="left"><span id="b_payContract"></span></td>
+							<td class="update"></td>
+							<td class="update" align="left"></td>
 						</tr>
 						<tr style="height: 30px">
 							<td class="update">备注</td>
@@ -443,15 +461,15 @@ table tr td select {
 							<td align="left" class="update"><span id="c_debAccNo"></span></td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="update">付款行行号</td>
+							<td class="update">付款行银行全称</td>
 							<td align="left" class="update"><span id="c_debBranchCode"></span></td>
-							<td class="update">单笔金额上限 </td>
+							<td class="update">单笔金额上限(元) </td>
 							<td align="left" class="update"><span id="c_debAmoLimit"></span></td>
 						</tr>
 						<tr style="height: 30px">
 							<td class="update">金额限制类型</td>
 							<td align="left" class="update"><span id="c_debTranLimitType"></span></td>
-							<td class="update">累计金额上限</td>
+							<td class="update">累计金额上限(元)</td>
 							<td align="left" class="update"><span id="c_debAccyAmoLimit"></span></td>
 						</tr>
 						<tr style="height: 30px">
@@ -470,15 +488,15 @@ table tr td select {
 							<td align="left" class="update"><span id="c_credAccNo"></span></td>
 						</tr>
 						<tr style="height: 30px">
-							<td class="update">收款行行号</td>
+							<td class="update">收款行银行全称</td>
 							<td align="left" class="update"><span id="c_credBranchCode"></span></td>
-							<td class="update">单笔金额上限 </td>
+							<td class="update">单笔金额上限(元)</td>
 							<td align="left" class="update"><span id="c_credAmoLimit"></span></td>
 						</tr>
 						<tr style="height: 30px">
 							<td class="update">金额限制类型</td>
 							<td align="left" class="update"><span id="c_credTranLimitType"></span></td>
-							<td class="update">累计金额上限</td>
+							<td class="update">累计金额上限(元)</td>
 							<td align="left" class="update"><span id="c_credAccuAmoLimit"></span></td>
 						</tr>
 						<tr style="height: 30px">
@@ -496,17 +514,23 @@ table tr td select {
 							<td align="center" class="update">合约终止日期</td>
 							<td align="left" class="update"><span id="c_endDate"></span></td>
 						</tr>
-						<tr id="b_delegation" style="height: 30px">
-							<td class="update">收费代码</td>
-							<td class="update" align="left"><span id="c_chargeNo"></span></td>
+						<tr id="c_delegation" style="height: 30px">
 							<td class="update">收费协议号</td>
 							<td class="update" align="left"><span id="c_chargeConntract"></span></td>
+							<td class="update">收费代码</td>
+							<td class="update" align="left"><span id="c_chargeNo"></span></td>
+						</tr>
+						<tr id="c_delegation_2" style="height: 30px">
+							<td class="update">付费协议号</td>
+							<td class="update" align="left"><span id="c_payContract"></span></td>
+							<td class="update"></td>
+							<td class="update" align="left"></td>
 						</tr>
 						<tr style="height: 30px">
 							<td align="center" class="update">合同附件</td>
 							<td align="left" class="update"><div id="c_signfileOpp_span"></div></td>
-							<td id="c_delegation2" class="update">付费协议号</td>
-							<td id="c_delegation3" class="update" align="left"><span id="c_payContract"></span></td>
+							<td class="update"></td>
+							<td class="update" align="left"></td>
 						</tr>
 						<tr style="height: 30px">
 							<td class="update">备注</td>
@@ -529,14 +553,14 @@ table tr td select {
 				<form id="d_saveForm" action="contract/excelImport" method="post">
 					<table width="90%" cellpadding="2" cellspacing="2">
 					<tr style="height: 30px">
-						<td class="add" align="center"  style="font-size: 15px;">合同文件</td>
-						<td class="add" align="left">
+						<td class="update" align="center"  style="font-size: 15px;">合同文件</td>
+						<td class="update" align="left">
 							<input style="height: 25px;" class="easyui-validatebox" name="orderCSV" type="file"/>
 						</td>
 					</tr>
 					<tr style="height: 30px">
-						<td class="add" align="center"></td>
-						<td class="add" align="left"><div style="height: 25px;font-size: 15px;" id="org_province"></div></td>
+						<td class="update" align="center"></td>
+						<td class="update" align="left"><div style="height: 25px;font-size: 15px;" id="org_province"></div></td>
 					</tr>
 				</table>
 				</form>
@@ -707,6 +731,7 @@ table tr td select {
 			        return false;   
 			    }, 
 			    success:function(json){
+			    	$('#btn_submit').linkbutton('enable');	
 			    	json = eval('(' + json + ')');
 					if(json.RET == "succ"){
 						 $.messager.alert('提示', '添加成功');
@@ -715,7 +740,6 @@ table tr td select {
 					}else{
 						 $.messager.alert("提示",json.INFO);
 					}
-			    	$('#btn_submit').linkbutton('enable');	
 			    }
 			});  
 		}
@@ -733,7 +757,7 @@ table tr td select {
 				   $("#b_contractNum").html(json.contractNum);
 				   $("#b_debName").html(json.debName);
 				   $("#b_debAccNo").html(json.debAccNo);
-				   $("#b_debBranchCode").html(json.debBranchCode);
+				   showBranchCode('find',json.debBranchCode);
 				   $("#b_credName").html(json.credName);
 				   $("#b_credAccNo").html(json.credAccNo);
 				   var contractType;
@@ -748,7 +772,7 @@ table tr td select {
 				   }
 				   $("#b_contractType").html(contractType);
 				   $("#b_contractType").val(json.contractType);
-				   $("#b_credBranchCode").html(json.credBranchCode);
+				   showBranchCode('find_a',json.credBranchCode);
 				   $("#b_debAmoLimit").html(json.debAmoLimit);
  				   var debTranLimitType;
 				   if(json.debTranLimitType == '00'){
@@ -822,7 +846,7 @@ table tr td select {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 680
+				height: 630
 			});
 		}
 		function delFindById(tId){
@@ -839,7 +863,7 @@ table tr td select {
 				   $("#c_contractNum").html(json.contractNum);
 				   $("#c_debName").html(json.debName);
 				   $("#c_debAccNo").html(json.debAccNo);
-				   $("#c_debBranchCode").html(json.debBranchCode);
+				   showBranchCode('delete',json.debBranchCode);
 				   $("#c_credName").html(json.credName);
 				   $("#c_credAccNo").html(json.credAccNo);
 				   var contractType;
@@ -854,7 +878,7 @@ table tr td select {
 				   }
 				   $("#c_contractType").html(contractType);
 				   $("#c_contractType").val(json.contractType);
-				   $("#c_credBranchCode").html(json.credBranchCode);
+				   showBranchCode('delete_a',json.credBranchCode);
 				   $("#c_debAmoLimit").html(json.debAmoLimit);
  				   var debTranLimitType;
 				   if(json.debTranLimitType == '00'){
@@ -928,7 +952,7 @@ table tr td select {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 680
+				height: 630
 			});
 		}
 
@@ -999,7 +1023,7 @@ table tr td select {
 					         	var retInfo;
 					         	jsonRet = eval('(' + data + ')');
 					         	var URL =jsonRet.path;
-						 		$("#fileAddress").val(URL);
+						 		$("#fileAddress").val(jsonRet.fileName);
 							 	if(!response||data.indexOf("status")==-1){
 							 		isSucc = false; 
 					            }else{
@@ -1022,12 +1046,6 @@ table tr td select {
 			});
 		  });
 		function initCertUrl(tId){
-// 			$("input[id='b_fileAddress']").each(function(){
-// 				var _this = $(this);
-// 				if(_this.val()==''){
-// 					return;
-// 				}
-// 				var id = _this.attr('id');
 				var certType = $('#c_signfileOpp_span');
 				var certSpan = $('#signfileOpp_span');
 				$.ajax({
@@ -1049,28 +1067,27 @@ table tr td select {
 						 }
 					}
 				}); 
-// 			});
 		}
-		function showBranchCode(type){ 
-			var bankNode;
-			if (type == 'debBranchCode') {
-				bankNode = $("#debBranchCode").val();
-			} else {
-				bankNode = $("#credBranchCode").val();
-			}
+		
+		function showBranchCode(type,value){ 
 			$.ajax({
 			   type: "POST",
 			   url: "bankaccout/queryBankInfo",
-			   data: "bankNode="+bankNode,
+			   data: "bankNode="+value,
 			   async: false,
 			   dataType:"json",
 			   success: function(json){	
-				   if(json != null){
-					   $.messager.alert('提示', json.bankName);
-				   }else{
-					   $.messager.alert('提示', '银行行号输入错误!');
-				   }
-			   }
+				    var result = json.bankName;
+				    if(type == 'find') {
+		 				$("#b_debBranchCode").html(result);
+		 			} else if(type == 'find_a'){
+		 				$("#b_credBranchCode").html(result);
+		 			} else if(type == 'delete'){
+		 				$("#c_debBranchCode").html(result);
+		 			} else if(type == 'delete_a'){
+		 				$("#c_credBranchCode").html(result);
+		 			}
+			     }
 			});
 		}
 		function saveFile(){ 
@@ -1127,35 +1144,80 @@ table tr td select {
 			}
 			if(isDelegation == "CT00"){
 				$('#delegation').show();
-				$('#delegation2').hide();
-				$('#delegation3').hide();
+				$('#delegation_2').hide();
 				$('#b_delegation').show();
-				$('#b_delegation2').hide();
-				$('#b_delegation3').hide();
+				$('#b_delegation_2').hide();
 				$('#c_delegation').show();
-				$('#c_delegation2').hide();
-				$('#c_delegation3').hide();
+				$('#c_delegation_2').hide();
 			}else if(isDelegation == "CT01"){
 				$('#delegation').hide();
-				$('#delegation2').show();
-				$('#delegation3').show();
+				$('#delegation_2').show();
 				$('#b_delegation').hide();
-				$('#b_delegation2').show();
-				$('#b_delegation3').show();
+				$('#b_delegation_2').show();
 				$('#c_delegation').hide();
-				$('#c_delegation2').show();
-				$('#c_delegation3').show();
+				$('#c_delegation_2').show();
 			}else{
 				$('#delegation').hide();
-				$('#delegation2').hide();
-				$('#delegation3').hide();
+				$('#delegation_2').hide();
 				$('#b_delegation').hide();
-				$('#b_delegation2').hide();
-				$('#b_delegation3').hide();
+				$('#b_delegation_2').hide();
 				$('#c_delegation').hide();
-				$('#c_delegation2').hide();
-				$('#c_delegation3').hide();
+				$('#c_delegation_2').hide();
 			}
+		}
+		
+		function checkBankKey(type){
+			var pid;
+			if (type == 'add_a') {
+				pid = $("#banknode_key").val();
+			} else {
+				pid = $("#b_banknode_key").val();
+			}
+			 if(pid=='输入关键字检索开户行'){
+				if (type == 'add_a') {
+					 $("#banknode_key").val('');
+				} else {
+					 $("#b_banknode_key").val('');
+				}
+			}
+			$("#banknode_key").css({color:"#515151"});
+			$("#b_banknode_key").css({color:"#515151"});
+		}
+		
+		function queryBankNode(type) {
+			var pid;
+			if (type == 'add_a') {
+				pid = $("#banknode_key").val();
+			} else {
+				pid = $("#b_banknode_key").val();
+			}
+			if(pid==null||pid==''){
+				if (type == 'add_a') {
+					$("#banknode_key").val('输入关键字检索开户行');
+					$("#banknode_key").css({color:"#BEBEBE"});
+				} else {
+					$("#b_banknode_key").val('输入关键字检索开户行');
+					$("#b_banknode_key").css({color:"#BEBEBE"});
+				}
+				return;
+			} 
+			$.ajax({
+				type: "POST",
+				url: "agency/queryBankNode",
+				data: "bankName=" + pid,
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择开户行--</option>";
+					$.each(json,function(key, value) {
+						html += '<option value="' + value.BANK_NODE + '">' + value.BANK_NAME + '</option>';
+					});
+					if (type == 'add_a') {
+						$("#debBranchCode").html(html);
+					} else {
+						$("#credBranchCode").html(html);
+					}
+				}
+			});
 		}
 	</script>
 </html>

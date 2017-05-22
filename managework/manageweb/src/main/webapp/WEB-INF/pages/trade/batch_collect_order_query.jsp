@@ -162,8 +162,6 @@ table tr td select {
 										return fenToYuan(rec.TOTALAMT);
 									}
 								},
-								{field:'RESPCODE',title:'响应码',width:135,align:'center'},
-								{field:'RESPMSG',title:'应答信息',width:136,align:'center'},
 								{field:'STATUS',title:'状态',width:137,align:'center',
 									formatter : function(value, rec) {
 										if (rec.STATUS == "00") {

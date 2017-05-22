@@ -171,8 +171,7 @@ public class AgencyController {
         Map<String, Object> variables = new HashMap<String, Object>();
         UserBean loginUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
         variables.put("userId", loginUser.getUserId());
-        MerchDetaApplyBean merchDeta = new MerchDetaApplyBean();
-        merchDeta = null; variables.put("merberId", memberId);
+        variables.put("merberId", memberId);
         variables.put("merchName", memberName);
         variables.put("status", merchStatus);
         variables.put("flag", flag);
@@ -401,7 +400,7 @@ public class AgencyController {
 						
 //						String fileName = UUID.randomUUID().toString().replace("-", "") + resFileName.substring(resFileName.lastIndexOf("."));
 						FileInputStream in=new FileInputStream(outFile);  
-				        boolean flag = FTPUtils.uploadFile("192.168.2.144", 21, "DownLoad", "624537", "E:ftp","/",resFileName, in);
+				        boolean flag = FTPUtils.uploadFile("192.168.2.138", 21, "DownLoad", "624537", "E:ftp","/",resFileName, in);
 					}else{
 						return null;
 					}
@@ -421,12 +420,14 @@ public class AgencyController {
     	Map<String, String> result = new HashMap<String, String>();
     	String filePath = agencyService.downloadFromFtp(merchApplyId, CertType.format(certTypeCode));
         String uploadDir = request.getSession().getServletContext().getRealPath("/")+"javaCode\\";
-        
-        boolean resultBool = FTPUtils.downloadFile("192.168.2.144", 21, "DownLoad", "624537", "E:ftp/",filePath , uploadDir);
+        if(filePath.equals("")){
+        	result.put("status", "notExist");
+        	return result;
+        }
+        boolean resultBool = FTPUtils.downloadFile("192.168.2.138", 21, "DownLoad", "624537", "E:ftp/",filePath , uploadDir);
         new MerchantThread(uploadDir + "/" + filePath).start();
         
         if (resultBool) {
-        	filePath = "javaCode/" + filePath;
             result.put("status", "OK");
             result.put("url", filePath);
         }else{
@@ -524,6 +525,7 @@ public class AgencyController {
 
         UserBean currentUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
         merchDeta.setmInUser(currentUser.getUserId()); 
+        enterpriseDeta.setInUser(currentUser.getUserId()); 
         List<?> resultlist = agencyService.saveChangeMerchDeta(merchApplyId, merchDeta, enterpriseDeta); 
         return resultlist; 
     }
@@ -793,8 +795,8 @@ public class AgencyController {
     }
     @ResponseBody
 	@RequestMapping("/queryProduct")
-    public List<?> queryProduct(long coopInstiId){
-    	return pojoProductService.queryProduct(coopInstiId);
+    public List<?> queryProduct(){
+    	return pojoProductService.queryProduct();
     }
     
     @ResponseBody
@@ -1087,6 +1089,7 @@ public class AgencyController {
 
             UserBean currentUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
             merchDeta.setmInUser(currentUser.getUserId());
+            enterpriseDeta.setInUser(currentUser.getUserId());
             return agencyService.saveChangeMerchDeta(merchApplyId, merchDeta, enterpriseDeta); 
 //            return agencyService.saveMerchDeta(merchDeta, enterpriseDeta);
 //        if (enterpriseDeta.getIsDelegation() == null) {

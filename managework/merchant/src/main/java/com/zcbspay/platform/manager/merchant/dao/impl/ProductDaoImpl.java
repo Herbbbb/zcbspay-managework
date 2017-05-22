@@ -13,9 +13,10 @@ import com.zcbspay.platform.manager.merchant.dao.ProductDao;
 public class ProductDaoImpl extends HibernateBaseDAOImpl<ProductBean> implements ProductDao {
 
 	@Override
-	public List<?> queryProduct(long coopInstiId) {
-		String sql = "select tp.* from tl_coopinsti_product t inner join t_product tp on t.prouct_id=tp.prdtver where t.coop_insti_id=?";
-		return queryBySQL(sql,new Object[]{coopInstiId});
+	public List<?> queryProduct() {
+		String sql = "select tp.prdtver,tp.prdtname from t_product tp where status='00' order by prdtver";
+//		String sql = "select tp.* from tl_coopinsti_product t inner join t_product tp on t.prouct_id=tp.prdtver where t.coop_insti_id=?";
+		return queryBySQL(sql,new Object[]{});
 	}
 
 }

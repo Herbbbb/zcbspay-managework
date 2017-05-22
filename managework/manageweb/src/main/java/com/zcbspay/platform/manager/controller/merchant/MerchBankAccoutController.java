@@ -155,4 +155,5 @@ public class MerchBankAccoutController {
 	public BankInfoBean queryBankInfo(String bankNode){
 		return merchBankAccoutService.queryBankInfo(bankNode);
 	}
+	
 }

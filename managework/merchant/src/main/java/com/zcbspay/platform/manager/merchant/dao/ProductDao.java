@@ -11,5 +11,5 @@ public interface ProductDao extends BaseDAO<ProductBean>{
      * 合作机构相关产品
      * @return
      */
-	List<?> queryProduct(long coopInstiId);
+	List<?> queryProduct();
 }

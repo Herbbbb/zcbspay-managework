@@ -11,17 +11,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>欢迎登录宜赋通综合管理系统</title>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="<%=basePath%>js/themes/default/easyui.css" />
-<link rel="stylesheet" type="text/css" href="<%=basePath%>js/themes/icon.css" />
-<link rel="stylesheet" type="text/css" href="<%=basePath%>css/style.css"/>
-<link rel="stylesheet" type="text/css" href="<%=basePath%>css/base.css" />
+<link rel="stylesheet" type="text/css" href="js/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="js/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css"/>
+<link rel="stylesheet" type="text/css" href="css/base.css" />
 <link href="css/login/login-box.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<%=basePath%>js/jquery-1.7.2.min.js"/>
-<script type="text/javascript" src="<%=basePath%>js/jquery.easyui.min.js"/>
-<script type="text/javascript" src="<%=basePath%>js/function.js"/>
-<script type="text/javascript" src="<%=basePath%>js/json2.js"/>
-<script type="text/javascript" src="<%=basePath%>js/jquery.form.js"/>
-<script type="text/javascript" src="<%=basePath%>js/easyui-lang-zh_CN.js"/>
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"/>
+<script type="text/javascript" src="js/jquery.easyui.min.js"/>
+<script type="text/javascript" src="js/function.js"/>
+<script type="text/javascript" src="js/json2.js"/>
+<script type="text/javascript" src="js/jquery.form.js"/>
+<script type="text/javascript" src="js/easyui-lang-zh_CN.js"/>
 
 
 
@@ -30,7 +30,7 @@
 
 <body id="loginbody">
 	<form id="theForm" action="" method="post">
-<%-- 	<form id="theForm" action="<%=basePath%>validateUser" method="post"> --%>
+<%-- 	<form id="theForm" action="validateUser" method="post"> --%>
 		<div class="loginbody">
 			<span class="systemlogo"></span>
 			<div class="loginbox">

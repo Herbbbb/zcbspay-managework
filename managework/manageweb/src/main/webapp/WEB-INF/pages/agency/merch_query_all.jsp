@@ -35,6 +35,7 @@ table tr td select {
 						<td align="right" width="10%">机构状态</td>
 						<td align="left" style="padding-left: 5px" width="15%"><select
 							id="status_ins" class="easyui-validatebox">
+								<option value=''>请选择机构状态</option>
 								<option value='00'>在用</option>
 								<option value='12'>注册待完善信息</option>
 								<option value='10'>注册待初审</option>

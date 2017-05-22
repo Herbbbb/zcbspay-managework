@@ -107,7 +107,7 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
 			        "".equals(merch.getSpiltVer()) ? null : merch.getSpiltVer(),
 			        "".equals(merch.getRiskVer()) ? null : merch.getRiskVer(),
 			        "".equals(merch.getRoutVer()) ? null : merch.getRoutVer(),
-			        "".equals(enterprise.getInUser()) ? null : enterprise.getInUser(),
+			        "".equals(merch.getmInUser()) ? null : merch.getmInUser(),
 			        "".equals(merch.getNotes()) ? null : merch.getNotes(),
 			        "".equals(merch.getRemarks()) ? null : merch.getRemarks(),
 			        "".equals(merch.getPayBankCode()) ? null : merch.getPayBankCode(),
@@ -283,7 +283,10 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
 
     public boolean isRepeat(String email, String cellphone, Long coopInstiId) {
         String sql="select * from t_merch_deta t inner join t_member tp on t.member_id=tp.member_id where"
-        		+ " tp.insti_code=? and (tp.email=? or tp.phone=?)";
+        		+ " nvl(tp.insti_code,'-1')=nvl(?,'-1') and (tp.email=? or tp.phone=?)";
+        
+//        String sql="select * from t_merch_deta t inner join t_member tp on t.member_id=tp.member_id where"
+//        		+ " tp.insti_code=? and (tp.email=? or tp.phone=?)";
         
         Object[] paramaters = new Object[]{
         		"".equals(coopInstiId) ? null : coopInstiId,
@@ -382,7 +385,7 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
 
 	@Override
 	public List<?> saveChangeMerchDeta(String merchApplyId, MerchDetaApplyBean merchDeta,EnterpriseDetaApplyBean enterpriseDeta) {
-		 boolean hasSame = hasSame(merchDeta.getMemberId(), enterpriseDeta.getEmail(),enterpriseDeta.getPhone(),enterpriseDeta.getCoopInstiId().toString());
+		 boolean hasSame = hasSame( enterpriseDeta.getEmail(),enterpriseDeta.getPhone(),enterpriseDeta.getCoopInstiId(),merchDeta.getMemberId());
 	        List<Map<String, String>> result = new ArrayList<Map<String, String>>();
 	        Map<String, String> resultMap = new HashMap<String, String>();
 	        if (hasSame) {
@@ -398,8 +401,7 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
 	        	return null;
 	        }
 
-	        if (merchDeta.getBankNode() == null
-	                || merchDeta.getBankNode().equals("")) {
+	        if (merchDeta.getBankNode() == null || merchDeta.getBankNode().equals("")) {
 	            merchDeta.setBankCode(oldMerchApplyInfo.getBankCode());
 	            merchDeta.setBankNode(oldMerchApplyInfo.getBankNode());
 	        } else {
@@ -438,7 +440,7 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
 				paramaters = new Object[]{
 				        merchApplyId,
 				        merchDeta.getMerchId(),
-				        enterpriseDeta.getMemId(),
+				        merchDeta.getMemId(),
 				        enterpriseDeta.getEnterpriseMemberId(),
 				        "".equals(merchDeta.getParent()) ? null : merchDeta.getParent(),
 				        "".equals(merchDeta.getSetlCycle()) ? null : merchDeta.getSetlCycle(),
@@ -457,7 +459,7 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
 				        "".equals(merchDeta.getRiskVer()) ? null : merchDeta.getRiskVer(),
 				        "".equals(merchDeta.getRoutVer()) ? null : merchDeta.getRoutVer(),
 				        		
-				        "".equals(enterpriseDeta.getInUser()) ? null : enterpriseDeta.getInUser(),
+				        "".equals(merchDeta.getmInUser()) ? null : merchDeta.getmInUser(),
 				        "".equals(merchDeta.getNotes()) ? null : merchDeta.getNotes(),
 				        "".equals(merchDeta.getRemarks()) ? null : merchDeta.getRemarks(),
 		        		"".equals(merchDeta.getPayBankCode()) ? null : merchDeta.getPayBankCode(),
@@ -517,9 +519,9 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
 	        result.add(resultMap);
 	        return result;
 	}
-	 public boolean hasSame(String email, String cellphone, String coopInstiId,String memberId) {
+	 public boolean hasSame(String email, String cellphone, Long coopInstiId,String memberId) {
 	        String sql="select * from t_merch_deta t inner join t_member tp on t.member_id=tp.member_id where"
-	        		+ " tp.insti_code=? and (tp.email=? or tp.phone=?) and t.member_id=?";
+	        		+ " nvl(tp.insti_code,'-1')=nvl(?,'-1') and (tp.email=? or tp.phone=?) and t.member_id=?";
 	        Object[] paramaters = new Object[]{
 	        		"".equals(coopInstiId) ? null : coopInstiId,
 	        		"".equals(email) ? null : email,

@@ -405,12 +405,10 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
 	            merchDeta.setBankCode(paramaters[0].toString());
 	            merchDeta.setBankNode(paramaters[1].toString());
 	        }
-//	        MccListModel mccList = daoContainer.getMccListDAO().get(
-//	                merchDeta.getMember().getMccList());
+//	        MccListModel mccList = daoContainer.getMccListDAO().get(merchDeta.getMember().getMccList());
 //	        enterpriseDeta.setMcc(mccList.getMcc());
 //	        merchDeta.setmInUser(oldMerchApplyInfo.getmInUser());
-//	        enterpriseDeta.setMemId(
-//	                oldMerchApplyInfo.getMemberApply().getMemId());
+//	        enterpriseDeta.setMemId(oldMerchApplyInfo.getMemberApply().getMemId());
 //	        merchDeta.setMerchId(oldMerchApplyInfo.getMerchId());
 //	        merchDeta.setMemberId(oldMerchApplyInfo.getMemberId());
 

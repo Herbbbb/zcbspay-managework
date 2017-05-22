@@ -52,12 +52,12 @@ $.extend($.fn.validatebox.defaults.rules, {
 		},
 		message: 'MCC必须为4位数字'
 	},
-	merchno: { //商户号
+	merchno: { //委托机构号
 		validator: function(value) {
 			return /^\w{13,15}$/.test(value);
 
 		},
-		message: '请输入正确的商户号'
+		message: '请输入正确的委托机构号'
 	},
 	licencenoNewLength: { //营业执照号
 		validator: function(value, param) {
@@ -116,7 +116,7 @@ $.extend($.fn.validatebox.defaults.rules, {
 		message: '请输入8-10位的组织机构代码号'
 
 	},
-	MerchLength: { //商户名称
+	MerchLength: { //委托机构名称
 		validator: function(value, param) {
 			var i;
 			var num = 0;
@@ -131,7 +131,7 @@ $.extend($.fn.validatebox.defaults.rules, {
 
 			return num <= param[0];
 		},
-		message: '请输入不大于30位长度的商户名称，不可有空格'
+		message: '请输入不大于30位长度的委托机构名称，不可有空格'
 	},
 	postcode: { //邮政编码
 		validator: function(value, param) {

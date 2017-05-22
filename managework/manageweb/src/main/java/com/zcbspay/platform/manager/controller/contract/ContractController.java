@@ -105,11 +105,13 @@ public class ContractController {
 	@ResponseBody
     @RequestMapping("/save")
 	public Map<String, Object> save(HttpServletRequest request,ContractBean contract) {
-		Map<String, String> result = new HashMap<String, String>();
+		Map<String, Object> result = new HashMap<String, Object>();
 		UserBean loginUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
 		contract.setInUser(loginUser.getUserId());
 		if (contract.getFileAddress() == null || contract.getFileAddress().equals("")) {
-			return null;
+			result.put("RET", "error");
+			result.put("INFO", "附件地址不能为空！");
+			return result;
 		}
 		String debAmoLimit = MoneyUtils.changeY2F(contract.getDebAmoLimit());
 		String debAccyAmoLimit = MoneyUtils.changeY2F(contract.getDebAccyAmoLimit());
@@ -177,7 +179,7 @@ public class ContractController {
     	
     	String filePath = bean.getFileAddress();
         String uploadDir = request.getSession().getServletContext().getRealPath("/")+"javaCode\\";
-        boolean resultBool = FTPUtils.downloadFile("192.168.2.144", 21, "DownLoad", "624537", "E:ftp/",filePath , uploadDir);
+        boolean resultBool = FTPUtils.downloadFile("192.168.2.138", 21, "DownLoad", "624537", "E:ftp/",filePath , uploadDir);
         new MerchantThread(uploadDir + "/" + filePath).start();
         
         if (resultBool) {
@@ -227,7 +229,7 @@ public class ContractController {
 					mf.transferTo(outFile);
 //					String fileName = UUID.randomUUID().toString().replace("-", "") + resFileName.substring(resFileName.lastIndexOf("."));
 					FileInputStream in=new FileInputStream(outFile);  
-			        boolean flag = FTPUtils.uploadFile("192.168.2.144", 21, "DownLoad", "624537", "E:ftp","/",resFileName, in);
+			        boolean flag = FTPUtils.uploadFile("192.168.2.138", 21, "DownLoad", "624537", "E:ftp","/",resFileName, in);
 					result.put("status", "OK");
 					result.put("path", path);
 					result.put("fileName", resFileName);
@@ -388,7 +390,7 @@ public class ContractController {
 	        	resMap.put("msg", result);
 			}else if(result.size() < list.size()){
 				FileInputStream in=new FileInputStream(fileServer);  
-		        boolean flag = FTPUtils.uploadFile("192.168.2.144", 21, "DownLoad", "624537", "E:ftp","/",fileName , in);
+		        boolean flag = FTPUtils.uploadFile("192.168.2.138", 21, "DownLoad", "624537", "E:ftp","/",fileName , in);
 			}else{
 				resMap.put("status", "OK");
 				resMap.put("msg", "成功");
