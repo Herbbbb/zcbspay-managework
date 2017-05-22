@@ -634,6 +634,7 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 //            // 生成商户账户
 //            memberServiceImpl.openBusiAcct(pojoMerchDetaApply.getMemberApply()
 //                    .getMemberName(), pojoMerchDetaApply.getMemberId(),

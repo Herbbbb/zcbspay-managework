@@ -2,6 +2,7 @@ package com.zcbspay.platform.manager.controller.contract;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
@@ -9,6 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +32,7 @@ import com.zcbspay.platform.manager.merchant.bean.CertType;
 import com.zcbspay.platform.manager.merchant.bean.EnterpriseDetaApplyBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchDetaApplyBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchRateConfigBean;
+import com.zcbspay.platform.manager.merchant.bean.PortalUserModel;
 import com.zcbspay.platform.manager.merchant.service.AgencyService;
 import com.zcbspay.platform.manager.merchant.service.CoopInstiService;
 import com.zcbspay.platform.manager.merchant.service.EnterpriseDetaService;
@@ -43,6 +46,10 @@ import com.zcbspay.platform.manager.system.bean.UserBean;
 import com.zcbspay.platform.manager.system.service.CityService;
 import com.zcbspay.platform.manager.system.service.ProvinceService;
 import com.zcbspay.platform.manager.utils.FTPUtils;
+import com.zcbspay.platform.manager.utils.HttpUtils;
+import com.zcbspay.platform.manager.utils.MD5Util;
+
+import net.sf.json.JSONObject;
 @Controller
 @RequestMapping("/agency")
 @SuppressWarnings("all")
@@ -400,7 +407,7 @@ public class AgencyController {
 						
 //						String fileName = UUID.randomUUID().toString().replace("-", "") + resFileName.substring(resFileName.lastIndexOf("."));
 						FileInputStream in=new FileInputStream(outFile);  
-				        boolean flag = FTPUtils.uploadFile("192.168.2.138", 21, "DownLoad", "624537", "E:ftp","/",resFileName, in);
+				        boolean flag = FTPUtils.uploadFile("192.168.2.142", 21, "webftp", "webftp","","agency/",resFileName, in);
 					}else{
 						return null;
 					}
@@ -424,7 +431,7 @@ public class AgencyController {
         	result.put("status", "notExist");
         	return result;
         }
-        boolean resultBool = FTPUtils.downloadFile("192.168.2.138", 21, "DownLoad", "624537", "E:ftp/",filePath , uploadDir);
+        boolean resultBool = FTPUtils.downloadFile("192.168.2.142", 21, "webftp", "webftp","agency/",filePath , uploadDir);
         new MerchantThread(uploadDir + "/" + filePath).start();
         
         if (resultBool) {
@@ -576,7 +583,7 @@ public class AgencyController {
     	return result; 
         
     }
-
+    
     /**
      * 委托机构审核（通过，否决，驳回） --0 通过 1 拒绝 9 终止
      * @throws Exception
@@ -605,11 +612,56 @@ public class AgencyController {
         List<Map<String, Object>> resultlist = agencyService.merchAudit(merchApplyId, merchDeta, deta.getMemId(), flag, isAgree);
         if(flag.equals("6")){
             resultlist.get(0).put("FLAG", "复审通过");
+//        }else if(flag.equals("3") && resultlist.get(0).get("ret").equals("succ")){
+//        	PortalUserModel userBean = new PortalUserModel();
+//        	userBean.setMemberid(merchDeta.getMemberId().toString());
+//        	userBean.setUserName(deta.getEnterpriseName());
+//        	userBean.setPwd(MD5Util.MD5(getFixLenthString(6) + "w5y1j5z1s1l1z6z0y8z1m1l0c5r5y3z4"));
+//        	userBean.setPhone(deta.getPhone());
+//        	userBean.setEmail(deta.getEmail());
+//			String userBeanStr =JSONObject.fromObject(userBean).toString();
+//        	register(userBeanStr);
         }else{
            resultlist.get(0).put("FLAG", ""); 
         }
         return resultlist;
     }
+    
+//    @ResponseBody
+//	@RequestMapping(value="/register", produces = "application/json;charset=UTF-8")
+//	public static Map<String, Object> register(String userBeanStr) {
+//		String url = "http://192.168.2.90:9911/fe/user/register";
+//		HttpUtils httpUtils = new HttpUtils();
+//		Map<String, String> paramMap = new HashMap<>();
+//		paramMap.put("data", userBeanStr);
+//		try {
+//			httpUtils.openConnection();
+//			String result = httpUtils.post(url, paramMap);
+//			Map<String, Object> map= (Map<String, Object>) JSONObject.toBean(JSONObject.fromObject(result),Map.class);
+//			return map;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			Map<String,Object> mapErr = new HashMap<>();
+//			mapErr.put("RET", "err");
+//			mapErr.put("INFO", "服务异常！");
+//			return mapErr;
+//		}finally {
+//			httpUtils.closeConnection();
+//		}
+//	}
+//    
+//    private static String getFixLenthString(int strLength) {  
+//        
+//        Random rm = new Random();  
+//        // 获得随机数  
+//        double pross = (1 + rm.nextDouble()) * Math.pow(10, strLength);  
+//      
+//        // 将获得的获得随机数转化为字符串  
+//        String fixLenthString = String.valueOf(pross);  
+//      
+//        // 返回固定的长度的随机数  
+//        return fixLenthString.substring(1, strLength + 1);  
+//    } 
 
     /**
      * 委托机构秘钥下载
