@@ -452,7 +452,7 @@ table tr td font.current-step {
 						$.each(json,function(key, value) {
 							if (value.RET == "succ") {
 								var num = $("#enterpriseMemberId").val();
-								var info = $("#merchApplyId").val();
+								$("#merchApplyId").val(value.INFO);
 								$("#button_id").linkbutton('enable');
 								if($("#a_chargingunit").val() == null || $("#a_chargingunit").val() == ""){
 									findChargingunit();

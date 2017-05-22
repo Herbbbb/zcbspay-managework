@@ -107,7 +107,7 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
 			        "".equals(merch.getSpiltVer()) ? null : merch.getSpiltVer(),
 			        "".equals(merch.getRiskVer()) ? null : merch.getRiskVer(),
 			        "".equals(merch.getRoutVer()) ? null : merch.getRoutVer(),
-			        "".equals(enterprise.getInUser()) ? null : enterprise.getInUser(),
+			        "".equals(merch.getmInUser()) ? null : merch.getmInUser(),
 			        "".equals(merch.getNotes()) ? null : merch.getNotes(),
 			        "".equals(merch.getRemarks()) ? null : merch.getRemarks(),
 			        "".equals(merch.getPayBankCode()) ? null : merch.getPayBankCode(),
@@ -401,8 +401,7 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
 	        	return null;
 	        }
 
-	        if (merchDeta.getBankNode() == null
-	                || merchDeta.getBankNode().equals("")) {
+	        if (merchDeta.getBankNode() == null || merchDeta.getBankNode().equals("")) {
 	            merchDeta.setBankCode(oldMerchApplyInfo.getBankCode());
 	            merchDeta.setBankNode(oldMerchApplyInfo.getBankNode());
 	        } else {
@@ -441,7 +440,7 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
 				paramaters = new Object[]{
 				        merchApplyId,
 				        merchDeta.getMerchId(),
-				        enterpriseDeta.getMemId(),
+				        merchDeta.getMemId(),
 				        enterpriseDeta.getEnterpriseMemberId(),
 				        "".equals(merchDeta.getParent()) ? null : merchDeta.getParent(),
 				        "".equals(merchDeta.getSetlCycle()) ? null : merchDeta.getSetlCycle(),
@@ -460,7 +459,7 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
 				        "".equals(merchDeta.getRiskVer()) ? null : merchDeta.getRiskVer(),
 				        "".equals(merchDeta.getRoutVer()) ? null : merchDeta.getRoutVer(),
 				        		
-				        "".equals(enterpriseDeta.getInUser()) ? null : enterpriseDeta.getInUser(),
+				        "".equals(merchDeta.getmInUser()) ? null : merchDeta.getmInUser(),
 				        "".equals(merchDeta.getNotes()) ? null : merchDeta.getNotes(),
 				        "".equals(merchDeta.getRemarks()) ? null : merchDeta.getRemarks(),
 		        		"".equals(merchDeta.getPayBankCode()) ? null : merchDeta.getPayBankCode(),

@@ -314,11 +314,9 @@ table tr td font.current-step {
 			</div>
 			<div region="south" border="false"
 				style="text-align: center; padding: 5px 0;">
-				<a class="easyui-linkbutton" iconCls="icon-ok" id="button_id"
-					href="javascript:savemerchDeta()" onclick="">下一步</a>
+				<a class="easyui-linkbutton" iconCls="icon-ok" id="button_id" href="javascript:savemerchDeta()" onclick="">下一步</a>
 				<!--  <a class="easyui-linkbutton" iconCls="icon-cancel" href="javascript:resize()" onclick="init()">取消</a>-->
-				<a href="javascript:backToMerchIndex()" class="easyui-linkbutton"
-					iconCls="icon-back">返回</a>
+				<a href="javascript:backToMerchIndex()" class="easyui-linkbutton" iconCls="icon-back">返回</a>
 			</div>
 		</div>
 	</div>
@@ -461,7 +459,7 @@ table tr td font.current-step {
 						$.each(json,function(key, value) {
 							if (value.RET == "succ") {
 								var num = $("#enterpriseMemberId").val();
-								var info = $("#merchApplyId").val();
+								$("#merchApplyId").val(value.INFO);
 								$("#button_id").linkbutton('enable');
 								if($("#a_chargingunit").val() == null || $("#a_chargingunit").val() == ""){
 									findChargingunit();
@@ -611,7 +609,6 @@ table tr td font.current-step {
 					var html = "<option value=''>--请选择机构类型--</option>";
 					$.each(json,
 					function(key, value) {
-						//alert(value.roleName);
 						html += '<option value="' + value.PARA_CODE + '">' + value.PARA_NAME + '</option>';
 					}) ;
 					$("#merchtype_ins").html(html);
@@ -619,49 +616,6 @@ table tr td font.current-step {
 				}
 			});
 		}
-		/*
-		function showqueryTrade(){
-			$.ajax({
-				type: "POST",
-				url: "agency/queryTrate",
-				data: "rand=" + new Date().getTime(),
-				dataType: "json",
-				success: function(json) {
-					var html = "<option value=''>--请选择所属行业--</option>";
-					$.each(json,
-					function(key, value) {
-						html += '<option value="' + value.PARA_CODE + '">' + value.PARA_NAME + '</option>';
-					});
-					$("#trade_ins").html(html);
-		
-				}
-			});
-		}*/
-		 
-		
-// 		function showMccList(){
-// 			$.ajax({
-// 				type: "POST",
-// 				url: "agency/queryMccList",
-// 				data: "rand=" + new Date().getTime(),
-// 				dataType: "json",
-// 				success: function(json) {
-// 					var mcclist = $('#mcclist_old').val();
-// 					var html = "<option value=''>--请选择机构所属行业--</option>";
-// 					$.each(json,
-// 					function(key, value) {
-// 						if(value.MCCLIST==mcclist){
-// 							html += '<option value="' + value.MCCLIST + '" selected="selected">' + value.MCCCONT + '</option>';
-// 						}else{
-// 							html += '<option value="' + value.MCCLIST + '">' + value.MCCCONT + '</option>';
-// 						}
-// 					}) ;
-// 					$("#mcclist_ins").html(html);
-		
-// 				}
-// 			});
-// 		}
-		
 		function showUpload(type) {
 			$("#btn_upload").linkbutton('enable');
 			var uploadTitle;
@@ -712,16 +666,12 @@ table tr td font.current-step {
 							$.messager.alert('提示', "上传成功");
 							if (type == 'busi') {
 								$("#merchant_busiScan1").val(json.fileName);
-								//$("#taxfile_ins").val(json.fileName);
 							} else if (type == 'licenceno') {
 								$("#merchant_busiScan2").val(json.fileName);
-								//$("#licencefile_ins").val(json.fileName);
 							} else if (type == 'orgcode') {
 								$("#merchant_busiScan3").val(json.fileName);
-								//$("#orgcodefile_ins").val(json.fileName);
 							} else {
 								$("#merchant_busiScan4").val(json.fileName);
-								//$("#corpfile_ins").val(json.fileName);
 							}
 							closeUpload();
 						} else {
@@ -737,26 +687,6 @@ table tr td font.current-step {
 			}
 		}
 		function cleanFile(id) {
-			/*alert("清除"+id);
-					var _file = document.getElementById(id);    
-					if(_file.files){        
-						_file.value = "";    
-					}else{        
-						if (typeof _file != "object"){ 
-							return null; 
-						}        
-						var _span = document.createElement("span");        
-						_span.id = "__tt__";        
-						_file.parentNode.insertBefore(_span,_file);        
-						var tf = document.createElement("form");        
-						tf.appendChild(_file);        
-						document.getElementsByTagName("body")[0].appendChild(tf);        
-						tf.reset();        
-						_span.parentNode.insertBefore(_file,_span);        
-						_span.parentNode.removeChild(_span);        
-						_span = null;        
-						tf.parentNode.removeChild(tf);    
-					}*/
 			var file = $("#" + id);
 			file.after(file.clone().val(""));
 			file.remove();
@@ -848,42 +778,10 @@ table tr td font.current-step {
 			});
 		}
 		
-// 		function showCoopInsti() {
-// 			$.ajax({
-// 				type: "POST",
-// 				url: "agency/queryAll",
-// 				dataType: "json",
-// 				success: function(json) {
-// 					var merCoopInstiId = $('#coopInstiId_old').val();
-// 					var html = "<option value=''>--请选择合作机构--</option>";
-// 					$.each(json,
-// 					function(key, value) {
-// 						if(value.ID==merCoopInstiId){
-// 							html += '<option value="' + value.ID + '" selected="selected">' + value.INSTI_NAME + '</option>';
-// 						}else{
-// 							html += '<option value="' + value.ID + '">' + value.INSTI_NAME + '</option>';
-// 						}
-						
-// 					}) ;
-// 					$("#coop_insti_ins").html(html);
-// 					refreshProduct(merCoopInstiId);
-// 					$('#coop_insti_ins').attr('disabled','disabled');
-// 				}
-// 			});
-// 		}
-		
-// 		function refreshProduct(){
-// 			var coopInstiId = $("#coop_insti_ins").val();
-// 			if (coopInstiId != "" && coopInstiId != null) {
-// 				showProduct();
-// 			}
-// 			showThreeVersion();
-// 		}
 		
 		function showThreeVersion() {
 			var pid = $("#prdtver_ins").val();
 			if (pid != "" && !pid != null) {
-// 				queryDistType(pid);
 				queryFee(pid);
 				queryRiskType(pid)
 			}
@@ -906,7 +804,6 @@ table tr td font.current-step {
 						}
 					});
 					$("#riskver").html(html);
-		
 				}
 			});
 		}
@@ -1012,7 +909,6 @@ table tr td font.current-step {
 		}
 		function findChargingunit(){
 			var num = $("#enterpriseMemberId").val();
-			var info = $("#merchApplyId").val();
 			$('#b_saveForm :input').val('');
 			$('#a_bustCode').val(11000001);
 			$('#b_bustCode').val(11000002);
@@ -1059,16 +955,19 @@ table tr td font.current-step {
 			});
 			$('#b_btn_submit2').linkbutton('enable');	
 		}
+		
 		function backToMerchIndex(){
 			window.location.href= "<%=basePath%>" +'agency/show';
 		}
+		
 		function validate(){
 			 if($('#b_saveForm').form('validate')){
 			    	closeAdd2();
 					return true;
-				}
-		        return false;
+			 }
+		     return false;
 		}
+		
 		function save(){
 			$('#b_saveForm').form('submit', {  
 			    onSubmit: function(){  
@@ -1078,11 +977,11 @@ table tr td font.current-step {
 			        return false;   
 			    },   
 			    success:function(data){  
-			    	json = eval('(' + data + ')');
 			    	var info = $("#merchApplyId").val();
-// 			    	$.each(data, function(key,value){
+			    	json = eval('(' + data + ')');
 			    		if(json.RET == "succ"){
 			    			$("#b_btn_submit2").linkbutton('enable');
+			    			
 							$.messager.confirm('提示', '保存成功,等待上传证件照片',function(data){
 								if(data){
 									window.location.href='agency/toUpload?merchApplyId='+info;
@@ -1093,8 +992,7 @@ table tr td font.current-step {
 				    		$.messager.alert('提示',json.INFO);
 				    	}
 			    		$('#b_btn_submit2').linkbutton('enable');		
-// 					}) 
-			    }   
+				    }   
 			});  
 		}
 		function closeAdd2(){

@@ -130,7 +130,7 @@
 								  if(data.ret=='success'){
 									window.location="<%=basePath%>login/loginSuccess";
 								}else{
-									$("#info").html(data.result);
+									$("#info").html(data.info);
 									$('#rand_image').attr("src","<%=basePath%>login/validateCode?rand="+new Date().getTime());
 								}
 							}
@@ -206,7 +206,7 @@
 	        			  if(data.ret=='success'){
 	        				window.location="<%=basePath%>login/loginSuccess";
 	        			}else{
-	        				$("#info").html(data.result);
+	        				$("#info").html(data.info);
 	        				$('#rand_image').attr("src","<%=basePath%>login/validateCode?rand="+new Date().getTime());
 	        			}
 	        		}

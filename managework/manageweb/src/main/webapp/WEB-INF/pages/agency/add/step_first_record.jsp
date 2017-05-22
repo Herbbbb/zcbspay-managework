@@ -412,7 +412,7 @@ table tr td font.current-step {
 				</form>
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 15px 0;">
-				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:b_save()">提交</a>
+				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:b_save()" id="b_2_btn_submit2">提交</a>
 				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd2()">返回</a>
 			</div>
 		</div>
@@ -471,6 +471,7 @@ table tr td font.current-step {
 						$.each(json,function(key, value) {
 							if (value.RET == "succ") {
 								$('#b_merchNo').val(value.MERCHNO);
+								$('#b_2_merchNo').val(value.MERCHNO);
 								$("#merchApplyId").val(value.INFO);
 								$("#button_id").linkbutton('enable');
 								if($("#a_chargingunit").val() == null || $("#a_chargingunit").val() == ""){
@@ -971,11 +972,18 @@ table tr td font.current-step {
 			}
 		}
 		function findChargingunit(){
-			$('#b_saveForm :input').val('');
-			$('#a_bustCode').val(11000001);
-			$('#b_bustCode').val(11000002);
-			$('#c_bustCode').val(11000003);
-			$('#d_bustCode').val(11000004);
+			if($("#a_chargingunit").val() == null || $("#a_chargingunit").val() == ""){
+				$('#b_saveForm :input').val('');
+				$('#a_bustCode').val(11000001);
+				$('#b_bustCode').val(11000002);
+				$('#c_bustCode').val(11000003);
+				$('#d_bustCode').val(11000004);
+			}
+// 			$('#b_saveForm :input').val('');
+// 			$('#a_bustCode').val(11000001);
+// 			$('#b_bustCode').val(11000002);
+// 			$('#c_bustCode').val(11000003);
+// 			$('#d_bustCode').val(11000004);
 			
 			$('#w2').window({
 				title: '新增业务收费信息',
@@ -997,11 +1005,12 @@ table tr td font.current-step {
 		}
 		function validate(){
 			 if($('#b_saveForm').form('validate')){
-			    	$('#b_btn_submit2').linkbutton('disable');	
-			    	closeAdd2();
-					return true;
-				}
-		        return false;
+		    	$('#b_btn_submit2').linkbutton('disable');	
+		    	closeAdd2();
+				return true;
+			}
+	        return false;
+	        
 		}
 		function save(){
 			$('#b_saveForm').form('submit', {  
@@ -1038,8 +1047,6 @@ table tr td font.current-step {
 			$('#c_2_bustCode').val(11000003);
 			$('#d_2_bustCode').val(11000004);
 			var num = $('#b_merchNo').val();
-			$('#b_2_merchNo').val(num);
-			
 			$.ajax({
 			   type: "POST",
 			   url: "agency/queryByMerchNo",

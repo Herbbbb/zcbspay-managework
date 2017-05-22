@@ -246,7 +246,7 @@ table tr td select {
 		</div>
 	</div>
 	<div id="w3" class="easyui-window" closed="true" title="My Window"
-		iconCls="icon-save" style="width: 500px; height: 400px; padding: 5px;">
+		iconCls="icon-save" style="width: 500px; height: 400px; padding: 5px;toolbar: no;">
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; font-size: 12px; text-align: center">
@@ -372,6 +372,8 @@ table tr td select {
 			showProfitType();
 			$("#saveForm").attr("action","coopAgency/save");
 			$('#saveForm :input').val('');
+			$('#bnkProvince_ins').html('');
+			$('#b_profitType').val('');
 			$('#w').window({
 				title: '新增代理商信息',
 				top:100,
@@ -417,7 +419,6 @@ table tr td select {
 						}
 					}) ;
 					$("#province_ins").html(html);
-					$("#bnkProvince_ins").html(html);
 				}
 			});
 		}
@@ -469,7 +470,6 @@ table tr td select {
 						}
 					}) ;
 					$("#profitType").html(html);
-					$("#b_profitType").html(html);
 				}
 			});
 		}
@@ -485,12 +485,12 @@ table tr td select {
 			    success: function(json) {
 		    		$('#btn_submit').linkbutton('enable');
 		    		json = eval('(' + json + ')');
-					if(json.status=='succ'){
-						 $.messager.alert('提示',"保存成功");
+		    		if(json.RET=='succ'){
+						 $.messager.alert('提示',json.INFO);
 						 $('#w').window('close');
 						 search();
 					}else{
-						 $.messager.alert('提示',"保存失败"); 
+						 $.messager.alert('提示',json.INFO);
 					}
 				}
 			});  
@@ -499,7 +499,7 @@ table tr td select {
 			$('#b_saveForm').form('submit', {  
 			    onSubmit: function(){  
 			    	if($('#b_saveForm').form('validate')){
-// 			    		$('#b_btn_submit').linkbutton('disable');	
+			    		$('#b_btn_submit').linkbutton('disable');	
 			    		return true;   
 				    }
 			        return false;   
@@ -533,7 +533,7 @@ table tr td select {
 					$("#b_caBankAcc").val(json[0].CABANKACC);
 					$("#b_caAccName").val(json[0].CAACCNAME);
 					$("#b_bankNode_ins").html(json[0].BANK_NODE);
-					var html = "<option value=''>"+json[0].BANKNAME+"</option>";
+					var html = "<option value='"+json[0].BANKNAME+"'>"+json[0].BANKNAME+"</option>";
 					$("#b_banknode_ins").html(html);
 					$("#b_bankNode").val(json[0].BANK_NODE);
 					$("#b_organId").val(json[0].ORGANID);
@@ -690,7 +690,7 @@ table tr td select {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 250
+				height: 270
 			});
 		}
 

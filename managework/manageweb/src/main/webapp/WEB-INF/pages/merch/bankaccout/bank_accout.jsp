@@ -267,10 +267,12 @@ table tr td select {
 						<tr style="height: 25px">
 							<td class="update">渠道代码</td>
 							<td class="update" align="left"><span id="d_channelCode"></span></td>
+							<td class="update"></td>
+							<td class="update" align="left"></td>
 						</tr>
 						<tr style="height: 25px">
 							<td class="update">备注</td>
-							<td align="left" colspan="3" class="update"><span id="d_notes" rows="3" cols="81" style="resize: none;"></span></td>
+							<td class="update" align="left" colspan="3"><span id="d_notes" rows="3" cols="81" style="resize: none;"></span></td>
 						</tr>
 					</table>
 				</form>
@@ -564,7 +566,7 @@ table tr td select {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 300
+				height: 310
 			});
 		}
 

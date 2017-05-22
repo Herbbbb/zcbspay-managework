@@ -105,11 +105,13 @@ public class ContractController {
 	@ResponseBody
     @RequestMapping("/save")
 	public Map<String, Object> save(HttpServletRequest request,ContractBean contract) {
-		Map<String, String> result = new HashMap<String, String>();
+		Map<String, Object> result = new HashMap<String, Object>();
 		UserBean loginUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
 		contract.setInUser(loginUser.getUserId());
 		if (contract.getFileAddress() == null || contract.getFileAddress().equals("")) {
-			return null;
+			result.put("RET", "error");
+			result.put("INFO", "附件地址不能为空！");
+			return result;
 		}
 		String debAmoLimit = MoneyUtils.changeY2F(contract.getDebAmoLimit());
 		String debAccyAmoLimit = MoneyUtils.changeY2F(contract.getDebAccyAmoLimit());
