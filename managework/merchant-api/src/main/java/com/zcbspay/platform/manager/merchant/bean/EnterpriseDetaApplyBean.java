@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class EnterpriseDetaApplyBean  implements Serializable{
+	
 	private static final long serialVersionUID = 3444069778960730088L;
+	
 	private String memId;
 	/**会员号**/
     private String enterpriseMemberId;

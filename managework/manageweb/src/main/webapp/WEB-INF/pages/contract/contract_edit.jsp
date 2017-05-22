@@ -185,20 +185,31 @@ table tr td select {
 							<td align="left" class="update"><span id="b_endDate"></span></td>
 						</tr>
 						<tr id="b_delegation" style="height: 30px">
-							<td class="update">收费代码</td>
-							<td class="update" align="left"><span id="b_chargeNo"></span></td>
 							<td class="update">收费协议号</td>
 							<td class="update" align="left"><span id="b_chargeConntract"></span></td>
+							<td class="update">收费代码</td>
+							<td class="update" align="left"><span id="b_chargeNo"></span></td>
+						</tr>
+						<tr id="b_delegation_2" style="height: 30px">
+							<td class="update">付费协议号</td>
+							<td class="update" align="left"><span id="b_payContract"></span></td>
+							<td class="update"></td>
+							<td class="update" align="left"></span></td>
 						</tr>
 						<tr style="height: 30px">
 							<td align="center" class="update">合同附件</td>
 							<td align="left" class="update"><div id="signfileOpp_span"></div></td>
-							<td id="b_delegation2" class="update">付费协议号</td>
-							<td id="b_delegation3" class="update" align="left"><span id="b_payContract"></span></td>
+							<td class="update"></td>
+							<td class="update" align="left"></span></td>
 						</tr>
 						<tr style="height: 30px">
 							<td class="update">备注</td>
 							<td align="left" colspan="3" class="update"><span id="b_notes" rows="3" cols="81" style="resize: none;"></span></td>
+						</tr>
+						<tr>
+							<td class="update" align="center">审核意见</td>
+							<td class="update" colspan="3" align="center">
+							<textarea rows="5" cols="100" style="margin: 5px" maxlength="256" id="b_cvlexaOpt"></textarea></td>
 						</tr>
 					</table>
 				</form>
@@ -376,13 +387,16 @@ table tr td select {
 				   $("#b_fileAddress").html(json.fileAddress);
 				   $("#proprieTary").html(json.proprieTary);
 				   $("#categoryPurpose").html(json.categoryPurpose);
+				   $("#b_chargeNo").html(json.chargeNo);
+				   $("#b_chargeConntract").html(json.chargeConntract);
+				   $("#b_payContract").html(json.payContract);
 				   initCertUrl(tId);
 				   checkIsDelegation();
 			   }
 			});
 			$('#w2').window({
 				title: '合同详情',
-				top:100,
+				top:10,
 				width: 800,
 				modal: true,
 				minimizable:false,
@@ -390,7 +404,7 @@ table tr td select {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 650
+				height: 730
 			});
 		}
 
@@ -477,7 +491,7 @@ table tr td select {
 			$("#button_ins1").linkbutton('disable');
 			$("#button_ins3").linkbutton('disable');
 			var tId = $("#b_tId").val();
-			var stexaOpt = $("#STOPINION").val();
+			var stexaOpt = $("#b_cvlexaOpt").val();
 			$.ajax({
 				type: "POST",
 				url: "contract/audit?isAgree=" + result + "&tId=" + tId,
@@ -504,16 +518,13 @@ table tr td select {
 			var isDelegation = $('#b_contractType').val();
 			if(isDelegation == "CT00"){
 				$('#b_delegation').show();
-				$('#b_delegation2').hide();
-				$('#b_delegation3').hide();
+				$('#b_delegation_2').hide();
 			}else if(isDelegation == "CT01"){
 				$('#b_delegation').hide();
-				$('#b_delegation2').show();
-				$('#b_delegation3').show();
+				$('#b_delegation_2').show();
 			}else{
 				$('#b_delegation').hide();
-				$('#b_delegation2').hide();
-				$('#b_delegation3').hide();
+				$('#b_delegation_2').hide();
 			}
 		}
 		function showBranchCode(type,value){ 

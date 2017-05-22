@@ -20,8 +20,8 @@ public class PojoMerchDetaApply implements Serializable{
     private Long selfId;
     /**在用会员表主键**/
     private Long merchId;
-    /**会员外键
-    private PojoMemberApply memberApply;**/
+    /**在用会员表外键**/
+    private Long memId;
     /**会员号**/
     private String memberId;
     /**上级商户**/
@@ -110,8 +110,14 @@ public class PojoMerchDetaApply implements Serializable{
     public void setMerchId(Long merchId) {
         this.merchId = merchId;
     }
-     
-    @Column(name = "MEMBER_ID")
+    @Column(name = "MEM_ID")
+    public Long getMemId() {
+		return memId;
+	}
+	public void setMemId(Long memId) {
+		this.memId = memId;
+	}
+	@Column(name = "MEMBER_ID")
     public String getMemberId() {
         return memberId;
     }

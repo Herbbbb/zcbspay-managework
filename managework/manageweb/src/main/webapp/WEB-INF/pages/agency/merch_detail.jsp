@@ -546,11 +546,11 @@ table tr td font.current-step {
 				dataType: "json",
 				success: function(json) {
 					 if(json.status=='OK'){
-						 var URL = json.url;
+						 var URL = "javaCode/" + json.url;
 						 _this.html('<a href="'+URL+'" target="view_window" style="font-size: 12px;color:blue">点击查看</a>');
 					 }else if(json.status=='notExist'){
 						 $(this).html('暂无可查看文件');
-					 } else{
+					 } else if(json.status == 'fail'){
 						 _this.html('查询失败');
 					 }
 				}
