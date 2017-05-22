@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.zcbspay.platform.cnaps.application.bean.ResultBean;
 import com.zcbspay.platform.cnaps.application.bean.TotalCheckPaymentBean;
+import com.zcbspay.platform.manager.constants.Constants;
 import com.zcbspay.platform.manager.reconcilication.bean.ChnTxnBean;
 import com.zcbspay.platform.manager.reconcilication.service.ChannelFileService;
 import com.zcbspay.platform.manager.reconcilication.service.CheckInfoService;
@@ -46,8 +47,6 @@ public class CheckInfoController {
 	private UploadlogService uploadlogService;
 	
 		
-    private final String singleCollect="11000001";
-	private final String singlePay="11000002";
 	private final String rmb="156";
 
 	/**
@@ -262,7 +261,7 @@ public class CheckInfoController {
 	        	ChnTxnBean chnTxnBean=new ChnTxnBean();
 				String[] cell=row.split(",");
 				chnTxnBean.setInstiid(instiid);
-				chnTxnBean.setBusicode(busiType.contains("D")?singleCollect:singlePay);//TODO:这里出现的是C或者D  需要对应成数据库编码
+				chnTxnBean.setBusicode(busiType.contains("D")?Constants.BusinessType.SINGLE_COLLECT:Constants.BusinessType.SINGLE_PAY);//TODO:这里出现的是C或者D  需要对应成数据库编码
 				chnTxnBean.setChargingunit(organization);
 				chnTxnBean.setTransdate(cell[0]);
 				chnTxnBean.setTxid(cell[1]);
@@ -272,7 +271,7 @@ public class CheckInfoController {
 				chnTxnBean.setDebtorbranchcode(cell[2]);
 				chnTxnBean.setDebtoraccountno(cell[3]);
 				chnTxnBean.setDebtorname(cell[4]);
-				chnTxnBean.setCurrencysymbol(rmb);
+				chnTxnBean.setCurrencysymbol(Constants.CurrencyType.RMB);
 				chnTxnBean.setAmount(cell[8].replace("RMB", ""));
 				chnTxnBean.setBillnumber(cell[9]);
 				chnTxnBean.setRspcode(cell[10]);

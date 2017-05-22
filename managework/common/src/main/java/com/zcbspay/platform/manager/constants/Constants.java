@@ -33,6 +33,24 @@ public class Constants {
         }
     }
     
+    public static class BusinessType{
+    	public static final String SINGLE_COLLECT="11000001";
+    	public static final String SINGLE_PAY="11000002";
+    	
+    	public static final String BATCH_COLLECT="11000001";
+    	public static final String BATCH_PAY="11000002";
+    	
+    	private BusinessType(){}
+    }
+    
+    public static class CurrencyType{
+    	public static final String RMB="156";
+    	
+    	private CurrencyType(){}
+    }
+    
+    
+    
     /**
 	 * 发送、接收标志
 		SR00：发送sendReceiveType;
