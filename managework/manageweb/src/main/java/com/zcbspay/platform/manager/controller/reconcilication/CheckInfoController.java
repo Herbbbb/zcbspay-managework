@@ -241,6 +241,11 @@ public class CheckInfoController {
 	        File dir = new File(rootPath+"\\orderData\\");
 	        if(!dir.exists()){//目录不存在则创建
 	             dir.mkdir();
+	        }else{
+	        	File[] files =dir.listFiles();
+	        	for (File file : files) {
+					file.delete();
+				}
 	        }
 	        File fileServer = new File(rootPath+"\\orderData\\"
 	                +(new Random().nextInt(100000)+100000)+fileUp.getOriginalFilename());
@@ -279,7 +284,8 @@ public class CheckInfoController {
 				list.add(chnTxnBean);
 			}
 	        String returnStr=uploadlogService.importBatch(list);
-	        resMap.put("msg", returnStr);
+	        
+	        resMap.put("msg", StringUtils.isEmpty(returnStr)?"导入成功":returnStr);
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        resMap.put("msg", "出错");
