@@ -44,6 +44,11 @@ public class CheckInfoController {
 	
 	@Autowired
 	private UploadlogService uploadlogService;
+	
+		
+    private final String singleCollect="11000001";
+	private final String singlePay="11000002";
+	private final String rmb="156";
 
 	/**
 	 * 总账数据页面
@@ -257,7 +262,7 @@ public class CheckInfoController {
 	        	ChnTxnBean chnTxnBean=new ChnTxnBean();
 				String[] cell=row.split(",");
 				chnTxnBean.setInstiid(instiid);
-				chnTxnBean.setBusicode(busiType.contains("D")?"11000001":"11000002");//TODO:这里出现的是C或者D  需要对应成数据库编码
+				chnTxnBean.setBusicode(busiType.contains("D")?singleCollect:singlePay);//TODO:这里出现的是C或者D  需要对应成数据库编码
 				chnTxnBean.setChargingunit(organization);
 				chnTxnBean.setTransdate(cell[0]);
 				chnTxnBean.setTxid(cell[1]);
@@ -267,7 +272,7 @@ public class CheckInfoController {
 				chnTxnBean.setDebtorbranchcode(cell[2]);
 				chnTxnBean.setDebtoraccountno(cell[3]);
 				chnTxnBean.setDebtorname(cell[4]);
-				chnTxnBean.setCurrencysymbol("156");
+				chnTxnBean.setCurrencysymbol(rmb);
 				chnTxnBean.setAmount(cell[8].replace("RMB", ""));
 				chnTxnBean.setBillnumber(cell[9]);
 				chnTxnBean.setRspcode(cell[10]);
