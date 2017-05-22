@@ -278,7 +278,8 @@ public class CheckInfoController {
 				chnTxnBean.setSettledate(cell[13]);
 				list.add(chnTxnBean);
 			}
-	        String returnStr=uploadlogService.importBatch(list);
+	        String returnStr="导出成功";
+	        returnStr=uploadlogService.importBatch(list);
 	        resMap.put("msg", returnStr);
 	    } catch (Exception e) {
 	        e.printStackTrace();
