@@ -135,8 +135,6 @@ public interface AgencyService {
 	 */
 	public boolean commitMerch(String merchApplyId);
 
-//	public String downloadFromFtp(String parseLong, String realpath, CertType format, boolean fouce);
-
 	/**
 	 * 下载图片路径
 	 * @param merchApplyId

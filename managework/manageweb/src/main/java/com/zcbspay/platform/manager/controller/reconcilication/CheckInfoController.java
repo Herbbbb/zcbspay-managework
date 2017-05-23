@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.zcbspay.platform.cnaps.application.bean.ResultBean;
 import com.zcbspay.platform.cnaps.application.bean.TotalCheckPaymentBean;
+import com.zcbspay.platform.manager.constants.Constants;
 import com.zcbspay.platform.manager.reconcilication.bean.ChnTxnBean;
 import com.zcbspay.platform.manager.reconcilication.service.ChannelFileService;
 import com.zcbspay.platform.manager.reconcilication.service.CheckInfoService;
@@ -44,6 +45,9 @@ public class CheckInfoController {
 	
 	@Autowired
 	private UploadlogService uploadlogService;
+	
+		
+	private final String rmb="156";
 
 	/**
 	 * 总账数据页面
@@ -237,6 +241,11 @@ public class CheckInfoController {
 	        File dir = new File(rootPath+"\\orderData\\");
 	        if(!dir.exists()){//目录不存在则创建
 	             dir.mkdir();
+	        }else{
+	        	File[] files =dir.listFiles();
+	        	for (File file : files) {
+					file.delete();
+				}
 	        }
 	        File fileServer = new File(rootPath+"\\orderData\\"
 	                +(new Random().nextInt(100000)+100000)+fileUp.getOriginalFilename());
@@ -257,7 +266,7 @@ public class CheckInfoController {
 	        	ChnTxnBean chnTxnBean=new ChnTxnBean();
 				String[] cell=row.split(",");
 				chnTxnBean.setInstiid(instiid);
-				chnTxnBean.setBusicode(busiType.contains("D")?"11000001":"11000002");//TODO:这里出现的是C或者D  需要对应成数据库编码
+				chnTxnBean.setBusicode(busiType.contains("D")?Constants.BusinessType.SINGLE_COLLECT:Constants.BusinessType.SINGLE_PAY);//TODO:这里出现的是C或者D  需要对应成数据库编码
 				chnTxnBean.setChargingunit(organization);
 				chnTxnBean.setTransdate(cell[0]);
 				chnTxnBean.setTxid(cell[1]);
@@ -267,15 +276,18 @@ public class CheckInfoController {
 				chnTxnBean.setDebtorbranchcode(cell[2]);
 				chnTxnBean.setDebtoraccountno(cell[3]);
 				chnTxnBean.setDebtorname(cell[4]);
-				chnTxnBean.setCurrencysymbol("156");
+				chnTxnBean.setCurrencysymbol(Constants.CurrencyType.RMB);
 				chnTxnBean.setAmount(cell[8].replace("RMB", ""));
 				chnTxnBean.setBillnumber(cell[9]);
 				chnTxnBean.setRspcode(cell[10]);
 				chnTxnBean.setSettledate(cell[13]);
 				list.add(chnTxnBean);
 			}
+
 	        String returnStr=uploadlogService.importBatch(list);
-	        resMap.put("msg", returnStr);
+	        
+	        resMap.put("msg", StringUtils.isEmpty(returnStr)?"导入成功":returnStr);
+
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        resMap.put("msg", "出错");

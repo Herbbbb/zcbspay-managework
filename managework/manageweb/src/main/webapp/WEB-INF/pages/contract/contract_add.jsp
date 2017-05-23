@@ -1077,7 +1077,12 @@ table tr td select {
 			   async: false,
 			   dataType:"json",
 			   success: function(json){	
-				    var result = json.bankName;
+				   var result;
+				   if(json == null){
+					   result = "开户行未选择！";
+				   }else{
+					   result = json.bankName;
+				   }
 				    if(type == 'find') {
 		 				$("#b_debBranchCode").html(result);
 		 			} else if(type == 'find_a'){

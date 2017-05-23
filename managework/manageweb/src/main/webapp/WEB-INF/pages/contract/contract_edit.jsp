@@ -300,6 +300,7 @@ table tr td select {
 			$('#bankList').datagrid('load',data);
 		}
 		function findById(tId){
+			 $("#b_cvlexaOpt").val('');
 			$.ajax({
 			   type: "POST",
 			   url: "contract/findById",
@@ -390,6 +391,7 @@ table tr td select {
 				   $("#b_chargeNo").html(json.chargeNo);
 				   $("#b_chargeConntract").html(json.chargeConntract);
 				   $("#b_payContract").html(json.payContract);
+				  
 				   initCertUrl(tId);
 				   checkIsDelegation();
 			   }
@@ -534,9 +536,15 @@ table tr td select {
 			   data: "bankNode="+value,
 			   async: false,
 			   dataType:"json",
-			   success: function(json){	
-				    var result = json.bankName;
-				    if(type == 'find') {
+			   success: function(json){
+				   var result;
+				   if(json == null){
+					   result = "开户行未选择！";
+				   }else{
+					   result = json.bankName;
+				   }
+				   
+				   if(type == 'find') {
 		 				$("#b_debBranchCode").html(result);
 		 			} else if(type == 'find_a'){
 		 				$("#b_credBranchCode").html(result);
