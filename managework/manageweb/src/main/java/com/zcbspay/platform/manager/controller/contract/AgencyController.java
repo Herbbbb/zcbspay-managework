@@ -11,7 +11,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -610,58 +612,98 @@ public class AgencyController {
         }
         EnterpriseDetaApplyBean deta = enterpriseDetaService.findById(merchApplyId);
         List<Map<String, Object>> resultlist = agencyService.merchAudit(merchApplyId, merchDeta, deta.getMemId(), flag, isAgree);
+        
         if(flag.equals("6")){
             resultlist.get(0).put("FLAG", "复审通过");
-//        }else if(flag.equals("3") && resultlist.get(0).get("ret").equals("succ")){
-//        	PortalUserModel userBean = new PortalUserModel();
-//        	userBean.setMemberid(merchDeta.getMemberId().toString());
-//        	userBean.setUserName(deta.getEnterpriseName());
-//        	userBean.setPwd(MD5Util.MD5(getFixLenthString(6) + "w5y1j5z1s1l1z6z0y8z1m1l0c5r5y3z4"));
-//        	userBean.setPhone(deta.getPhone());
-//        	userBean.setEmail(deta.getEmail());
-//			String userBeanStr =JSONObject.fromObject(userBean).toString();
-//        	register(userBeanStr);
+        }else if(flag.equals("3")){
+        	for (Map<String, Object> m : resultlist) {
+        	    for (String k : m.keySet()) {
+        	    	String key =  (String) m.get("RET");
+	                if(key.equals("succ")){
+	                	PortalUserModel userBean = new PortalUserModel();
+	        			String pwd = getFixLenthString(6);
+	                	userBean.setMemberid(deta.getEnterpriseMemberId());
+	                	userBean.setUserName(deta.getEnterpriseName());
+	                	userBean.setPwd(MD5Util.MD5(pwd));
+	                	userBean.setPhone(deta.getPhone());
+	                	userBean.setEmail(deta.getEmail());
+	        			String userBeanStr =JSONObject.fromObject(userBean).toString();
+	                	Map<String, Object> register = register(userBeanStr);
+	                	for (String k2 : register.keySet()) {
+	                		key =  (String) register.get("RET");
+	                        if(key.equals("succ")){
+		                       	 sendEmail(userBean,pwd);
+		                       	 return resultlist;
+	                        }
+		                   }
+	                	}
+	                }
+	           }
+        	
         }else{
            resultlist.get(0).put("FLAG", ""); 
         }
         return resultlist;
     }
     
-//    @ResponseBody
-//	@RequestMapping(value="/register", produces = "application/json;charset=UTF-8")
-//	public static Map<String, Object> register(String userBeanStr) {
-//		String url = "http://192.168.2.90:9911/fe/user/register";
-//		HttpUtils httpUtils = new HttpUtils();
-//		Map<String, String> paramMap = new HashMap<>();
-//		paramMap.put("data", userBeanStr);
-//		try {
-//			httpUtils.openConnection();
-//			String result = httpUtils.post(url, paramMap);
-//			Map<String, Object> map= (Map<String, Object>) JSONObject.toBean(JSONObject.fromObject(result),Map.class);
-//			return map;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			Map<String,Object> mapErr = new HashMap<>();
-//			mapErr.put("RET", "err");
-//			mapErr.put("INFO", "服务异常！");
-//			return mapErr;
-//		}finally {
-//			httpUtils.closeConnection();
-//		}
-//	}
-//    
-//    private static String getFixLenthString(int strLength) {  
-//        
-//        Random rm = new Random();  
-//        // 获得随机数  
-//        double pross = (1 + rm.nextDouble()) * Math.pow(10, strLength);  
-//      
-//        // 将获得的获得随机数转化为字符串  
-//        String fixLenthString = String.valueOf(pross);  
-//      
-//        // 返回固定的长度的随机数  
-//        return fixLenthString.substring(1, strLength + 1);  
-//    } 
+    @ResponseBody
+	@RequestMapping(value="/register", produces = "application/json;charset=UTF-8")
+	public static Map<String, Object> register(String userBeanStr) {
+		String url = "http://192.168.2.145:8080/fe/user/register";
+		HttpUtils httpUtils = new HttpUtils();
+		Map<String, String> paramMap = new HashMap<>();
+		paramMap.put("userBeanStr", userBeanStr);
+		try {
+			httpUtils.openConnection();
+			String result = httpUtils.post(url, paramMap);
+			Map<String, Object> map= (Map<String, Object>) JSONObject.toBean(JSONObject.fromObject(result),Map.class);
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			Map<String,Object> mapErr = new HashMap<>();
+			mapErr.put("RET", "erro");
+			mapErr.put("INFO", "服务异常，商户注册失败！");
+			return mapErr;
+		}finally {
+			httpUtils.closeConnection();
+		}
+	}
+    
+    private static String getFixLenthString(int strLength) {  
+        Random rm = new Random();  
+        // 获得随机数  
+        double pross = (1 + rm.nextDouble()) * Math.pow(10, strLength);  
+        // 将获得的获得随机数转化为字符串  
+        String fixLenthString = String.valueOf(pross);  
+        // 返回固定的长度的随机数  
+        return fixLenthString.substring(1, strLength + 1);  
+    } 
+    
+    @ResponseBody
+	@RequestMapping(value="/sendEmail", produces = "application/json;charset=UTF-8")
+	public static Map<String, Object> sendEmail(PortalUserModel userBean,String pwd) {
+    	String url = "http://192.168.2.145:8080/fe/mail/sendMailByTemplate";
+		HttpUtils httpUtils = new HttpUtils();
+		Map<String, String> paramMap = new HashMap<>();
+		String maiBody = "委托机构号：" + userBean.getMemberid() +" ,用户名：" +userBean.getUserName() + " ,登录密码：" + pwd;
+		paramMap.put("receiver", userBean.getEmail());
+		paramMap.put("subject",  "激活账户");
+		paramMap.put("maiBody",  maiBody);
+		try {
+			httpUtils.openConnection();
+			String result = httpUtils.post(url, paramMap);
+			Map<String, Object> map= (Map<String, Object>) JSONObject.toBean(JSONObject.fromObject(result),Map.class);
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			Map<String,Object> mapErr = new HashMap<>();
+			mapErr.put("RET", "erro");
+			mapErr.put("INFO", "服务异常，邮件发送失败！");
+			return mapErr;
+		}finally {
+			httpUtils.closeConnection();
+		}
+	}
 
     /**
      * 委托机构秘钥下载

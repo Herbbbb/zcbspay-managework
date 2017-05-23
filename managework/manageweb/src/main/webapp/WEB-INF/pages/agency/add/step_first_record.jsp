@@ -1047,6 +1047,7 @@ table tr td font.current-step {
 			$('#c_2_bustCode').val(11000003);
 			$('#d_2_bustCode').val(11000004);
 			var num = $('#b_merchNo').val();
+			$('#b_2_merchNo').val(num);
 			$.ajax({
 			   type: "POST",
 			   url: "agency/queryByMerchNo",
