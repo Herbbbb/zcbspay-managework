@@ -211,7 +211,7 @@ table tr td select {
 					colspan:3
 				},
 				{
-					title: '分割线',
+					title: '',
 					align: 'center',
 				},
 				{
@@ -220,7 +220,7 @@ table tr td select {
 					colspan:3
 				},
 				{
-					title: '分割线',
+					title: '',
 					align: 'center',
 				},
 				{
