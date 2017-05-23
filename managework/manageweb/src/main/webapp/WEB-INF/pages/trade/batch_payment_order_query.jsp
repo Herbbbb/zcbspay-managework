@@ -87,7 +87,7 @@ table tr td select {
 					</tr>
 					<tr>						
 						<td>总笔数</td><td id="totalqty"></td>
-						<td>总金额</td><td id="totalamt"></td>
+						<td>总金额(元)</td><td id="totalamt"></td>
 					</tr>
 					<tr>						
 <!-- 						<td>保留域</td><td id="reserved"></td> -->

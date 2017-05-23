@@ -108,7 +108,7 @@ table tr td select {
 					</tr>
 					<tr>
 					<td>交易币种</td><td id="currencycode"></td>
-					<td>金额</td><td id="txnamt"></td>
+					<td>金额(元)</td><td id="txnamt"></td>
 					</tr>
 					<tr>
 					<td>付款人银行号</td><td id="debtorbank"></td>

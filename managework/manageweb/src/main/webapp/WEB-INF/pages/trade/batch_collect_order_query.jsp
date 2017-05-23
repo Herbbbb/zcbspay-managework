@@ -87,7 +87,7 @@ table tr td select {
 					</tr>
 					<tr>
 					<td>总笔数</td><td id="totalqty"></td>
-					<td>总金额 </td><td id="totalamt"></td>
+					<td>总金额 (元)</td><td id="totalamt"></td>
 					</tr>
 					<tr>
 					<td>保留域</td><td id="reserved"></td>
@@ -157,7 +157,7 @@ table tr td select {
 									}	
 								},
 								{field:'TOTALQTY',title:'总笔数',width:132,align:'center'},
-								{field:'TOTALAMT ',title:'总金额 ',width:133,align:'center',
+								{field:'TOTALAMT ',title:'总金额 (元)',width:133,align:'center',
 									formatter:function(value,rec){
 										return fenToYuan(rec.TOTALAMT);
 									}
@@ -220,7 +220,7 @@ table tr td select {
 												} 
 											}	
 										},
-										{field:'AMT',title:'单笔金额',width:146,align:'center',
+										{field:'AMT',title:'单笔金额(元)',width:146,align:'center',
 											formatter:function(value,rec){
 												return fenToYuan(rec.AMT);
 											}

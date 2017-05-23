@@ -78,7 +78,7 @@ table tr td select {
 					<td>收款人账号</td><td id="tcreditoraccountno"></td>
 					</tr>
 					<tr>
-					<td>金额</td><td id="tamount"></td>
+					<td>金额(元)</td><td id="tamount"></td>
 					<td>业务类型编码</td><td id="tcategorypurposecode"></td>
 					</tr>
 					<tr>
@@ -167,7 +167,11 @@ table tr td select {
 								{field:'CREDITORBRANCHCODE',title:'收款行行号',width:120,align:'center'},
 								{field:'CREDITORNAME',title:'收款人名称',width:120,align:'center'},
 								{field:'CREDITORACCOUNTNO',title:'收款人账号',width:120,align:'center'},
-								{field:'AMOUNT',title:'金额',width:120,align:'center'},
+								{field:'AMOUNT',title:'金额(元)',width:120,align:'center',
+									formatter:function(value,rec){
+										return fenToYuan(rec.AMOUNT);
+									}
+								},
 								{field:'CATEGORYPURPOSECODE',title:'业务类型编码',width:120,align:'center'},
 								{field:'PURPOSEPROPRIETARY',title:'业务种类编码',width:120,align:'center'},
 								{field:'ENDTOENDIDENTIFICATION',title:'合同（协议）号',width:120,align:'center'},
@@ -259,7 +263,7 @@ table tr td select {
 		$("#tcreditorbranchcode").html(rows["CREDITORBRANCHCODE"]);
 		$("#tcreditorname").html(rows["CREDITORNAME"]);
 		$("#tcreditoraccountno").html(rows["CREDITORACCOUNTNO"]);
-		$("#tamount").html(rows["AMOUNT"]);
+		$("#tamount").html(fenToYuan(rows["AMOUNT"]));
 		$("#tcategorypurposecode").html(rows["CATEGORYPURPOSECODE"]);
 		$("#tpurposeproprietary").html(rows["PURPOSEPROPRIETARY"]);
 		$("#tendtoendidentification").html(rows["ENDTOENDIDENTIFICATION"]);
@@ -286,6 +290,13 @@ table tr td select {
 		$("#tcomnettinground").html(rows["COMNETTINGROUND"]);
 		$("#tcomdate").html(rows["COMDATE"]);
 		$("#ttxnseqno").html(rows["TXNSEQNO"]);
+	}
+	function fenToYuan(value){
+		var str = (value/100).toFixed(2) + '';
+		var intSum = str.substring(0,str.indexOf(".")).replace( /\B(?=(?:\d{3})+$)/g, ',' );
+		var dot = str.substring(str.length,str.indexOf("."))
+		var ret = intSum + dot;
+		return ret;
 	}
 </script>
 </html>
