@@ -157,7 +157,7 @@ table tr td select {
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
 				<input id="userId_addrole" name="userId" type="hidden" />
-				<form id="AddUserRoleForm" name="myForm" action="user/saveAuth" method="post">
+				<form id="AddUserRoleForm" name="myForm" action="user/SaveUser" method="post">
 					<div>
 						<div class="left">
 							<p class="text">待选:</p>
@@ -383,6 +383,9 @@ table tr td select {
 			 	}
 			});
 		}
+
+		
+		
 		
 		function resize(){
 			//var pp = $('#test').datagrid('resize');
@@ -409,6 +412,7 @@ table tr td select {
 		}
 		function closeAdd(){
 			$('#w').window('close');
+			
 		}		
 		function search(){
 			var data={'userName':$('#userName').val(),'userCode':$('#userCode').val(),'deptId':$("#userDeptId").val(),'notes':$("#userRoleId").val(),'organId':$("#userOrganId").val()};
@@ -435,6 +439,8 @@ table tr td select {
 					} 
 			    }   
 			});  
+			
+			 
 		}
 		
 		function showUser(userId){
@@ -492,6 +498,10 @@ table tr td select {
 			$("#saveForm").attr("action","user/update");
 			$('#btn_submit').linkbutton('enable');	
 		}
+
+		
+		
+		
 
 		function deleteUser(userId){
 			$.ajax({
@@ -570,7 +580,21 @@ table tr td select {
 					});
 			    }   
 			}); 
-		/* 用户配置角色 */		
+// 			$('#w3').window({
+// 				title: '重置密码',
+// 				top:10,
+// 				width: 500,
+// 				collapsible:false,
+// 				minimizable:false,
+// 				maximizable:false,
+// 				modal: true,
+// 				shadow: false,
+// 				closed: false,
+// 				height: 310
+// 			});
+			
+		}
+/* 用户配置角色 */		
 		function ToSelectRole(userId){ 
 			$("#userId_addrole").val(userId);
 			var html="";
@@ -730,7 +754,7 @@ table tr td select {
 					});
 				}
 			});
-// 			closeView();
+			closeView();
 			var w =$("#authMenu").width();
 			$("#menu_div").css("margin-left",w/2.5+"px");
 		}

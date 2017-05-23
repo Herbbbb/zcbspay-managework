@@ -153,8 +153,8 @@ table tr td select {
 						<tr style="height: 30px">
 							<td class="update">付款行银行全称</td>
 							<td class="update" align="left" colspan="3">
-								<select id="debBranchCode" class="easyui-validatebox" required="true" name="debBranchCode" style="width: 250px"/>
-								<option value=''>--请选择开户行--</option></select><font color="red">*</font>
+								<select id="debBranchCode" class="easyui-validatebox" required="true" name="debBranchCode" 
+								missingMessage="请输入开户行全称" style="width: 250px"/><option value=''>--请选择开户行--</option></select><font color="red">*</font>
 								<input id="banknode_key" maxlength="16" type="text" onclick="checkBankKey('add_a')" onchange="queryBankNode('add_a')"/></td>
 						</tr>
 						<tr style="height: 30px">
@@ -208,8 +208,8 @@ table tr td select {
 						<tr style="height: 30px">
 							<td class="update">收款行银行全称</td>
 							<td class="update" align="left" colspan="3">
-								<select id="credBranchCode" class="easyui-validatebox" required="true" name="credBranchCode" style="width: 250px"/>
-								<option value=''>--请选择开户行--</option></select><font color="red">*</font>
+								<select id="credBranchCode" class="easyui-validatebox" required="true" name="credBranchCode" 
+								missingMessage="请输入开户行全称" style="width: 250px"/><option value=''>--请选择开户行--</option></select><font color="red">*</font>
 								<input id="b_banknode_key" maxlength="16" type="text" onclick="checkBankKey('add_b')" onchange="queryBankNode('add_b')"/></td>
 						</tr>
 						<tr style="height: 30px">
