@@ -50,22 +50,50 @@ public class TestUtils {
         return fixLenthString.substring(1, strLength + 1);  
     } 
     
+    public static Map<String, Object> sendEmail(PortalUserModel userBean,String pwd) {
+		String url = "http://192.168.2.145:8080/fe/mail/sendMailByTemplate";
+		HttpUtils httpUtils = new HttpUtils();
+		Map<String, String> paramMap = new HashMap<>();
+		String maiBody = "委托机构号：" + userBean.getMemberid() +" ,用户名：" +userBean.getUserName() + " ,登录密码：" + pwd;
+		paramMap.put("receiver", userBean.getEmail());
+		paramMap.put("subject",  "委托机构账户激活");
+		paramMap.put("maiBody",  maiBody);
+		try {
+			httpUtils.openConnection();
+			String result = httpUtils.post(url, paramMap);
+			Map<String, Object> map= (Map<String, Object>) JSONObject.toBean(JSONObject.fromObject(result),Map.class);
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			Map<String,Object> mapErr = new HashMap<>();
+			mapErr.put("RET", "erro");
+			mapErr.put("INFO", "服务异常！");
+			return mapErr;
+		}finally {
+			httpUtils.closeConnection();
+		}
+	}
 	public static void main(String[] args) {
 		try {  
 			PortalUserModel userBean = new PortalUserModel();
-        	userBean.setMemberid("200000000001590");
+			String pwd = getFixLenthString(6);
+        	userBean.setMemberid("200000000001579");
         	userBean.setUserName("交易测试商户千万勿动");
-        	userBean.setPwd(MD5Util.MD5(getFixLenthString(6)));
+        	userBean.setPwd(MD5Util.MD5(pwd));
         	userBean.setPhone("17736539989");
-        	userBean.setEmail("76674512@qq.com");
+        	userBean.setEmail("yuanshaodong@sh-paytong.com");
 			String userBeanStr =JSONObject.fromObject(userBean).toString();
-        	Map<String, Object> register = register(userBeanStr);
-        	 Set<Entry<String, Object>> entrySet = register.entrySet();
-        	 for (Entry<String, Object> entry : entrySet) {
-                 String key = entry.getKey();
-                 Object value = entry.getValue();
-                 System.out.println("key="+key+" value="+value);
-             }
+			
+//        	Map<String, Object> register = register(userBeanStr);
+//        	System.out.println(register);  
+//        	 Set<Entry<String, Object>> entrySet = register.entrySet();
+//        	 for (Entry<String, Object> entry : entrySet) {
+//                 String key = entry.getKey();
+//                 Object value = entry.getValue();
+//                 if(key.equals("succ")){
+			Map<String, Object>  register = sendEmail(userBean,pwd);
+//                 }
+//             }
         	System.out.println(register);  
 	    } catch (Exception e) {  
 	        e.printStackTrace();  

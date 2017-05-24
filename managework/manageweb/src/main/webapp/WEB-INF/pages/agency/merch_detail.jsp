@@ -318,8 +318,8 @@ table tr td font.current-step {
 				<form id="deptForm" action="" method="post">
 					<table cellpadding="2" cellspacing="2" style="text-align: left" id="inputForm">
 						<tr>
-							<td class="add" align="center" width="20%">委托机构名称</td>
-							<td class="add"><input id="b_merName" name="enterpriseName" readonly="true"/></td>
+							<td class="add" align="center" width="30%">委托机构名称</td>
+							<td class="add" width="30%"><input id="b_merName" name="enterpriseName" readonly="true"/></td>
 						</tr>
 						<tr>
 							<td class="add" align="center">风控版本</td>

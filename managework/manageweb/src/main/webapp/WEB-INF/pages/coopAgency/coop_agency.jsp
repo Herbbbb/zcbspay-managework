@@ -109,11 +109,13 @@ table tr td select {
 						<tr style="height: 25px">
 							<td class="update">代理商获利模式</td>
 							<td class="update" align="left">
-							<select id="profitType" class="easyui-validatebox"required="true" name="profitType"></select><font color="red">*</font></td>
+							<select id="profitType" class="easyui-validatebox" required="true" name="profitType" 
+							missingMessage="请选择获利模式"></select><font color="red">*</font></td>
 							<td class="update">代理商所在地</td>
 							<td class="update" colspan="2" align="left">
-							<select id="province_ins" class="easyui-validatebox" required="true" name="caProvince" onchange="showCity('province_ins')" /></select> 
-							<select id="city_ins" class="easyui-validatebox" required="true" name="caCity"/>
+							<select id="province_ins" class="easyui-validatebox" required="true" name="caProvince" 
+							missingMessage="请选择所在省" onchange="showCity('province_ins')" /></select> 
+							<select id="city_ins" class="easyui-validatebox" required="true" missingMessage="请选择所在市" name="caCity"/>
 							<option value=''>--请选择所属市--</option></select><font color="red">*</font></td>
 						</tr>
 <!-- 						<tr style="height: 25px"> -->
@@ -140,8 +142,9 @@ table tr td select {
 						<tr style="height: 25px">
 							<td class="update">开户行名称</td>
 							<td class="update" align="left" colspan="3">
-								<select id="banknode_ins" maxlength="64" class="easyui-validatebox" required="true" style="width: 250px" 
-								 onchange="showBankInfo('add')"/><option value=''>--请选择开户行--</option></select><font color="red">*</font>
+								<select id="banknode_ins" maxlength="64" class="easyui-validatebox" required="true" 
+								missingMessage="请输入开户行名" style="width: 250px" onchange="showBankInfo('add')"/>
+								<option value=''>--请选择开户行--</option></select><font color="red">*</font>
 								<input id="banknode_key" maxlength="16" type="text" onclick="checkBankKey('add')" onchange="queryBankNode('add')"/></td>
 						</tr>
 						<tr style="height: 25px">
@@ -189,12 +192,14 @@ table tr td select {
 						<tr style="height: 25px">
 							<td class="update">代理商获利模式</td>
 							<td class="update" align="left">
-							<select id="b_profitType" class="easyui-validatebox"required="true" name="profitType"></select><font color="red">*</font></td>
+							<select id="b_profitType" class="easyui-validatebox"required="true" name="profitType" 
+								missingMessage="请选择获利模式"></select><font color="red">*</font></td>
 							<td class="update">代理商所在地</td>
 							<td class="update" colspan="2" align="left">
-							<select id="bnkProvince_ins" class="easyui-validatebox" name="caProvince" onchange="showCity()"/></select> 
-							<select id="bnkCity_ins" class="easyui-validatebox" required="true" name="caCity"/>
-							<option value=''>--请选择所属市--</option></select><font color="red">*</font></td>
+							<select id="bnkProvince_ins" class="easyui-validatebox" name="caProvince" onchange="showCity()" 
+								missingMessage="请选择所在省" /></select><select id="bnkCity_ins" class="easyui-validatebox" required="true" 
+								missingMessage="请选择所在市" name="caCity"/><option value=''>--请选择所属市--</option>
+							</select><font color="red">*</font></td>
 						</tr>
 <!-- 						<tr style="height: 25px"> -->
 <!-- 							<td class="update">组织机构代码</td> -->
@@ -223,7 +228,8 @@ table tr td select {
 							<td class="update">开户行名称</td>
 							<td class="update" align="left" colspan="3">
 								<select id="b_banknode_ins" maxlength="64" class="easyui-validatebox" required="true" style="width: 250px" 
-								onchange="showBankInfo('update')"/><option value=''>--请选择开户行--</option></select><font color="red">*</font>
+								missingMessage="请输入开户行名称" onchange="showBankInfo('update')"/>
+								<option value=''>--请选择开户行--</option></select><font color="red">*</font>
 								<input id="b_banknode_key" maxlength="16" type="text" onclick="checkBankKey('update')" onchange="queryBankNode('update')"/></td>
 						</tr>
 						<tr style="height: 25px">

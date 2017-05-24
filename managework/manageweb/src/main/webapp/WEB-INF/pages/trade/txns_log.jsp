@@ -136,9 +136,9 @@ table tr td select {
 						<td id="tbusicode"></td>
 					</tr>
 					<tr>
-						<td>交易金额[合计]</td>
+						<td>交易金额[合计](元)</td>
 						<td id="tamount"></td>
-						<td>交易佣金</td>
+						<td>交易佣金(元)</td>
 						<td id="ttradcomm"></td>
 					</tr>
 					<tr>

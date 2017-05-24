@@ -181,12 +181,12 @@ table tr td font.current-step {
 						<tr>
 							<td align="center">开户行</td>
 							<td colspan="3">
-							<input id="oldBankName_input" readonly="true" required="true"> 
-							<a id="a_bank_info" href="javascript:modifyBank()" style="color: blue">修改</a> 
-							<span id="bank_info"> 
-							<select id="banknode_ins" class="easyui-validatebox" required="true" name="bankNode" style="width: 150px" /></select> 
-							<font color="red">*</font> 
-							<input id="banknode_key" maxlength="16" type="text" onclick="checkBankKey()" onchange="queryBankNode()" /></span>
+								<input id="oldBankName_input" readonly="true" required="true"> 
+								<a id="a_bank_info" href="javascript:modifyBank()" style="color: blue">修改</a> 
+								<span id="bank_info"> 
+								<select id="banknode_ins" class="easyui-validatebox" required="true" missingMessage="请输入开户行"
+								 name="bankNode" style="width: 150px" /></select><font color="red">*</font> 
+								<input id="banknode_key" maxlength="16" type="text" onclick="checkBankKey()" onchange="queryBankNode()" /></span>
 							</td>
 						</tr>
 						<tr>
@@ -279,35 +279,25 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td align="center">联系人姓名</td>
-							<td><input name="contact" maxlength="16"
-								type="text" class="easyui-validatebox"
-								value="${member.contact}" />
+							<td><input name="contact" maxlength="16" type="text" class="easyui-validatebox" 
+							required="true" missingMessage="请输入联系人姓名" value="${member.contact}" />
 							<td align="center">联系人地址</td>
-							<td><input name="contAddress"
-								maxlength="128" style="width: 250px" type="text"
-								class="easyui-validatebox"
-								value="${member.contAddress}" /></td>
+							<td><input name="contAddress" maxlength="128" style="width: 250px" type="text"
+								class="easyui-validatebox" value="${member.contAddress}" /></td>
 						</tr>
 						<tr>
 							<td align="center">联系人电话</td>
-							<td><input class="easyui-validatebox" maxlength="11"
-								validType="chinesetest" name="contPhone"
-								value="${member.contPhone}" /></td>
+							<td><input class="easyui-validatebox" maxlength="11" validType="chinesetest" name="contPhone"
+								required="true" value="${member.contPhone}" missingMessage="请输入联系人电话"/></td>
 							<td align="center">联系人职位</td>
-							<td><input name="contTitle" maxlength="16"
-								type="text" value="${member.contTitle}" /></td>
+							<td><input name="contTitle" maxlength="16" type="text" value="${member.contTitle}" /></td>
 						</tr>
 						<tr>
 							<td align="center">联系人邮箱</td>
-							<td><input class="easyui-validatebox" maxlength="16"
-								validType="email" name="contEmail"
-								value="${member.contEmail}" /></td>
-
-
+							<td><input class="easyui-validatebox" maxlength="16" validType="email" name="contEmail"
+								required="true" value="${member.contEmail}" missingMessage="请输入联系人邮箱"/></td>
 							<td align="center">备注</td>
-							<td><input class="easyui-validatebox" maxlength="50"
-								name="notes" value="${merchDeta.notes}" /></td>
-
+							<td><input class="easyui-validatebox" maxlength="50" name="notes" value="${merchDeta.notes}" /></td>
 						</tr>
 					</table>
 				</form>

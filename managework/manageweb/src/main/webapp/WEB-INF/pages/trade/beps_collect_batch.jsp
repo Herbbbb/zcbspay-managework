@@ -75,7 +75,7 @@ table tr td select {
 					</tr>
 					<tr>
 						<td>收款人账号</td><td id="tcreditoraccountno"></td>
-						<td>总金额</td><td id="ttotalamount"></td>
+						<td>总金额(元)</td><td id="ttotalamount"></td>
 					</tr>
 					<tr>
 						<td>业务类型编码</td><td id="tcategorypurposecode"></td>
@@ -83,11 +83,11 @@ table tr td select {
 					</tr>
 					<tr>
 						<td>成功付款总笔数</td><td id="treceivingtotalnumber"></td>
-						<td>成功付款总金额</td><td id="treceivingtotalamount"></td>
+						<td>成功付款总金额(元)</td><td id="treceivingtotalamount"></td>
 					</tr>
 					<tr>
 						<td>失败付款总笔数</td><td id="tfailtotalnumber"></td>
-						<td>失败付款总金额</td><td id="tfailtotalamount"></td>
+						<td>失败付款总金额(元)</td><td id="tfailtotalamount"></td>
 					</tr>
 					<tr>
 						<td>NPC处理状态</td><td id="tnpcprocessstatus"></td>
@@ -166,13 +166,25 @@ table tr td select {
 								{field:'CREDITORBRANCHCODE',title:'收款行行号',width:120,align:'center'},
 								{field:'CREDITORNAME',title:'收款人名称',width:120,align:'center'},
 								{field:'CREDITORACCOUNTNO',title:'收款人账号',width:120,align:'center'},
-								{field:'TOTALAMOUNT',title:'总金额',width:120,align:'center'},
+								{field:'TOTALAMOUNT',title:'总金额(元)',width:120,align:'center',
+									formatter:function(value,rec){
+										return fenToYuan(rec.TOTALAMOUNT);
+									}
+								},
 								{field:'CATEGORYPURPOSECODE',title:'业务类型编码',width:120,align:'center'},
 								{field:'DEBTORNUMBER',title:'付款人数目',width:120,align:'center'},
 								{field:'RECEIVINGTOTALNUMBER',title:'成功付款总笔数',width:120,align:'center'},
-								{field:'RECEIVINGTOTALAMOUNT',title:'成功付款总金额',width:120,align:'center'},
+								{field:'RECEIVINGTOTALAMOUNT',title:'成功付款总金额(元)',width:120,align:'center',
+									formatter:function(value,rec){
+										return fenToYuan(rec.RECEIVINGTOTALAMOUNT);
+									}
+								},
 								{field:'FAILTOTALNUMBER',title:'失败付款总笔数',width:120,align:'center'},
-								{field:'FAILTOTALAMOUNT',title:'失败付款总金额',width:120,align:'center'},
+								{field:'FAILTOTALAMOUNT',title:'失败付款总金额(元)',width:120,align:'center',
+									formatter:function(value,rec){
+										return fenToYuan(rec.FAILTOTALAMOUNT);
+									}
+								},
 								{field:'ID',title:'操作',width:120,align:'center',
 									formatter:function(value,rec){
 										return '<a href="javascript:queryDetail(\''+rec.BATCHNO+'\')" style="color:blue;margin-left:10px">详细信息</a>';
@@ -202,7 +214,11 @@ table tr td select {
 										{field:'DEBTORNAME',title:'付款人名称',width:120,align:'center'},
 										{field:'DEBTORACCOUNTNO',title:'付款人账号',width:120,align:'center'},
 										{field:'DEBTORBRANCHCODE',title:'付款行行号',width:120,align:'center'},
-										{field:'AMOUNT',title:'交易金额',width:120,align:'center'},
+										{field:'AMOUNT',title:'交易金额(元)',width:120,align:'center',
+											formatter:function(value,rec){
+												return fenToYuan(rec.AMOUNT);
+											}
+										},
 										{field:'ENDTOENDIDENTIFICATION',title:'合同（协议）号',width:120,align:'center'},
 										{field:'CHECKFLAG',title:'核验标识',width:120,align:'center'},
 										{field:'ADDINFO',title:'附言',width:120,align:'center'},
@@ -295,13 +311,13 @@ table tr td select {
 		$("#tcreditorbranchcode").html(rows["CREDITORBRANCHCODE"]);
 		$("#tcreditorname").html(rows["CREDITORNAME"]);
 		$("#tcreditoraccountno").html(rows["CREDITORACCOUNTNO"]);
-		$("#ttotalamount").html(rows["TOTALAMOUNT"]);
+		$("#ttotalamount").html(fenToYuan(rows["TOTALAMOUNT"]));
 		$("#tcategorypurposecode").html(rows["CATEGORYPURPOSECODE"]);
 		$("#tdebtornumber").html(rows["DEBTORNUMBER"]);
 		$("#treceivingtotalnumber").html(rows["RECEIVINGTOTALNUMBER"]);
-		$("#treceivingtotalamount").html(rows["RECEIVINGTOTALAMOUNT"]);
+		$("#treceivingtotalamount").html(fenToYuan(rows["RECEIVINGTOTALAMOUNT"]));
 		$("#tfailtotalnumber").html(rows["FAILTOTALNUMBER"]);
-		$("#tfailtotalamount").html(rows["FAILTOTALAMOUNT"]);
+		$("#tfailtotalamount").html(fenToYuan(rows["FAILTOTALAMOUNT"]));
 		$("#tnpcprocessstatus").html(rows["NPCPROCESSSTATUS"]);
 		$("#tnpcprocesscode").html(rows["NPCPROCESSCODE"]);
 		$("#tnpcrejectinformation").html(rows["NPCREJECTINFORMATION"]);
@@ -323,6 +339,14 @@ table tr td select {
 		$("#tcomprocessdate").html(rows["COMPROCESSDATE"]);
 		$("#tcomnettinground").html(rows["COMNETTINGROUND"]);
 		$("#tcomdate").html(rows["COMDATE"]);
+	}
+	
+	function fenToYuan(value){
+		var str = (value/100).toFixed(2) + '';
+		var intSum = str.substring(0,str.indexOf(".")).replace( /\B(?=(?:\d{3})+$)/g, ',' );
+		var dot = str.substring(str.length,str.indexOf("."))
+		var ret = intSum + dot;
+		return ret;
 	}
 </script>
 </html>
