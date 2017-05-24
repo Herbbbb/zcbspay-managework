@@ -8,6 +8,26 @@
 %>
 <html>
 <head>
+<style type="text/css">
+table tr td {
+	height: 25px
+}
+
+table tr td input {
+	height: 15px
+}
+
+table tr td select {
+	height: 20px
+}
+table tr td.head-title {
+	height: 25px;
+	background-color: #F0F8FF;
+	font-weight: bold;
+	border-width: 1px 1px 1px 1px;
+	border-style: groove;
+}
+</style>
 </head>
 <body>
 	<div style="margin: 5px; border:" id="continer">
@@ -23,13 +43,10 @@
 						<td align="right">扣率版本名称</td>
 						<td align="left" style="padding-left: 5px"><input
 							name="feeModel.feename" id="feename_qid" maxlength="128" /></td>
-						<td align="right" colspan=2><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a> <a
-							href="javascript:resize()" class="easyui-linkbutton"
-							iconCls="icon-redo">清除</a></td>
+						<td align="right" colspan=2>
+						<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a> 
+						<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清除</a></td>
 					</tr>
-
-
 				</table>
 			</form>
 		</div>
@@ -42,32 +59,29 @@
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
-				<form id="theForm" method="post"
-					action="pages/fee/saveFeeFeeAction.action">
+				<form id="theForm" method="post" action="pages/fee/saveFeeFeeAction.action">
 					<input name="feeModel.feeid" id="feeid" type="hidden" />
-					<table width="100%" cellpadding="2" cellspacing="2"
-						style="text-align: left" id="inputForm">
+					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left" id="inputForm">
 						<tr>
 							<td align="right" width="15%" height="50px">扣率版本代码</td>
-							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="feeModel.feever" id="feeCode" validType="minLength[8,8]"
-								maxlength="8" class="easyui-validatebox" /></td>
+							<td align="left" style="padding-left: 5px" width="25%">
+							<input name="feeModel.feever" id="feeCode" validType="minLength[8,8]"
+								maxlength="8" class="easyui-validatebox" missingMessage="请输入扣率版本代码"/></td>
 							<td align="right" width="15%">扣率版本名称</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="feeModel.feename" id="feeName" /></td>
+								name="feeModel.feename" id="feeName" missingMessage="请输入扣率版本名称"/></td>
 						</tr>
 						<tr></tr>
 						<tr>
 							<td align="right" width="15%">所属产品</td>
-							<td align="left" style="padding-left: 5px" width="25%"><select
-								id="prdtver" class="easyui-validatebox" missingMessage="请选择产品"
-								required="true" name="feeModel.prdtver"
-								class="easyui-validatebox">
+							<td align="left" style="padding-left: 5px" width="25%">
+							<select id="prdtver" class="easyui-validatebox" missingMessage="请选择产品" required="true" 
+							name="feeModel.prdtver" class="easyui-validatebox" missingMessage="请选择产品">
 									<option value="">--请选择产品--</option>
 							</select></td>
 							<td align="right" width="15%">备注</td>
-							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="feeModel.notes" id="feeNotes" maxlength="32" /></td>
+							<td align="left" style="padding-left: 5px" width="25%">
+							<input name="feeModel.notes" id="feeNotes" maxlength="32"/></td>
 						</tr>
 					</table>
 				</form>

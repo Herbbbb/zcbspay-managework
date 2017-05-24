@@ -51,7 +51,7 @@ public class TestUtils {
     } 
     
     public static Map<String, Object> sendEmail(PortalUserModel userBean,String pwd) {
-		String url = "http://192.168.2.145:8080/fe/mail/sendMailByTemplate";
+		String url = "http://192.168.2.15:8080/fe/mail/sendMailByTemplate";
 		HttpUtils httpUtils = new HttpUtils();
 		Map<String, String> paramMap = new HashMap<>();
 		String maiBody = "委托机构号：" + userBean.getMemberid() +" ,用户名：" +userBean.getUserName() + " ,登录密码：" + pwd;

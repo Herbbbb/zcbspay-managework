@@ -44,22 +44,19 @@
 						style="text-align: left" id="inputForm">
 						<tr>
 							<td align="right" width="15%" height="50px">银行卡号</td>
-							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="pan" id="pan" validType="minLength[16,16]"
-								maxlength="19" class="easyui-validatebox" /></td>
+							<td align="left" style="padding-left: 5px" width="25%">
+							<input name="pan" id="pan" validType="minLength[16,16]" maxlength="19" 
+							class="easyui-validatebox" missingMessage="请输入银行卡号"/></td>
 							<td align="right" width="15%">备注</td>
-							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="notes" id="Notes" maxlength="32" /></td>
+							<td align="left" style="padding-left: 5px" width="25%">
+							<input name="notes" id="Notes" maxlength="32" /></td>
 						</tr>
 					</table>
 				</form>
 			</div>
-			<div region="south" border="false"
-				style="text-align: center; padding: 5px 0;">
-				<a class="easyui-linkbutton" iconCls="icon-ok"
-					href="javascript:saveWhitePan()" id="btn_submit" onclick="">保存</a>
-				<a class="easyui-linkbutton" iconCls="icon-cancel"
-					href="javascript:void(0)" onclick="closeAdd()">取消</a>
+			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveWhitePan()" id="btn_submit" onclick="">保存</a>
+				<a class="easyui-linkbutton" iconCls="icon-cancel" href="javascript:void(0)" onclick="closeAdd()">取消</a>
 			</div>
 		</div>
 	</div>

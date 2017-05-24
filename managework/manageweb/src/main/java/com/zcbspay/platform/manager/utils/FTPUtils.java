@@ -147,8 +147,8 @@ public class FTPUtils {
 	        String uploadDir = "E:\\";
 	        String filePath = "623545eb073843b694390a28f0c867c2.jpg";
 //	        resFileName =UUID.randomUUID().toString().replace("-", "") + resFileName.substring(resFileName.lastIndexOf("."));
-//	        boolean flag = uploadFile("192.168.2.142", 21, "webftp", "webftp","","contract/", resFileName, in);  
-	        boolean flag = FTPUtils.downloadFile("192.168.2.142", 21, "webftp", "webftp","agency/",filePath , uploadDir);
+//	        boolean flag = uploadFile("192.168.2.12", 21, "webftp", "webftp","","contract/", resFileName, in);  
+	        boolean flag = FTPUtils.downloadFile("192.168.2.12", 21, "webftp", "webftp","agency/",filePath , uploadDir);
 	        System.out.println(flag);  
 	    } catch (Exception e) {  
 	        e.printStackTrace();  

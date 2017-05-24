@@ -37,8 +37,7 @@ table tr td select {
 						</td>
 						<td align="right"><a href="javascript:search()"
 							class="easyui-linkbutton" iconCls="icon-search">查询</a>
-							<a
-							href="javascript:resize()" class="easyui-linkbutton"
+							<a href="javascript:resize()" class="easyui-linkbutton"
 							iconCls="icon-redo">清空</a>
 							</td>
 					</tr>
@@ -70,25 +69,21 @@ table tr td select {
 						<tr>
 							<td>计费方式</td>
 							<td>
-							<select
-								id="rateType" class="easyui-validatebox" required="true" name="rateType"
-								onchange="showRateDetail()">
+							<select id="rateType" class="easyui-validatebox" required="true" name="rateType"
+								onchange="showRateDetail()" missingMessage="请选择计费方式">
 							</select>
 							</td>
 							<td width="15%">扣率(百分比)</td>
-							<td><input id="feeRate" name="feeRate"
-								validType="percent" required="true" type="text"
-								class="easyui-validatebox" maxlength="5" /></td>
+							<td><input id="feeRate" name="feeRate" validType="percent" required="true" type="text"
+								class="easyui-validatebox" maxlength="5" missingMessage="请输入扣率"/></td>
 						</tr>
 						<tr>
 							<td>最低收费额(单位:元)</td>
-							<td><input id="minFee" name="minFee"
-								maxlength="12" validType="amount" required="true" type="text"
-								class="easyui-validatebox" /></td>
+							<td><input id="minFee" name="minFee" maxlength="12" validType="amount" required="true" type="text"
+								class="easyui-validatebox" missingMessage="请输入最低收费金额"/></td>
 							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxFee" name="maxFee"
-								required="true" maxlength="12" validType="amount" type="text"
-								class="easyui-validatebox" /></td>
+							<td><input id="maxFee" name="maxFee" required="true" maxlength="12" validType="amount" type="text"
+								class="easyui-validatebox" missingMessage="请输入最高收费金额"/></td>
 						</tr>
 						<tr>
 							<td>备注</td>

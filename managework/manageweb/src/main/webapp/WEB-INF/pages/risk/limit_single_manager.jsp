@@ -51,35 +51,32 @@
 						style="text-align: left" id="inputForm">
 						<tr>
 							<td align="right" width="18%" height="30px">风控版本</td>
-							<td align="left" style="padding-left: 5px" width="25%"><select
-								id="busipack" class="easyui-validatebox" required="true"
-								onchange="showFeeCase()">
+							<td align="left" style="padding-left: 5px" width="25%">
+							<select id="busipack" class="easyui-validatebox" required="true"
+								onchange="showFeeCase()" missingMessage="请输入风控版本控制">
 							</select></td>
 							<td align="right" width="18%" height="30px">版本实例</td>
-							<td align="left" style="padding-left: 5px" width="25%"><select
-								id="busicase" class="easyui-validatebox" required="true"
-								name="caseid">
+							<td align="left" style="padding-left: 5px" width="25%">
+							<select id="busicase" class="easyui-validatebox" required="true"
+								name="caseid" missingMessage="请选择业务">
 									<option value="">--请选择业务--</option>
 							</select></td>
 						</tr>
 						<tr>
 							<td align="right" width="18%" height="30px">单笔最小限额（元）</td>
-							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="minAmount" id="minAmount"
-								validType="amount" maxlength="11" class="easyui-validatebox" />
-							</td>
+							<td align="left" style="padding-left: 5px" width="25%">
+							<input name="minAmount" id="minAmount" validType="amount" maxlength="11" 
+								class="easyui-validatebox" missingMessage="请输入单笔最小金额"/></td>
 							<td align="right" width="18%" height="30px">单笔最大限额（元）</td>
-							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="maxAmount" id="maxAmount"
-								validType="amount" maxlength="11" class="easyui-validatebox" />
-							</td>
+							<td align="left" style="padding-left: 5px" width="25%">
+							<input name="maxAmount" id="maxAmount" validType="amount" maxlength="11" 
+								class="easyui-validatebox" missingMessage="请输入单笔最大金额"/></td>
 						</tr>
 						<tr>
 
 							<td align="right" width="18%" height="30px">风险等级</td>
-							<td align="left" style="padding-left: 5px" width="25%"><select
-								id="risklevel" class="easyui-validatebox"
-								missingMessage="请选选择风险等级" required="true"
+							<td align="left" style="padding-left: 5px" width="25%">
+							<select id="risklevel" class="easyui-validatebox" missingMessage="请选选择风险等级" required="true"
 								name="risklevel" class="easyui-validatebox">
 									<option value="">--请选择风险等级--</option>
 							</select></td>
@@ -88,7 +85,6 @@
 							<td align="left" style="padding-left: 5px" width="25%"><input
 								name="notes" id="Notes" maxlength="32" /></td>
 						</tr>
-
 					</table>
 				</form>
 			</div>

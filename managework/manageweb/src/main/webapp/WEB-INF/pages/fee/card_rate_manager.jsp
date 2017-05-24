@@ -18,23 +18,27 @@ table tr td input {
 table tr td select {
 	height: 20px
 }
+table tr td.head-title {
+	height: 25px;
+	background-color: #F0F8FF;
+	font-weight: bold;
+	border-width: 1px 1px 1px 1px;
+	border-style: groove;
+}
 </style>
 <script type="text/javascript" src="js/extendsValidator_1.0_20151215.js"></script>
 </head>
 <body>
-
 	<div style="margin: 5px; border:" id="continer">
 		<div id="p" class="easyui-panel" title="查询条件"
 			style="height: 100px; padding: 10px; background: #fafafa;"
 			iconCls="icon-save" collapsible="true">
 			<form id="theForm" method="post">
 				<table width="100%">
-
 					<tr>
 						<td align="right" width="15%">扣率版本</td>
-						<td align="left" style="padding-left: 5px" width="25%"><select
-							id="busiPack_ins" class="easyui-validatebox"
-							onchange="showFeeCase_query()">
+						<td align="left" style="padding-left: 5px" width="25%">
+						<select id="busiPack_ins" class="easyui-validatebox" onchange="showFeeCase_query()">
 						</select></td>
 						<!-- <td align="right" width="15%">业务版本号</td>
 						<td align="left" style="padding-left: 5px" width="25%">
@@ -57,48 +61,40 @@ table tr td select {
 								<option value="3">--准贷记--</option>
 								<option value="4">--月付费--</option>
 						</select></td>
-						<td align="right"><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a>
-							<a
-							href="javascript:resize()" class="easyui-linkbutton"
-							iconCls="icon-redo">清空</a>
-							</td>
+						<td align="right">
+							<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+							<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a>
+						</td>
 					</tr>
-
 				</table>
 			</form>
 		</div>
 		<div style="margin-top: 5px">
 			<table id="test"></table>
 		</div>
-
 	</div>
 	<div id="w" class="easyui-window" closed="true" title="My Window"
 		iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px;">
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
-				<form id="txnRateForm"
-					action="fee/saveMemberRate" method="post">
-					<table width="100%" cellpadding="2" cellspacing="2"
-						style="text-align: left">
+				<form id="txnRateForm" action="fee/saveMemberRate" method="post">
+					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left">
 						<tr>
 							<td width="15%">扣率版本</td>
-							<td width="30%"><select id="busipack"
-								class="easyui-validatebox" required="true"
-								name="feever" onchange="showFeeCase()">
+							<td width="30%"><select id="busipack" class="easyui-validatebox" required="true"
+								name="feever" onchange="showFeeCase()" missingMessage="请输入扣率版本">
 							</select></td>
 							<td width="15%">业务</td>
 							<td><select id="busicase" class="easyui-validatebox"
-								required="true" name="busicode">
+								required="true" name="busicode" missingMessage="请选择业务">
 									<option value="">--请选择业务--</option>
 							</select></td>
 						</tr>
 						<tr>
 							<td width="15%">卡类别</td>
-							<td width="30%"><select id="cardtype"
-								class="easyui-validatebox" required="true"
-								name="cardtype">
+							<td width="30%"><select id="cardtype" class="easyui-validatebox" required="true"
+								name="cardtype" missingMessage="请选择卡类别">
 									<option value="">--请选择卡类型--</option>
 									<option value="1">--借记--</option>
 									<option value="2">--贷记--</option>
@@ -108,33 +104,28 @@ table tr td select {
 						</tr>
 						<tr>
 							<td>扣率类型</td>
-							<td><select id="feeRateType" class="easyui-validatebox"
-								required="true" name="rateType"
-								onchange="showRateDetail()">
+							<td><select id="feeRateType" class="easyui-validatebox" required="true" name="rateType"
+								onchange="showRateDetail()" missingMessage="请选择扣率类型">
 									<option value="">--请选择扣率类型--</option>
 									<option value="01">--单笔固定金额--</option>
 									<option value="02">--单位比例+不封顶保底--</option>
 									<option value="03">--单位比例+封顶保底--</option>
 							</select></td>
 							<td width="15%">扣率(百分比)</td>
-							<td><input id="feeRate" name="feeRateStr"
-								validType="percent" type="text" class="easyui-validatebox"
-								maxlength="5" /></td>
+							<td><input id="feeRate" name="feeRateStr" validType="percent" type="text" class="easyui-validatebox"
+								maxlength="5" missingMessage="请输入扣率"/></td>
 						</tr>
 						<tr>
 							<td>最低收费额(单位:元)</td>
-							<td><input id="minFee" name="minFeeStr"
-								maxlength="12" validType="amount" type="text"
-								class="easyui-validatebox" /></td>
+							<td><input id="minFee" name="minFeeStr" maxlength="12" validType="amount" type="text"
+								class="easyui-validatebox" missingMessage="请输入最低收费金额"/></td>
 							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxFee" name="maxFeeStr"
-								maxlength="12" validType="amount" type="text"
-								class="easyui-validatebox" /></td>
+							<td><input id="maxFee" name="maxFeeStr" maxlength="12" validType="amount" type="text"
+								class="easyui-validatebox" missingMessage="请输入最高收费金额"/></td>
 						</tr>
 						<tr>
 							<td>备注</td>
-							<td colspan="3"><textarea id="notes" rows="3" cols="75"
-									name="notes" maxlength="32"></textarea></td>
+							<td colspan="3"><textarea id="notes" rows="3" cols="75" name="notes" maxlength="32"></textarea></td>
 						</tr>
 					</table>
 				</form>

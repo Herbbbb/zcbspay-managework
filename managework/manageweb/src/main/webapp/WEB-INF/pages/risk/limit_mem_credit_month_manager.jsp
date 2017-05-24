@@ -30,9 +30,7 @@
 								<option value="3">--准贷记--</option>
 								<option value="4">--预付费--</option>
 						</select></td>
-						<td align="right" colspan=2><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a></td>
-
+						<td align="right" colspan=2><a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a></td>
 					</tr>
 				</table>
 			</form>
@@ -48,17 +46,16 @@
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
 				<form id="theForm" method="post" action="">
 					<input name="limitMemCreditMonthModel.TId" id="TId" type="hidden" />
-					<table width="100%" cellpadding="2" cellspacing="2"
-						style="text-align: left" id="inputForm">
+					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left" id="inputForm">
 						<tr>
 							<td align="right" width="15%" height="30px">委托机构号</td>
-							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="limitMemCreditMonthModel.memberid" id="memberid"
+							<td align="left" style="padding-left: 5px" width="25%">
+							<input name="limitMemCreditMonthModel.memberid" id="memberid"
 								validType="merchno" maxlength="15" class="easyui-validatebox" />
 							</td>
 							<td align="right" width="15%">卡类别</td>
-							<td align="left" style="padding-left: 5px" width="25%"><select
-								id="cardtype" class="easyui-validatebox" required="true"
+							<td align="left" style="padding-left: 5px" width="25%">
+							<select id="cardtype" class="easyui-validatebox" required="true"
 								missingMessage="请选择卡类型" name="limitMemCreditMonthModel.cardType">
 									<option value="" selected="selected">--请选择卡类型--</option>
 									<option value="1">--借记--</option>
@@ -69,39 +66,33 @@
 						</tr>
 						<tr>
 							<td align="right" width="15%" height="30px">累计限额（元）</td>
-							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="limitMemCreditMonthModel.limitAmount" id="limitAmount"
+							<td align="left" style="padding-left: 5px" width="25%">
+							<input name="limitMemCreditMonthModel.limitAmount" id="limitAmount"
 								validType="amount" maxlength="11" class="easyui-validatebox" />
 							</td>
 							<td align="right" width="15%">累计限次</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
 								name="limitMemCreditMonthModel.limitCount" id="limitCount"
-								maxlength="8"
-								onkeyup="this.value=this.value.replace(/[^\d]/g,'') " /></td>
+								maxlength="8" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " /></td>
 						</tr>
 						<tr>
 							<td align="right" width="15%" height="30px">风险等级</td>
 							<td align="left" style="padding-left: 5px" width="25%"><select
-								id="risklevel" class="easyui-validatebox"
-								missingMessage="请选选择风险等级" required="true"
-								name="limitMemCreditMonthModel.risklevel"
-								class="easyui-validatebox">
+								id="risklevel" class="easyui-validatebox" missingMessage="请选选择风险等级" required="true"
+								name="limitMemCreditMonthModel.risklevel" class="easyui-validatebox">
 									<option value="">--请选择风险等级--</option>
 							</select></td>
 							<td align="right" width="15%">备注</td>
-							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="limitMemCreditMonthModel.notes" id="Notes" maxlength="32" />
+							<td align="left" style="padding-left: 5px" width="25%">
+							<input name="limitMemCreditMonthModel.notes" id="Notes" maxlength="32" />
 							</td>
 						</tr>
 					</table>
 				</form>
 			</div>
-			<div region="south" border="false"
-				style="text-align: center; padding: 5px 0;">
-				<a class="easyui-linkbutton" iconCls="icon-ok"
-					href="javascript:saveWhitePan()" id="btn_submit" onclick="">保存</a>
-				<a class="easyui-linkbutton" iconCls="icon-cancel"
-					href="javascript:void(0)" onclick="closeAdd()">取消</a>
+			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveWhitePan()" id="btn_submit" onclick="">保存</a>
+				<a class="easyui-linkbutton" iconCls="icon-cancel" href="javascript:void(0)" onclick="closeAdd()">取消</a>
 			</div>
 		</div>
 	</div>

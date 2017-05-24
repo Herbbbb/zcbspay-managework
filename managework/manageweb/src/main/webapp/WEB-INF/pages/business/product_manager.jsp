@@ -73,9 +73,9 @@
 					<table width="100%" cellpadding="2" cellspacing="2" id="groupinfo">
 						<tr style="height: 25px">
 							<td align="center" width="74px">产品名称</td>
-							<td align="left"><input type="text" id="group_name_ins"
-								name="prdtname" class="easyui-validatebox"
-								required="true" maxlength="32" /></td>
+							<td align="left">
+							<input type="text" id="group_name_ins" name="prdtname" class="easyui-validatebox"
+								missingMessage="请输入产品名称" required="true" maxlength="32" /></td>
 						</tr>
 						<tr style="height: 60px">
 							<td>选择业务</td>

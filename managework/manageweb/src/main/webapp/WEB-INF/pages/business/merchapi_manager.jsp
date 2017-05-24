@@ -7,16 +7,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <style type="text/css">
-table tr td {
-	height: 25px
-}
- 
 table tr td input {
 	height: 15px
 }
-
 table tr td select {
 	height: 20px
+}
+table tr td.head-title {
+	height: 25px;
+	background-color: #F0F8FF;
+	font-weight: bold;
+	border-width: 1px 1px 1px 1px;
+	border-style: groove;
+}
+table tr td.add {
+	height: 25px;
+}
+table tr td.update {
+	height: 25px;
+	padding-left: 10px;
+	border-width: 1px 1px 1px 1px;
+	border-style: groove;
 }
 </style>
 <script type="text/javascript" src="js/extendsValidator_1.0_20151215.js"></script>
@@ -30,15 +41,12 @@ table tr td select {
 			<form id="theForm" method="post">
 				<table width="100%">
 					<tr>
-						<td align="right" width="15%">委托机构号</td>
-						<td align="left" style="padding-left: 5px" width="25%"><input
-							name="memberid" id="memberids"
-							class="easyui-validatebox" /></td>
-						<td align="right" colspan=2><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a>
-							<a
-							href="javascript:resize()" class="easyui-linkbutton"
-							iconCls="icon-redo">清空</a>
+						<td class="add" align="right" width="15%">委托机构号</td>
+						<td class="add" align="left" style="padding-left: 5px" width="25%">
+							<input name="memberid" id="memberids" class="easyui-validatebox" /></td>
+						<td class="add" align="right" colspan=2>
+							<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+							<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a>
 						</td>
 					</tr>
 				</table>
@@ -57,73 +65,61 @@ table tr td select {
 				<form id="txnRateForm"
 					action="merchapi/saveMerch" method="post">
 					<input type="hidden" id ="tid" name="tid">
-					<table width="100%" cellpadding="2" cellspacing="2"
-						style="text-align: left">
+					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left">
 						<tr>
-							<td align="right" width="15%" height="20px">委托机构号</td>
-							<td align="left" style="padding-left: 5px" width="25%">
-								<input required="true"
-								name="memberid" id="memberid"
-								class="easyui-validatebox" />
+							<td colspan="4" class="head-title"></td>
+						</tr>
+						<tr>
+							<td class="update" align="center" width="15%">委托机构号</td>
+							<td class="update" align="left" style="padding-left: 5px" width="25%">
+								<input required="true" name="memberid" id="memberid"
+								class="easyui-validatebox" missingMessage="请输入委托机构号"/>
 							</td>
 
-							<td align="right" width="15%" height="20px">产品类型</td>
-							<td align="left" style="padding-left: 5px" width="25%">
-								<input required="true"
-								name="biztype" id="biztype"
-								class="easyui-validatebox" />
+							<td class="update" align="center" width="15%">产品类型</td>
+							<td class="update" align="left" style="padding-left: 5px" width="25%">
+								<input required="true" name="biztype" id="biztype"
+								class="easyui-validatebox" missingMessage="请输入产品类型"/>
 							</td>
 						</tr>
-
 						<tr>
-							<td align="right" width="15%" height="20px">交易类型</td>
-							<td align="left" style="padding-left: 5px" width="25%">
-							    <input
-								name="txntype" id="txntype"
-							    required="true"
-								class="easyui-validatebox" />
+							<td class="update" align="center" width="15%">交易类型</td>
+							<td class="update" align="left" style="padding-left: 5px" width="25%">
+							    <input name="txntype" id="txntype" required="true"
+								class="easyui-validatebox" missingMessage="请输入交易类型"/>
 								</td>
-							<td align="right" width="15%" height="20px">交易子类</td>
-							<td align="left" style="padding-left: 5px" width="25%">
-								<input
-								name="txnsubtype" id="txnsubtype"
-							    required="true"
-								class="easyui-validatebox" />
+							<td class="update" align="center" width="15%">交易子类</td>
+							<td class="update" align="left" style="padding-left: 5px" width="25%">
+								<input name="txnsubtype" id="txnsubtype" required="true"
+								class="easyui-validatebox" missingMessage="请输入交易子类"/>
 							</td>
 						</tr>
 						<tr>
-							<td align="right" width="15%" height="20px">API接口名称</td>
-							<td align="left" style="padding-left: 5px" width="25%">
-								<input
-								name="apiname" id="apiname"
-							    required="true"
-								class="easyui-validatebox" />
+							<td colspan="4" class="head-title"></td>
+						</tr>
+						<tr>
+							<td class="update" align="center" width="15%">API接口名称</td>
+							<td class="update" align="left" style="padding-left: 5px" width="25%">
+								<input name="apiname" id="apiname" required="true"
+								class="easyui-validatebox" missingMessage="请输入API接口名称"/>
 							</td>
-							
-							<td align="right" width="15%" height="20px">状态</td>
-							<td align="left" style="padding-left: 5px" width="25%">
-								<input
-								name="status" id="status"
-							    required="true"
-								class="easyui-validatebox" />
+							<td class="update" align="center" width="15%">状态</td>
+							<td class="update" align="left" style="padding-left: 5px" width="25%">
+								<input name="status" id="status" required="true"
+								class="easyui-validatebox" missingMessage="请输入状态"/>
 							</td>
 						</tr>
-						
 						<tr>
-							<td align="right" width="15%" height="20px">备注1</td>
-							<td align="left" style="padding-left: 5px" width="25%">
-								<input
-								name="notes" id="notes"
-							    required="true"
-								class="easyui-validatebox" />
+							<td class="update" align="center" width="15%">备注1</td>
+							<td class="update" align="left" style="padding-left: 5px" width="25%">
+								<input name="notes" id="notes" required="true"
+								class="easyui-validatebox" missingMessage="请输入备注"/>
 							</td>
 
-							<td align="right" width="15%" height="20px">备注2</td>
-							<td align="left" style="padding-left: 5px" width="25%">
-							<input
-								name="remarks" id="remarks"
-							    required="true"
-								class="easyui-validatebox" />
+							<td class="update" align="center" width="15%">备注2</td>
+							<td class="update" align="left" style="padding-left: 5px" width="25%">
+							<input name="remarks" id="remarks" required="true"
+								class="easyui-validatebox" missingMessage="请输入备注"/>
 							</td>
 						</tr>
 					</table>

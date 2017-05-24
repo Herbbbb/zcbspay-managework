@@ -179,9 +179,9 @@ table tr td font.current-step {
 							<td align="center">开户行</td>
 							<td colspan="3">
 								<input id="oldBankName_input" readonly="true" required="true"> 
-								<a id="a_bank_info" href="javascript:modifyBank()" style="color: blue">修改</a><span id="bank_info"> 
-								<select id="banknode_ins" class="easyui-validatebox" missingMessage="请输入开户行" required="true" 
-								name="bankNode" style="width: 150px" /></select><font color="red">*</font> 
+								<a id="a_bank_info" href="javascript:modifyBank()" style="color: blue">修改</a>
+								<span id="bank_info"><select id="banknode_ins" class="easyui-validatebox" missingMessage="请输入开户行" required="true" 
+								name="bankNode" style="width: 150px" /><option value=''>--请选择开户行--</option></select><font color="red">*</font> 
 								<input id="banknode_key" maxlength="16" type="text" onclick="checkBankKey()" onchange="queryBankNode()" /></span>
 							</td>
 						</tr>
@@ -390,7 +390,7 @@ table tr td font.current-step {
 			queryDistType($('#prdtver_old').val());
 			queryFee($('#prdtver_old').val());
 			queryRiskType($('#prdtver_old').val())
-			showChnlname();
+// 			showChnlname();
 		  
 			$("#startDate,#endDate").datebox({ editable:false});
 			initDelegation();

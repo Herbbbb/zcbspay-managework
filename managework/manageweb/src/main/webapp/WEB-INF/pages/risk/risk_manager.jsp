@@ -23,13 +23,9 @@
 						<td align="right">风控版本名称</td>
 						<td align="left" style="padding-left: 5px"><input
 							name="riskname" id="riskname_qid" maxlength="128" /></td>
-						<td align="right" colspan=2><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a> <a
-							href="javascript:resize()" class="easyui-linkbutton"
-							iconCls="icon-redo">清空</a></td>
+						<td align="right" colspan=2><a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a> 
+						<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a></td>
 					</tr>
-
-
 				</table>
 			</form>
 		</div>
@@ -49,24 +45,21 @@
 						style="text-align: left" id="inputForm">
 						<tr>
 							<td align="right" width="15%" height="50px">风控版本代码</td>
-							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="riskver" id="riskver" validType="minLength[8,8]"
-								maxlength="8" class="easyui-validatebox" required="required" />
-							</td>
+							<td align="left" style="padding-left: 5px" width="25%">
+							<input name="riskver" id="riskver" validType="minLength[8,8]" maxlength="8" 
+							class="easyui-validatebox" required="required" missingMessage="请输入风控版本代码"/></td>
 							<td align="right" width="15%">风控版本名称</td>
-							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="riskname" id="riskname" required="required"
-								class="easyui-validatebox" /></td>
+							<td align="left" style="padding-left: 5px" width="25%">
+							<input name="riskname" id="riskname" required="required"
+								class="easyui-validatebox" missingMessage="请输入风控版本名称"/></td>
 						</tr>
 						<tr></tr>
 						<tr>
 							<td align="right" width="15%">所属产品</td>
-							<td align="left" style="padding-left: 5px" width="25%"><select
-								id="prdtver" class="easyui-validatebox" missingMessage="请选择产品"
-								required="true" name="prdtver"
-								class="easyui-validatebox">
-									<option value="">--请选择产品--</option>
-							</select></td>
+							<td align="left" style="padding-left: 5px" width="25%">
+							<select id="prdtver" class="easyui-validatebox" missingMessage="请选择产品" required="true" 
+							name="prdtver" class="easyui-validatebox">
+									<option value="">--请选择产品--</option></select></td>
 							<td align="right" width="15%">备注</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
 								name="notes" id="Notes" maxlength="32" /></td>

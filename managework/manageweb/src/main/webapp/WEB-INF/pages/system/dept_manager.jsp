@@ -56,7 +56,7 @@ table tr td select {
 						<tr>
 							<td class="add" width="15%">部门代码</td>
 							<td class="add" width="30%"><input id="dept_code" name="deptCode" required="true" type="text" maxlength="4"
-								class="easyui-validatebox" validType="minLength[4,4]" /><font color="red">*</font></td>
+								class="easyui-validatebox" validType="minLength[4,4]" missingMessage="请输入部门代码"/><font color="red">*</font></td>
 							<td class="add" width="15%">部门名称</td>
 							<td class="add"><input id="dept_name" name="deptName" required="true" missingMessage="请输入部门名称" type="text"
 								class="easyui-validatebox" maxlength="20" onkeyup="value=value.replace(/^[\s]*$/g,'')" /><font color="red">*</font></td>

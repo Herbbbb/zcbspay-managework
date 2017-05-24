@@ -7,16 +7,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <style type="text/css">
-table tr td {
-	height: 25px
-}
-
 table tr td input {
 	height: 15px
 }
 
 table tr td select {
 	height: 20px
+}
+table tr td.head-title {
+	height: 25px;
+	background-color: #F0F8FF;
+	font-weight: bold;
+	border-width: 1px 1px 1px 1px;
+	border-style: groove;
+}
+table tr td.add {
+	height: 25px;
+}
+table tr td.update {
+	height: 25px;
+	padding-left: 10px;
+	border-width: 1px 1px 1px 1px;
+	border-style: groove;
 }
 </style>
 <script type="text/javascript" src="js/extendsValidator_1.0_20151215.js"></script>
@@ -29,35 +41,26 @@ table tr td select {
 			iconCls="icon-save" collapsible="true">
 			<form id="theForm" method="post">
 				<table width="100%">
-
 					<tr>
-						<td align="right" width="15%">扣率代码</td>
-						<td align="left" style="padding-left: 5px" width="25%">
+						<td class="add" align="right" width="15%">扣率代码</td>
+						<td class="add" align="left" style="padding-left: 5px" width="25%">
 							<input id="rateId"  name="rateId" maxlength="10"/>
 						</td>
-						<td align="right"></td>
-					</tr>
-					<tr>
-						<td align="right" width="15%">扣率描述</td>
-						<td align="left" style="padding-left: 5px" width="25%">
+						<td class="add" align="right" width="15%">扣率描述</td>
+						<td class="add" align="left" style="padding-left: 5px" width="25%">
 							<input id="rateDes" name="rateDes" maxlength="64" />
 						</td>
-
-						<td align="right"><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a>
-							<a
-							href="javascript:resize()" class="easyui-linkbutton"
-							iconCls="icon-redo">清空</a>
-							</td>
+						<td class="add" align="right">
+							<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+							<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a>
+						</td>
 					</tr>
-
 				</table>
 			</form>
 		</div>
 		<div style="margin-top: 5px">
 			<table id="test"></table>
 		</div>
-
 	</div>
 	<div id="w" class="easyui-window" closed="true" title="My Window"
 		iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px;">
@@ -69,38 +72,34 @@ table tr td select {
 					<table width="100%" cellpadding="2" cellspacing="2"
 						style="text-align: left">
 						<tr>
-							<td width="15%">扣率代码</td>
-							<td width="30%"><input id="rateId-form"  name="rateId" maxlength="10"/></td>
-							<td width="15%">扣率描述</td>
-							<td><input id="rateDes-form" name="rateDes" maxlength="64" /></td>
+							<td class="update" width="15%">扣率代码</td>
+							<td class="update" width="30%"><input id="rateId-form"  name="rateId" maxlength="10"/></td>
+							<td class="update" width="15%">扣率描述</td>
+							<td class="update"><input id="rateDes-form" name="rateDes" maxlength="64" /></td>
 						</tr>
 						<tr>
-							<td>计费方式</td>
-							<td>
-							<select
-								id="rateType" class="easyui-validatebox" required="true" name="rateType"
-								onchange="showRateDetail()">
-							</select>
-							</td>
-							<td width="15%">扣率(百分比)</td>
-							<td><input id="feeRate" name="feeRate"
-								validType="percent" required="true" type="text"
-								class="easyui-validatebox" maxlength="5" /></td>
+							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr>
-							<td>最低收费额(单位:元)</td>
-							<td><input id="minFee" name="minFee"
-								maxlength="12" validType="amount" required="true" type="text"
-								class="easyui-validatebox" /></td>
-							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxFee" name="maxFee"
-								required="true" maxlength="12" validType="amount" type="text"
-								class="easyui-validatebox" /></td>
+							<td class="update">计费方式</td>
+							<td class="update"><select id="rateType" class="easyui-validatebox" required="true" name="rateType"
+								onchange="showRateDetail()" missingMessage="请选择计费方式">
+							</select></td>
+							<td class="update" width="15%">扣率(百分比)</td>
+							<td class="update"><input id="feeRate" name="feeRate" validType="percent" required="true" type="text"
+								class="easyui-validatebox" maxlength="5" missingMessage="请输入扣率"/></td>
 						</tr>
 						<tr>
-							<td>备注</td>
-							<td colspan="3"><textarea id="notes" rows="3" cols="75"
-									name="notes" maxlength="32"></textarea></td>
+							<td class="update">最低收费额(元)</td>
+							<td class="update"><input id="minFee" name="minFee" maxlength="12" validType="amount" required="true"
+							 type="text" class="easyui-validatebox" missingMessage="请输入最低收费金额"/></td>
+							<td class="update" width="15%">最高收费额(元)</td>
+							<td class="update"><input id="maxFee" name="maxFee" required="true" maxlength="12" validType="amount" 
+							type="text" class="easyui-validatebox" missingMessage="请输入最高收费金额"/></td>
+						</tr>
+						<tr>
+							<td class="update">备注</td>
+							<td class="update" colspan="3"><textarea id="notes" rows="3" cols="75" name="notes" maxlength="32"></textarea></td>
 						</tr>
 					</table>
 				</form>
@@ -221,7 +220,9 @@ table tr td select {
 				$("#busicase").attr("disabled","disabled");
 			}
 			$("#save_button").linkbutton('enable');
-			$('#txnRateForm').clearForm();
+			$('#txnRateForm :input').val('');
+			$('#notes').val('');
+// 			$('#txnRateForm').clearForm();
 			$("#txnRateForm").attr("action", "fee/saveCommonRate");
 			$('#w').window({
 				title: '常规类型扣率',

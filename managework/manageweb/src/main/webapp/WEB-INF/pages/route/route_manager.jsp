@@ -44,14 +44,11 @@
 						style="text-align: left" id="inputForm">
 						<tr>
 							<td align="right" width="15%" height="50px">路由版本代码</td>
-
-							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="routver" id="routver" required="true"
-								validType="minLength[8,8]" maxlength="8"
-								class="easyui-validatebox" /> <font color="red">*</font></td>
+							<td align="left" style="padding-left: 5px" width="25%">
+							<input name="routver" id="routver" required="true" validType="minLength[8,8]" maxlength="8"
+								class="easyui-validatebox" missingMessage="请输入路由版本"/> <font color="red">*</font></td>
 							</td>
 							<td align="right" width="15%">路由版本名称</td>
-
 							<td align="left" style="padding-left: 5px" width="25%"><input
 								name="routname" id="routname" required="true"
 								missingMessage="请输入路由版本名称" maxlength="32"
@@ -62,12 +59,9 @@
 						<tr></tr>
 						<tr>
 							<td align="right" width="15%">备注</td>
-							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="note" id="notes" maxlength="64"
-								class="easyui-validatebox" /></td>
-
+							<td align="left" style="padding-left: 5px" width="25%">
+							<input name="note" id="notes" maxlength="64" class="easyui-validatebox" /></td>
 							<td align="center" colspan="2"><font color="red">提示:请于启用、注销前在备注处填写理由</font></td>
-
 						</tr>
 					</table>
 				</form>

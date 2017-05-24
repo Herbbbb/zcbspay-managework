@@ -18,9 +18,7 @@
 				<table width="100%">
 					<tr>
 						<td align="right">身份证号</td>
-						<td align="left" style="padding-left: 5px"><input id="idnum"
-							maxlength="19" /></td>
-
+						<td align="left" style="padding-left: 5px"><input id="idnum" maxlength="19" /></td>
 						<td align="right" colspan=2>
 							<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a>
 							<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a>
@@ -49,34 +47,24 @@
 								name="idnum" id="idnum1" validType="cardNo[18]"
 								maxlength="18" class="easyui-validatebox" /> <font color="red">*</font>
 							</td>
-
 							<td align="right" width="15%">风险等级</td>
 							<td align="left" style="padding-left: 5px" width="25%"><select
-								id="risklevel" class="easyui-validatebox"
-								missingMessage="请选选择风险等级" required="true"
+								id="risklevel" class="easyui-validatebox" missingMessage="请选选择风险等级" required="true"
 								name="risklevel" class="easyui-validatebox">
 									<option value="">--请选择风险等级--</option>
 									<option value="5">拒绝</option>
 							</select> <font color="red">*</font></td>
-
 						</tr>
-
 						<tr>
 							<td align="right" width="15%">有效期开始日期</td>
-							<td><input name="sdate" maxlength="10"
-								type="text" id="sdate" /> <font color="red">*</font></td>
-
+							<td><input name="sdate" maxlength="10" type="text" id="sdate" /> <font color="red">*</font></td>
 							<td align="right" width="15%">有效期终止日期</td>
-							<td><input name="edate"
-								class="easyui-validatebox" maxlength="10" id="edate" /> <font
+							<td><input name="edate" class="easyui-validatebox" maxlength="10" id="edate" /> <font
 								color="red">*</font></td>
 						</tr>
-
-
 						<tr>
 							<td align="right" width="15%" height="50px">备注</td>
-							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="notes" id="notes" maxlength="42" /></td>
+							<td align="left" style="padding-left: 5px" width="25%"><input name="notes" id="notes" maxlength="42" /></td>
 						</tr>
 					</table>
 				</form>
