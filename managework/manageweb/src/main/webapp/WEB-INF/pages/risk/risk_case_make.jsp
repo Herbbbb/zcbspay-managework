@@ -54,10 +54,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						style="text-align: left" id="inputForm">
 						<tr>
 							<td align="right" width="10%" height="50px">业务代码</td>
-							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="busicode" id="busicode"
-								validType="minLength[8,8]" maxlength="8"
-								class="easyui-validatebox" /></td>
+							<td align="left" style="padding-left: 5px" width="25%">
+							<input name="busicode" id="busicode" validType="minLength[8,8]" maxlength="8"
+								class="easyui-validatebox" missingMessage="请输入业务代码"/></td>
 							<td align="right" width="10%">业务名称</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
 								name="businame" id="businame" /></td>
@@ -76,19 +75,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</table>
 				</form>
 			</div>
-			<div region="south" border="false"
-				style="text-align: center; padding: 5px 0;">
-				<a class="easyui-linkbutton" id="btn_submit" iconCls="icon-ok"
-					onclick="updateRiskCase()">提交</a> <a class="easyui-linkbutton"
-					iconCls="icon-cancel" href="javascript:void(0)"
-					onclick="closeAdd()">取消</a>
+			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
+				<a class="easyui-linkbutton" id="btn_submit" iconCls="icon-ok" onclick="updateRiskCase()">提交</a> 
+				<a class="easyui-linkbutton" iconCls="icon-cancel" href="javascript:void(0)" onclick="closeAdd()">取消</a>
 			</div>
 		</div>
 	</div>
-	<div region="south" border="false"
-		style="text-align: center; padding: 5px 0;">
-		<a href="javascript:history.back(-1);" class="easyui-linkbutton"
-			iconCls="icon-back">返回</a>
+	<div region="south" border="false" style="text-align: center; padding: 5px 0;">
+		<a href="javascript:history.back(-1);" class="easyui-linkbutton" iconCls="icon-back">返回</a>
 	</div>
 </body>
 

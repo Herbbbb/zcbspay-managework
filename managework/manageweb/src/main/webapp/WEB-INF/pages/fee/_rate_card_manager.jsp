@@ -7,10 +7,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <style type="text/css">
-table tr td {
-	height: 25px
-}
-
 table tr td input {
 	height: 15px
 }
@@ -18,35 +14,44 @@ table tr td input {
 table tr td select {
 	height: 20px
 }
+table tr td.head-title {
+	height: 25px;
+	background-color: #F0F8FF;
+	font-weight: bold;
+	border-width: 1px 1px 1px 1px;
+	border-style: groove;
+}
+table tr td.add {
+	height: 25px;
+}
+table tr td.update {
+	height: 25px;
+	padding-left: 10px;
+	border-width: 1px 1px 1px 1px;
+	border-style: groove;
+}
 </style>
 <script type="text/javascript" src="js/extendsValidator_1.0_20151215.js"></script>
 </head>
 <body>
 
 	<div style="margin: 5px; border:" id="continer">
-		<div id="p" class="easyui-panel" title="查询条件"
-			style="height: 100px; padding: 10px; background: #fafafa;"
+		<div id="p" class="easyui-panel" title="查询条件" style="height: 100px; padding: 10px; background: #fafafa;"
 			iconCls="icon-save" collapsible="true">
 			<form id="theForm" method="post">
 				<table width="100%">
 					<tr>
-						<td align="right" width="15%">扣率代码</td>
-						<td align="left" style="padding-left: 5px" width="25%">
+						<td class="add" align="right" width="15%">扣率代码</td>
+						<td class="add" align="left" style="padding-left: 5px" width="25%">
 							<input id="rateId"  name="rateId" maxlength="10"/>
 						</td>
-						<td align="right"></td>
-					</tr>
-					<tr>
-						<td align="right" width="15%">扣率描述</td>
-						<td align="left" style="padding-left: 5px" width="25%">
+						<td class="add" align="right" width="15%">扣率描述</td>
+						<td class="add" align="left" style="padding-left: 5px" width="25%">
 							<input id="rateDes" name="rateDes" maxlength="64" />
 						</td>
-
-						<td align="right"><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a>
-							<a
-							href="javascript:resize()" class="easyui-linkbutton"
-							iconCls="icon-redo">清空</a>
+						<td class="add" align="right">
+						<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+						<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a>
 							</td>
 					</tr>
 				</table>
@@ -62,106 +67,86 @@ table tr td select {
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
-				<form id="txnRateForm"
-					action="fee/saveMemberRate" method="post">
+				<form id="txnRateForm" action="fee/saveMemberRate" method="post">
 					<table width="100%" cellpadding="2" cellspacing="2"
 						style="text-align: left">
 						<tr>
-							<td width="15%">扣率代码</td>
-							<td width="30%"><input id="rateId_form"  name="rateId" maxlength="10"/></td>
-							<td width="15%">扣率描述</td>
-							<td><input id="rateDes_form" name="rateDes" maxlength="64" /></td>
-						</tr>
-						<!-- 借记卡start -->
-						<tr>
-							<td width="15%">卡类别</td>
-							<td width="30%">借记卡</td>
+							<td class="update" width="15%">扣率代码</td>
+							<td class="update" width="30%"><input id="rateId_form"  name="rateId" maxlength="10"/></td>
+							<td class="update" width="15%">扣率描述</td>
+							<td class="update"><input id="rateDes_form" name="rateDes" maxlength="64" /></td>
 						</tr>
 						<tr>
-							<td>计费方式</td>
-							<td>
-							<select
-								id="rateTypeD" class="easyui-validatebox" required="true" name="rateTypeD"
-								onchange="showRateDetail('D')">
-							</select>
-							</td>
-							<td width="15%">扣率(百分比)</td>
-							<td><input id="feeRateD" name="feeRateD" required="true"
-								validType="percent" type="text" class="easyui-validatebox"
-								maxlength="5" /></td>
+							<td class="update head-title" width="15%">卡类别</td>
+							<td class="update head-title" colspan="3" width="30%">借记卡</td>
 						</tr>
 						<tr>
-							<td>最低收费额(单位:元)</td>
-							<td><input id="minFeeD" name="minFeeD" required="true"
-								maxlength="12" validType="amount" type="text"
-								class="easyui-validatebox" /></td>
-							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxFeeD" name="maxFeeD" required="true"
-								maxlength="12" validType="amount" type="text"
-								class="easyui-validatebox" /></td>
+							<td class="update">计费方式</td>
+							<td class="update"><select id="rateTypeD" class="easyui-validatebox" required="true" name="rateTypeD"
+								onchange="showRateDetail('D')" missingMessage="请选择计费方式">
+							</select></td>
+							<td class="update" width="15%">扣率(百分比)</td>
+							<td class="update"><input id="feeRateD" name="feeRateD" required="true" validType="percent" type="text" 
+							class="easyui-validatebox" maxlength="5" missingMessage="请输入扣率"/></td>
+						</tr>
+						<tr>
+							<td class="update">最低收费额(元)</td>
+							<td class="update"><input id="minFeeD" name="minFeeD" required="true" maxlength="12" validType="amount" 
+							type="text" class="easyui-validatebox" missingMessage="请输入最低收费金额"/></td>
+							<td class="update" width="15%">最高收费额(元)</td>
+							<td class="update"><input id="maxFeeD" name="maxFeeD" required="true" maxlength="12" validType="amount" 
+							type="text" class="easyui-validatebox" missingMessage="请输入最高收费金额"/></td>
 						</tr>
 						<!-- 借记卡end -->
 						<!-- 贷记卡start -->
 						<tr>
-							<td width="15%">卡类别</td>
-							<td width="30%">贷记卡</td>
+							<td class="update head-title" width="15%">卡类别</td>
+							<td class="update head-title" colspan="3" width="30%">贷记卡</td>
 						</tr>
 						<tr>
-							<td>计费方式</td>
-							<td>
-							<select
-								id="rateTypeC" class="easyui-validatebox" required="true" name="rateTypeC"
-								onchange="showRateDetail('C')">
-							</select>
-							</td>
-							<td width="15%">扣率(百分比)</td>
-							<td><input id="feeRateC" name="feeRateC" required="true"
-								validType="percent" type="text" class="easyui-validatebox"
-								maxlength="5" /></td>
+							<td class="update">计费方式</td>
+							<td class="update"><select id="rateTypeC" class="easyui-validatebox" required="true" name="rateTypeC"
+								onchange="showRateDetail('C')" missingMessage="请选择计费方式">
+							</select></td>
+							<td class="update" width="15%">扣率(百分比)</td>
+							<td class="update"><input id="feeRateC" name="feeRateC" required="true" validType="percent" type="text" 
+							class="easyui-validatebox" maxlength="5" missingMessage="请输入扣率"/></td>
 						</tr>
 						<tr>
-							<td>最低收费额(单位:元)</td>
-							<td><input id="minFeeC" name="minFeeC"  required="true"
-								maxlength="12" validType="amount" type="text"
-								class="easyui-validatebox" /></td>
-							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxFeeC" name="maxFeeC" required="true"
-								maxlength="12" validType="amount" type="text"
-								class="easyui-validatebox" /></td>
+							<td class="update">最低收费额(元)</td>
+							<td class="update"><input id="minFeeC" name="minFeeC" required="true" maxlength="12" validType="amount" 
+							type="text" class="easyui-validatebox" missingMessage="请输入最低收费金额"/></td>
+							<td class="update" width="15%">最高收费额(元)</td>
+							<td class="update"><input id="maxFeeC" name="maxFeeC" required="true" maxlength="12" validType="amount" 
+							type="text" class="easyui-validatebox" missingMessage="请输入最高收费金额"/></td>
 						</tr>
 						<!-- 贷记卡end -->
 						<!-- 准贷记卡start -->
 						<tr>
-							<td width="15%">卡类别</td>
-							<td width="30%">准贷记卡</td>
+							<td class="update head-title" width="15%">卡类别</td>
+							<td class="update head-title" colspan="3" width="30%">准贷记卡</td>
 						</tr>
 						<tr>
-							<td>计费方式</td>
-							<td>
-							<select
-								id="rateTypeSC" class="easyui-validatebox" required="true" name="rateTypeSC"
-								onchange="showRateDetail('SC')">
-							</select>
-							</td>
-							<td width="15%">扣率(百分比)</td>
-							<td><input id="feeRateSC" name="feeRateSC" required="true"
-								validType="percent" type="text" class="easyui-validatebox"
-								maxlength="5" /></td>
+							<td class="update">计费方式</td>
+							<td class="update"><select id="rateTypeSC" class="easyui-validatebox" required="true" name="rateTypeSC"
+								onchange="showRateDetail('SC')" missingMessage="请选择计费方式">
+							</select></td>
+							<td class="update" width="15%">扣率(百分比)</td>
+							<td class="update"><input id="feeRateSC" name="feeRateSC" required="true" validType="percent" type="text" 
+							class="easyui-validatebox" maxlength="5" missingMessage="请输入扣率"/></td>
 						</tr>
 						<tr>
-							<td>最低收费额(单位:元)</td>
-							<td><input id="minFeeSC" name="minFeeSC" required="true"
-								maxlength="12" validType="amount" type="text"
-								class="easyui-validatebox" /></td>
-							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxFeeSC" name="maxFeeSC" required="true"
-								maxlength="12" validType="amount" type="text"
-								class="easyui-validatebox" /></td>
+							<td class="update">最低收费额(元)</td>
+							<td class="update"><input id="minFeeSC" name="minFeeSC" required="true" maxlength="12" validType="amount" 
+							type="text" class="easyui-validatebox" missingMessage="请输入最低收费金额"/></td>
+							<td class="update" width="15%">最高收费额(元)</td>
+							<td class="update"><input id="maxFeeSC" name="maxFeeSC" required="true" maxlength="12" validType="amount" 
+							type="text" class="easyui-validatebox" missingMessage="请输入最高收费金额"/></td>
 						</tr>
 						<!-- 准贷记卡end -->
 						<tr>
-							<td>备注</td>
-							<td colspan="3"><textarea id="notes" rows="3" cols="75"
+							<td class="update">备注</td>
+							<td class="update" colspan="3"><textarea id="notes" rows="3" cols="75"
 									name="notes" maxlength="32"></textarea></td>
 						</tr>
 					</table>
@@ -182,7 +167,7 @@ table tr td select {
   	  var width = $("#continer").width();
 	  var gridHeight = 600;
 	  var panelWidth = 800;
-	  var panelHeight = 400;
+	  var panelHeight = 420;
 	  var panelHoriFloat = (width-panelWidth)/2;
 	  var panelVertFloat = 150;
 	  $(function() {
@@ -383,7 +368,9 @@ table tr td select {
 				$("#busicase").attr("disabled","disabled");
 			}
 			$("#save_button").linkbutton('enable');
-			$('#txnRateForm').clearForm();
+			$('#txnRateForm :input').val('');
+			$('#notes').val('');
+// 			$('#txnRateForm').clearForm();
 			$("#txnRateForm").attr("action", "fee/saveNewCardRate");
 			$('#w').window({
 				title: '卡扣率信息',

@@ -409,7 +409,7 @@ public class AgencyController {
 						
 //						String fileName = UUID.randomUUID().toString().replace("-", "") + resFileName.substring(resFileName.lastIndexOf("."));
 						FileInputStream in=new FileInputStream(outFile);  
-				        boolean flag = FTPUtils.uploadFile("192.168.2.142", 21, "webftp", "webftp","","agency/",resFileName, in);
+				        boolean flag = FTPUtils.uploadFile("192.168.2.12", 21, "webftp", "webftp","","agency/",resFileName, in);
 					}else{
 						return null;
 					}
@@ -433,7 +433,7 @@ public class AgencyController {
         	result.put("status", "notExist");
         	return result;
         }
-        boolean resultBool = FTPUtils.downloadFile("192.168.2.142", 21, "webftp", "webftp","agency/",filePath , uploadDir);
+        boolean resultBool = FTPUtils.downloadFile("192.168.2.12", 21, "webftp", "webftp","agency/",filePath , uploadDir);
         new MerchantThread(uploadDir + "/" + filePath).start();
         
         if (resultBool) {
@@ -649,7 +649,7 @@ public class AgencyController {
     @ResponseBody
 	@RequestMapping(value="/register", produces = "application/json;charset=UTF-8")
 	public static Map<String, Object> register(String userBeanStr) {
-		String url = "http://192.168.2.145:8080/fe/user/register";
+		String url = "http://192.168.2.15:8080/fe/user/register";
 		HttpUtils httpUtils = new HttpUtils();
 		Map<String, String> paramMap = new HashMap<>();
 		paramMap.put("userBeanStr", userBeanStr);
@@ -682,7 +682,7 @@ public class AgencyController {
     @ResponseBody
 	@RequestMapping(value="/sendEmail", produces = "application/json;charset=UTF-8")
 	public static Map<String, Object> sendEmail(PortalUserModel userBean,String pwd) {
-    	String url = "http://192.168.2.145:8080/fe/mail/sendMailByTemplate";
+    	String url = "http://192.168.2.15:8080/fe/mail/sendMailByTemplate";
 		HttpUtils httpUtils = new HttpUtils();
 		Map<String, String> paramMap = new HashMap<>();
 		String maiBody = "委托机构号：" + userBean.getMemberid() +" ,用户名：" +userBean.getUserName() + " ,登录密码：" + pwd;

@@ -51,19 +51,15 @@
 								validType="amount[]" maxlength="15" class="easyui-validatebox" />
 							</td>
 							<td align="right" width="15%" height="30px">风险等级</td>
-							<td align="left" style="padding-left: 5px" width="25%"><select
-								id="risklevel" class="easyui-validatebox"
-								missingMessage="请选选择风险等级" required="true"
-								name="risklevel" class="easyui-validatebox">
-									<option value="">--请选择风险等级--</option>
+							<td align="left" width="25%">
+							<select id="risklevel" class="easyui-validatebox" missingMessage="请选选择风险等级" 
+							required="true" name="risklevel"><option value="">--请选择风险等级--</option>
 									<option value="5">拒绝</option>
 							</select></td>
 						</tr>
 						<tr>
-
 							<td align="right" width="15%">备注</td>
-							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="notes" id="Notes" maxlength="32" /></td>
+							<td align="left" style="padding-left: 5px" width="25%"><input name="notes" id="Notes" maxlength="32" /></td>
 						</tr>
 					</table>
 				</form>

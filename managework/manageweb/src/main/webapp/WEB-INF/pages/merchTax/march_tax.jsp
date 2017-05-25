@@ -128,7 +128,7 @@ table tr td select {
 							<td class="update">开户银行全称</td>
 							<td class="update" align="left" colspan="3">
 							<select id="banknode_ins" maxlength="64" class="easyui-validatebox" required="true" name="bankName" 
-							missingMessage="请输入开户行" style="width: 250px"/><option value=''>--请选择开户行--</option></select><font color="red">*</font>
+							missingMessage="请输入开户行" style="width: 320px"/><option value=''>--请选择开户行--</option></select><font color="red">*</font>
 							<input id="banknode_key" maxlength="16" type="text" onclick="checkBankKey('add')" onchange="queryBankNode('add')"/></td>
 						</tr>
 						<tr>
@@ -228,7 +228,7 @@ table tr td select {
 						<tr style="height: 25px">
 							<td class="update">开户银行全称</td>
 							<td class="update" align="left" colspan="3">
-							<select id="b_banknode_ins" maxlength="64" class="easyui-validatebox" required="true" style="width: 250px" 
+							<select id="b_banknode_ins" maxlength="64" class="easyui-validatebox" required="true" style="width: 320px" 
 							missingMessage="请输入开户行" name="bankName"/><option value=''>--请选择开户行--</option></select><font color="red">*</font>
 							<input id="b_banknode_key" maxlength="16" type="text" onclick="checkBankKey('update')" onchange="queryBankNode('update')"/></td>
 						</tr>

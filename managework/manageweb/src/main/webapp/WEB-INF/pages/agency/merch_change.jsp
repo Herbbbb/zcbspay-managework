@@ -185,7 +185,7 @@ table tr td font.current-step {
 								<a id="a_bank_info" href="javascript:modifyBank()" style="color: blue">修改</a> 
 								<span id="bank_info"> 
 								<select id="banknode_ins" class="easyui-validatebox" required="true" missingMessage="请输入开户行"
-								 name="bankNode" style="width: 150px" /></select><font color="red">*</font> 
+								 name="bankNode" style="width: 150px" /><option value=''>--请选择开户行--</option></select><font color="red">*</font> 
 								<input id="banknode_key" maxlength="16" type="text" onclick="checkBankKey()" onchange="queryBankNode()" /></span>
 							</td>
 						</tr>

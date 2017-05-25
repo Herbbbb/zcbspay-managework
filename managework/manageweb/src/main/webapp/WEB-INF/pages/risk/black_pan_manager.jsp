@@ -18,9 +18,7 @@
 				<table width="100%">
 					<tr>
 						<td align="right">银行卡号</td>
-						<td align="left" style="padding-left: 5px"><input
-							id="pan_qid" maxlength="19" /></td>
-
+						<td align="left" style="padding-left: 5px"><input id="pan_qid" maxlength="19" /></td>
 						<td align="right" colspan=2>
 							<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a>
 							<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a>
@@ -70,10 +68,8 @@
 			</div>
 			<div region="south" border="false"
 				style="text-align: center; padding: 5px 0;">
-				<a class="easyui-linkbutton" iconCls="icon-ok"
-					href="javascript:saveBlackPan()" id="btn_submit" onclick="">保存</a>
-				<a class="easyui-linkbutton" iconCls="icon-cancel"
-					href="javascript:void(0)" onclick="closeAdd()">取消</a>
+				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveBlackPan()" id="btn_submit" onclick="">保存</a>
+				<a class="easyui-linkbutton" iconCls="icon-cancel" href="javascript:void(0)" onclick="closeAdd()">取消</a>
 			</div>
 		</div>
 	</div>

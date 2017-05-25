@@ -53,13 +53,11 @@
 						<tr>
 							<td align="right" width="15%" height="30px">委托机构号</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="memberid" id="memberid"
-								validType="merchno" maxlength="15" class="easyui-validatebox" />
+								name="memberid" id="memberid" validType="merchno" maxlength="15" class="easyui-validatebox" />
 							</td>
 							<td align="right" width="15%">卡类别</td>
 							<td align="left" style="padding-left: 5px" width="25%"><select
-								id="cardtype" class="easyui-validatebox" required="true"
-								missingMessage="请选择卡类型" name="cardType">
+								id="cardtype" class="easyui-validatebox" required="true" missingMessage="请选择卡类型" name="cardType">
 									<option value="" selected="selected">--请选择卡类型--</option>
 									<option value="1">--借记--</option>
 									<option value="2">--贷记--</option>
@@ -70,23 +68,17 @@
 						<tr>
 							<td align="right" width="15%" height="30px">累计限额（元）</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="limitAmount" id="limitAmount"
-								validType="amount" maxlength="11" class="easyui-validatebox" />
+								name="limitAmount" id="limitAmount" validType="amount" maxlength="11" class="easyui-validatebox" />
 							</td>
 							<td align="right" width="15%">累计限次</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="limitCount" id="limitCount"
-								maxlength="8"
-								onkeyup="this.value=this.value.replace(/[^\d]/g,'') " /></td>
+								name="limitCount" id="limitCount" maxlength="8" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " /></td>
 						</tr>
 						<tr>
 							<td align="right" width="15%" height="30px">风险等级</td>
 							<td align="left" style="padding-left: 5px" width="25%"><select
-								id="risklevel" class="easyui-validatebox"
-								missingMessage="请选选择风险等级" required="true"
-								name="risklevel"
-								class="easyui-validatebox">
-									<option value="">--请选择风险等级--</option>
+								id="risklevel" class="easyui-validatebox" missingMessage="请选选择风险等级" required="true"
+								name="risklevel" class="easyui-validatebox"> <option value="">--请选择风险等级--</option>
 							</select></td>
 							<td align="right" width="15%">备注</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
@@ -96,12 +88,9 @@
 					</table>
 				</form>
 			</div>
-			<div region="south" border="false"
-				style="text-align: center; padding: 5px 0;">
-				<a class="easyui-linkbutton" iconCls="icon-ok"
-					href="javascript:saveWhitePan()" id="btn_submit" onclick="">保存</a>
-				<a class="easyui-linkbutton" iconCls="icon-cancel"
-					href="javascript:void(0)" onclick="closeAdd()">取消</a>
+			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveWhitePan()" id="btn_submit" onclick="">保存</a>
+				<a class="easyui-linkbutton" iconCls="icon-cancel" href="javascript:void(0)" onclick="closeAdd()">取消</a>
 			</div>
 		</div>
 	</div>

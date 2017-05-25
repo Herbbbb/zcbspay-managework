@@ -14,6 +14,22 @@ table tr td input {
 table tr td select {
 	height: 20px
 }
+table tr td.head-title {
+	height: 25px;
+	background-color: #F0F8FF;
+	font-weight: bold;
+	border-width: 1px 1px 1px 1px;
+	border-style: groove;
+}
+table tr td.add {
+	height: 25px;
+}
+table tr td.update {
+	height: 25px;
+	padding-left: 10px;
+	border-width: 1px 1px 1px 1px;
+	border-style: groove;
+}
 </style>
 <script type="text/javascript" src="js/extendsValidator_1.0_20151215.js"></script>
 </head>
@@ -26,24 +42,16 @@ table tr td select {
 			<form id="theForm" method="post">
 				<table width="100%">
 					<tr>
-						<td align="right" width="15%">扣率代码</td>
-						<td align="left" style="padding-left: 5px" width="25%">
-							<input id="rateId"  name="rateId" maxlength="10"/>
+						<td class="add" align="right" width="15%">扣率代码</td>
+						<td class="add" align="left" style="padding-left: 5px" width="25%">
+							<input id="rateId"  name="rateId" maxlength="10"/></td>
+						<td class="add" align="right" width="15%">扣率描述</td>
+						<td class="add" align="left" style="padding-left: 5px" width="25%">
+							<input id="rateDes" name="rateDes" maxlength="64" /></td>
+						<td class="add" align="right">
+							<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+							<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a>
 						</td>
-						<td align="right"></td>
-					</tr>
-					<tr>
-						<td align="right" width="15%">扣率描述</td>
-						<td align="left" style="padding-left: 5px" width="25%">
-							<input id="rateDes" name="rateDes" maxlength="64" />
-						</td>
-
-						<td align="right"><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a>
-							<a
-							href="javascript:resize()" class="easyui-linkbutton"
-							iconCls="icon-redo">清空</a>
-							</td>
 					</tr>
 				</table>
 			</form>
@@ -58,99 +66,90 @@ table tr td select {
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
-				<form id="accumulateRateForm"
-					action="pages/fee/saveAccumulateRateFeeAction.action" method="post">
-					<table width="100%" cellpadding="2" cellspacing="2"
-						style="text-align: left">
+				<form id="accumulateRateForm" action="" method="post">
+					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left">
 						<tr>
-							<td width="15%">扣率代码</td>
-							<td width="30%"><input id="rateId_form"  name="rateId" maxlength="10"/></td>
-							<td width="15%">扣率描述</td>
-							<td><input id="rateDes_form" name="rateDes" maxlength="64" /></td>
+							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr>
-							<td>累计方式</td>
-							<td><select id="accmode" class="easyui-validatebox"
-								required="true" name="accmode" />
-								<option value="">--请选择累计方式--</option>
+							<td class="update" width="15%">扣率代码</td>
+							<td class="update" width="30%"><input id="rateId_form"  name="rateId" maxlength="10"/></td>
+							<td class="update" width="15%">扣率描述</td>
+							<td class="update"><input id="rateDes_form" name="rateDes" maxlength="64" /></td>
+						</tr>
+						<tr>
+							<td class="update">累计方式</td>
+							<td class="update"><select id="accmode" class="easyui-validatebox"
+								required="true" name="accmode" missingMessage="请选择累计方式"/>
+								<option value="" selected="selected">--请选择累计方式--</option>
 								<option value="0">日</option>
 								<option value="1">月</option>
 								<option value="2">年</option> </select></td>
-							<td>计费方式</td>
-							<td>
-							<select id="rateType" class="easyui-validatebox" required="true" name="rateType"
-								onchange="showRateDetail()">
-							</select>
-							</td>
+							<td class="update">计费方式</td>
+							<td class="update"><select id="rateType" class="easyui-validatebox" required="true" name="rateType"
+								onchange="showRateDetail()" missingMessage="请选择计费方式">
+								<option value='' selected="selected">请选择计费方式</option></select></td>
 						</tr>
 						<tr>
-							<td width="15%">扣率(百分比)</td>
-							<td><input id="feerate"
-								name="feerate" class="easyui-validatebox" 
-								required="true" validType="percent" type="text" maxlength="4"
-								missingMessage="请填写扣率" />
-							</td>
+							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr>
-							<td>最低收费额(单位:元)</td>
-							<td><input id="minfee" name="minfee" required="true"
-								validType="amount" maxlength="12" type="text"
-								class="easyui-validatebox" /></td>
-							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxfee" name="maxfee" required="true"
-								validType="amount" maxlength="12" type="text"
-								class="easyui-validatebox" /></td>
-						</tr>
-
-						<tr>
-							<td>阶梯1(单位：元)</td>
-							<td><input id="limit1" name="limit1"
-								validType="amount" type="text" class="easyui-validatebox"
-								maxlength="12" /></td>
+							<td class="update" width="15%">扣率(百分比)</td>
+							<td class="update"><input id="feerate" name="feerate" class="easyui-validatebox" 
+								required="true" validType="percent" type="text" maxlength="4" missingMessage="请输入扣率"/></td>
 						</tr>
 						<tr>
-							<td width="15%">扣率(百分比)</td>
-							<td><input id="feerate2"
+							<td class="update">最低收费额(元)</td>
+							<td class="update"><input id="minfee" name="minfee" required="true" validType="amount" maxlength="12" 
+								type="text" class="easyui-validatebox" missingMessage="请输入最低收费金额"/></td>
+							<td class="update" width="15%">最高收费额(元)</td>
+							<td class="update"><input id="maxfee" name="maxfee" required="true" validType="amount" maxlength="12"
+								 type="text" class="easyui-validatebox" missingMessage="请输入最高收费金额"/></td>
+						</tr>
+						<tr>
+							<td colspan="4" class="head-title"></td>
+						</tr>
+						<tr>
+							<td class="update">阶梯1(元)</td>
+							<td class="update"><input id="limit1" name="limit1" validType="amount" type="text" class="easyui-validatebox"
+								maxlength="12" missingMessage="请输入金额"/></td>
+							<td class="update" width="15%">扣率(百分比)</td>
+							<td class="update"><input id="feerate2"
 								name="feerate2" validType="percent" required="true"
-								type="text" class="easyui-validatebox" maxlength="4" missingMessage="请填写扣率"/><font color="red">*</font></td>
+								type="text" class="easyui-validatebox" maxlength="4" missingMessage="请输入扣率"/><font color="red">*</font></td>
 						</tr>
 						
 						<tr>
-							<td>最低收费额(单位:元)</td>
-							<td><input id="minfee2"
-								name="minfee2" maxlength="12" required="true"
-								validType="amount" type="text" class="easyui-validatebox" /></td>
-							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxfee2"
-								name="maxfee2" maxlength="12" required="true"
-								validType="amount" type="text" class="easyui-validatebox" /></td>
-						</tr>
-
-						<tr>
-							<td>阶梯2(单位：元)</td>
-							<td><input id="limit2" name="limit2"
-								validType="amount" type="text" class="easyui-validatebox"
-								maxlength="12" /></td>
+							<td class="update">最低收费额(元)</td>
+							<td class="update"><input id="minfee2" name="minfee2" maxlength="12" required="true" validType="amount" 
+							type="text" class="easyui-validatebox" missingMessage="请输入最低收费金额"/></td>
+							<td class="update" width="15%">最高收费额(元)</td>
+							<td class="update"><input id="maxfee2"vname="maxfee2" maxlength="12" required="true" validType="amount" 
+							type="text" class="easyui-validatebox" missingMessage="请输入最高收费金额"/></td>
 						</tr>
 						<tr>
-							<td width="15%">扣率(百分比)</td>
-							<td><input id="feerate3"
+							<td colspan="4" class="head-title"></td>
+						</tr>
+						<tr>
+							<td class="update">阶梯2(元)</td>
+							<td class="update"><input id="limit2" name="limit2" validType="amount" type="text" class="easyui-validatebox"
+								maxlength="12" missingMessage="请输入金额"/></td>
+							<td class="update" width="15%">扣率(百分比)</td>
+							<td class="update"><input id="feerate3"
 								name="feerate3" validType="percent" required="true"
-								type="text" class="easyui-validatebox" maxlength="4" missingMessage="请填写扣率"/><font color="red">*</font></td>
+								type="text" class="easyui-validatebox" maxlength="4" missingMessage="请输入扣率"/><font color="red">*</font></td>
 						</tr>
 						<tr>
-							<td>最低收费额(单位:元)</td>
-							<td><input id="minfee3"
-								name="minfee3" maxlength="12" required="true"
-								validType="amount" type="text" class="easyui-validatebox" /></td>
-							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxfee3"
-								name="maxfee3" maxlength="12" required="true"
-								validType="amount" type="text" class="easyui-validatebox" /></td>
+							<td class="update">最低收费额(元)</td>
+							<td class="update"><input id="minfee3" name="minfee3" maxlength="12" required="true" validType="amount" 
+							type="text" class="easyui-validatebox" missingMessage="请输入最低收费金额"/></td>
+							<td class="update" width="15%">最高收费额(元)</td>
+							<td class="update"><input id="maxfee3" name="maxfee3" maxlength="12" required="true" validType="amount" 
+							type="text" class="easyui-validatebox" missingMessage="请输入最高收费金额"/></td>
 						</tr>
 						<tr>
-							<td>备注</td>
-							<td colspan="3"><textarea id="notes" rows="3" cols="75"
+							<td class="update">备注</td>
+							<td class="update" colspan="3"><textarea id="notes" rows="3" cols="75"
 									name="notes" maxlength="32"></textarea></td>
 						</tr>
 					</table>
@@ -171,7 +170,7 @@ table tr td select {
 	  var width = $("#continer").width();
 	  var gridHeight = 600;
 	  var panelWidth = 800;
-	  var panelHeight = 400;
+	  var panelHeight = 470;
 	  var panelHoriFloat = (width-panelWidth)/2;
 	  var panelVertFloat = 150;
 		var width = $("#continer").width();
@@ -355,7 +354,8 @@ table tr td select {
 					width: 100,
 					align: 'center',
 					formatter: function(value, rec) {
-						return '<a href="javascript:showAccumulateRate(\'' + rec.TID + '\')" style="color:blue;margin-left:10px">修改</a>&nbsp;&nbsp<a href="javascript:showAccumulateRateDetail(\'' + rec.TID + '\')" style="color:blue;margin-left:10px">详情</a>';
+						return '<a href="javascript:showAccumulateRate(\'' + rec.TID + '\')" style="color:blue;margin-left:10px">修改</a>'
+						+'&nbsp;&nbsp<a href="javascript:showAccumulateRateDetail(\'' + rec.TID + '\')" style="color:blue;margin-left:10px">详情</a>';
 					}
 				}
 	
@@ -385,7 +385,8 @@ table tr td select {
 			}
 			$("#save_button").linkbutton('enable');
 			$("#cancel_button").linkbutton('enable');
-			$('#accumulateRateForm').clearForm();
+			$('#accumulateRateForm :input').val('');
+			$('#notes').val('');
 			$("#accumulateRateForm").attr("action", "fee/saveAccumulateRate");
 			$('#w').window({
 				title: '累计扣率信息',
@@ -561,6 +562,7 @@ table tr td select {
 			}
 	
 		}
+		/* 详情 */
 		function showAccumulateRateDetail(tid) {
 			showAdd(true);
 			$.ajax({

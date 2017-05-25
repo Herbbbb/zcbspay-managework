@@ -116,20 +116,15 @@ table tr td select {
 									<option value='2'>代理付款</option>
 							</select></td>
 						</tr>
+						<tr>
+							<td colspan="4" class="head-title"></td>
+						</tr>
 						<tr style="height: 25px">
 							<td class="update">银行账户开户行全称</td>
 							<td class="update" align="left" colspan="3">
-							<select id="a_bankNode" class="easyui-validatebox" name="bankNode" style="width: 300px" onchange="showBankInfo('add')"/>
+							<select id="a_bankNode" class="easyui-validatebox" name="bankNode" style="width: 320px" onchange="showBankInfo('add')"/>
 							<option value=''>--请选择开户行--</option></select><font color="red">*</font>
 							<input id="banknode_key" maxlength="16" type="text" onclick="checkBankKey('add')" onchange="queryBankNode('add')"/></td>
-						</tr>
-						<tr style="height: 25px">
-							<td class="update">清算行号</td>
-							<td class="update" align="left"><span id="a_bankCode"></span></td>
-							<td class="update">渠道代码</td>
-							<td class="update" align="left">
-							<input type="text" id="a_channelCode" name="channelCode" class="easyui-validatebox"
-								maxlength="32" missingMessage="请输入渠道代码" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
 						</tr>
 						<tr style="height: 25px">
 							<td class="update">所属省</td>
@@ -137,6 +132,15 @@ table tr td select {
 							<td class="update">所属市</td>
 							<td class="update" align="left"><span id="a_bankCity"></span></td>
 						</tr>
+						<tr style="height: 25px">
+							<td class="update">清算行号</td>
+							<td class="update" align="left"><span id="a_bankCode"></span></td>
+<!-- 							<td class="update">渠道代码</td> -->
+<!-- 							<td class="update" align="left"> -->
+<!-- 							<input type="text" id="a_channelCode" name="channelCode" class="easyui-validatebox" -->
+<%-- 								maxlength="32" missingMessage="请输入渠道代码" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td> --%>
+						</tr>
+						
 						<tr style="height: 25px">
 							<td class="update">备注</td>
 							<td class="update" align="left" colspan="3">
@@ -188,20 +192,15 @@ table tr td select {
 									<option value='2'>代理付款</option>
 							</select></td>
 						</tr>
+						<tr>
+							<td colspan="4" class="head-title"></td>
+						</tr>
 						<tr style="height: 25px">
 							<td class="update">银行账户开户行全称</td>
 							<td class="update" align="left" colspan="3">
-							<select id="b_bankNode" class="easyui-validatebox" required="true" name="bankNode" style="width: 300px" onchange="showBankInfo('update')"/>
+							<select id="b_bankNode" class="easyui-validatebox" required="true" name="bankNode" style="width: 320px" onchange="showBankInfo('update')"/>
 							<option value=''>--请选择开户行--</option></select><font color="red">*</font>
 							<input id="b_banknode_key" maxlength="16" type="text" onclick="checkBankKey('update')" onchange="queryBankNode('update')"/></td>
-						</tr>
-						<tr style="height: 25px">
-							<td class="update">清算行号</td>
-							<td class="update"align="left"><span id="b_bankCode" name="bankCode"></span></td>
-							<td class="update">渠道代码</td>
-							<td class="update"align="left">
-							<input type="text" id="b_channelCode" name="channelCode" class="easyui-validatebox"
-								maxlength="32" missingMessage="请输入渠道代码" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
 						</tr>
 						<tr style="height: 25px">
 							<td class="update">所属省</td>
@@ -209,7 +208,14 @@ table tr td select {
 							<td class="update">所属市</td>
 							<td class="update"align="left"><span id="b_bankCity" name="bankCity"></span></td>
 						</tr>
-						
+						<tr style="height: 25px">
+							<td class="update">清算行号</td>
+							<td class="update"align="left"><span id="b_bankCode" name="bankCode"></span></td>
+<!-- 							<td class="update">渠道代码</td> -->
+<!-- 							<td class="update"align="left"> -->
+<!-- 							<input type="text" id="b_channelCode" name="channelCode" class="easyui-validatebox" -->
+<%-- 								maxlength="32" missingMessage="请输入渠道代码" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td> --%>
+						</tr>
 						<tr style="height: 25px">
 							<td class="update">备注</td>
 							<td class="update"align="left" colspan="3">
@@ -264,12 +270,12 @@ table tr td select {
 							<td class="update">所属市</td>
 							<td class="update" align="left"><span id="d_bankCity"></span></td>
 						</tr>
-						<tr style="height: 25px">
-							<td class="update">渠道代码</td>
-							<td class="update" align="left"><span id="d_channelCode"></span></td>
-							<td class="update"></td>
-							<td class="update" align="left"></td>
-						</tr>
+<!-- 						<tr style="height: 25px"> -->
+<!-- 							<td class="update">渠道代码</td> -->
+<!-- 							<td class="update" align="left"><span id="d_channelCode"></span></td> -->
+<!-- 							<td class="update"></td> -->
+<!-- 							<td class="update" align="left"></td> -->
+<!-- 						</tr> -->
 						<tr style="height: 25px">
 							<td class="update">备注</td>
 							<td class="update" align="left" colspan="3"><span id="d_notes" rows="3" cols="81" style="resize: none;"></span></td>
@@ -316,7 +322,7 @@ table tr td select {
 							}
 						}
 					},
-					{field:'CHANNELCODE',title:'渠道代码',width:100,align:'center'},
+// 					{field:'CHANNELCODE',title:'渠道代码',width:100,align:'center'},
 					{field:'STATUS',title:'状态',width:60,align:'center',
 						formatter:function(value,rec){
 							if(value=="00"){
