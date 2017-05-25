@@ -32,9 +32,8 @@ table tr td select {
 					<tr>
 						<td align="right" width="10%">起止时间</td>
 						<td colspan = "2" style="padding-left: 5px"><input id="stime" type="text"
-							style="width: 120PX" class="easyui-datetimebox"
-							data-options="showSeconds:false" name="stime"></input> 至<input
-							id=etime type="text" style="width: 120PX"
+							style="width: 120PX" class="easyui-datetimebox" data-options="showSeconds:false" name="stime"></input> 
+							至<input id=etime type="text" style="width: 120PX"
 							class="easyui-datetimebox" data-options="showSeconds:false"
 							name="etime"></input></td>
 						<td style="padding-left: 5px"></td>

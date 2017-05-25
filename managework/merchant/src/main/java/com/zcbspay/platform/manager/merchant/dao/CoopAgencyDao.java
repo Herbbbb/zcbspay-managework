@@ -52,4 +52,20 @@ public interface CoopAgencyDao extends BaseDAO<PojoCoopAgency> {
 	 * @return
 	 */
 	Map<String, Object> deleteCoopAgency(String caId) throws ContractException;
+
+	/**
+	 * 查询代理商分润信息
+	 * @param result
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	Map<String, Object> queryProfit(Map<String, Object> result, Integer page, Integer rows);
+
+	/**
+	 * 查询代理商名称
+	 * @param caCode
+	 * @return
+	 */
+	List<?> findByCode(String caCode);
 }

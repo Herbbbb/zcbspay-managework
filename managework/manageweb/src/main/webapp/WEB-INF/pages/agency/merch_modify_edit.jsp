@@ -63,6 +63,7 @@ table tr td font.current-step {
 					<input type="hidden" id="routver_old" value="${merchDeta.routVer}" />
 					<input type="hidden" id="agreemtStart_old" value="${merchDeta.agreemtStart}" /> 
 					<input type="hidden" id="agreemtEnd_old" value="${merchDeta.agreemtEnd}" /> 
+					<input type="hidden" id="caCode_old" value="${merchDeta.caCode}" /> 
 					<input type="hidden" id="mcclist_old" value="${member.mccList}" />
 					<input type="hidden" id="isDelegation_old" value="${member.isDelegation}" /> 
 					<input type="hidden" id="bankname_old" value="${oldBankName}" />
@@ -216,6 +217,9 @@ table tr td font.current-step {
 							<td><select id="prdtver_ins" class="easyui-validatebox"
 								required="true" name="prdtVer" style="width: 150px" missingMessage="请输入产品"
 								onchange="showThreeVersion()" /></select> <font color="red">*</font></td>
+							<td align="center">代理商代码</td>
+							<td><input id="caCode" class="easyui-validatebox" maxlength="15" missingMessage="请输入代理商代码"
+								 required="true" name="caCode" /><font color="red">*</font></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -391,7 +395,7 @@ table tr td font.current-step {
 			queryFee($('#prdtver_old').val());
 			queryRiskType($('#prdtver_old').val())
 // 			showChnlname();
-		  
+			showCaCode();
 			$("#startDate,#endDate").datebox({ editable:false});
 			initDelegation();
 			$('#bank_info').hide();
@@ -1006,6 +1010,30 @@ table tr td font.current-step {
 			    }   
 			});  
 		}
+		
+
+		function showCaCode() {
+			$.ajax({
+				type: "POST",
+				url: "coopAgency/query",
+				data: {"status":"00","page":1,"rows":10},
+				dataType: "json",
+				success: function(json) {
+					var code = $("#caCode_old").val();
+					var html = "<option value=''>--请选择代理商--</option>";
+					$.each(json.rows,function(key, value) {
+						if(value.CACODE==code){
+							html += '<option value="' + value.CACODE + '" selected="selected">' + value.CANAME + '</option>';
+						}else{
+							html += '<option value="' + value.CACODE + '">' + value.CANAME + '</option>';
+						}
+					});
+					$("#caCode").html(html);
+		
+				}
+			});
+		}
+		
 		function closeAdd2(){
 			$('#w2').window('close');
 		}

@@ -617,29 +617,6 @@ table tr td select {
 					
 					$("#d_status").html(json.status);
 					$("#d_notes").html(json.notes);
-				   
-				    
-// 				    $("#d_tId").val(json.tId);
-// 					$("#d_status").html(json.status);
-// 					$("#d_bankProvince").html(json.bankProvince);
-// 					$("#d_bankCity").html(json.accoutNo);
-// 					$("#d_accoutNoa").html(json.accoutNo);
-// 					$("#d_accoutNamea").html(json.accoutName);
-// 					$("#d_merchNoa").html(json.merchNo);
-// 					var protocoltype;
-// 					   if(json.protocoltype == ''){
-// 						   protocoltype = '未选择协议类型';
-// 					   }else if(json.protocoltype == '1'){
-// 						   protocoltype = '代理收款';
-// 					   }else if(json.protocoltype == '2'){
-// 						   protocoltype = '代理付款';
-// 					   }
-// 					$("#d_protocoltype").html(protocoltype);
-// 					$("#d_bankNode").html(json.bankNode);
-// 					$("#d_bankCode").html(json.bankCode);
-// 					$("#d_bankCode").val(json.bankCode);
-// 					$("#d_channelCode").html(json.channelCode);
-// 					$("#d_notes").html(json.notes);
 			   }
 			});
 			$('#w3').window({

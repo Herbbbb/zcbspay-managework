@@ -241,6 +241,11 @@ public class AgencyServiceImpl implements AgencyService {
 		}
 		return bean;
 	}
+
+	@Override
+	public Map<String, Object> queryProfit(Map<String, Object> result, Integer page, Integer rows) {
+		return agencyDAO.queryProfit(result, page,rows);
+	}
 }
 
 

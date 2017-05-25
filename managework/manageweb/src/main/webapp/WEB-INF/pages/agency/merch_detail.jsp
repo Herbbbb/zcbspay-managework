@@ -60,6 +60,7 @@ table tr td font.current-step {
 					<input type="hidden" id="prdtVer" value="${merchMap.PRDT_VER}" />
 					<input type="hidden" id="a_riskVer" value="${merchMap.RISK_VER}" />
 					<input type="hidden" id="num_merchNo" value="${merchMap.MEMBER_ID}" />
+					<input type="hidden" id="CACODE" value="${merchMap.CACODE}" />
 					<input type="hidden" id="flag_ins" value="${flag}" />
 					<table width="100%">
 						<tr>
@@ -157,6 +158,8 @@ table tr td font.current-step {
 <%-- 							<td class="update">${merchMap.INSTI_NAME}</td> --%>
 							<td class="update" align="center">产品<font color="red">*</font></td>
 							<td class="update">${merchMap.PRDTNAME}</td>
+							<td class="update" align="center">代理商<font color="red">*</font></td>
+							<td class="update"><span id="b_caCode"></span></td>
 						</tr>
 						<tr>
 							<td class="update" align="center">计费方式</td>
@@ -521,6 +524,7 @@ table tr td font.current-step {
 		checkIsDelegation();
 		initCertUrl(); 
 		queryRiskType(pid)
+		showCaCode();
 	});
 	
 	function checkIsDelegation(){
@@ -949,7 +953,27 @@ table tr td font.current-step {
 		    }   
 		});  
 	}
+	function showCaCode() {
+		$.ajax({
+			type: "POST",
+			url: "coopAgency/query",
+			data: {"page":1,"rows":10},
+			dataType: "json",
+			success: function(json) {
+				var code = $("#CACODE").val();
+				var html;
+				$.each(json.rows,function(key, value) {
+					if(value.CACODE==code){
+						html += '<option value="" selected="selected">' + value.CANAME + '</option>';
+					}else{
+						html += '<option value="">' + value.CANAME + '</option>';
+					}
+				});
+				$("#b_caCode").html(html);
 	
+			}
+		});
+	}
 	function toMerchAudit(){
 		window.location.href= "<%=basePath%>" +'agency/showMerchAuditQuery';
 	}

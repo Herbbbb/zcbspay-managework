@@ -77,7 +77,7 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
                 "v_accname", "v_charge", "v_deposit", "v_agreemt_start",
                 "v_agreemt_end", "v_prdtver", "v_feever", "v_spiltver",
                 "v_riskver", "v_routver", "v_inuser", "v_notes", "v_remarks",
-                "v_pay_bank_code","v_pay_bank_node","v_pay_acc_num","v_pay_acc_name",
+                "v_pay_bank_code","v_pay_bank_node","v_pay_acc_num","v_pay_acc_name","v_cacode",
                 "v_merch_name_e", "v_coop_insti_id_e", "v_cellphoneno",
                 "v_mcc_e", "v_mcclist_e", "v_merchinsti_e", "v_province_e",
                 "v_city_e", "v_street_e", "v_postcode_e", "v_address_e",
@@ -114,6 +114,7 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
 			     	"".equals(merch.getPayBankNode()) ? null : merch.getPayBankNode(),
 			     	"".equals(merch.getPayAccNum()) ? null : merch.getPayAccNum(),
 			     	"".equals(merch.getPayAccName()) ? null : merch.getPayAccName(),	
+			     	"".equals(merch.getCaCode()) ? null : merch.getCaCode(),	
 			        "".equals(enterprise.getEnterpriseName()) ? null : enterprise.getEnterpriseName(),
 			        "".equals(enterprise.getCoopInstiId()) ? null : enterprise.getCoopInstiId(),
 			        "".equals(enterprise.getPhone()) ? null : enterprise.getPhone(),
@@ -153,7 +154,7 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
 			e.printStackTrace();
 		}
         List<?> dbResult = executeOracleProcedure(
-                        "{CALL PCK_AGENCY.pro_i_t_merch_deta(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}",
+                        "{CALL PCK_AGENCY.pro_i_t_merch_deta(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}",
                         columns, paramaters, "cursor0");
         if (dbResult == null || dbResult.get(0) == null) {
             resultMap.clear();
@@ -424,7 +425,7 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
 	                "v_charge", "v_deposit", "v_agreemt_start", "v_agreemt_end",
 	                "v_prdtver", "v_feever", "v_spiltver", "v_riskver",
 	                "v_routver", "v_inuser", "v_notes", "v_remarks",
-	                "v_pay_bank_code","v_pay_bank_node","v_pay_acc_num","v_pay_acc_name",
+	                "v_pay_bank_code","v_pay_bank_node","v_pay_acc_num","v_pay_acc_name","v_cacode",
 	                "v_merch_name_e", "v_coop_insti_id_e", "v_cellphoneno",
 	                "v_mcc_e", "v_mcclist_e", "v_merchinsti_e", "v_province_e",
 	                "v_city_e", "v_street_e", "v_postcode_e", "v_address_e",
@@ -466,6 +467,7 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
     			     	"".equals(merchDeta.getPayBankNode()) ? null : merchDeta.getPayBankNode(),
     			     	"".equals(merchDeta.getPayAccNum()) ? null : merchDeta.getPayAccNum(),
     			     	"".equals(merchDeta.getPayAccName()) ? null : merchDeta.getPayAccName(),
+		     			"".equals(merchDeta.getCaCode()) ? null : merchDeta.getCaCode(),
 				        "".equals(enterpriseDeta.getEnterpriseName()) ? null : enterpriseDeta.getEnterpriseName(),
 				        "".equals(enterpriseDeta.getCoopInstiId()) ? null : enterpriseDeta.getCoopInstiId(),
 				        "".equals(enterpriseDeta.getPhone()) ? null : enterpriseDeta.getPhone(),
@@ -506,7 +508,7 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
 				e.printStackTrace();
 			}
 	        List<?> dbResult = executeOracleProcedure(
-	                        "{CALL PCK_AGENCY.pro_u_t_merch_deta(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}",
+	                        "{CALL PCK_AGENCY.pro_u_t_merch_deta(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}",
 	                        columns, paramaters, "cursor0");
 	        if (dbResult == null || dbResult.get(0) == null) {
 	            resultMap.clear();
@@ -684,5 +686,16 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
 		String sql="update t_merch_deta_apply set RISK_VER=? where SELF_ID=?";
 	      updateBySQL(sql, new Object[]{riskVer,memberId});
 	}
-}
 
+	@Override
+	public Map<String, Object> queryProfit(Map<String, Object> result, Integer page, Integer rows) {
+		String[] columns = new String[]{"v_cacode", "v_date","i_no", "i_perno"};
+
+        Object[] paramaters = new Object[]{
+        		result.containsKey("caCode") ? result.get("caCode") : null,
+				result.containsKey("date") ? result.get("date") : null,
+                page, rows};
+        return executePageOracleProcedure("{CALL STAT_MERCHFEES_BY_AGENCY.merchfees(?,?,?,?,?,?)}",
+                columns, paramaters,"cursor0", "v_total");
+	}
+}

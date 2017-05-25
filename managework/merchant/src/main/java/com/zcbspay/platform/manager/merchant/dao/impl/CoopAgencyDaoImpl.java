@@ -13,6 +13,7 @@ import com.zcbspay.platform.manager.exception.ContractException;
 import com.zcbspay.platform.manager.merchant.bean.CoopAgencyBean;
 import com.zcbspay.platform.manager.merchant.dao.CoopAgencyDao;
 import com.zcbspay.platform.manager.merchant.pojo.PojoCoopAgency;
+import com.zcbspay.platform.manager.utils.RSAUtils;
 
 @Repository
 public class CoopAgencyDaoImpl extends HibernateBaseDAOImpl<PojoCoopAgency> implements CoopAgencyDao {
@@ -56,9 +57,54 @@ public class CoopAgencyDaoImpl extends HibernateBaseDAOImpl<PojoCoopAgency> impl
 			        "".equals(pojo.getInUser()) ? null : pojo.getInUser(),
  	        		"".equals(pojo.getNotes()) ? null : pojo.getNotes(),
     				"".equals(pojo.getRemarks()) ? null : pojo.getRemarks()};
-		return executeOracleProcedure("{CALL PCK_T_COOP_AGENCY.ins_t_coop_agency(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", columns,
+			Map<String, Object> resultlist = executeOracleProcedure("{CALL PCK_T_COOP_AGENCY.ins_t_coop_agency(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", columns,
 				paramaters, "cursor0").get(0);
-	}
+			 String mark = (String) resultlist.get("RET");
+
+	        if (mark.equals("succ") ) {
+	            
+	            Map<String, Object> variables = new HashMap<String, Object>();
+	            variables.put("merberId", pojo.getCaCode());
+	            // 商户秘钥
+	            Map<String, Object> merch_keyMap;
+				try {
+					merch_keyMap = RSAUtils.genKeyPair();
+				
+	            Map<String, Object> plath_keyMap = RSAUtils.genKeyPair();
+	            String merch_publicKey = RSAUtils.getPublicKey(merch_keyMap);
+	            String merch_privateKey = RSAUtils.getPrivateKey(merch_keyMap);
+	            String plath_publicKey = RSAUtils.getPublicKey(plath_keyMap);
+	            String plath_privateKey = RSAUtils.getPrivateKey(plath_keyMap);
+	            variables.put("memberpubkey", merch_publicKey);
+	            variables.put("memberprikey", merch_privateKey);
+	            variables.put("localpubkey", plath_publicKey);
+	            variables.put("localprikey", plath_privateKey);
+	            @SuppressWarnings("unused")
+	            List<?> MKlist = saveMerchMk(variables);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+	        }
+	        return resultlist;
+	    }
+	public List<?> saveMerchMk(Map<String, Object> variables) {
+
+        String[] columns = new String[]{"v_memberid", "v_safetype",
+                "v_memberpubkey", "v_memberprikey", "v_localpubkey",
+                "v_localprikey", "v_storgetype", "v_keyflag", "v_notes",
+                "v_remarks"};
+        Object[] paramaters = new Object[]{
+                variables.containsKey("merberId") ? variables.get("merberId") : null,
+                "01",
+                variables.containsKey("memberpubkey") ? variables.get("memberpubkey") : null,
+                variables.containsKey("memberprikey") ? variables.get("memberprikey") : null,
+                variables.containsKey("localpubkey") ? variables.get("localpubkey") : null,
+                variables.containsKey("localprikey") ? variables.get("localprikey") : null,
+                		"01", "1", null, null};
+        return executeOracleProcedure("{CALL  PCK_T_MERCH_MK.pro_i_t_merch_mk(?,?,?,?,?,?,?,?,?,?,?)}",
+                        columns, paramaters, "cursor0");
+    }
 	@Override
 	public Map<String, Object> editCoopAgency(CoopAgencyBean pojo) {
 		String[] columns = new String[]{"v_caid","v_cacode", "v_caname",
@@ -118,6 +164,26 @@ public class CoopAgencyDaoImpl extends HibernateBaseDAOImpl<PojoCoopAgency> impl
 			map.put("INFO", "注销成功");
 		}
 		return map;
+	}
+
+	@Override
+	public Map<String, Object> queryProfit(Map<String, Object> result, Integer page, Integer rows) {
+		String[] columns = new String[]{"v_cacode", "v_date",
+				"v_profit","i_no", "i_perno"};
+
+        Object[] paramaters = new Object[]{
+        		result.containsKey("caCode") ? result.get("caCode") : null,
+				result.containsKey("date") ? result.get("date") : null,
+				result.containsKey("profitType") ? result.get("profitType") : null,
+                page, rows};
+        return executePageOracleProcedure("{CALL STAT_AGENCY_PROFIT.STAT_AGENCY_PROFIT(?,?,?,?,?,?,?)}",
+                columns, paramaters,"cursor0", "v_total");
+	}
+
+	@Override
+	public List<?> findByCode(String caCode) {
+		String sql = "select po from PojoCoopAgency po where po.caCode=?";
+		return queryByHQL(sql, new Object[]{caCode});
 	}
 
 }

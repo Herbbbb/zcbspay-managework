@@ -124,7 +124,7 @@ table tr td.update {
 							<td class="update"><input id="minfee2" name="minfee2" maxlength="12" required="true" validType="amount" 
 							type="text" class="easyui-validatebox" missingMessage="请输入最低收费金额"/></td>
 							<td class="update" width="15%">最高收费额(元)</td>
-							<td class="update"><input id="maxfee2"vname="maxfee2" maxlength="12" required="true" validType="amount" 
+							<td class="update"><input id="maxfee2" name="maxfee2" maxlength="12" required="true" validType="amount" 
 							type="text" class="easyui-validatebox" missingMessage="请输入最高收费金额"/></td>
 						</tr>
 						<tr>
@@ -282,72 +282,25 @@ table tr td.update {
 					align: 'center',
 				},
 				
-				{
-					field: 'FEE_RATE',
-					title: '扣率(百分比)',
-					width: 100,
-					align: 'center'
+				{field: 'FEE_RATE',title: '扣率(百分比)',width: 100,align: 'center'},
+				{field: 'MIN_FEE',title: '最低收费额(元)',width: 100,align: 'center'},
+				{field: 'MAX_FEE',title: '最高收费额(元)',width: 100,align: 'center'},
+				{field: 'LIMIT1',title: '分割线(元)',width: 100,align: 'center',
+					formatter:function(value,rec){
+						return fenToYuan(rec.LIMIT1);
+					}
 				},
-				{
-					field: 'MIN_FEE',
-					title: '最低收费额',
-					width: 100,
-					align: 'center'
+				{field: 'FEE_RATE2',title: '扣率(百分比)',width: 100,align: 'center'},
+				{field: 'MIN_FEE2',title: '最低收费额(元)',width: 100,align: 'center'},
+				{field: 'MAX_FEE2',title: '最高收费额(元)',width: 100,align: 'center'},
+				{field: 'LIMIT2',title: '分割线(元)',width: 100,align: 'center',
+					formatter:function(value,rec){
+						return fenToYuan(rec.LIMIT2);
+					}
 				},
-				{
-					field: 'MAX_FEE',
-					title: '最高收费额',
-					width: 100,
-					align: 'center'
-				},
-				{
-					field: 'LIMIT1',
-					title: '分割线',
-					width: 100,
-					align: 'center'
-				},
-				{
-					field: 'FEE_RATE2',
-					title: '扣率(百分比)',
-					width: 100,
-					align: 'center'
-				},
-				{
-					field: 'MIN_FEE2',
-					title: '最低收费额',
-					width: 100,
-					align: 'center'
-				},
-				{
-					field: 'MAX_FEE2',
-					title: '最高收费额',
-					width: 100,
-					align: 'center'
-				},
-				{
-					field: 'LIMIT2',
-					title: '分割线',
-					width: 100,
-					align: 'center'
-				},
-				{
-					field: 'FEE_RATE3',
-					title: '扣率(百分比)',
-					width: 100,
-					align: 'center'
-				},
-				{
-					field: 'MIN_FEE3',
-					title: '最低收费额',
-					width: 100,
-					align: 'center'
-				},
-				{
-					field: 'MAX_FEE3',
-					title: '最高收费额',
-					width: 100,
-					align: 'center'
-				},
+				{field: 'FEE_RATE3',title: '扣率(百分比)',width: 100,align: 'center'},
+				{field: 'MIN_FEE3',title: '最低收费额(元)',width: 100,align: 'center'},
+				{field: 'MAX_FEE3',title: '最高收费额(元)',width: 100,align: 'center'},
 				{
 					field: 'TID',
 					title: '操作',
@@ -579,12 +532,12 @@ table tr td.update {
 					$("#minfee").val(json.MIN_FEE);
 					$("#maxfee").val(json.MAX_FEE);
 					
-					$("#limit1").val(json.LIMIT1);
+					$("#limit1").val(fenToYuan(json.LIMIT1));
 					$("#feerate2").val(json.FEE_RATE2);
 					$("#minfee2").val(json.MIN_FEE2);
 					$("#maxfee2").val(json.MAX_FEE2);
 					
-					$("#limit2").val(json.LIMIT2);
+					$("#limit2").val(fenToYuan(json.LIMIT2fenToYuan));
 					$("#feerate3").val(json.FEE_RATE3);
 					$("#minfee3").val(json.MIN_FEE3);
 					$("#maxfee3").val(json.MAX_FEE3);					
@@ -596,6 +549,13 @@ table tr td.update {
 		}
 		function resize(){
 			$('#theForm :input').val('');
+		}
+		function fenToYuan(value){
+			var str = (value).toFixed(2) + '';
+			var intSum = str.substring(0,str.indexOf(".")).replace( /\B(?=(?:\d{3})+$)/g, ',' );
+			var dot = str.substring(str.length,str.indexOf("."))
+			var ret = intSum + dot;
+			return ret;
 		}
 	</script>
 </html>

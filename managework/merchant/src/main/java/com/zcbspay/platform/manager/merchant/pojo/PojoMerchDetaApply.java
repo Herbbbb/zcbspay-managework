@@ -94,6 +94,8 @@ public class PojoMerchDetaApply implements Serializable{
     private String chargingunit;
     /**机构代码（发送方、接收方）**/
     private String instCode;
+    /**代理商代码**/
+    private String caCode;
     
 	@Id
     @Column(name="SELF_ID")
@@ -369,6 +371,13 @@ public class PojoMerchDetaApply implements Serializable{
 	}
 	public void setInstCode(String instCode) {
 		this.instCode = instCode;
+	}
+	@Column(name = "CACODE")
+	public String getCaCode() {
+		return caCode;
+	}
+	public void setCaCode(String caCode) {
+		this.caCode = caCode;
 	}
     
 }

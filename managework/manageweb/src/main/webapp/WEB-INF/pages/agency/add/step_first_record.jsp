@@ -184,6 +184,9 @@ table tr td font.current-step {
 							<td><select id="prdtver_ins" class="easyui-validatebox"
 								required="true" name="prdtVer" style="width: 150px" missingMessage="请输入产品"
 								onchange="showThreeVersion()" /><option value=''>--请选择产品--</option></select> <font color="red">*</font></td>
+							<td align="center">代理商</td>
+							<td><select id="caCode" class="easyui-validatebox" maxlength="15" missingMessage="请选择代理商"
+								 required="true" name="caCode" /><option value=''>--请选择代理商--</option></select> <font color="red">*</font></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -426,6 +429,7 @@ table tr td font.current-step {
 // 			showMccList();
 			showChnlname();
 			showProduct();
+			showCaCode();
 			$('#startDate,#endDate').datebox({});
 			$("#startDate,#endDate").datebox({ editable:false});
 			queryBankNode();
@@ -947,8 +951,7 @@ table tr td font.current-step {
 // 				dataType: "json",
 // 				success: function(json) {
 // 					var html = "<option value=''>--请选择清算类型--</option>";
-// 					$.each(json,
-// 					function(key, value) {
+// 					$.each(json,function(key, value) {
 // 						html += '<option value="' + value.PARA_CODE + '">' + value.PARA_NAME + '</option>';
 // 					});
 // 					$("#setltype_ins").html(html);
@@ -979,12 +982,6 @@ table tr td font.current-step {
 				$('#c_bustCode').val(11000003);
 				$('#d_bustCode').val(11000004);
 			}
-// 			$('#b_saveForm :input').val('');
-// 			$('#a_bustCode').val(11000001);
-// 			$('#b_bustCode').val(11000002);
-// 			$('#c_bustCode').val(11000003);
-// 			$('#d_bustCode').val(11000004);
-			
 			$('#w2').window({
 				title: '新增业务收费信息',
 				top:100,
@@ -1113,6 +1110,22 @@ table tr td font.current-step {
 		    		$('#b_2_btn_submit2').linkbutton('enable');	
 			    }   
 			});  
+		}
+		function showCaCode() {
+			$.ajax({
+				type: "POST",
+				url: "coopAgency/query",
+				data: {"status":"00","page":1,"rows":10},
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择代理商--</option>";
+					$.each(json.rows,function(key, value) {
+						html += '<option value="' + value.CACODE + '">' + value.CANAME + '</option>';
+					});
+					$("#caCode").html(html);
+		
+				}
+			});
 		}
 		function closeAdd2(){
 			$('#w2').window('close');

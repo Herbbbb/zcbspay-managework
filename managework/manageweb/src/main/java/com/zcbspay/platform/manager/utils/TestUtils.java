@@ -2,11 +2,8 @@ package com.zcbspay.platform.manager.utils;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Random;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.ResourceBundle;
 
 import com.zcbspay.platform.manager.merchant.bean.PortalUserModel;
 
@@ -74,16 +71,19 @@ public class TestUtils {
 		}
 	}
 	public static void main(String[] args) {
-		try {  
-			PortalUserModel userBean = new PortalUserModel();
-			String pwd = getFixLenthString(6);
-        	userBean.setMemberid("200000000001579");
-        	userBean.setUserName("交易测试商户千万勿动");
-        	userBean.setPwd(MD5Util.MD5(pwd));
-        	userBean.setPhone("17736539989");
-        	userBean.setEmail("yuanshaodong@sh-paytong.com");
-			String userBeanStr =JSONObject.fromObject(userBean).toString();
-			
+		final  ResourceBundle RESOURCE = ResourceBundle.getBundle("portal_url");
+		String ip = RESOURCE.getString("protal.register.url_ip");
+		System.out.println(ip);  
+//		try {  
+//			PortalUserModel userBean = new PortalUserModel();
+//			String pwd = getFixLenthString(6);
+//        	userBean.setMemberid("200000000001588");
+//        	userBean.setUserName("admin");
+//        	userBean.setPwd(MD5Util.MD5(pwd));
+//        	userBean.setPhone("17736539989");
+//        	userBean.setEmail("yuanshaodong@sh-paytong.com");
+//			String userBeanStr =JSONObject.fromObject(userBean).toString();
+//			
 //        	Map<String, Object> register = register(userBeanStr);
 //        	System.out.println(register);  
 //        	 Set<Entry<String, Object>> entrySet = register.entrySet();
@@ -91,12 +91,12 @@ public class TestUtils {
 //                 String key = entry.getKey();
 //                 Object value = entry.getValue();
 //                 if(key.equals("succ")){
-			Map<String, Object>  register = sendEmail(userBean,pwd);
-//                 }
-//             }
-        	System.out.println(register);  
-	    } catch (Exception e) {  
-	        e.printStackTrace();  
-	    }  
+//			Map<String, Object>  register = sendEmail(userBean,pwd);
+////                 }
+////             }
+//        	System.out.println(register);  
+//	    } catch (Exception e) {  
+//	        e.printStackTrace();  
+//	    }  
 	}
 }

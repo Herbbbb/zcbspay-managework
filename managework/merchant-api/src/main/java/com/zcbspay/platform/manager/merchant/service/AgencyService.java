@@ -215,4 +215,13 @@ public interface AgencyService {
 	 */
 	public AgencyInfoBean queryByCode(String merchNo, String bustCode);
 
+	/**
+	 * 委托机构分润统计
+	 * @param result
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	public Map<String, Object> queryProfit(Map<String, Object> result, Integer page, Integer rows);
+
 }

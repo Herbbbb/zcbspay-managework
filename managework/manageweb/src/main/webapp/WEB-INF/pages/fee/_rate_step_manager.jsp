@@ -274,54 +274,21 @@ table tr td.update {
 					align: 'center',
 					rowspan:1
 				},
-				{
-					field: 'LIMIT1',
-					title: '分割线',
-					width: 100,
-					align: 'center',
-					rowspan:1
+				{field: 'LIMIT1',title: '分割线(元)',width: 100,align: 'center',rowspan:1,
+					formatter:function(value,rec){
+						return fenToYuan(rec.LIMIT1);
+					}
 				},
-				{
-					field: 'FEE_RATE2',
-					title: '扣率(百分比)',
-					width: 100,
-					align: 'center',
-					rowspan:1
+				{field: 'FEE_RATE2',title: '扣率(百分比)',width: 100,align: 'center',rowspan:1},
+				{field: 'MIN_FEE2',title: '最低额(元)',width: 100,align: 'center',rowspan:1},
+				{field: 'MAX_FEE2',title: '最高额(元)',width: 100,align: 'center',rowspan:1},
+				{field: 'LIMIT2',title: '分割线(元)',width: 100,align: 'center',rowspan:1,
+					formatter:function(value,rec){
+						return fenToYuan(rec.LIMIT2);
+					}
 				},
-				{
-					field: 'MIN_FEE2',
-					title: '最低额(元)',
-					width: 100,
-					align: 'center',
-					rowspan:1
-				},
-				{
-					field: 'MAX_FEE2',
-					title: '最高额(元)',
-					width: 100,
-					align: 'center',
-					rowspan:1
-				},
-				{
-					field: 'LIMIT2',
-					title: '分割线',
-					width: 100,
-					align: 'center',
-					rowspan:1
-				},
-				{
-					field: 'FEE_RATE3',
-					title: '扣率(百分比)',
-					width: 100,
-					align: 'center',
-					rowspan:1
-				},
-				{
-					field: 'MIN_FEE3',
-					title: '最低额(元)',
-					width: 100,
-					align: 'center',
-					rowspan:1
+				{field: 'FEE_RATE3',title: '扣率(百分比)',width: 100,align: 'center',rowspan:1},
+				{field: 'MIN_FEE3',title: '最低额(元)',width: 100,align: 'center',rowspan:1
 				},
 				{
 					field: 'MAX_FEE3',
@@ -558,6 +525,13 @@ table tr td.update {
 		}
 		function resize(){
 			$('#theForm :input').val('');
+		}
+		function fenToYuan(value){
+			var str = (value).toFixed(2) + '';
+			var intSum = str.substring(0,str.indexOf(".")).replace( /\B(?=(?:\d{3})+$)/g, ',' );
+			var dot = str.substring(str.length,str.indexOf("."))
+			var ret = intSum + dot;
+			return ret;
 		}
 	</script>
 </html>
