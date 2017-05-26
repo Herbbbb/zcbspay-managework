@@ -226,7 +226,7 @@ table tr td.update {
 					colspan:3
 				},
 				{
-					title: '分割线',
+					title: '',
 					align: 'center',
 				},
 				{
@@ -235,7 +235,7 @@ table tr td.update {
 					colspan:3
 				},
 				{
-					title: '分割线',
+					title: '',
 					align: 'center',
 				},
 				{
