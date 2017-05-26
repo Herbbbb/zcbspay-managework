@@ -62,9 +62,11 @@ table tr td select {
 						<td class="add" align="left" style="padding-left: 5px">
 						<input id="a_caCode" name="caCode" /></td>
 						
-						<td class="add" align="right" >日期</td>
+						<td class="add" align="right" >月份</td>
 						<td class="add" align="left" style="padding-left: 5px">
-						<input id="a_date" name="date"/></td>
+						<input id="a_date" name="date" class="easyui-validatebox"
+							 maxlength="7" missingMessage="请输入查询年月(yyyy-MM)" required="true" /></td>
+							 
 						<td class="add" align="right" colspan="3">
 							<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a> 
 							<a href="javascript:resize()" class="easyui-linkbutton"iconCls="icon-redo">清空</a></td>

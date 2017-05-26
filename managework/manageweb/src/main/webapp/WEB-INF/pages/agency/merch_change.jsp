@@ -222,8 +222,10 @@ table tr td font.current-step {
 								required="true" name="prdtVer" style="width: 150px" missingMessage="请输入产品"
 								onchange="showThreeVersion()" /></select> <font color="red">*</font></td>
 							<td align="center">代理商代码</td>
-							<td><input id="caCode" class="easyui-validatebox" maxlength="15" missingMessage="请输入代理商代码"
-								 required="true" name="caCode" /><font color="red">*</font></td>
+							<td><select id="caCode" class="easyui-validatebox" maxlength="15" missingMessage="请选择代理商"
+								 required="true" name="caCode" /><option value=''>--请选择代理商--</option></select> <font color="red">*</font></td>
+<!-- 							<td><input id="caCode" class="easyui-validatebox" maxlength="15" missingMessage="请输入代理商代码" -->
+<!-- 								 required="true" name="caCode" /><font color="red">*</font></td> -->
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>

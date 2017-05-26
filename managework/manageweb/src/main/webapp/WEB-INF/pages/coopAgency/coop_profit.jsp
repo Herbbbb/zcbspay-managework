@@ -62,9 +62,10 @@ table tr td select {
 						<td class="add" align="left" style="padding-left: 5px">
 						<input id="a_caCode" name="caCode" /></td>
 						
-						<td class="add" align="right" >日期</td>
+						<td class="add" align="right" >月份</td>
 						<td class="add" align="left" style="padding-left: 5px">
-						<input id="a_date" name="date"/></td>
+						<input id="a_date" name="date" class="easyui-validatebox"
+							 maxlength="7" missingMessage="请输入查询年月(yyyy-MM)" required="true" /></td>
 						
 						<td class="add" align="right">代理商获利模式</td>
 						<td class="add" align="left" style="padding-left: 5px">
@@ -145,14 +146,13 @@ table tr td select {
 				url: "coopAgency/queryProfitType",
 				dataType: "json",
 				success: function(json) {
-					var province = $("#b_profitType").val();
 					var html = "<option value=''>--请选择获利模式--</option>";
 					$.each(json,function(key, value) {
-						if(value.PARA_CODE==province){
-							html += '<option value="' + value.PARA_CODE + '" selected="selected">' + value.PARA_NAME + '</option>';
-						}else{
+// 						if(value.PARA_CODE==province){
+// 							html += '<option value="' + value.PARA_CODE + '" selected="selected">' + value.PARA_NAME + '</option>';
+// 						}else{
 							html += '<option value="' + value.PARA_CODE + '">' + value.PARA_NAME + '</option>';
-						}
+// 						}
 					}) ;
 					$("#profitType").html(html);
 				}
@@ -166,6 +166,7 @@ table tr td select {
 			var ret = intSum + dot;
 			return ret;
 		}
+		
 		function queryBankNode(bankNode) {
 			var bankName;
 			$.ajax({

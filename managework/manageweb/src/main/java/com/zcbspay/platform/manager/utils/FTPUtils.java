@@ -145,10 +145,10 @@ public class FTPUtils {
 //	        FileInputStream in=new FileInputStream(new File("C:\\Users\\Public\\Pictures\\Sample Pictures\\aa.jpg"));
 //	        String resFileName = "aa.jpg";
 	        String uploadDir = "E:\\";
-	        String filePath = "623545eb073843b694390a28f0c867c2.jpg";
+	        String filePath = "4199ab32c0c444a5ae129876fef5d8d0.jpg";
 //	        resFileName =UUID.randomUUID().toString().replace("-", "") + resFileName.substring(resFileName.lastIndexOf("."));
-//	        boolean flag = uploadFile("192.168.2.12", 21, "webftp", "webftp","","contract/", resFileName, in);  
-	        boolean flag = FTPUtils.downloadFile("192.168.2.12", 21, "webftp", "webftp","agency/",filePath , uploadDir);
+//	        boolean flag = uploadFile("192.168.2.12", 21, "webftp", "webftp","contract/","200000000001588", resFileName, in);  
+	        boolean flag = FTPUtils.downloadFile("192.168.2.12", 21, "webftp", "webftp","contract/200000000001588/",filePath , uploadDir);
 	        System.out.println(flag);  
 	    } catch (Exception e) {  
 	        e.printStackTrace();  

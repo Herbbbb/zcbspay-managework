@@ -25,4 +25,6 @@
 	<dubbo:service interface="com.zcbspay.platform.manager.merchant.service.AgencyService" ref="agencyService" retries="0" version="1.0" timeout="60000"/>
 	<!-- 代理商 -->
 	<dubbo:service interface="com.zcbspay.platform.manager.merchant.service.CoopAgencyService" ref="coopAgencyService" retries="0" version="1.0" timeout="60000"/>
+	<!-- FTP配置信息 -->
+	<dubbo:service interface="com.zcbspay.platform.manager.merchant.service.FtpService" ref="ftpService" retries="0" version="1.0" timeout="60000"/>
 </beans>
