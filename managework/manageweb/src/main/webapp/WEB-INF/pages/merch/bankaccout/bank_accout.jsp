@@ -621,7 +621,6 @@ table tr td select {
 						$("#bankCode_b").val(json.bankCode);
 						$("#b_bankCode").html(json.bankCode);
 					}
-				   showCity(json.bankCity)
 			   }
 			});
 		}

@@ -180,4 +180,13 @@ public interface AgencyDao extends BaseDAO<PojoMerchDetaApply>{
 	 */
 	void updateMerch(String memberId, String riskVer);
 
+	/**
+	 * 委托机构分润统计
+	 * @param result
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	Map<String, Object> queryProfit(Map<String, Object> result, Integer page, Integer rows);
+
 }

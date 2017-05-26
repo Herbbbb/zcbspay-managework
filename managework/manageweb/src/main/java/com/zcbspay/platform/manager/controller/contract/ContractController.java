@@ -178,12 +178,12 @@ public class ContractController {
     	ContractBean bean = contractService.findById(tId);
     	
     	String filePath = bean.getFileAddress();
-        String uploadDir = request.getSession().getServletContext().getRealPath("/")+"javaCode\\";
+        String uploadDir = request.getSession().getServletContext().getRealPath("/");
         boolean resultBool = FTPUtils.downloadFile("192.168.2.12", 21, "webftp", "webftp","contract/",filePath , uploadDir);
         new MerchantThread(uploadDir + "/" + filePath).start();
         
         if (resultBool) {
-        	filePath = "javaCode/" + filePath;
+        	filePath = filePath;
             result.put("status", "OK");
             result.put("url", filePath);
         }else{
@@ -205,7 +205,7 @@ public class ContractController {
     		
 			MultipartHttpServletRequest mhr = (MultipartHttpServletRequest) request;
 			//获取路径
-			String uploadDir = request.getSession().getServletContext().getRealPath("/")+"javaCode\\";
+			String uploadDir = request.getSession().getServletContext().getRealPath("/");
 			//如果目录不存在，创建一个目录
 			if (!new File(uploadDir).exists()) {
 				File dir = new File(uploadDir);

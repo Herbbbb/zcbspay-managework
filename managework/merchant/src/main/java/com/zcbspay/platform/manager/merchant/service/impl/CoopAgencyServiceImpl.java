@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import com.zcbspay.platform.manager.merchant.bean.CoopAgencyBean;
 import com.zcbspay.platform.manager.merchant.bean.SplitByAccNumsBean;
 import com.zcbspay.platform.manager.merchant.dao.CoopAgencyDao;
 import com.zcbspay.platform.manager.merchant.dao.SplitByAccNumsDao;
+import com.zcbspay.platform.manager.merchant.pojo.PojoCoopAgency;
 import com.zcbspay.platform.manager.merchant.service.CoopAgencyService;
 
 @Service("coopAgencyService")
@@ -72,14 +74,6 @@ public class CoopAgencyServiceImpl implements CoopAgencyService {
 
 	@Override
 	public SplitByAccNumsBean findSplitById(String tId) {
-//		PojoSplitByAccNums pojo = (PojoSplitByAccNums) splitByAccNumsDao.findSplitById(tId).get(0);
-//		SplitByAccNumsBean bean = new SplitByAccNumsBean();
-//		try {
-//			BeanUtils.copyProperties(pojo, bean);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} 
-//		return bean;
 		return splitByAccNumsDao.findSplitById(tId);
 	}
 
@@ -91,6 +85,23 @@ public class CoopAgencyServiceImpl implements CoopAgencyService {
 	@Override
 	public Map<String, Object> deleteSplit(String tId) {
 		return splitByAccNumsDao.deleteSplit(tId);
+	}
+
+	@Override
+	public Map<String, Object> queryProfit(Map<String, Object> result, Integer page, Integer rows) {
+		return coopAgencyDao.queryProfit(result, page,rows);
+	}
+
+	@Override
+	public CoopAgencyBean findByCode(String caCode) {
+		PojoCoopAgency pojo = (PojoCoopAgency) coopAgencyDao.findByCode(caCode).get(0);
+		CoopAgencyBean bean = new CoopAgencyBean();
+		try {
+			BeanUtils.copyProperties(pojo, bean);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return bean;
 	}
 	
 }

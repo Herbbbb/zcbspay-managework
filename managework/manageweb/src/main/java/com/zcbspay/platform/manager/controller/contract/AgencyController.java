@@ -2,7 +2,6 @@ package com.zcbspay.platform.manager.controller.contract;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
@@ -11,9 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
+import java.util.ResourceBundle;
 import java.util.UUID;
-import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zcbspay.platform.manager.merchant.bean.AgencyInfoBean;
 import com.zcbspay.platform.manager.merchant.bean.BustSortType;
 import com.zcbspay.platform.manager.merchant.bean.CertType;
+import com.zcbspay.platform.manager.merchant.bean.CoopAgencyBean;
 import com.zcbspay.platform.manager.merchant.bean.EnterpriseDetaApplyBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchDetaApplyBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchRateConfigBean;
@@ -59,6 +58,8 @@ public class AgencyController {
     private String deposit;
     private String charge;
     private final static BigDecimal HUNDERED = new BigDecimal(100);
+    private static final  ResourceBundle RESOURCE = ResourceBundle.getBundle("portal_url");
+
     
     @Autowired
 	private AgencyService agencyService;
@@ -649,7 +650,8 @@ public class AgencyController {
     @ResponseBody
 	@RequestMapping(value="/register", produces = "application/json;charset=UTF-8")
 	public static Map<String, Object> register(String userBeanStr) {
-		String url = "http://192.168.2.15:8080/fe/user/register";
+    	String ip = RESOURCE.getString("protal.register.url_ip");
+		String url = "http://"+ ip +":8080/fe/user/register";
 		HttpUtils httpUtils = new HttpUtils();
 		Map<String, String> paramMap = new HashMap<>();
 		paramMap.put("userBeanStr", userBeanStr);
@@ -682,10 +684,11 @@ public class AgencyController {
     @ResponseBody
 	@RequestMapping(value="/sendEmail", produces = "application/json;charset=UTF-8")
 	public static Map<String, Object> sendEmail(PortalUserModel userBean,String pwd) {
-    	String url = "http://192.168.2.15:8080/fe/mail/sendMailByTemplate";
+    	String ip = RESOURCE.getString("protal.register.url_ip");
+    	String url = "http://"+ ip +":8080/fe/mail/sendMailByTemplate";
 		HttpUtils httpUtils = new HttpUtils();
 		Map<String, String> paramMap = new HashMap<>();
-		String maiBody = "委托机构号：" + userBean.getMemberid() +" ,用户名：" +userBean.getUserName() + " ,登录密码：" + pwd;
+		String maiBody = "委托机构号：" + userBean.getMemberid() +" , 用户名：  admin  , 登录密码：" + pwd;
 		paramMap.put("receiver", userBean.getEmail());
 		paramMap.put("subject",  "激活账户");
 		paramMap.put("maiBody",  maiBody);
@@ -703,6 +706,34 @@ public class AgencyController {
 		}finally {
 			httpUtils.closeConnection();
 		}
+	}
+    
+    /**
+	* 代理商分润统计信息
+	* @param request
+	* @return
+	*/
+	@ResponseBody
+	@RequestMapping("/showProfit")
+	public ModelAndView showProfit(HttpServletRequest request) {
+		ModelAndView result=new ModelAndView("/coopAgency/agency_profit");
+		return result;
+	}
+	
+    /**
+	 * 查询分润统计信息
+	 * @param split
+	 * @param page
+	 * @param rows "total":12,"rows"
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/queryProfit")
+	public Map<String, Object> queryProfit(CoopAgencyBean split,String date,Integer page,Integer rows) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("caCode", split.getCaCode());
+		result.put("date", date);
+		return agencyService.queryProfit(result,page, rows);
 	}
 
     /**

@@ -92,8 +92,10 @@
 						<tr style="height: 25px">
 							<td class="update">代理商编号</td>
 							<td class="update" align="left">
-							<input type="text" id="caCode" name="caCode" class="easyui-validatebox" required="true"
-								maxlength="11" missingMessage="请输入代理商编号"/><font color="red">*</font></td>
+							<select id="caCode" class="easyui-validatebox" maxlength="15" missingMessage="请选择代理商"
+								 required="true" name="caCode" /><option value=''>--请选择代理商--</option></select> <font color="red">*</font></td>
+<!-- 							<input type="text" id="caCode" name="caCode" class="easyui-validatebox" required="true" -->
+<!-- 								maxlength="11" missingMessage="请输入代理商编号"/><font color="red">*</font></td> -->
 							<td class="update">分润比例(1)</td>
 							<td class="update" align="left">
 							<input type="text" id="rate1" name="rate1" class="easyui-validatebox" required="true"
@@ -158,6 +160,7 @@
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; font-size: 12px; text-align: center">
 				<form id="b_saveForm" action="coopSplit/eidtBankAccount" method="post">
 					<input type="hidden" id="b_tId" name="tId" /> 
+					<input type="hidden" id="caCode_old" name="caCode" /> 
 					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -165,8 +168,10 @@
 						<tr style="height: 25px">
 							<td class="update">代理商编号</td>
 							<td class="update" align="left">
-							<input type="text" id="b_caCode" name="caCode" class="easyui-validatebox" required="true"
-								maxlength="11" missingMessage="请输入代理商编号"/><font color="red">*</font></td>
+							<select id="b_caCode" class="easyui-validatebox" maxlength="15" missingMessage="请选择代理商"
+								 required="true" name="caCode" /><option value=''>--请选择代理商--</option></select> <font color="red">*</font></td>
+<!-- 							<input type="text" id="b_caCode" name="caCode" class="easyui-validatebox" required="true" -->
+<!-- 								maxlength="11" missingMessage="请输入代理商编号"/><font color="red">*</font></td> -->
 							<td class="update">分润比例(1)</td>
 							<td class="update" align="left">
 							<input type="text" id="b_rate1" name="rate1" class="easyui-validatebox" required="true"
@@ -231,6 +236,7 @@
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; font-size: 12px; text-align: center">
 				<form id="" action="" method="post">
 					<input type="hidden" id="c_tId" name="tId" />  
+					<input type="hidden" id="c_caCode_old" name="caCode" />  
 					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -292,6 +298,11 @@
 				remoteSort: false,
 				columns:[[
 					{field:'CACODE',title:'代理商编号',width:130,align:'center'},
+// 					{field:'CACODE',title:'代理商编号',width:130,align:'center',
+// 						formatter : function(value, rec) {
+// 							return showCaCodeName(rec.CACODE);
+// 						}
+// 					},
 					{field:'RATE1',title:'分润比例(1)',align:'center',width:90},
 					{field:'LIMIT1',title:'分界线(一)',align:'center',width:90},
 					{field:'RATE2',title:'分润比例(2)',align:'center',width:90},
@@ -339,6 +350,7 @@
 		}
 		
 		function showAdd(num){
+			showCaCode();
 			$("#saveForm").attr("action","coopSplit/save");
 			$('#saveForm :input').val('');
 			$('#w').window({
@@ -422,7 +434,25 @@
 			   dataType:"json",
 			   success: function(json){	
 				    $("#b_tId").val(json.tId);
-					$("#b_caCode").val(json.caCode);
+					$("#caCode_old").val(json.caCode);
+					var code = $("#caCode_old").val();
+					$.ajax({
+						type: "POST",
+						url: "coopAgency/query",
+						data: {"page":1,"rows":10},
+						dataType: "json",
+						success: function(json) {
+							var html = "<option value=''>--请选择代理商--</option>";
+							$.each(json.rows,function(key, value) {
+								if(value.CACODE==code){
+									html += '<option value="" selected="selected">' + value.CANAME + '</option>';
+								}else{
+									html += '<option value="">' + value.CANAME + '</option>';
+								}
+							});
+							$("#b_caCode").html(html);
+						}
+					});
 					$("#b_rate1").val(json.rate1);
 					$("#b_limit1").val(json.limit1);
 					$("#b_rate2").val(json.rate2);
@@ -458,7 +488,20 @@
 			   dataType:"json",
 			   success: function(json){	
 				   $("#c_tId").val(json.tId);
-					$("#c_caCode").html(json.caCode);
+				   
+					$("#c_caCode_old").val(json.caCode);
+					var code = $("#c_caCode_old").val();
+					$.ajax({
+						type: "POST",
+						url: "coopAgency/query",
+						data: {"caCode":code,"page":1,"rows":10},
+						dataType: "json",
+						success: function(json) {
+							$.each(json.rows,function(key, value) {
+								$("#c_caCode").html(value.CANAME);
+							});
+						}
+					});
 					$("#c_rate1").html(json.rate1);
 					$("#c_limit1").html(json.limit1);
 					$("#c_rate2").html(json.rate2);
@@ -508,5 +551,39 @@
 			    }   
 			}); 
 		}
+		function showCaCode() {
+			$.ajax({
+				type: "POST",
+				url: "coopAgency/query",
+				data: {"status":"00","page":1,"rows":10},
+				dataType: "json",
+				success: function(json) {
+					var code = $("#caCode_old").val();
+					var html = "<option value=''>--请选择代理商--</option>";
+					$.each(json.rows,function(key, value) {
+						if(value.CACODE==code){
+							html += '<option value="' + value.CACODE + '" selected="selected">' + value.CANAME + '</option>';
+						}else{
+							html += '<option value="' + value.CACODE + '">' + value.CANAME + '</option>';
+						}
+					});
+					$("#caCode").html(html);
+		
+				}
+			});
+		}
+// 		function showCaCodeName(code) {
+// 			var caCode;
+// 			$.ajax({
+// 				type: "POST",
+// 				url: "coopAgency/findByCode",
+// 				data: {"caCode":code},
+// 				dataType: "json",
+// 				success: function(json) {
+// 					caCode = json.CANAME;
+// 				}
+// 			});
+// 			return caCode;
+// 		}
 	</script>
 </html>
