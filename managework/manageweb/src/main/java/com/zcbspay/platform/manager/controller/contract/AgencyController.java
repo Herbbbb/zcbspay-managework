@@ -31,12 +31,14 @@ import com.zcbspay.platform.manager.merchant.bean.BustSortType;
 import com.zcbspay.platform.manager.merchant.bean.CertType;
 import com.zcbspay.platform.manager.merchant.bean.CoopAgencyBean;
 import com.zcbspay.platform.manager.merchant.bean.EnterpriseDetaApplyBean;
+import com.zcbspay.platform.manager.merchant.bean.FtpBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchDetaApplyBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchRateConfigBean;
 import com.zcbspay.platform.manager.merchant.bean.PortalUserModel;
 import com.zcbspay.platform.manager.merchant.service.AgencyService;
 import com.zcbspay.platform.manager.merchant.service.CoopInstiService;
 import com.zcbspay.platform.manager.merchant.service.EnterpriseDetaService;
+import com.zcbspay.platform.manager.merchant.service.FtpService;
 import com.zcbspay.platform.manager.merchant.service.MccListService;
 import com.zcbspay.platform.manager.merchant.service.MerchRateConfigService;
 import com.zcbspay.platform.manager.merchant.service.PojoProductService;
@@ -75,6 +77,9 @@ public class AgencyController {
     private CoopInstiService coopInstiService;
     @Autowired
     private PojoProductService pojoProductService;
+    
+    @Autowired
+    private FtpService ftpService;
 
     @Autowired
 	private ProdCaseService prodCaseService;
@@ -239,7 +244,62 @@ public class AgencyController {
     @ResponseBody
 	@RequestMapping("/queryByMerchNo")
     public List<?> queryByMerchNo(String merchNo) {
+    	AgencyInfoBean bean = new AgencyInfoBean();
+    	
     	return agencyService.queryByMerchNo(merchNo);
+    }
+    
+    /**
+     * 校验收费单位代码
+     */
+    @ResponseBody
+    @RequestMapping("/queryChargingunit")
+    public Map<String, Object> queryChargingunit(BustSortType type ) {
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	AgencyInfoBean bean = new AgencyInfoBean();
+    	if (type.getA_bustCode().equals("11000001")) {
+			bean.setChargingunit(type.getA_chargingunit());
+			int size = agencyService.queryChargingunit(bean).size();
+			if(size >= 1){
+				String info = "付款单位代码: "+type.getA_chargingunit()+" 已存在!";
+				map.put("RET", "error");
+				map.put("INFO", info);
+				return map;
+			}
+		}
+    	if (type.getB_bustCode().equals("11000002")) {
+    		bean.setChargingunit(type.getB_chargingunit());
+    		int size = agencyService.queryChargingunit(bean).size();
+			if(size >= 1){
+				String info = "付款单位代码: "+type.getA_chargingunit()+" 已存在!";
+				map.put("RET", "error");
+				map.put("INFO", info);
+				return map;
+			}
+    	}
+    	if (type.getC_bustCode().equals("11000003")) {
+    		bean.setChargingunit(type.getC_chargingunit());
+    		int size = agencyService.queryChargingunit(bean).size();
+			if(size >= 1){
+				String info = "付款单位代码: "+type.getA_chargingunit()+" 已存在!";
+				map.put("RET", "error");
+				map.put("INFO", info);
+				return map;
+			}
+    	}
+    	if (type.getD_bustCode().equals("11000004")) {
+    		bean.setChargingunit(type.getD_chargingunit());
+    		int size = agencyService.queryChargingunit(bean).size();
+			if(size >= 1){
+				String info = "付款单位代码: "+type.getA_chargingunit()+" 已存在!";
+				map.put("RET", "error");
+				map.put("INFO", info);
+				return map;
+			}
+    	}
+    	map.put("RET", "succ");
+		map.put("INFO", "校验通过");
+    	return map;
     }
     
     /**
@@ -387,7 +447,7 @@ public class AgencyController {
 	    		
 				MultipartHttpServletRequest mhr = (MultipartHttpServletRequest) request;
 				//获取路径
-				String uploadDir = request.getSession().getServletContext().getRealPath("/")+"javaCode\\";
+				String uploadDir = request.getSession().getServletContext().getRealPath("/");
 				//如果目录不存在，创建一个目录
 				if (!new File(uploadDir).exists()) {
 					File dir = new File(uploadDir);
@@ -410,7 +470,9 @@ public class AgencyController {
 						
 //						String fileName = UUID.randomUUID().toString().replace("-", "") + resFileName.substring(resFileName.lastIndexOf("."));
 						FileInputStream in=new FileInputStream(outFile);  
-				        boolean flag = FTPUtils.uploadFile("192.168.2.12", 21, "webftp", "webftp","","agency/",resFileName, in);
+						FtpBean bean = ftpService.query();
+				        boolean flag = FTPUtils.uploadFile(bean.getIp(), Integer.parseInt(bean.getPort()), bean.getUsers(), bean.getPwd(),"","agency/",resFileName, in);
+//				        boolean flag = FTPUtils.uploadFile("192.168.2.12", 21, "webftp", "webftp","","agency/",resFileName, in);
 					}else{
 						return null;
 					}
@@ -429,12 +491,14 @@ public class AgencyController {
     public Map<String, String> downloadImgUrl(HttpServletRequest request, String fouceDownload, String merchApplyId, String certTypeCode) { 
     	Map<String, String> result = new HashMap<String, String>();
     	String filePath = agencyService.downloadFromFtp(merchApplyId, CertType.format(certTypeCode));
-        String uploadDir = request.getSession().getServletContext().getRealPath("/")+"javaCode\\";
+        String uploadDir = request.getSession().getServletContext().getRealPath("/");
         if(filePath.equals("")){
         	result.put("status", "notExist");
         	return result;
         }
-        boolean resultBool = FTPUtils.downloadFile("192.168.2.12", 21, "webftp", "webftp","agency/",filePath , uploadDir);
+        FtpBean bean = ftpService.query();
+        boolean resultBool = FTPUtils.downloadFile(bean.getIp(), Integer.parseInt(bean.getPort()), bean.getUsers(), bean.getPwd(),"agency/",filePath , uploadDir);
+//        boolean resultBool = FTPUtils.downloadFile("192.168.2.12", 21, "webftp", "webftp","agency/",filePath , uploadDir);
         new MerchantThread(uploadDir + "/" + filePath).start();
         
         if (resultBool) {

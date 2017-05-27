@@ -550,7 +550,7 @@ table tr td font.current-step {
 				dataType: "json",
 				success: function(json) {
 					 if(json.status=='OK'){
-						 var URL = "javaCode/" + json.url;
+						 var URL = json.url;
 						 _this.html('<a href="'+URL+'" target="view_window" style="font-size: 12px;color:blue">点击查看</a>');
 					 }else if(json.status=='notExist'){
 						 $(this).html('暂无可查看文件');
@@ -964,9 +964,9 @@ table tr td font.current-step {
 				var html;
 				$.each(json.rows,function(key, value) {
 					if(value.CACODE==code){
-						html += '<option value="" selected="selected">' + value.CANAME + '</option>';
-					}else{
-						html += '<option value="">' + value.CANAME + '</option>';
+						html = '<option value="" selected="selected">' + value.CANAME + '</option>';
+// 					}else{
+// 						html += '<option value="">' + value.CANAME + '</option>';
 					}
 				});
 				$("#b_caCode").html(html);

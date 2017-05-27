@@ -1,5 +1,6 @@
 package com.zcbspay.platform.manager.merchant.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "T_CONTRACT")
-public class PojoContract implements java.io.Serializable {
+public class PojoContract implements Serializable {
 
 	private static final long serialVersionUID = 7022140232957883211L;
 	/** 标识 **/

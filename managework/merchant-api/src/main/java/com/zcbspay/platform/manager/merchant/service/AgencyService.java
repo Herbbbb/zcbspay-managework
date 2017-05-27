@@ -224,4 +224,11 @@ public interface AgencyService {
 	 */
 	public Map<String, Object> queryProfit(Map<String, Object> result, Integer page, Integer rows);
 
+	/**
+	 * 校验消费单位代码
+	 * @param bean
+	 * @return
+	 */
+	public List<?> queryChargingunit(AgencyInfoBean bean);
+
 }

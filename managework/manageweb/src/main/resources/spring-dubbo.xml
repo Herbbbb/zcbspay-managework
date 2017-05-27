@@ -59,4 +59,6 @@
 	<dubbo:reference id="agencyService" interface="com.zcbspay.platform.manager.merchant.service.AgencyService" version="1.0"/>
 	<!-- 代理商 -->
 	<dubbo:reference id="coopAgencyService" interface="com.zcbspay.platform.manager.merchant.service.CoopAgencyService" version="1.0"/>
+	<!-- Ftp配置信息 -->
+	<dubbo:reference id="ftpService" interface="com.zcbspay.platform.manager.merchant.service.FtpService" version="1.0"/>
 </beans>

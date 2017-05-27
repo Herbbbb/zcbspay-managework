@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.zcbspay.platform.manager.dao.BaseDAO;
 import com.zcbspay.platform.manager.exception.ContractException;
+import com.zcbspay.platform.manager.merchant.bean.AgencyInfoBean;
 import com.zcbspay.platform.manager.merchant.pojo.PojoAgencyInfo;
 
 public interface AgencyInfoDao extends BaseDAO<PojoAgencyInfo>{
@@ -58,4 +59,12 @@ public interface AgencyInfoDao extends BaseDAO<PojoAgencyInfo>{
 	 * @return
 	 */
 	List<?> findByCode(String merchNo, String chargingunit);
+	
+	/**
+	 * 消费单位代码校验
+	 * @param bean
+	 * @return
+	 */
+	List<?> queryChargingunit(AgencyInfoBean bean);
+	
 }

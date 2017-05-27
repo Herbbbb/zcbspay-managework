@@ -223,7 +223,7 @@ table tr td font.current-step {
 				dataType: "json",
 				success: function(json) {
 					 if(json.status=='OK'){
-						 var URL = "javaCode/" + json.url;
+						 var URL = json.url;
 						 certSpan.html('<a href="'+URL+'" target="view_window" style="font-size: 12px;color:blue">点击查看</a>');
 					 }else if(json.status=='notExist'){
 						 certSpan.html('暂无可查看文件');

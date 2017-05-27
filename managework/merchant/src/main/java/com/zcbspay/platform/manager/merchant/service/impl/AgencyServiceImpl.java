@@ -30,6 +30,8 @@ import com.zcbspay.platform.manager.merchant.pojo.PojoAgencyInfo;
 import com.zcbspay.platform.manager.merchant.pojo.PojoEnterpriseDetaApply;
 import com.zcbspay.platform.manager.merchant.pojo.PojoMerchDetaApply;
 import com.zcbspay.platform.manager.merchant.service.AgencyService;
+
+
 @Service("agencyService")
 @SuppressWarnings("all")
 public class AgencyServiceImpl implements AgencyService {
@@ -245,6 +247,12 @@ public class AgencyServiceImpl implements AgencyService {
 	@Override
 	public Map<String, Object> queryProfit(Map<String, Object> result, Integer page, Integer rows) {
 		return agencyDAO.queryProfit(result, page,rows);
+	}
+
+	@Override
+	public List<?> queryChargingunit(AgencyInfoBean bean) {
+		
+		return agencyInfoDao.queryChargingunit(bean);
 	}
 }
 
