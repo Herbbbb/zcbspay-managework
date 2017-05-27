@@ -15,7 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zcbspay.platform.manager.merchant.bean.MerchTaxInvoiceBean;
 import com.zcbspay.platform.manager.merchant.service.AgencyService;
 import com.zcbspay.platform.manager.merchant.service.MerchBankAccoutService;
-
+import com.zcbspay.platform.manager.system.bean.UserBean;
+@SuppressWarnings("all")
 @Controller
 @RequestMapping("/merchTax")
 public class MerchTaxInvoiceController {
@@ -60,6 +61,22 @@ public class MerchTaxInvoiceController {
     @RequestMapping("/save")
 	public Map<String, Object> save(HttpServletRequest request,MerchTaxInvoiceBean metchTax) {
 		Map<String, Object> result = new HashMap<String, Object>();
+		
+		UserBean loginUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
+		result.put("userId", loginUser.getUserId().toString());
+        result.put("merberId", metchTax.getMerchNo());
+        result.put("status", "00");
+        result.put("flag", "10");
+        Map<String, Object> map = agencyService.findMerchByPage(result, 1, 10);
+        for (String k : map.keySet()) {
+	    	Integer key = (Integer) map.get("total");
+            if( key != 1){
+            	String  info = "委托机构号" + metchTax.getMerchNo() + "不存在或已注销！";
+            	 result.put("RET", "FAIL");
+            	 result.put("INFO", info);
+            	 return result;
+            }
+        }
 		metchTax.setStatus("00");
 		result = merchBankAccoutService.addTax(metchTax);
         return result;
@@ -84,7 +101,23 @@ public class MerchTaxInvoiceController {
 	 */
 	@ResponseBody
     @RequestMapping("/eidtBankAccount")
-	public Map<String, Object> eidtBankAccount(MerchTaxInvoiceBean metchTax) {
+	public Map<String, Object> eidtBankAccount(HttpServletRequest request,MerchTaxInvoiceBean metchTax) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		UserBean loginUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
+		result.put("userId", loginUser.getUserId().toString());
+        result.put("merberId", metchTax.getMerchNo());
+        result.put("status", "00");
+        result.put("flag", "10");
+        Map<String, Object> map = agencyService.findMerchByPage(result, 1, 10);
+        for (String k : map.keySet()) {
+	    	Integer key = (Integer) map.get("total");
+            if( key != 1){
+            	String  info = "委托机构号" + metchTax.getMerchNo() + "不存在或已注销！";
+            	 result.put("RET", "FAIL");
+            	 result.put("INFO", info);
+            	 return result;
+            }
+        }
         return merchBankAccoutService.eidtTax(metchTax);
 	}
 	/**

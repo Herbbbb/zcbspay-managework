@@ -288,7 +288,7 @@
   	var width = $("#continer").width();
 		$(function(){
 			$('#bankList').datagrid({
-				title:'代理商分润信息列表',
+				title:'代理商发票信息列表',
 				iconCls:'icon-save',
 				height:600,
 				nowrap: false,
@@ -334,7 +334,7 @@
 				rownumbers:true,
 				toolbar:[{
 					id:'btnadd',
-					text:'新增代理商分润信息',
+					text:'新增代理商发票信息',
 					iconCls:'icon-add',
 					handler:function(){
 						$("#user_code").removeAttr('readonly');
@@ -354,7 +354,7 @@
 			$("#saveForm").attr("action","coopSplit/save");
 			$('#saveForm :input').val('');
 			$('#w').window({
-				title: '新增代理商分润信息',
+				title: '新增代理商发票信息',
 				top:100,
 				left:400,
 				width: 800,
@@ -466,7 +466,7 @@
 			});
 			
 			$('#w2').window({
-				title: '修改代理商分润信息',
+				title: '修改代理商发票信息',
 				top:100,
 				left:400,
 				width: 800,
@@ -515,7 +515,7 @@
 			    }
 			});
 			$('#w3').window({
-				title: '代理商分润信息详情',
+				title: '代理商发票信息详情',
 				top:100,
 				left:400,
 				width: 800,
@@ -530,7 +530,7 @@
 		}
 
 		function deleteUser(tId){
-			$.messager.confirm('提示','您是否想要注销此代理商分润信息?',function(r){   
+			$.messager.confirm('提示','您是否想要注销此代理商发票信息?',function(r){   
 			    if (r){  
 			    	$.ajax({
 					   type: "POST",

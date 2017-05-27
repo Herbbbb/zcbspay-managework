@@ -366,9 +366,23 @@ table tr td select {
 			   data: "CCode="+CCode,
 			   dataType:"json",
 			   success: function(json){
-				   var cname =json.cname;
-				   var cid=json.ccode;
-				   var pId = json.pid;
+				   var cname;
+				   var cid;
+				   var pId;
+				   if(json.length != 1){
+					   $.each(json,function(key, value) {
+							if(value.PId == value.CId){
+								cname = value.CName;
+								pId = value.CId;
+								cid = value.CCode;
+							}
+						});
+				   }else{
+					   cname = json[0].CName;
+					   cid=json[0].CCode;
+					   pId = json[0].PId;
+				   }
+				   
 					$.ajax({
 					   type: "POST",
 					   url: "bankaccout/queryProvince",
@@ -440,11 +454,11 @@ table tr td select {
 			    	$('#w').window('close');
 		    		$('#btn_submit').linkbutton('enable');
 		    		json = eval('(' + json + ')');
-					 if(json.status=='OK'){
-						 $.messager.alert('提示',"保存成功");
+					 if(json.RET=='OK'){
+						 $.messager.alert('提示',json.INFO);
 						 search();
 					 }else{
-						 $.messager.alert('提示',"保存失败"); 
+						 $.messager.alert('提示',json.INFO);
 						 search();
 					 }
 				}
@@ -463,11 +477,11 @@ table tr td select {
 			    	$('#w2').window('close');
 			    	json = eval('(' + json + ')');
 		    		$('#b_btn_submit').linkbutton('enable');
-					 if(json.status=='OK'){
-						 $.messager.alert('提示',"修改成功");
+		    		if(json.RET=='OK'){
+						 $.messager.alert('提示',json.INFO);
 						 search();
 					 }else{
-						 $.messager.alert('提示',"修改失败");
+						 $.messager.alert('提示',json.INFO);
 						 search();
 					 }
 				} 
@@ -621,6 +635,7 @@ table tr td select {
 						$("#bankCode_b").val(json.bankCode);
 						$("#b_bankCode").html(json.bankCode);
 					}
+				   showCity(json.bankCity);
 			   }
 			});
 		}
@@ -638,7 +653,6 @@ table tr td select {
 			});
 			return result;
 		}
-		
 		
 		function checkBankKey(type){
 			var pid;

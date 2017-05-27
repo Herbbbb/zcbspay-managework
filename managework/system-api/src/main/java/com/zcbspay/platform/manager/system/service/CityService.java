@@ -2,8 +2,6 @@ package com.zcbspay.platform.manager.system.service;
 
 import java.util.List;
 
-import com.zcbspay.platform.manager.system.bean.CityBean;
-
 public interface CityService {
 
 	/**
@@ -17,7 +15,7 @@ public interface CityService {
 	 * @param cCode
 	 * @return
 	 */
-	public CityBean findByPid(String CCode);
+	public List<?> findByPid(String CCode);
 	
 }
 

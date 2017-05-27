@@ -434,16 +434,19 @@ table tr td select {
 			});
 			$('#btn_submit').linkbutton('enable');	
 		}
+		
 		function closeAdd(){
 			$('#w').window('close');
 			$('#w2').window('close');
 			$('#w3').window('close');
 			
-		}		
+		}
+		
 		function search(){
 			var data={'merchNo':$('#a_merchNo').val(),'companyName':$('#a_companyName').val(),'taxPayerId':$("#a_taxPayerId").val(),'accountNo':$("#a_accountNo").val()};
 			$('#bankList').datagrid('load',data);
 		}
+		
 		function getValue(){  
 		    var hobbies = document.getElementsByName("documen");  
 		    var value;  
@@ -700,7 +703,7 @@ table tr td select {
 				data: "bankName=" + pid,
 				dataType: "json",
 				success: function(json) {
-					var html;
+					var html = "<option value=''>--请选择开户行--</option>";
 					$.each(json,function(key, value) {
 						html += '<option value="' + value.BANK_NAME + '">' + value.BANK_NAME + '</option>';
 					});

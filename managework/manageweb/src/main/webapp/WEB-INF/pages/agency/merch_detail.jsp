@@ -379,9 +379,9 @@ table tr td font.current-step {
 					</tr>
 					<tr style="height: 25px">
 						<td class="update" width="18%">付款单位代码</td>
-						<td align="left" class="update"><span id="a_chargingunit"></span></td>
+						<td align="left" class="update" width="28%"><span id="a_chargingunit"></span></td>
 						<td width="18%" class="update">业务种类</td>
-						<td align="left" class="update"><span id="a_busiSort"></span></td>
+						<td align="left" class="update" width="28%"><span id="a_busiSort"></span></td>
 					</tr>
 					<tr>
 						<td colspan="4" class="head-title">实时代付</td>
@@ -670,7 +670,7 @@ table tr td font.current-step {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 480
+				height: 280
 			});
 		}
 	 function findFeeVer(result){
@@ -701,7 +701,7 @@ table tr td font.current-step {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 480
+				height: 280
 			});
 		}
 	 function findChargingunit(result){

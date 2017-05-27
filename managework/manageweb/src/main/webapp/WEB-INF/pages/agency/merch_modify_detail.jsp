@@ -310,12 +310,12 @@ table tr td font.current-step {
 				<form id="deptForm" action="" method="post">
 					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left" id="inputForm">
 						<tr>
-							<td class="add" align="center" width="20%">委托机构名称</td>
-							<td ><input id="b_merName" name="enterpriseName" readonly="true"/></td>
+							<td class="add" align="center" width="30%">委托机构名称</td>
+							<td class="add" width="30%"><input id="b_merName" name="enterpriseName" readonly="true"/></td>
 						</tr>
 						<tr>
 							<td class="add" align="center">风控版本</td>
-							<td ><select name="riskVer" maxlength="8" required="true" id="riskver" /></select> <font color="red">*</font></td>
+							<td class="add"><select name="riskVer" maxlength="8" required="true" id="riskver" /></select> <font color="red">*</font></td>
 						</tr>
 					</table>
 				</form>
@@ -371,18 +371,18 @@ table tr td font.current-step {
 					</tr>
 					<tr style="height: 25px">
 						<td class="update" width="18%">付款单位代码</td>
-						<td align="left" class="update"><span id="a_chargingunit"></span></td>
+						<td align="left" class="update" width="28%"><span id="a_chargingunit"></span></td>
 						<td width="18%" class="update">业务种类</td>
-						<td align="left" class="update"><span id="a_busiSort"></span></td>
+						<td align="left" class="update" width="28%"><span id="a_busiSort"></span></td>
 					</tr>
 					<tr>
 						<td colspan="4" class="head-title">实时代付</td>
 						<input type="hidden" id="b_bustCode" name="b_bustCode"/>
 					</tr>
 					<tr style="height: 25px">
-						<td width="18%" class="update">付款单位代码</td>
+						<td class="update">付款单位代码</td>
 						<td align="left" class="update"><span id="b_chargingunit"></span></td>
-						<td width="18%" class="update">业务种类</td>
+						<td class="update">业务种类</td>
 						<td align="left" class="update"><span id="b_busiSort"></span></td>
 					</tr>
 					<tr>
@@ -390,9 +390,9 @@ table tr td font.current-step {
 						<input type="hidden" id="c_bustCode" name="c_bustCode"/>
 					</tr>
 					<tr style="height: 25px">
-						<td width="18%" class="update">付款单位代码</td>
+						<td class="update">付款单位代码</td>
 						<td align="left" class="update"><span id="c_chargingunit"></span></td>
-						<td width="18%" class="update">业务种类</td>
+						<td class="update">业务种类</td>
 						<td align="left" class="update"><span id="c_busiSort"></span></td>
 					</tr>
 					<tr>
@@ -400,9 +400,9 @@ table tr td font.current-step {
 						<input type="hidden" id="d_bustCode" name="d_bustCode"/>
 					</tr>
 					<tr style="height: 25px">
-						<td width="18%" class="update">付款单位代码</td>
+						<td class="update">付款单位代码</td>
 						<td align="left" class="update"><span id="d_chargingunit"></span></td>
-						<td width="18%" class="update">业务种类</td>
+						<td class="update">业务种类</td>
 						<td align="left" class="update"><span id="d_busiSort"></span></td>
 					</tr>
 				</table>
@@ -660,7 +660,7 @@ var pid = $("#prdtVer").val();
 			maximizable:false,
 			shadow: false,
 			closed: false,
-			height: 480
+			height: 280
 		});
 	}
  function findFeeVer(result){
@@ -691,7 +691,7 @@ var pid = $("#prdtVer").val();
 			maximizable:false,
 			shadow: false,
 			closed: false,
-			height: 480
+			height: 280
 		});
 	}
 	 function findChargingunit(result){

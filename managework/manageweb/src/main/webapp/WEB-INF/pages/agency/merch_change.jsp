@@ -182,11 +182,11 @@ table tr td font.current-step {
 						<tr>
 							<td align="center">开户行</td>
 							<td colspan="3">
-								<input id="oldBankName_input" readonly="true" required="true"> 
+								<input id="oldBankName_input" readonly="true" required="true"  style="width: 320px"> 
 								<a id="a_bank_info" href="javascript:modifyBank()" style="color: blue">修改</a> 
 								<span id="bank_info"> 
 								<select id="banknode_ins" class="easyui-validatebox" required="true" missingMessage="请输入开户行"
-								 name="bankNode" style="width: 150px" /><option value=''>--请选择开户行--</option></select><font color="red">*</font> 
+								 name="bankNode" style="width: 320px" /><option value=''>--请选择开户行--</option></select><font color="red">*</font> 
 								<input id="banknode_key" maxlength="16" type="text" onclick="checkBankKey()" onchange="queryBankNode()" /></span>
 							</td>
 						</tr>

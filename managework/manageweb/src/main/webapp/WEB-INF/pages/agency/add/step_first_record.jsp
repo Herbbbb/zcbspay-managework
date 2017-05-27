@@ -484,8 +484,7 @@ table tr td font.current-step {
 				success: function(json) {
 					var county = $('#county_old').val();
 					var html = "<option value=''>--请选择所属县--</option>";
-					$.each(json,
-					function(key, value) {
+					$.each(json,function(key, value) {
 						if(value.T_ID==county){
 							html += '<option value="' + value.T_ID + '" selected="selected">' + value.T_NAME + '</option>';
 						}else{
