@@ -14,9 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zcbspay.platform.manager.merchant.bean.BankInfoBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchBankAccoutBean;
+import com.zcbspay.platform.manager.merchant.service.AgencyService;
 import com.zcbspay.platform.manager.merchant.service.MerchBankAccoutService;
 import com.zcbspay.platform.manager.system.bean.CityBean;
 import com.zcbspay.platform.manager.system.bean.ProvinceBean;
+import com.zcbspay.platform.manager.system.bean.UserBean;
 import com.zcbspay.platform.manager.system.service.CityService;
 import com.zcbspay.platform.manager.system.service.ProvinceService;
 
@@ -31,6 +33,8 @@ public class MerchBankAccoutController {
 	private ProvinceService provinceService;
 	@Autowired
 	private CityService cityService;
+	@Autowired
+	private AgencyService agencyService;
 	
 	@ResponseBody
     @RequestMapping("/show")
@@ -65,16 +69,36 @@ public class MerchBankAccoutController {
 	 */
 	@ResponseBody
     @RequestMapping("/save")
-	public Map<String, String> save(HttpServletRequest request,MerchBankAccoutBean bankAccout) {
-		Map<String, String> result = new HashMap<String, String>();
-		bankAccout.setStatus("00");
-        boolean isSucc = merchBankAccoutService.addBankAccount(bankAccout);
-        if (isSucc == true) {
-            result.put("status", "OK");
-        } else {
-            result.put("status", "FAIL");
+	public Map<String, Object> save(HttpServletRequest request,MerchBankAccoutBean bankAccout) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		UserBean loginUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
+		result.put("userId", loginUser.getUserId().toString());
+        result.put("merberId", bankAccout.getMerchNo());
+        result.put("status", "00");
+        result.put("flag", "10");
+        Map<String, Object> map = agencyService.findMerchByPage(result, 1, 10);
+        for (String k : map.keySet()) {
+	    	Integer key = (Integer) map.get("total");
+            if( key != 1){
+            	String  info = "委托机构号" + bankAccout.getMerchNo() + "不存在或已注销！";
+            	 result.put("RET", "FAIL");
+            	 result.put("INFO", info);
+            	 return map;
+            }
         }
-        return result;
+        bankAccout.setStatus("00");
+        boolean isSucc = merchBankAccoutService.addBankAccount(bankAccout);
+        Map<String, Object> resultList = new HashMap<String, Object>();
+        if (isSucc == true) {
+        	resultList.put("RET", "OK");
+        	resultList.put("INFO", "保存成功");
+        } else {
+        	resultList.put("RET", "FAIL");
+        	resultList.put("INFO", "保存失败");
+        }
+        
+        return resultList;
 	}
 	
 	/**
@@ -96,15 +120,33 @@ public class MerchBankAccoutController {
 	 */
 	@ResponseBody
     @RequestMapping("/eidtBankAccount")
-	public Map<String, String> eidtBankAccount(MerchBankAccoutBean bankAccout) {
-		Map<String, String> result = new HashMap<String, String>();
-		boolean isSucc = merchBankAccoutService.eidtBankAccount(bankAccout);
-        if (isSucc == true) {
-            result.put("status", "OK");
-        } else {
-            result.put("status", "FAIL");
+	public Map<String, Object> eidtBankAccount(HttpServletRequest request,MerchBankAccoutBean bankAccout) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		UserBean loginUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
+		result.put("userId", loginUser.getUserId().toString());
+        result.put("merberId", bankAccout.getMerchNo());
+        result.put("status", "00");
+        result.put("flag", "10");
+        Map<String, Object> map = agencyService.findMerchByPage(result, 1, 10);
+        for (String k : map.keySet()) {
+	    	Integer key = (Integer) map.get("total");
+            if( key != 1){
+            	String  info = "委托机构号" + bankAccout.getMerchNo() + "不存在或已注销！";
+            	 result.put("RET", "FAIL");
+            	 result.put("INFO", info);
+            	 return map;
+            }
         }
-        return result;
+		boolean isSucc = merchBankAccoutService.eidtBankAccount(bankAccout);
+		Map<String, Object> resultList = new HashMap<String, Object>();
+        if (isSucc == true) {
+        	resultList.put("RET", "OK");
+        	resultList.put("INFO", "修改成功");
+        } else {
+        	resultList.put("RET", "FAIL");
+        	resultList.put("INFO", "修改成功");
+        }
+        return resultList;
 	}
 	/**
 	 * 删除信息
@@ -132,9 +174,10 @@ public class MerchBankAccoutController {
 	 */
 	@ResponseBody
     @RequestMapping("/queryCity")
-	public CityBean queryCity(String CCode){
+	public List<?> queryCity(String CCode){
 		return cityService.findByPid(CCode);
 	}
+	
 	/**
 	 * 获取省信息集合
 	 * @return

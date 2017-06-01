@@ -7,16 +7,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <style type="text/css">
-table tr td {
-	height: 25px
-}
-
 table tr td input {
 	height: 15px
 }
 
 table tr td select {
 	height: 20px
+}
+table tr td.head-title {
+	height: 25px;
+	background-color: #F0F8FF;
+	font-weight: bold;
+	border-width: 1px 1px 1px 1px;
+	border-style: groove;
+}
+table tr td.add {
+	height: 25px;
+}
+table tr td.update {
+	height: 25px;
+	padding-left: 10px;
+	border-width: 1px 1px 1px 1px;
+	border-style: groove;
 }
 </style>
 <script type="text/javascript" src="js/extendsValidator_1.0_20151215.js"></script>
@@ -30,24 +42,15 @@ table tr td select {
 			<form id="theForm" method="post">
 				<table width="100%">
 					<tr>
-						<td align="right" width="15%">扣率代码</td>
-						<td align="left" style="padding-left: 5px" width="25%">
-							<input id="rateId"  name="rateId" maxlength="10"/>
-						</td>
-						<td align="right"></td>
-					</tr>
-					<tr>
-						<td align="right" width="15%">扣率描述</td>
-						<td align="left" style="padding-left: 5px" width="25%">
-							<input id="rateDes" name="rateDes" maxlength="64" />
-						</td>
-
-						<td align="right"><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a>
-							<a
-							href="javascript:resize()" class="easyui-linkbutton"
-							iconCls="icon-redo">清空</a>
-							</td>
+						<td class="add" align="right" width="15%">扣率代码</td>
+						<td class="add" align="left" style="padding-left: 5px" width="25%">
+							<input id="rateId"  name="rateId" maxlength="10"/></td>
+						<td class="add" align="right" width="15%">扣率描述</td>
+						<td class="add" align="left" style="padding-left: 5px" width="25%">
+							<input id="rateDes" name="rateDes" maxlength="64" /></td>
+						<td class="add" align="right">
+						<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+						<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a></td>
 					</tr>
 				</table>
 			</form>
@@ -55,7 +58,6 @@ table tr td select {
 		<div style="margin-top: 5px">
 			<table id="test"></table>
 		</div>
-
 	</div>
 	<div id="w" class="easyui-window" closed="true" title="My Window"
 		iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px;">
@@ -67,78 +69,74 @@ table tr td select {
 					<table width="100%" cellpadding="2" cellspacing="2"
 						style="text-align: left">
 						<tr>
-							<td width="15%">扣率代码</td>
-							<td width="30%"><input id="rateId_form"  name="rateId" maxlength="10"/></td>
-							<td width="15%">扣率描述</td>
-							<td><input id="rateDes_form" name="rateDes" maxlength="64" /></td>
+							<td class="update" width="15%">扣率代码</td>
+							<td class="update" width="30%"><input id="rateId_form"  name="rateId" maxlength="10"/></td>
+							<td class="update" width="15%">扣率描述</td>
+							<td class="update"><input id="rateDes_form" name="rateDes" maxlength="64" /></td>
 						</tr>
 						<tr>
-							<td>计费方式</td>
-							<td>
-							<select id="rateType" class="easyui-validatebox" required="true" name="rateType"
-								onchange="showRateDetail()">
-							</select>
-							</td>
-							<td width="15%">扣率(百分比)</td>
-							<td><input id="feeRate" name="feeRate" required="true"
-								validType="percent" type="text" class="easyui-validatebox"
-								maxlength="5" /></td>
+							<td class="update">计费方式</td>
+							<td class="update"><select id="rateType" class="easyui-validatebox" required="true" name="rateType"
+								onchange="showRateDetail()" missingMessage="请输入计费方式">
+							</select></td>
 						</tr>
 						<tr>
-							<td>最低收费额(单位:元)</td>
-							<td><input id="minFee" name="minFee" required="true"
-								validType="amount" maxlength="12" type="text"
-								class="easyui-validatebox" /></td>
-							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxFee" name="maxFee" required="true"
-								validType="amount" maxlength="12" type="text"
-								class="easyui-validatebox" /></td>
+							<td colspan="4" class="head-title"></td>
 						</tr>
-
-						<tr>
-							<td>分界线1(单位：元)</td>
-							<td><input id="limit1" name="limit1"
-								validType="amount" type="text" class="easyui-validatebox"
-								maxlength="12" /></td>
-							<td width="15%">扣率(百分比)</td>
-							<td><input id="feeRate2" name="feeRate2" required="true"
-								validType="percent" type="text" class="easyui-validatebox"
-								maxlength="5" /></td>
+						<tr>	
+							<td class="update" width="15%">扣率(百分比)</td>
+							<td class="update"><input id="feeRate" name="feeRate" required="true" validType="percent" type="text" 
+							class="easyui-validatebox" maxlength="5" missingMessage="请输入扣率"/></td>
 						</tr>
 						<tr>
-							<td>最低收费额(单位:元)</td>
-							<td><input id="minFee2" name="minFee2" required="true"
-								maxlength="12" validType="amount" type="text"
-								class="easyui-validatebox" /></td>
-							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxFee2" name="maxFee2" required="true"
-								maxlength="12" validType="amount" type="text"
-								class="easyui-validatebox" /></td>
-						</tr>
-
-						<tr>
-							<td>分界线2(单位：元)</td>
-							<td><input id="limit2" name="limit2" 
-								validType="amount" type="text" class="easyui-validatebox"
-								maxlength="12" /></td>
-							<td width="15%">扣率(百分比)</td>
-							<td><input id="feeRate3" name="feeRate3" required="true"
-								validType="percent" type="text" class="easyui-validatebox"
-								maxlength="5" /></td>
+							<td class="update">最低收费额(元)</td>
+							<td class="update"><input id="minFee" name="minFee" required="true" validType="amount" maxlength="12" 
+							type="text" class="easyui-validatebox" missingMessage="请输入最低收费金额"/></td>
+							<td class="update" width="15%">最高收费额(元)</td>
+							<td class="update"><input id="maxFee" name="maxFee" required="true" validType="amount" maxlength="12" 
+							type="text" class="easyui-validatebox" missingMessage="请输入最高收费金额"/></td>
 						</tr>
 						<tr>
-							<td>最低收费额(单位:元)</td>
-							<td><input id="minFee3" name="minFee3" required="true"
-								maxlength="12" validType="amount" type="text"
-								class="easyui-validatebox" /></td>
-							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxFee3" name="maxFee3" required="true"
-								maxlength="12" validType="amount" type="text"
-								class="easyui-validatebox" /></td>
+							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr>
-							<td>备注</td>
-							<td colspan="3"><textarea id="notes" rows="3" cols="75"
+							<td class="update">分界线1(元)</td>
+							<td class="update"><input id="limit1" name="limit1" validType="amount" type="text" class="easyui-validatebox"
+								maxlength="12" missingMessage="请输入金额"/></td>
+							<td class="update" width="15%">扣率(百分比)</td>
+							<td class="update"><input id="feeRate2" name="feeRate2" required="true" validType="percent" type="text" 
+							class="easyui-validatebox" maxlength="5" missingMessage="请输入金额"/></td>
+						</tr>
+						<tr>
+							<td class="update">最低收费额(元)</td>
+							<td class="update"><input id="minFee2" name="minFee2" required="true" maxlength="12" validType="amount" 
+							type="text" class="easyui-validatebox" missingMessage="请输入最低收费金额"/></td>
+							<td class="update" width="15%">最高收费额(元)</td>
+							<td class="update"><input id="maxFee2" name="maxFee2" required="true" maxlength="12" validType="amount" 
+							type="text" class="easyui-validatebox" missingMessage="请输入收费金额"/></td>
+						</tr>
+						<tr>
+							<td colspan="4" class="head-title"></td>
+						</tr>
+						<tr>
+							<td class="update">分界线2(元)</td>
+							<td class="update"><input id="limit2" name="limit2" validType="amount" type="text" class="easyui-validatebox"
+								maxlength="12" missingMessage="请输入金额"/></td>
+							<td class="update" width="15%">扣率(百分比)</td>
+							<td class="update"><input id="feeRate3" name="feeRate3" required="true" validType="percent" type="text" 
+							class="easyui-validatebox" maxlength="5" missingMessage="请输入扣率"/></td>
+						</tr>
+						<tr>
+							<td class="update">最低收费额(元)</td>
+							<td class="update"><input id="minFee3" name="minFee3" required="true" maxlength="12" validType="amount" 
+							type="text" class="easyui-validatebox" missingMessage="请输入最低收费金额"/></td>
+							<td class="update" width="15%">最高收费额(元)</td>
+							<td class="update"><input id="maxFee3" name="maxFee3" required="true" maxlength="12" validType="amount" 
+							type="text" class="easyui-validatebox" missingMessage="请输入最高收费金额"/></td>
+						</tr>
+						<tr>
+							<td class="update">备注</td>
+							<td class="update" colspan="3"><textarea id="notes" rows="3" cols="75"
 									name="notes" maxlength="32"></textarea></td>
 						</tr>
 					</table>
@@ -159,7 +157,7 @@ table tr td select {
 	  var width = $("#continer").width();
 	  var gridHeight = 600;
 	  var panelWidth = 800;
-	  var panelHeight = 360;
+	  var panelHeight = 470;
 	  var panelHoriFloat = (width-panelWidth)/2;
 	  var panelVertFloat = 150;
 	  var width = $("#continer").width();
@@ -211,7 +209,7 @@ table tr td select {
 					colspan:3
 				},
 				{
-					title: '分割线',
+					title: '',
 					align: 'center',
 				},
 				{
@@ -220,7 +218,7 @@ table tr td select {
 					colspan:3
 				},
 				{
-					title: '分割线',
+					title: '',
 					align: 'center',
 				},
 				{
@@ -276,54 +274,21 @@ table tr td select {
 					align: 'center',
 					rowspan:1
 				},
-				{
-					field: 'LIMIT1',
-					title: '分割线',
-					width: 100,
-					align: 'center',
-					rowspan:1
+				{field: 'LIMIT1',title: '分割线(元)',width: 100,align: 'center',rowspan:1,
+					formatter:function(value,rec){
+						return fenToYuan(rec.LIMIT1);
+					}
 				},
-				{
-					field: 'FEE_RATE2',
-					title: '扣率(百分比)',
-					width: 100,
-					align: 'center',
-					rowspan:1
+				{field: 'FEE_RATE2',title: '扣率(百分比)',width: 100,align: 'center',rowspan:1},
+				{field: 'MIN_FEE2',title: '最低额(元)',width: 100,align: 'center',rowspan:1},
+				{field: 'MAX_FEE2',title: '最高额(元)',width: 100,align: 'center',rowspan:1},
+				{field: 'LIMIT2',title: '分割线(元)',width: 100,align: 'center',rowspan:1,
+					formatter:function(value,rec){
+						return fenToYuan(rec.LIMIT2);
+					}
 				},
-				{
-					field: 'MIN_FEE2',
-					title: '最低额(元)',
-					width: 100,
-					align: 'center',
-					rowspan:1
-				},
-				{
-					field: 'MAX_FEE2',
-					title: '最高额(元)',
-					width: 100,
-					align: 'center',
-					rowspan:1
-				},
-				{
-					field: 'LIMIT2',
-					title: '分割线',
-					width: 100,
-					align: 'center',
-					rowspan:1
-				},
-				{
-					field: 'FEE_RATE3',
-					title: '扣率(百分比)',
-					width: 100,
-					align: 'center',
-					rowspan:1
-				},
-				{
-					field: 'MIN_FEE3',
-					title: '最低额(元)',
-					width: 100,
-					align: 'center',
-					rowspan:1
+				{field: 'FEE_RATE3',title: '扣率(百分比)',width: 100,align: 'center',rowspan:1},
+				{field: 'MIN_FEE3',title: '最低额(元)',width: 100,align: 'center',rowspan:1
 				},
 				{
 					field: 'MAX_FEE3',
@@ -361,7 +326,9 @@ table tr td select {
 			$("#save_button").show();
 			$("#cancel_button").show();
 			$("#save_button").linkbutton('enable');
-			$('#txnRateForm').clearForm();
+			$('#txnRateForm :input').val('');
+			$('#notes').val('');
+// 			$('#txnRateForm').clearForm();
 			$("#txnRateForm").attr("action", "fee/saveStepRate");
 			$('#w').window({
 				title: '分段扣率信息',
@@ -558,6 +525,13 @@ table tr td select {
 		}
 		function resize(){
 			$('#theForm :input').val('');
+		}
+		function fenToYuan(value){
+			var str = (value).toFixed(2) + '';
+			var intSum = str.substring(0,str.indexOf(".")).replace( /\B(?=(?:\d{3})+$)/g, ',' );
+			var dot = str.substring(str.length,str.indexOf("."))
+			var ret = intSum + dot;
+			return ret;
 		}
 	</script>
 </html>

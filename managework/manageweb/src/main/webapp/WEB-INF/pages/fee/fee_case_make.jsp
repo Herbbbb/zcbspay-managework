@@ -21,7 +21,13 @@ table tr td select {
 #dedurateInfo {
 	height: 25px;
 }
-
+table tr td.head-title {
+	height: 25px;
+	background-color: #F0F8FF;
+	font-weight: bold;
+	border-width: 1px 1px 1px 1px;
+	border-style: groove;
+}
 #dedurateInfo  tr td {
 	height: 25px;
 	border-style: solid;
@@ -109,32 +115,25 @@ table tr td select {
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
-				<form id="theForm" action="pages/fee/updateFeeCaseFeeAction.action"
-					method="post">
+				<form id="theForm" action="pages/fee/updateFeeCaseFeeAction.action" method="post">
 					<input type="hidden" id="caseid" name="feecaseModel.caseid">
-					<table width="100%" cellpadding="2" cellspacing="2"
-						id="deduRateCaseInfo" border="1">
+					<table width="100%" cellpadding="2" cellspacing="2" id="deduRateCaseInfo" border="1">
 						<tr>
 							<td align="right" width="174px">扣率版本</td>
-							<td align="left"><input id="busiPackCode_show"
-								name="feecaseModel.feever"></input></td>
+							<td align="left"><input id="busiPackCode_show" name="feecaseModel.feever"></input></td>
 							<td align="right" colspan=2></td>
 						</tr>
 						<tr style="height: 25px">
 							<td align="right">业务代码</td>
-							<td align="left"><input id="busicode_show"
-								name="feecaseModel.busicode"></input></td>
+							<td align="left"><input id="busicode_show" name="feecaseModel.busicode"></input></td>
 							<td align="right" width="174px">名称</td>
-							<td align="left"><input type="text" id="businame"
-								name="feecaseModel.businame" class="easyui-validatebox"
-								required="true" maxlength="32" /></td>
+							<td align="left"><input type="text" id="businame" name="feecaseModel.businame" class="easyui-validatebox"
+								required="true" maxlength="32" missingMessage="请输入名称"/></td>
 						</tr>
-
 						<tr>
 							<td align="right">清算标志</td>
-							<td align="left" colspan="4"><select
-								name="feecaseModel.setlflg" id="setlflg"
-								class="easyui-validatebox" required="true">
+							<td align="left" colspan="4"><select name="feecaseModel.setlflg" id="setlflg"
+								class="easyui-validatebox" required="true" missingMessage="请选择清算标志">
 									<option value="" selected>请选择清算标志</option>
 									<option value="0">不参加清算</option>
 									<option value="1">参加清算，无原始交易</option>
@@ -148,27 +147,22 @@ table tr td select {
 						</tr>
 						<tr>
 							<td align="right">交易计费方式</td>
-							<td align="left"><select id="selfFeeType"
-								class="easyui-validatebox" name="feecaseModel.feetype"
-								required="true"></select></td>
+							<td align="left"><select id="selfFeeType" class="easyui-validatebox" name="feecaseModel.feetype"
+								required="true" missingMessage="请输入交易计费方式"></select></td>
 							<td align="right">手续费返还方式</td>
-							<td align="left"><select id="feeRetflag"
-								class="easyui-validatebox" name="feecaseModel.feeretflag"
-								required="true"></select></td>
+							<td align="left"><select id="feeRetflag" class="easyui-validatebox" name="feecaseModel.feeretflag"
+								required="true" missingMessage="请输入手续费返还方式"></select></td>
 						</tr>
-
 						<tr>
 							<td align="right">委托机构对交易额记帐标志</td>
-							<td align="left"><select id="merchAmtflag"
-								class="easyui-validatebox" name="feecaseModel.merchamtflag">
+							<td align="left"><select id="merchAmtflag" class="easyui-validatebox" name="feecaseModel.merchamtflag">
 									<option value="" selected>请选择委托机构对交易额记帐标志</option>
 									<option value="N">无此项</option>
 									<option value="C">贷记</option>
 									<option value="D">借记</option>
 							</select></td>
 							<td align="right">委托机构手续费记帐标志</td>
-							<td align="left"><select id="merchFeeflag"
-								class="easyui-validatebox" name="feecaseModel.merchfeeflag">
+							<td align="left"><select id="merchFeeflag" class="easyui-validatebox" name="feecaseModel.merchfeeflag">
 									<option value="" selected>请选择委托机构手续费记帐标志</option>
 									<option value="N">无此项</option>
 									<option value="C">贷记</option>

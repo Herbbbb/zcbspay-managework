@@ -264,7 +264,7 @@ public class MerchDetaController {
 						new MerchantThread(uploadDir+"/"+resFileName).start();
 //						String fileName = UUID.randomUUID().toString().replace("-", "") + resFileName.substring(resFileName.lastIndexOf("."));
 						FileInputStream in=new FileInputStream(outFile);  
-				        boolean flag = FTPUtils.uploadFile("192.168.2.138", 21, "DownLoad", "624537", "E:ftp","/",mf.getOriginalFilename() , in);
+				        boolean flag = FTPUtils.uploadFile("192.168.2.12", 21, "webftp", "webftp","merch","/",mf.getOriginalFilename() , in);
 					}else{
 						return null;
 					}

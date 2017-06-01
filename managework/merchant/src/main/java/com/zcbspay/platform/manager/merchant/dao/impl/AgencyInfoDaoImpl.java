@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zcbspay.platform.manager.dao.impl.HibernateBaseDAOImpl;
 import com.zcbspay.platform.manager.exception.ContractException;
+import com.zcbspay.platform.manager.merchant.bean.AgencyInfoBean;
 import com.zcbspay.platform.manager.merchant.dao.AgencyInfoDao;
 import com.zcbspay.platform.manager.merchant.pojo.PojoAgencyInfo;
 
@@ -104,6 +105,13 @@ public class AgencyInfoDaoImpl extends HibernateBaseDAOImpl<PojoAgencyInfo> impl
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<?> queryChargingunit(AgencyInfoBean bean) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String sql = "select t from PojoAgencyInfo t where t.chargingunit=?";
+		return queryByHQL(sql, new Object[]{bean.getChargingunit()});
 	}
 	
 }

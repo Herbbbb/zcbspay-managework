@@ -82,7 +82,7 @@ table tr td select {
 						<td>收款清算行行号</td><td id="tcreditoragentcode"></td>
 					</tr>
 					<tr>
-						<td>总金额</td><td id="ttotalamount"></td>
+						<td>总金额(元)</td><td id="ttotalamount"></td>
 						<td>业务类型编码</td><td id="tcategorypurposecode"></td>
 					</tr>
 					<tr>
@@ -90,11 +90,11 @@ table tr td select {
 						<td>成功收款总笔数</td><td id="tsendingtotalnumber"></td>
 					</tr>
 					<tr>
-						<td>成功收款总金额</td><td id="tsendingtotalamount"></td>
+						<td>成功收款总金额(元)</td><td id="tsendingtotalamount"></td>
 						<td>失败收款总笔数</td><td id="tfailtotalnumber"></td>
 					</tr>
 					<tr>
-						<td>失败收款总金额</td><td id="tfailtotalamount"></td>
+						<td>失败收款总金额(元)</td><td id="tfailtotalamount"></td>
 						<td>NPC处理状态</td><td id="tnpcprocessstatus"></td>
 					</tr>
 					<tr>
@@ -176,13 +176,25 @@ table tr td select {
 								{field:'DEBTORAGENTCODE',title:'付款清算行行号',width:120,align:'center'},
 								{field:'DEBTORBRANCHCODE',title:'付款行行号',width:120,align:'center'},
 								{field:'CREDITORAGENTCODE',title:'收款清算行行号',width:120,align:'center'},
-								{field:'TOTALAMOUNT',title:'总金额',width:120,align:'center'},
+								{field:'TOTALAMOUNT',title:'总金额(元)',width:120,align:'center',
+									formatter:function(value,rec){
+										return fenToYuan(rec.TOTALAMOUNT);
+									}
+								},
 								{field:'CATEGORYPURPOSECODE',title:'业务类型编码',width:120,align:'center'},
 								{field:'DEBTORNUMBER',title:'收款人数目',width:120,align:'center'},
 								{field:'SENDINGTOTALNUMBER',title:'成功收款总笔数',width:120,align:'center'},
-								{field:'SENDINGTOTALAMOUNT',title:'成功收款总金额',width:120,align:'center'},
+								{field:'SENDINGTOTALAMOUNT',title:'成功收款总金额(元)',width:120,align:'center',
+									formatter:function(value,rec){
+										return fenToYuan(rec.SENDINGTOTALAMOUNT);
+									}
+								},
 								{field:'FAILTOTALNUMBER',title:'失败收款总笔数',width:120,align:'center'},
-								{field:'FAILTOTALAMOUNT',title:'失败收款总金额',width:120,align:'center'},
+								{field:'FAILTOTALAMOUNT',title:'失败收款总金额(元)',width:120,align:'center',
+									formatter:function(value,rec){
+										return fenToYuan(rec.FAILTOTALAMOUNT);
+									}
+								},
 								{field:'ID',title:'操作',width:120,align:'center',
 									formatter:function(value,rec){
 										return '<a href="javascript:queryDetail(\''+rec.BATCHNO+'\')" style="color:blue;margin-left:10px">详细信息</a>';
@@ -212,7 +224,11 @@ table tr td select {
 										{field:'CREDITORNAME',title:'收款人名称',width:120,align:'center'},
 										{field:'CREDITORACCOUNTNO',title:'收款人账号',width:120,align:'center'},
 										{field:'CREDITORBRANCHCODE',title:'收款行行号',width:120,align:'center'},
-										{field:'AMOUNT',title:'交易金额',width:120,align:'center'},
+										{field:'AMOUNT',title:'交易金额(元)',width:120,align:'center',
+											formatter:function(value,rec){
+												return fenToYuan(rec.AMOUNT);
+											}
+										},
 										{field:'ADDINFO',title:'附言',width:120,align:'center'},
 										{field:'RSPSTATUS',title:'应答状态',width:120,align:'center'},
 										{field:'RSPREJECTCODE',title:'应答码',width:120,align:'center'},
@@ -309,13 +325,13 @@ table tr td select {
 		$("#tdebtoragentcode").html(rows["DEBTORAGENTCODE"]);
 		$("#tdebtorbranchcode").html(rows["DEBTORBRANCHCODE"]);
 		$("#tcreditoragentcode").html(rows["CREDITORAGENTCODE"]);
-		$("#ttotalamount").html(rows["TOTALAMOUNT"]);
+		$("#ttotalamount").html(fenToYuan(rows["TOTALAMOUNT"]));
 		$("#tcategorypurposecode").html(rows["CATEGORYPURPOSECODE"]);
 		$("#tdebtornumber").html(rows["DEBTORNUMBER"]);
 		$("#tsendingtotalnumber").html(rows["SENDINGTOTALNUMBER"]);
-		$("#tsendingtotalamount").html(rows["SENDINGTOTALAMOUNT"]);
+		$("#tsendingtotalamount").html(fenToYuan(rows["SENDINGTOTALAMOUNT"]));
 		$("#tfailtotalnumber").html(rows["FAILTOTALNUMBER"]);
-		$("#tfailtotalamount").html(rows["FAILTOTALAMOUNT"]);
+		$("#tfailtotalamount").html(fenToYuan(rows["FAILTOTALAMOUNT"]));
 		$("#tnpcprocessstatus").html(rows["NPCPROCESSSTATUS"]);
 		$("#tnpcprocesscode").html(rows["NPCPROCESSCODE"]);
 		$("#tnpcrejectinformation").html(rows["NPCREJECTINFORMATION"]);

@@ -63,6 +63,7 @@ table tr td font.current-step {
 					<input type="hidden" id="routver_old" value="${merchDeta.routVer}" />
 					<input type="hidden" id="agreemtStart_old" value="${merchDeta.agreemtStart}" /> 
 					<input type="hidden" id="agreemtEnd_old" value="${merchDeta.agreemtEnd}" /> 
+					<input type="hidden" id="caCode_old" value="${merchDeta.caCode}" /> 
 					<input type="hidden" id="mcclist_old" value="${member.mccList}" />
 					<input type="hidden" id="isDelegation_old" value="${member.isDelegation}" /> 
 					<input type="hidden" id="bankname_old" value="${oldBankName}" />
@@ -114,13 +115,10 @@ table tr td font.current-step {
 						<tr>
 							<td align="center">地址</td>
 							<td><input class="easyui-validatebox" maxlength="256"
-								name="address" style="width: 300px"
-								value="${member.address}" /></td>
+								name="address" style="width: 300px" value="${member.address}" /></td>
 							<td align="center">邮编编码</td>
-							<td><input class="easyui-validatebox"
-								validType="postcode[6]" maxlength="6"
-								name="postCode"
-								value="${member.postCode}" /></td>
+							<td><input class="easyui-validatebox" validType="postcode[6]" maxlength="6"
+								name="postCode" value="${member.postCode}" /></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -180,14 +178,12 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td align="center">开户行</td>
-							<td colspan="3"><input id="oldBankName_input"
-								readonly="true" required="true"> <a id="a_bank_info" 
-								href="javascript:modifyBank()" style="color: blue">修改</a> <span
-								id="bank_info"> <select id="banknode_ins"
-									class="easyui-validatebox" required="true"
-									name="bankNode" style="width: 150px" /></select> <font
-									color="red">*</font> <input id="banknode_key" maxlength="16"
-									type="text" onclick="checkBankKey()" onchange="queryBankNode()" /></span>
+							<td colspan="3">
+								<input id="oldBankName_input" readonly="true" required="true" style="width: 320px"> 
+								<a id="a_bank_info" href="javascript:modifyBank()" style="color: blue">修改</a>
+								<span id="bank_info"><select id="banknode_ins" class="easyui-validatebox" missingMessage="请输入开户行" required="true" 
+								name="bankNode" style="width: 320px" /><option value=''>--请选择开户行--</option></select><font color="red">*</font> 
+								<input id="banknode_key" maxlength="16" type="text" onclick="checkBankKey()" onchange="queryBankNode()" /></span>
 							</td>
 						</tr>
 						<tr>
@@ -221,6 +217,9 @@ table tr td font.current-step {
 							<td><select id="prdtver_ins" class="easyui-validatebox"
 								required="true" name="prdtVer" style="width: 150px" missingMessage="请输入产品"
 								onchange="showThreeVersion()" /></select> <font color="red">*</font></td>
+							<td align="center">代理商代码</td>
+							<td><input id="caCode" class="easyui-validatebox" maxlength="15" missingMessage="请输入代理商代码"
+								 required="true" name="caCode" /><font color="red">*</font></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -278,35 +277,25 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td align="center">联系人姓名</td>
-							<td><input name="contact" maxlength="16"
-								type="text" class="easyui-validatebox"
-								value="${member.contact}" />
+							<td><input name="contact" maxlength="16" missingMessage="请输入联系人姓名" type="text" 
+								class="easyui-validatebox" required="true" value="${member.contact}" />
 							<td align="center">联系人地址</td>
-							<td><input name="contAddress"
-								maxlength="128" style="width: 250px" type="text"
-								class="easyui-validatebox"
-								value="${member.contAddress}" /></td>
+							<td><input name="contAddress" maxlength="128" style="width: 250px" type="text"
+								class="easyui-validatebox" value="${member.contAddress}" /></td>
 						</tr>
 						<tr>
 							<td align="center">联系人电话</td>
-							<td><input class="easyui-validatebox" maxlength="11"
-								validType="chinesetest" name="contPhone"
-								value="${member.contPhone}" /></td>
+							<td><input class="easyui-validatebox" maxlength="11" validType="chinesetest" name="contPhone" 
+								required="true" missingMessage="请输入联系人电话" value="${member.contPhone}" /></td>
 							<td align="center">联系人职位</td>
-							<td><input name="contTitle" maxlength="16"
-								type="text" value="${member.contTitle}" /></td>
+							<td><input name="contTitle" maxlength="16" type="text" value="${member.contTitle}" /></td>
 						</tr>
 						<tr>
 							<td align="center">联系人邮箱</td>
-							<td><input class="easyui-validatebox" maxlength="16"
-								validType="email" name="contEmail"
-								value="${member.contEmail}" /></td>
-
-
+							<td><input class="easyui-validatebox" maxlength="16" validType="email" name="contEmail" 
+								required="true" missingMessage="请输入联系人邮箱" value="${member.contEmail}" /></td>
 							<td align="center">备注</td>
-							<td><input class="easyui-validatebox" maxlength="50"
-								name="notes" value="${merchDeta.notes}" /></td>
-
+							<td><input class="easyui-validatebox" maxlength="50" name="notes" value="${merchDeta.notes}" /></td>
 						</tr>
 					</table>
 				</form>
@@ -405,8 +394,8 @@ table tr td font.current-step {
 			queryDistType($('#prdtver_old').val());
 			queryFee($('#prdtver_old').val());
 			queryRiskType($('#prdtver_old').val())
-			showChnlname();
-		  
+// 			showChnlname();
+			showCaCode();
 			$("#startDate,#endDate").datebox({ editable:false});
 			initDelegation();
 			$('#bank_info').hide();
@@ -985,9 +974,6 @@ table tr td font.current-step {
 			});
 			$('#b_btn_submit2').linkbutton('enable');	
 		}
-		function backToMerchIndex(){
-			window.location.href= "<%=basePath%>" +'agency/show';
-		}
 		function validate(){
 			 if($('#b_saveForm').form('validate')){
 			    	closeAdd2();
@@ -1021,6 +1007,30 @@ table tr td font.current-step {
 			    }   
 			});  
 		}
+		
+
+		function showCaCode() {
+			$.ajax({
+				type: "POST",
+				url: "coopAgency/query",
+				data: {"status":"00","page":1,"rows":10},
+				dataType: "json",
+				success: function(json) {
+					var code = $("#caCode_old").val();
+					var html = "<option value=''>--请选择代理商--</option>";
+					$.each(json.rows,function(key, value) {
+						if(value.CACODE==code){
+							html += '<option value="' + value.CACODE + '" selected="selected">' + value.CANAME + '</option>';
+						}else{
+							html += '<option value="' + value.CACODE + '">' + value.CANAME + '</option>';
+						}
+					});
+					$("#caCode").html(html);
+		
+				}
+			});
+		}
+		
 		function closeAdd2(){
 			$('#w2').window('close');
 		}

@@ -26,7 +26,6 @@ public class CoopSplitController {
 	private CoopAgencyService coopAgencyService;
 	
 	
-	
 	/**
 	 * 代理商分润首页
 	 * @param request

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zcbspay.platform.manager.merchant.bean.CoopAgencyBean;
+import com.zcbspay.platform.manager.merchant.bean.SplitByAccNumsBean;
 import com.zcbspay.platform.manager.merchant.bean.CoopAgencyBean;
 import com.zcbspay.platform.manager.merchant.service.CoopAgencyService;
 import com.zcbspay.platform.manager.system.bean.UserBean;
@@ -32,6 +33,36 @@ public class CoopAgencyController {
     }
 	
 	/**
+	* 代理商分润统计信息
+	* @param request
+	* @return
+	*/
+	@ResponseBody
+	@RequestMapping("/showProfit")
+	public ModelAndView showProfit(HttpServletRequest request) {
+		ModelAndView result=new ModelAndView("/coopAgency/coop_profit");
+		return result;
+	}
+	
+	/**
+	 * 查询分润统计信息
+	 * @param bankAccout
+	 * @param page
+	 * @param rows "total":12,"rows"
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/queryProfit")
+	public Map<String, Object> queryProfit(CoopAgencyBean split,String date,Integer page,Integer rows) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("caCode", split.getCaCode());
+		result.put("date", date);
+		result.put("profitType", split.getProfitType());
+		return coopAgencyService.queryProfit(result,page, rows);
+	}
+	
+	
+	/**
 	 * 查询
 	 * @param bankAccout
 	 * @param page
@@ -46,6 +77,19 @@ public class CoopAgencyController {
 		result.put("status", coop.getStatus());
 		result.put("caCode", coop.getCaCode());
 		return coopAgencyService.findAll(result,page, rows);
+	}
+	
+	/**
+	 * 查询代理商名称
+	 * @param bankAccout
+	 * @param page
+	 * @param rows "total":12,"rows"
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/findByCode")
+	public CoopAgencyBean findByCode(String caCode) {
+		return coopAgencyService.findByCode(caCode);
 	}
 	
 	/**

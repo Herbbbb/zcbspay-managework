@@ -28,7 +28,9 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zcbspay.platform.manager.merchant.bean.ContractBean;
+import com.zcbspay.platform.manager.merchant.bean.FtpBean;
 import com.zcbspay.platform.manager.merchant.service.ContractService;
+import com.zcbspay.platform.manager.merchant.service.FtpService;
 import com.zcbspay.platform.manager.system.bean.UserBean;
 import com.zcbspay.platform.manager.utils.FTPUtils;
 import com.zcbspay.platform.manager.utils.MoneyUtils;
@@ -41,6 +43,8 @@ public class ContractController {
 
 	@Autowired
 	private ContractService contractService;
+	@Autowired
+	private FtpService ftpService;
 	
 	@ResponseBody
     @RequestMapping("/show")
@@ -178,12 +182,15 @@ public class ContractController {
     	ContractBean bean = contractService.findById(tId);
     	
     	String filePath = bean.getFileAddress();
-        String uploadDir = request.getSession().getServletContext().getRealPath("/")+"javaCode\\";
-        boolean resultBool = FTPUtils.downloadFile("192.168.2.138", 21, "DownLoad", "624537", "E:ftp/",filePath , uploadDir);
+        String uploadDir = request.getSession().getServletContext().getRealPath("/");
+        FtpBean ftpBean = ftpService.query();
+        boolean resultBool = FTPUtils.downloadFile(ftpBean.getIp(), Integer.parseInt(ftpBean.getPort()), ftpBean.getUsers(), ftpBean.getPwd(),"contract/",filePath , uploadDir);
+        
+//        boolean resultBool = FTPUtils.downloadFile("192.168.2.12", 21, "webftp", "webftp","contract/",filePath , uploadDir);
         new MerchantThread(uploadDir + "/" + filePath).start();
         
         if (resultBool) {
-        	filePath = "javaCode/" + filePath;
+        	filePath = filePath;
             result.put("status", "OK");
             result.put("url", filePath);
         }else{
@@ -205,7 +212,7 @@ public class ContractController {
     		
 			MultipartHttpServletRequest mhr = (MultipartHttpServletRequest) request;
 			//获取路径
-			String uploadDir = request.getSession().getServletContext().getRealPath("/")+"javaCode\\";
+			String uploadDir = request.getSession().getServletContext().getRealPath("/");
 			//如果目录不存在，创建一个目录
 			if (!new File(uploadDir).exists()) {
 				File dir = new File(uploadDir);
@@ -224,12 +231,15 @@ public class ContractController {
 //					String fileName = rename(resFileName);
 					//路径＋文件名
 					File outFile = new File(uploadDir+"/"+resFileName);
-					String path = "javaCode/"+resFileName;
+					String path = resFileName;
 					
 					mf.transferTo(outFile);
 //					String fileName = UUID.randomUUID().toString().replace("-", "") + resFileName.substring(resFileName.lastIndexOf("."));
 					FileInputStream in=new FileInputStream(outFile);  
-			        boolean flag = FTPUtils.uploadFile("192.168.2.138", 21, "DownLoad", "624537", "E:ftp","/",resFileName, in);
+					FtpBean ftpBean = ftpService.query();
+			        boolean flag = FTPUtils.uploadFile(ftpBean.getIp(), Integer.parseInt(ftpBean.getPort()), 
+			        		ftpBean.getUsers(), ftpBean.getPwd(),"contract/","",resFileName, in);
+//			        boolean flag = FTPUtils.uploadFile("192.168.2.12", 21, "webftp", "webftp","","contract/",resFileName, in);
 					result.put("status", "OK");
 					result.put("path", path);
 					result.put("fileName", resFileName);
@@ -330,7 +340,7 @@ public class ContractController {
 	        if(!dir.exists()){//目录不存在则创建
 	             dir.mkdir();
 	        }
-	        File fileServer = new File(rootPath+"\\orderData\\"+(new Random().nextInt(100000)+100000)+fileUp.getOriginalFilename());
+	        File fileServer = new File(rootPath+"\\orderData\\"+fileUp.getOriginalFilename());
 	        String fileName= fileUp.getOriginalFilename();
 	        fileUp.transferTo(fileServer);
 	        fileName=UUID.randomUUID().toString().replace("-", "") + fileName.substring(fileName.lastIndexOf("."));
@@ -341,6 +351,7 @@ public class ContractController {
 	            resMap.put("msg", "上传文件无数据或数据量过大");
 	            return resMap;
 	        }
+	        
 	        UserBean user = (UserBean)request.getSession().getAttribute("LOGIN_USER");
 	        List<ContractBean> list=new ArrayList<>();
 	        for (int i = 0; i < orderInfoList.size(); i++) {
@@ -384,17 +395,21 @@ public class ContractController {
 				bean.setFileName(fileName);
 				list.add(bean);
 			}
+	        
 	        List<StringBuffer> result=contractService.saveContractList(list);
 	        if (result.size() != 0) {
 	        	resMap.put("status", "error");
 	        	resMap.put("msg", result);
 			}else if(result.size() < list.size()){
 				FileInputStream in=new FileInputStream(fileServer);  
-		        boolean flag = FTPUtils.uploadFile("192.168.2.138", 21, "DownLoad", "624537", "E:ftp","/",fileName , in);
+				FtpBean ftpBean = ftpService.query();
+//		        boolean flag = FTPUtils.uploadFile("192.168.2.12", 21, "webftp", "webftp","","contract/",resFileName, in);
+		        boolean flag = FTPUtils.uploadFile(ftpBean.getIp(), Integer.parseInt(ftpBean.getPort()), ftpBean.getUsers(), ftpBean.getPwd(),"contract/","FileAddress",fileName , in);
 			}else{
 				resMap.put("status", "OK");
 				resMap.put("msg", "成功");
 			}
+	        new MerchantThread(rootPath+"\\orderData\\"+fileUp.getOriginalFilename()).start();
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        resMap.put("status", "error");

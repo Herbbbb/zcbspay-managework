@@ -83,6 +83,8 @@ public class MerchDetaApplyBean implements Serializable{
     private String chargingunit;
     /**机构代码（发送方、接收方）**/
     private String instCode;
+    /**代理商代码**/
+    private String caCode;
     
 	public Long getSelfId() {
 		return selfId;
@@ -317,6 +319,12 @@ public class MerchDetaApplyBean implements Serializable{
 	}
 	public void setInstCode(String instCode) {
 		this.instCode = instCode;
+	}
+	public String getCaCode() {
+		return caCode;
+	}
+	public void setCaCode(String caCode) {
+		this.caCode = caCode;
 	}
     
 }

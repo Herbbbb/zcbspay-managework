@@ -60,10 +60,8 @@
 							</select></td>
 							<td align="right" width="15%">风控业务实例</td>
 							<td align="left" style="padding-left: 5px" width="25%"><select
-								id="riskcase" class="easyui-validatebox"
-								missingMessage="请选择风控业务实例" required="true"
-								name="limitPerdayModel.caseid">
-									<option value="">--请选择风控版本实例--</option>
+								id="riskcase" class="easyui-validatebox" missingMessage="请选择风控业务实例" required="true"
+								name="limitPerdayModel.caseid"><option value="">--请选择风控版本实例--</option>
 							</select></td>
 						</tr>
 						<tr>
@@ -84,16 +82,13 @@
 								class="easyui-validatebox" required="true"
 								missingMessage="请填写限制次数"></td>
 						</tr>
-
 						<tr>
-							</td>
 							<td align="right" width="15%">风险等级</td>
 							<td align="left" style="padding-left: 5px" width="25%"><select
 								id="risklevel" class="easyui-validatebox"
 								missingMessage="请选择风险等级" required="true"
 								name="limitPerdayModel.risklevel">
 							</select></td>
-
 							<td align="right" width="15%" height="30px">备注</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
 								name="limitPerdayModel.notes" id="Notes" maxlength="32" /></td>

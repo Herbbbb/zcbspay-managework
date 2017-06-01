@@ -135,8 +135,6 @@ public interface AgencyService {
 	 */
 	public boolean commitMerch(String merchApplyId);
 
-//	public String downloadFromFtp(String parseLong, String realpath, CertType format, boolean fouce);
-
 	/**
 	 * 下载图片路径
 	 * @param merchApplyId
@@ -216,5 +214,21 @@ public interface AgencyService {
 	 * @return
 	 */
 	public AgencyInfoBean queryByCode(String merchNo, String bustCode);
+
+	/**
+	 * 委托机构分润统计
+	 * @param result
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	public Map<String, Object> queryProfit(Map<String, Object> result, Integer page, Integer rows);
+
+	/**
+	 * 校验消费单位代码
+	 * @param bean
+	 * @return
+	 */
+	public List<?> queryChargingunit(AgencyInfoBean bean);
 
 }

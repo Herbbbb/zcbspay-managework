@@ -1,7 +1,5 @@
 package com.zcbspay.platform.manager.utils;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,14 +51,14 @@ public class FTPUtils {
 			}
 			//切换到上传目录
 			if (!ftp.changeWorkingDirectory(basePath+filePath)) {
-				//如果目录不存在创建目录
+//				ftp.makeDirectory(new String(filePath.getBytes("GBK"),"iso-8859-1")); 
 				String[] dirs = filePath.split("/");
 				String tempPath = basePath;
 				for (String dir : dirs) {
 					if (null == dir || "".equals(dir)) continue;
-					tempPath += "/" + dir;
+					tempPath += dir +"/";
 					if (!ftp.changeWorkingDirectory(tempPath)) {
-						if (!ftp.makeDirectory(tempPath)) {
+						if (!ftp.makeDirectory(new String(tempPath.getBytes("GBK"),"iso-8859-1"))) {
 							return result;
 						} else {
 							ftp.changeWorkingDirectory(tempPath);
@@ -144,10 +142,15 @@ public class FTPUtils {
 	
 	public static void main(String[] args) {
 		try {  
-	        FileInputStream in=new FileInputStream(new File("E:\\基本指令.txt"));  
-	        boolean flag = uploadFile("192.168.2.138", 21, "DownLoad", "624537", "E:ftp","/", "基本指令.txt", in);  
+//	        FileInputStream in=new FileInputStream(new File("C:\\Users\\Public\\Pictures\\Sample Pictures\\aa.jpg"));
+//	        String resFileName = "aa.jpg";
+	        String uploadDir = "E:\\";
+	        String filePath = "4199ab32c0c444a5ae129876fef5d8d0.jpg";
+//	        resFileName =UUID.randomUUID().toString().replace("-", "") + resFileName.substring(resFileName.lastIndexOf("."));
+//	        boolean flag = uploadFile("192.168.2.12", 21, "webftp", "webftp","contract/","200000000001588", resFileName, in);  
+	        boolean flag = FTPUtils.downloadFile("192.168.2.12", 21, "webftp", "webftp","contract/200000000001588/",filePath , uploadDir);
 	        System.out.println(flag);  
-	    } catch (FileNotFoundException e) {  
+	    } catch (Exception e) {  
 	        e.printStackTrace();  
 	    }  
 	}

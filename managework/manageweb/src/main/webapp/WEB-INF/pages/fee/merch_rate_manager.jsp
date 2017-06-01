@@ -18,6 +18,13 @@ table tr td input {
 table tr td select {
 	height: 20px
 }
+table tr td.head-title {
+	height: 25px;
+	background-color: #F0F8FF;
+	font-weight: bold;
+	border-width: 1px 1px 1px 1px;
+	border-style: groove;
+}
 </style>
 <script type="text/javascript" src="js/extendsValidator_1.0_20151215.js"></script>
 </head>
@@ -29,7 +36,6 @@ table tr td select {
 			iconCls="icon-save" collapsible="true">
 			<form id="theForm" method="post">
 				<table width="100%">
-
 					<tr>
 						<td align="right" width="15%">扣率版本</td>
 						<td align="left" style="padding-left: 5px" width="25%"><select
@@ -51,88 +57,72 @@ table tr td select {
 						<td align="right" width="15%">委托机构号</td>
 						<td align="left" style="padding-left: 5px" width="25%"><input
 							id="memberid_ins"></td>
-						<td align="right"><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a>
-							<a
-							href="javascript:resize()" class="easyui-linkbutton"
-							iconCls="icon-redo">清空</a>
-							</td>
+						<td align="right">
+							<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+							<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a>
+						</td>
 					</tr>
-
 				</table>
 			</form>
 		</div>
 		<div style="margin-top: 5px">
 			<table id="test"></table>
 		</div>
-
 	</div>
 	<div id="w" class="easyui-window" closed="true" title="My Window"
 		iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px;">
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
-				<form id="txnRateForm"
-					action="pages/fee/saveMemberRateFeeAction.action" method="post">
-					<table width="100%" cellpadding="2" cellspacing="2"
-						style="text-align: left">
+				<form id="txnRateForm" action="pages/fee/saveMemberRateFeeAction.action" method="post">
+					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left">
 						<tr>
 							<td width="15%">扣率版本</td>
-							<td width="30%"><select id="busipack"
-								class="easyui-validatebox" required="true"
-								name="memberrateModel.feever" onchange="showFeeCase()">
+							<td width="30%"><select id="busipack" class="easyui-validatebox" required="true"
+								name="memberrateModel.feever" onchange="showFeeCase()" missingMessage="请选择扣率版本">
 							</select></td>
 							<td width="15%">业务</td>
-							<td><select id="busicase" class="easyui-validatebox"
-								required="true" name="memberrateModel.busicode">
+							<td><select id="busicase" class="easyui-validatebox" required="true" 
+							name="memberrateModel.busicode" missingMessage="请选择业务">
 									<option value="">--请选择业务--</option>
 							</select></td>
 						</tr>
 						<tr>
-							<td width="15%">委托机构委托机构号</td>
-							<td width="30%"><input id="memberid"
-								name="memberrateModel.memberid" required="true" type="text"
-								class="easyui-validatebox" /></td>
+							<td width="15%">委托机构号</td>
+							<td width="30%"><input id="memberid" name="memberrateModel.memberid" required="true" type="text"
+								class="easyui-validatebox" missingMessage="请输入委托机构号"/></td>
 						</tr>
 						<tr>
 							<td>扣率类型</td>
-							<td><select id="feeRateType" class="easyui-validatebox"
-								required="true" name="memberrateModel.rateType"
-								onchange="showRateDetail()">
+							<td><select id="feeRateType" class="easyui-validatebox" required="true" name="memberrateModel.rateType"
+								onchange="showRateDetail()" missingMessage="请输入扣率类型">
 									<option value="">--请选择扣率类型--</option>
 									<option value="01">--单笔固定金额--</option>
 									<option value="02">--单位比例+不封顶保底--</option>
 									<option value="03">--单位比例+封顶保底--</option>
 							</select></td>
 							<td width="15%">扣率(百分比)</td>
-							<td><input id="feeRate" name="memberrateModel.feeRateStr"
-								validType="percent" required="true" type="text"
-								class="easyui-validatebox" maxlength="5" /></td>
+							<td><input id="feeRate" name="memberrateModel.feeRateStr" validType="percent" required="true" type="text"
+								class="easyui-validatebox" maxlength="5" missingMessage="请输入扣率"/></td>
 						</tr>
 						<tr>
 							<td>最低收费额(单位:元)</td>
-							<td><input id="minFee" name="memberrateModel.minFeeStr"
-								maxlength="12" validType="amount" required="true" type="text"
-								class="easyui-validatebox" /></td>
+							<td><input id="minFee" name="memberrateModel.minFeeStr" maxlength="12" validType="amount" required="true" 
+							type="text" class="easyui-validatebox" missingMessage="请输入最低收费金额"/></td>
 							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxFee" name="memberrateModel.maxFeeStr"
-								required="true" maxlength="12" validType="amount" type="text"
-								class="easyui-validatebox" /></td>
+							<td><input id="maxFee" name="memberrateModel.maxFeeStr" required="true" maxlength="12" validType="amount" 
+							type="text" class="easyui-validatebox" missingMessage="请输入最高收费金额"/></td>
 						</tr>
 						<tr>
 							<td>备注</td>
-							<td colspan="3"><textarea id="notes" rows="3" cols="75"
-									name="memberrateModel.notes" maxlength="32"></textarea></td>
+							<td colspan="3"><textarea id="notes" rows="3" cols="75" name="memberrateModel.notes" maxlength="32"></textarea></td>
 						</tr>
 					</table>
 				</form>
 			</div>
-			<div region="south" border="false"
-				style="text-align: center; padding: 5px 0;">
-				<a class="easyui-linkbutton" id="save_button" iconCls="icon-ok"
-					href="javascript:saveTxnRate()" onclick="">保存</a> <a
-					class="easyui-linkbutton" id="cancel_button" iconCls="icon-cancel"
-					href="javascript:void(0)" onclick="closeAdd()">取消</a>
+			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
+				<a class="easyui-linkbutton" id="save_button" iconCls="icon-ok" href="javascript:saveTxnRate()" onclick="">保存</a> 
+				<a class="easyui-linkbutton" id="cancel_button" iconCls="icon-cancel" href="javascript:void(0)" onclick="closeAdd()">取消</a>
 			</div>
 		</div>
 	</div>
@@ -158,7 +148,7 @@ table tr td select {
 					});
 					$("#busiPack_ins").html(html);
 				}
-			});
+			});s
 		});
 		$(function() {
 			$('#test').datagrid({

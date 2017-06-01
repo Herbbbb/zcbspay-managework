@@ -85,4 +85,20 @@ public interface CoopAgencyService {
 	 */
 	Map<String, Object> deleteSplit(String tId);
 
+	/**
+	 * 查询代理商分润信息
+	 * @param result
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	Map<String, Object> queryProfit(Map<String, Object> result, Integer page, Integer rows);
+
+	/**
+	 * 查询代理商名称
+	 * @param caCode
+	 * @return
+	 */
+	CoopAgencyBean findByCode(String caCode);
+
 }

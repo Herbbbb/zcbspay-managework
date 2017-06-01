@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,12 +29,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zcbspay.platform.manager.merchant.bean.AgencyInfoBean;
 import com.zcbspay.platform.manager.merchant.bean.BustSortType;
 import com.zcbspay.platform.manager.merchant.bean.CertType;
+import com.zcbspay.platform.manager.merchant.bean.CoopAgencyBean;
 import com.zcbspay.platform.manager.merchant.bean.EnterpriseDetaApplyBean;
+import com.zcbspay.platform.manager.merchant.bean.FtpBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchDetaApplyBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchRateConfigBean;
+import com.zcbspay.platform.manager.merchant.bean.PortalUserModel;
 import com.zcbspay.platform.manager.merchant.service.AgencyService;
 import com.zcbspay.platform.manager.merchant.service.CoopInstiService;
 import com.zcbspay.platform.manager.merchant.service.EnterpriseDetaService;
+import com.zcbspay.platform.manager.merchant.service.FtpService;
 import com.zcbspay.platform.manager.merchant.service.MccListService;
 import com.zcbspay.platform.manager.merchant.service.MerchRateConfigService;
 import com.zcbspay.platform.manager.merchant.service.PojoProductService;
@@ -43,6 +49,10 @@ import com.zcbspay.platform.manager.system.bean.UserBean;
 import com.zcbspay.platform.manager.system.service.CityService;
 import com.zcbspay.platform.manager.system.service.ProvinceService;
 import com.zcbspay.platform.manager.utils.FTPUtils;
+import com.zcbspay.platform.manager.utils.HttpUtils;
+import com.zcbspay.platform.manager.utils.MD5Util;
+
+import net.sf.json.JSONObject;
 @Controller
 @RequestMapping("/agency")
 @SuppressWarnings("all")
@@ -50,6 +60,8 @@ public class AgencyController {
     private String deposit;
     private String charge;
     private final static BigDecimal HUNDERED = new BigDecimal(100);
+    private static final  ResourceBundle RESOURCE = ResourceBundle.getBundle("portal_url");
+
     
     @Autowired
 	private AgencyService agencyService;
@@ -65,6 +77,9 @@ public class AgencyController {
     private CoopInstiService coopInstiService;
     @Autowired
     private PojoProductService pojoProductService;
+    
+    @Autowired
+    private FtpService ftpService;
 
     @Autowired
 	private ProdCaseService prodCaseService;
@@ -229,7 +244,62 @@ public class AgencyController {
     @ResponseBody
 	@RequestMapping("/queryByMerchNo")
     public List<?> queryByMerchNo(String merchNo) {
+    	AgencyInfoBean bean = new AgencyInfoBean();
+    	
     	return agencyService.queryByMerchNo(merchNo);
+    }
+    
+    /**
+     * 校验收费单位代码
+     */
+    @ResponseBody
+    @RequestMapping("/queryChargingunit")
+    public Map<String, Object> queryChargingunit(BustSortType type ) {
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	AgencyInfoBean bean = new AgencyInfoBean();
+    	if (type.getA_bustCode().equals("11000001")) {
+			bean.setChargingunit(type.getA_chargingunit());
+			int size = agencyService.queryChargingunit(bean).size();
+			if(size >= 1){
+				String info = "付款单位代码: "+type.getA_chargingunit()+" 已存在!";
+				map.put("RET", "error");
+				map.put("INFO", info);
+				return map;
+			}
+		}
+    	if (type.getB_bustCode().equals("11000002")) {
+    		bean.setChargingunit(type.getB_chargingunit());
+    		int size = agencyService.queryChargingunit(bean).size();
+			if(size >= 1){
+				String info = "付款单位代码: "+type.getA_chargingunit()+" 已存在!";
+				map.put("RET", "error");
+				map.put("INFO", info);
+				return map;
+			}
+    	}
+    	if (type.getC_bustCode().equals("11000003")) {
+    		bean.setChargingunit(type.getC_chargingunit());
+    		int size = agencyService.queryChargingunit(bean).size();
+			if(size >= 1){
+				String info = "付款单位代码: "+type.getA_chargingunit()+" 已存在!";
+				map.put("RET", "error");
+				map.put("INFO", info);
+				return map;
+			}
+    	}
+    	if (type.getD_bustCode().equals("11000004")) {
+    		bean.setChargingunit(type.getD_chargingunit());
+    		int size = agencyService.queryChargingunit(bean).size();
+			if(size >= 1){
+				String info = "付款单位代码: "+type.getA_chargingunit()+" 已存在!";
+				map.put("RET", "error");
+				map.put("INFO", info);
+				return map;
+			}
+    	}
+    	map.put("RET", "succ");
+		map.put("INFO", "校验通过");
+    	return map;
     }
     
     /**
@@ -377,7 +447,7 @@ public class AgencyController {
 	    		
 				MultipartHttpServletRequest mhr = (MultipartHttpServletRequest) request;
 				//获取路径
-				String uploadDir = request.getSession().getServletContext().getRealPath("/")+"javaCode\\";
+				String uploadDir = request.getSession().getServletContext().getRealPath("/");
 				//如果目录不存在，创建一个目录
 				if (!new File(uploadDir).exists()) {
 					File dir = new File(uploadDir);
@@ -400,7 +470,9 @@ public class AgencyController {
 						
 //						String fileName = UUID.randomUUID().toString().replace("-", "") + resFileName.substring(resFileName.lastIndexOf("."));
 						FileInputStream in=new FileInputStream(outFile);  
-				        boolean flag = FTPUtils.uploadFile("192.168.2.138", 21, "DownLoad", "624537", "E:ftp","/",resFileName, in);
+						FtpBean bean = ftpService.query();
+				        boolean flag = FTPUtils.uploadFile(bean.getIp(), Integer.parseInt(bean.getPort()), bean.getUsers(), bean.getPwd(),"","agency/",resFileName, in);
+//				        boolean flag = FTPUtils.uploadFile("192.168.2.12", 21, "webftp", "webftp","","agency/",resFileName, in);
 					}else{
 						return null;
 					}
@@ -419,12 +491,14 @@ public class AgencyController {
     public Map<String, String> downloadImgUrl(HttpServletRequest request, String fouceDownload, String merchApplyId, String certTypeCode) { 
     	Map<String, String> result = new HashMap<String, String>();
     	String filePath = agencyService.downloadFromFtp(merchApplyId, CertType.format(certTypeCode));
-        String uploadDir = request.getSession().getServletContext().getRealPath("/")+"javaCode\\";
+        String uploadDir = request.getSession().getServletContext().getRealPath("/");
         if(filePath.equals("")){
         	result.put("status", "notExist");
         	return result;
         }
-        boolean resultBool = FTPUtils.downloadFile("192.168.2.138", 21, "DownLoad", "624537", "E:ftp/",filePath , uploadDir);
+        FtpBean bean = ftpService.query();
+        boolean resultBool = FTPUtils.downloadFile(bean.getIp(), Integer.parseInt(bean.getPort()), bean.getUsers(), bean.getPwd(),"agency/",filePath , uploadDir);
+//        boolean resultBool = FTPUtils.downloadFile("192.168.2.12", 21, "webftp", "webftp","agency/",filePath , uploadDir);
         new MerchantThread(uploadDir + "/" + filePath).start();
         
         if (resultBool) {
@@ -576,7 +650,7 @@ public class AgencyController {
     	return result; 
         
     }
-
+    
     /**
      * 委托机构审核（通过，否决，驳回） --0 通过 1 拒绝 9 终止
      * @throws Exception
@@ -603,13 +677,128 @@ public class AgencyController {
         }
         EnterpriseDetaApplyBean deta = enterpriseDetaService.findById(merchApplyId);
         List<Map<String, Object>> resultlist = agencyService.merchAudit(merchApplyId, merchDeta, deta.getMemId(), flag, isAgree);
+        
         if(flag.equals("6")){
             resultlist.get(0).put("FLAG", "复审通过");
+        }else if(flag.equals("3")){
+        	for (Map<String, Object> m : resultlist) {
+        	    for (String k : m.keySet()) {
+        	    	String key =  (String) m.get("RET");
+	                if(key.equals("succ")){
+	                	PortalUserModel userBean = new PortalUserModel();
+	        			String pwd = getFixLenthString(6);
+	                	userBean.setMemberid(deta.getEnterpriseMemberId());
+	                	userBean.setUserName(deta.getEnterpriseName());
+	                	userBean.setPwd(MD5Util.MD5(pwd));
+	                	userBean.setPhone(deta.getPhone());
+	                	userBean.setEmail(deta.getEmail());
+	        			String userBeanStr =JSONObject.fromObject(userBean).toString();
+	                	Map<String, Object> register = register(userBeanStr);
+	                	for (String k2 : register.keySet()) {
+	                		key =  (String) register.get("RET");
+	                        if(key.equals("succ")){
+		                       	 sendEmail(userBean,pwd);
+		                       	 return resultlist;
+	                        }
+		                   }
+	                	}
+	                }
+	           }
+        	
         }else{
            resultlist.get(0).put("FLAG", ""); 
         }
         return resultlist;
     }
+    
+    @ResponseBody
+	@RequestMapping(value="/register", produces = "application/json;charset=UTF-8")
+	public static Map<String, Object> register(String userBeanStr) {
+    	String ip = RESOURCE.getString("protal.register.url_ip");
+		String url = "http://"+ ip +":8080/fe/user/register";
+		HttpUtils httpUtils = new HttpUtils();
+		Map<String, String> paramMap = new HashMap<>();
+		paramMap.put("userBeanStr", userBeanStr);
+		try {
+			httpUtils.openConnection();
+			String result = httpUtils.post(url, paramMap);
+			Map<String, Object> map= (Map<String, Object>) JSONObject.toBean(JSONObject.fromObject(result),Map.class);
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			Map<String,Object> mapErr = new HashMap<>();
+			mapErr.put("RET", "erro");
+			mapErr.put("INFO", "服务异常，商户注册失败！");
+			return mapErr;
+		}finally {
+			httpUtils.closeConnection();
+		}
+	}
+    
+    private static String getFixLenthString(int strLength) {  
+        Random rm = new Random();  
+        // 获得随机数  
+        double pross = (1 + rm.nextDouble()) * Math.pow(10, strLength);  
+        // 将获得的获得随机数转化为字符串  
+        String fixLenthString = String.valueOf(pross);  
+        // 返回固定的长度的随机数  
+        return fixLenthString.substring(1, strLength + 1);  
+    } 
+    
+    @ResponseBody
+	@RequestMapping(value="/sendEmail", produces = "application/json;charset=UTF-8")
+	public static Map<String, Object> sendEmail(PortalUserModel userBean,String pwd) {
+    	String ip = RESOURCE.getString("protal.register.url_ip");
+    	String url = "http://"+ ip +":8080/fe/mail/sendMailByTemplate";
+		HttpUtils httpUtils = new HttpUtils();
+		Map<String, String> paramMap = new HashMap<>();
+		String maiBody = "委托机构号：" + userBean.getMemberid() +" , 用户名：  admin  , 登录密码：" + pwd;
+		paramMap.put("receiver", userBean.getEmail());
+		paramMap.put("subject",  "激活账户");
+		paramMap.put("maiBody",  maiBody);
+		try {
+			httpUtils.openConnection();
+			String result = httpUtils.post(url, paramMap);
+			Map<String, Object> map= (Map<String, Object>) JSONObject.toBean(JSONObject.fromObject(result),Map.class);
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			Map<String,Object> mapErr = new HashMap<>();
+			mapErr.put("RET", "erro");
+			mapErr.put("INFO", "服务异常，邮件发送失败！");
+			return mapErr;
+		}finally {
+			httpUtils.closeConnection();
+		}
+	}
+    
+    /**
+	* 代理商分润统计信息
+	* @param request
+	* @return
+	*/
+	@ResponseBody
+	@RequestMapping("/showProfit")
+	public ModelAndView showProfit(HttpServletRequest request) {
+		ModelAndView result=new ModelAndView("/coopAgency/agency_profit");
+		return result;
+	}
+	
+    /**
+	 * 查询分润统计信息
+	 * @param split
+	 * @param page
+	 * @param rows "total":12,"rows"
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/queryProfit")
+	public Map<String, Object> queryProfit(CoopAgencyBean split,String date,Integer page,Integer rows) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("caCode", split.getCaCode());
+		result.put("date", date);
+		return agencyService.queryProfit(result,page, rows);
+	}
 
     /**
      * 委托机构秘钥下载

@@ -20,17 +20,14 @@
 					<tr>
 						<td align="right">风控版本</td>
 						<td align="left" style="padding-left: 5px"><select
-							id="busipack_qid" class="easyui-validatebox"
-							onchange="showFeeCaseQuery()">
+							id="busipack_qid" class="easyui-validatebox" onchange="showFeeCaseQuery()">
 						</select></td>
 						<td align="right">版本实例</td>
-						<td align="left" style="padding-left: 5px"><select
-							id="busicase_qid" class="easyui-validatebox">
+						<td align="left" style="padding-left: 5px"><select id="busicase_qid" class="easyui-validatebox">
 								<option value="">--请选择业务--</option>
 						</select></td>
 						<td align="right" colspan=2><a href="javascript:search()"
 							class="easyui-linkbutton" iconCls="icon-search">查询</a></td>
-
 					</tr>
 				</table>
 			</form>
@@ -52,12 +49,12 @@
 							<td align="right" width="18%" height="30px">风控版本</td>
 							<td align="left" style="padding-left: 5px" width="25%"><select
 								id="busipack" class="easyui-validatebox" required="true"
-								onchange="showFeeCase()">
+								onchange="showFeeCase()" missingMessage="请选择风控版本">
 							</select></td>
 							<td align="right" width="18%" height="30px">版本实例</td>
-							<td align="left" style="padding-left: 5px" width="25%"><select
-								id="busicase" class="easyui-validatebox" required="true"
-								name="limitCreditSingleModel.caseid">
+							<td align="left" style="padding-left: 5px" width="25%">
+							<select id="busicase" class="easyui-validatebox" required="true"
+								name="limitCreditSingleModel.caseid" missingMessage="请选择业务">
 									<option value="">--请选择业务--</option>
 							</select></td>
 						</tr>
@@ -76,10 +73,8 @@
 						<tr>
 							<td align="right" width="18%" height="30px">风险等级</td>
 							<td align="left" style="padding-left: 5px" width="25%"><select
-								id="risklevel" class="easyui-validatebox"
-								missingMessage="请选选择风险等级" required="true"
-								name="limitCreditSingleModel.risklevel"
-								class="easyui-validatebox">
+								id="risklevel" class="easyui-validatebox" missingMessage="请选选择风险等级" required="true"
+								name="limitCreditSingleModel.risklevel" class="easyui-validatebox">
 									<option value="">--请选择风险等级--</option>
 							</select></td>
 							<td align="right" width="15%">卡类别</td>

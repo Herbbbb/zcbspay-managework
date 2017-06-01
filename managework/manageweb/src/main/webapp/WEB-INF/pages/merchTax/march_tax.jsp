@@ -127,9 +127,9 @@ table tr td select {
 						<tr style="height: 25px">
 							<td class="update">开户银行全称</td>
 							<td class="update" align="left" colspan="3">
-								<select id="banknode_ins" maxlength="64" class="easyui-validatebox" required="true" name="bankName" style="width: 250px"/>
-								<option value=''>--请选择开户行--</option></select><font color="red">*</font>
-								<input id="banknode_key" maxlength="16" type="text" onclick="checkBankKey('add')" onchange="queryBankNode('add')"/></td>
+							<select id="banknode_ins" maxlength="64" class="easyui-validatebox" required="true" name="bankName" 
+							missingMessage="请输入开户行" style="width: 320px"/><option value=''>--请选择开户行--</option></select><font color="red">*</font>
+							<input id="banknode_key" maxlength="16" type="text" onclick="checkBankKey('add')" onchange="queryBankNode('add')"/></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -228,8 +228,8 @@ table tr td select {
 						<tr style="height: 25px">
 							<td class="update">开户银行全称</td>
 							<td class="update" align="left" colspan="3">
-							<select id="b_banknode_ins" maxlength="64" class="easyui-validatebox" required="true" style="width: 250px" name="bankName"/>
-							<option value=''>--请选择开户行--</option></select><font color="red">*</font>
+							<select id="b_banknode_ins" maxlength="64" class="easyui-validatebox" required="true" style="width: 320px" 
+							missingMessage="请输入开户行" name="bankName"/><option value=''>--请选择开户行--</option></select><font color="red">*</font>
 							<input id="b_banknode_key" maxlength="16" type="text" onclick="checkBankKey('update')" onchange="queryBankNode('update')"/></td>
 						</tr>
 						<tr>
@@ -434,16 +434,19 @@ table tr td select {
 			});
 			$('#btn_submit').linkbutton('enable');	
 		}
+		
 		function closeAdd(){
 			$('#w').window('close');
 			$('#w2').window('close');
 			$('#w3').window('close');
 			
-		}		
+		}
+		
 		function search(){
 			var data={'merchNo':$('#a_merchNo').val(),'companyName':$('#a_companyName').val(),'taxPayerId':$("#a_taxPayerId").val(),'accountNo':$("#a_accountNo").val()};
 			$('#bankList').datagrid('load',data);
 		}
+		
 		function getValue(){  
 		    var hobbies = document.getElementsByName("documen");  
 		    var value;  
@@ -617,29 +620,6 @@ table tr td select {
 					
 					$("#d_status").html(json.status);
 					$("#d_notes").html(json.notes);
-				   
-				    
-// 				    $("#d_tId").val(json.tId);
-// 					$("#d_status").html(json.status);
-// 					$("#d_bankProvince").html(json.bankProvince);
-// 					$("#d_bankCity").html(json.accoutNo);
-// 					$("#d_accoutNoa").html(json.accoutNo);
-// 					$("#d_accoutNamea").html(json.accoutName);
-// 					$("#d_merchNoa").html(json.merchNo);
-// 					var protocoltype;
-// 					   if(json.protocoltype == ''){
-// 						   protocoltype = '未选择协议类型';
-// 					   }else if(json.protocoltype == '1'){
-// 						   protocoltype = '代理收款';
-// 					   }else if(json.protocoltype == '2'){
-// 						   protocoltype = '代理付款';
-// 					   }
-// 					$("#d_protocoltype").html(protocoltype);
-// 					$("#d_bankNode").html(json.bankNode);
-// 					$("#d_bankCode").html(json.bankCode);
-// 					$("#d_bankCode").val(json.bankCode);
-// 					$("#d_channelCode").html(json.channelCode);
-// 					$("#d_notes").html(json.notes);
 			   }
 			});
 			$('#w3').window({
@@ -723,7 +703,7 @@ table tr td select {
 				data: "bankName=" + pid,
 				dataType: "json",
 				success: function(json) {
-					var html;
+					var html = "<option value=''>--请选择开户行--</option>";
 					$.each(json,function(key, value) {
 						html += '<option value="' + value.BANK_NAME + '">' + value.BANK_NAME + '</option>';
 					});

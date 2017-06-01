@@ -58,6 +58,7 @@ table tr td font.current-step {
 					<input type="hidden" id="merchApplyId" value="${merchMap.SELF_ID}" />
 					<input type="hidden" id="prdtVer" value="${merchMap.PRDT_VER}" />
 					<input type="hidden" id="a_riskVer" value="${merchMap.RISK_VER}" />
+					<input type="hidden" id="CACODE" value="${merchMap.CACODE}" />
 					<input type="hidden" id="num_merchNo" value="${merchMap.MEMBER_ID}" />
 					<input type="hidden" id="flag_ins" value="${flag}" />
 					<table width="100%">
@@ -154,6 +155,8 @@ table tr td font.current-step {
 <%-- 							<td class="update">${merchMap.INSTI_NAME}</td> --%>
 							<td align="center">产品<font color="red">*</font></td>
 							<td class="update">${merchMap.PRDTNAME}</td>
+							<td align="center">代理商<font color="red">*</font></td>
+							<td class="update"><span id="b_caCode"></span></td>
 						</tr>
 						<tr>
 							<td class="update" align="center">计费方式</td>
@@ -307,12 +310,12 @@ table tr td font.current-step {
 				<form id="deptForm" action="" method="post">
 					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left" id="inputForm">
 						<tr>
-							<td class="add" align="center" width="20%">委托机构名称</td>
-							<td ><input id="b_merName" name="enterpriseName" readonly="true"/></td>
+							<td class="add" align="center" width="30%">委托机构名称</td>
+							<td class="add" width="30%"><input id="b_merName" name="enterpriseName" readonly="true"/></td>
 						</tr>
 						<tr>
 							<td class="add" align="center">风控版本</td>
-							<td ><select name="riskVer" maxlength="8" required="true" id="riskver" /></select> <font color="red">*</font></td>
+							<td class="add"><select name="riskVer" maxlength="8" required="true" id="riskver" /></select> <font color="red">*</font></td>
 						</tr>
 					</table>
 				</form>
@@ -368,18 +371,18 @@ table tr td font.current-step {
 					</tr>
 					<tr style="height: 25px">
 						<td class="update" width="18%">付款单位代码</td>
-						<td align="left" class="update"><span id="a_chargingunit"></span></td>
+						<td align="left" class="update" width="28%"><span id="a_chargingunit"></span></td>
 						<td width="18%" class="update">业务种类</td>
-						<td align="left" class="update"><span id="a_busiSort"></span></td>
+						<td align="left" class="update" width="28%"><span id="a_busiSort"></span></td>
 					</tr>
 					<tr>
 						<td colspan="4" class="head-title">实时代付</td>
 						<input type="hidden" id="b_bustCode" name="b_bustCode"/>
 					</tr>
 					<tr style="height: 25px">
-						<td width="18%" class="update">付款单位代码</td>
+						<td class="update">付款单位代码</td>
 						<td align="left" class="update"><span id="b_chargingunit"></span></td>
-						<td width="18%" class="update">业务种类</td>
+						<td class="update">业务种类</td>
 						<td align="left" class="update"><span id="b_busiSort"></span></td>
 					</tr>
 					<tr>
@@ -387,9 +390,9 @@ table tr td font.current-step {
 						<input type="hidden" id="c_bustCode" name="c_bustCode"/>
 					</tr>
 					<tr style="height: 25px">
-						<td width="18%" class="update">付款单位代码</td>
+						<td class="update">付款单位代码</td>
 						<td align="left" class="update"><span id="c_chargingunit"></span></td>
-						<td width="18%" class="update">业务种类</td>
+						<td class="update">业务种类</td>
 						<td align="left" class="update"><span id="c_busiSort"></span></td>
 					</tr>
 					<tr>
@@ -397,9 +400,9 @@ table tr td font.current-step {
 						<input type="hidden" id="d_bustCode" name="d_bustCode"/>
 					</tr>
 					<tr style="height: 25px">
-						<td width="18%" class="update">付款单位代码</td>
+						<td class="update">付款单位代码</td>
 						<td align="left" class="update"><span id="d_chargingunit"></span></td>
-						<td width="18%" class="update">业务种类</td>
+						<td class="update">业务种类</td>
 						<td align="left" class="update"><span id="d_busiSort"></span></td>
 					</tr>
 				</table>
@@ -510,6 +513,7 @@ var memberId = $("#merchApplyId").val();
 var flag = $("#flag_ins").val();
 var pid = $("#prdtVer").val();
   $(function() {
+	  	showCaCode();
 		checkIsDelegation();
 		initCertUrl(); 
 		queryRiskType(pid)
@@ -538,7 +542,7 @@ var pid = $("#prdtVer").val();
 				dataType: "json",
 				success: function(json) {
 					 if(json.status=='OK'){
-						 var URL = "javaCode/" + json.url;
+						 var URL = json.url;
 						 _this.html('<a href="'+URL+'" target="view_window" style="font-size: 12px;color:blue">点击查看</a>');
 					 }else if(json.status=='notExist'){
 						 $(this).html('暂无可查看文件');
@@ -656,7 +660,7 @@ var pid = $("#prdtVer").val();
 			maximizable:false,
 			shadow: false,
 			closed: false,
-			height: 480
+			height: 280
 		});
 	}
  function findFeeVer(result){
@@ -687,7 +691,7 @@ var pid = $("#prdtVer").val();
 			maximizable:false,
 			shadow: false,
 			closed: false,
-			height: 480
+			height: 280
 		});
 	}
 	 function findChargingunit(result){
@@ -940,7 +944,27 @@ var pid = $("#prdtVer").val();
 			    }   
 			});  
 		}
+		function showCaCode() {
+			$.ajax({
+				type: "POST",
+				url: "coopAgency/query",
+				data: {"page":1,"rows":10},
+				dataType: "json",
+				success: function(json) {
+					var code = $("#CACODE").val();
+					var html;
+					$.each(json.rows,function(key, value) {
+						if(value.CACODE==code){
+							html = '<option value="" selected="selected">' + value.CANAME + '</option>';
+// 						}else{
+// 							html += '<option value="">' + value.CANAME + '</option>';
+						}
+					});
+					$("#b_caCode").html(html);
 		
+				}
+			});
+		}
 		function toMerchAudit(){
 			window.location.href= "<%=basePath%>" +'agency/showMerchAuditQuery';
 		}
